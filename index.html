@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoa Lin - 个人主页</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <h3>Shoa Lin</h3>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#about">关于</a>
+                <a href="#projects">项目</a>
+                <a href="#contact">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>你好，我是 <span class="highlight">Shoa Lin</span></h1>
+            <p class="subtitle">欢迎来到我的个人主页</p>
+            <p class="description">
+                这里是展示个人作品、分享想法和记录成长的地方
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">查看项目</a>
+                <a href="#contact" class="btn btn-secondary">联系我</a>
+            </div>
+        </div>
+        <div class="hero-animation">
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>关于我</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        我是一名热爱技术的开发者，专注于创建优雅的解决方案。
+                        这里可以介绍你的背景、技能和兴趣。
+                    </p>
+                    <div class="skills">
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">设计</span>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>5+</h3>
+                        <p>项目经验</p>
+                    </div>
+                    <div class="stat">
+                        <h3>3+</h3>
+                        <p>编程语言</p>
+                    </div>
+                    <div class="stat">
+                        <h3>∞</h3>
+                        <p>学习能力</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section section-alt">
+        <div class="container">
+            <h2>项目展示</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>项目一</h3>
+                    <p>这里可以描述你的第一个项目，介绍项目的功能和特点。</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>项目二</h3>
+                    <p>这里可以描述你的第二个项目，介绍使用的技术栈和实现思路。</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>项目三</h3>
+                    <p>这里可以描述你的第三个项目，分享开发过程中的收获和经验。</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>联系方式</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p>如果你想了解更多，或者有任何合作意向，欢迎联系我！</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com/shoa-lin" target="_blank">GitHub</a>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:your-email@example.com">Email</a>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <a href="#" target="_blank">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>快速留言</h3>
+                    <form action="https://formspree.io/f/your-form-id" method="POST">
+                        <input type="text" name="name" placeholder="您的姓名" required>
+                        <input type="email" name="email" placeholder="您的邮箱" required>
+                        <textarea name="message" placeholder="留言内容" rows="5" required></textarea>
+                        <button type="submit" class="btn btn-primary">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
