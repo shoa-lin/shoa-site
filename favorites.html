@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏 - Shoa Lin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/favorites.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="favorites-page">
+    <nav class="navbar">
+        <div class="nav-content">
+            <h3><a href="index.html" style="text-decoration: none; color: inherit;">Shoa Lin</a></h3>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="blog.html">博客</a>
+                <a href="favorites.html" class="active">收藏</a>
+                <a href="index.html#contact">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="favorites-container">
+        <div class="container">
+            <header class="page-header">
+                <h1>收藏夹</h1>
+                <p class="page-subtitle">有价值的文章、资源和思考</p>
+            </header>
+
+            <!-- 免责声明 -->
+            <div class="disclaimer-notice">
+                <i class="fas fa-info-circle"></i>
+                <div class="disclaimer-content">
+                    <strong>版权声明：</strong>本收藏夹展示的文章版权归原作者及原作者所有。文章内容仅供个人学习、研究之用，版权归原作者所有。如作者或版权方认为本站收录内容侵犯您的权益，请联系我删除。
+                </div>
+            </div>
+
+            <!-- 来源筛选 -->
+            <div class="collection-filters">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="wechat">公众号</button>
+                <button class="filter-btn" data-filter="blog">博客</button>
+                <button class="filter-btn" data-filter="paper">论文</button>
+                <button class="filter-btn" data-filter="other">其他</button>
+            </div>
+
+            <!-- 文章卡片列表 -->
+            <div class="collection-grid">
+                <!-- 文章卡片将通过 JavaScript 动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 文章详情弹窗 -->
+    <div id="article-modal" class="article-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modal-body">
+                <!-- 动态加载文章内容 -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/favorites.js"></script>
+</body>
+</html>

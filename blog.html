@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客 - Shoa Lin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="blog-page">
+    <nav class="navbar">
+        <div class="nav-content">
+            <h3><a href="index.html" style="text-decoration: none; color: inherit;">Shoa Lin</a></h3>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="blog.html" class="active">博客</a>
+                <a href="favorites.html">收藏</a>
+                <a href="index.html#contact">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="blog-container">
+        <!-- 博客列表 -->
+        <aside class="blog-sidebar">
+            <h2>文章列表</h2>
+            <div class="blog-list" id="blog-list">
+                <!-- 动态生成博客列表 -->
+            </div>
+        </aside>
+
+        <!-- 博客内容 -->
+        <main class="blog-main">
+            <article class="blog-content" id="blog-content">
+                <div class="blog-placeholder">
+                    <i class="fas fa-book-open"></i>
+                    <p>请从左侧选择一篇文章阅读</p>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+</html>
