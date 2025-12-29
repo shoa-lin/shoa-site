@@ -4,5 +4,11 @@
         "title": "欢迎来到我的博客",
         "date": "2025-12-28",
         "filename": "blogs/welcome.md"
+    },
+    {
+        "id": "project-vend-phase-2",
+        "title": "Project Vend 第二阶段：Claude 如何扭转其失败的自贩机生意",
+        "date": "2024-12-29",
+        "filename": "blogs/project-vend-phase-2.md"
     }
 ]
