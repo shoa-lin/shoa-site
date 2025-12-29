@@ -78,7 +78,7 @@ function renderBlogList() {
 }
 
 // Load and render a blog post
-async function loadBlog(blogId) {
+window.loadBlog = async function(blogId) {
     const blog = blogList.find(b => b.id === blogId);
     if (!blog) return;
 
