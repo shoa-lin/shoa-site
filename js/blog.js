@@ -28,21 +28,23 @@ async function loadBlogList() {
             const manifest = await response.json();
             if (Array.isArray(manifest)) {
                 blogList = manifest;
+                console.log('Loaded manifest.json:', blogList);
             }
         }
     } catch (e) {
+        console.log('Using default blog list:', e);
         // Use default list
     }
 }
 
 // Extract metadata from markdown content
 function extractBlogMetadata(markdown, filename) {
-    let title = filename.replace('.md').replace(/-/g, ' ');
+    let title = filename.replace('.md', '').replace(/-/g, ' ');
     let date = '';
     let content = markdown;
 
-    // Try to extract frontmatter
-    const frontmatterMatch = markdown.match(/^---\n([\s\S]*?)\n---/);
+    // Try to extract frontmatter (YAML format)
+    const frontmatterMatch = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (frontmatterMatch) {
         const frontmatter = frontmatterMatch[1];
         const titleMatch = frontmatter.match(/title:\s*(.+)/);
@@ -52,13 +54,15 @@ function extractBlogMetadata(markdown, filename) {
         if (dateMatch) date = dateMatch[1].trim();
 
         // Remove frontmatter from content
-        content = markdown.replace(/^---\n[\s\S]*?\n---\n?/, '');
+        content = markdown.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '');
     }
 
-    // Also try to extract first h1 as title
-    const h1Match = content.match(/^#\s+(.+)$/m);
-    if (h1Match) {
-        title = h1Match[1].trim();
+    // If no title from frontmatter, try to extract first h1 as title
+    if (!title || title === filename.replace('.md', '').replace(/-/g, ' ')) {
+        const h1Match = content.match(/^#\s+(.+)$/m);
+        if (h1Match) {
+            title = h1Match[1].trim();
+        }
     }
 
     return { title, date, content };
@@ -80,7 +84,12 @@ function renderBlogList() {
 // Load and render a blog post
 window.loadBlog = async function(blogId) {
     const blog = blogList.find(b => b.id === blogId);
-    if (!blog) return;
+    if (!blog) {
+        console.error('Blog not found:', blogId, 'Available blogs:', blogList);
+        return;
+    }
+
+    console.log('Loading blog:', blog);
 
     // Update active state in sidebar
     document.querySelectorAll('.blog-item').forEach(item => {
@@ -91,13 +100,20 @@ window.loadBlog = async function(blogId) {
     });
 
     const blogContentEl = document.getElementById('blog-content');
-    if (!blogContentEl) return;
+    if (!blogContentEl) {
+        console.error('Blog content element not found');
+        return;
+    }
 
     try {
         const response = await fetch(blog.filename);
-        if (!response.ok) throw new Error('Failed to load blog');
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
 
         const markdown = await response.text();
+        console.log('Markdown loaded, length:', markdown.length);
+
         const { title, date, content } = extractBlogMetadata(markdown, blog.filename);
         const htmlContent = marked.parse(content);
 
@@ -126,6 +142,8 @@ window.loadBlog = async function(blogId) {
             <div class="blog-placeholder">
                 <i class="fas fa-exclamation-triangle"></i>
                 <p>文章加载失败</p>
+                <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.5rem;">错误: ${error.message}</p>
+                <p style="font-size: 0.8rem; color: var(--text-tertiary);">文件路径: ${blog.filename}</p>
             </div>
         `;
     }
