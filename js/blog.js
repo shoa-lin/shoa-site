@@ -66,35 +66,31 @@ function updateMobileHeader(title) {
 
 // Load blog list from blogs/ folder
 async function loadBlogList() {
-    const blogFiles = [
-        'welcome.md'
-        // Add more blog files here - will be auto-scanned in the future
-    ];
-
-    blogList = blogFiles.map(filename => {
-        const id = filename.replace('.md', '');
-        return {
-            id: id,
-            title: id.charAt(0).toUpperCase() + id.slice(1).replace(/-/g, ' '),
-            date: '2025-12-28',
-            filename: 'blogs/' + filename
-        };
-    });
-
-    // Try to fetch manifest if exists
+    // Try to fetch manifest if exists first
     try {
         const response = await fetch('blogs/manifest.json');
         if (response.ok) {
             const manifest = await response.json();
-            if (Array.isArray(manifest)) {
+            if (Array.isArray(manifest) && manifest.length > 0) {
                 blogList = manifest;
                 console.log('Loaded manifest.json:', blogList);
+                return;
             }
         }
     } catch (e) {
-        console.log('Using default blog list:', e);
-        // Use default list
+        console.log('Failed to load manifest.json:', e);
     }
+
+    // Fallback: use hardcoded list if manifest fails
+    blogList = [
+        {
+            id: 'welcome',
+            title: '欢迎来到我的博客',
+            date: '2025-12-28',
+            filename: 'blogs/welcome.md'
+        }
+    ];
+    console.log('Using fallback blog list:', blogList);
 }
 
 // Extract metadata from markdown content
