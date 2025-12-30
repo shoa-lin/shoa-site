@@ -129,6 +129,18 @@ function renderBlogList() {
     const blogListEl = document.getElementById('blog-list');
     const mobileBlogListEl = document.getElementById('mobile-blog-list');
 
+    console.log('renderBlogList called, blogList.length =', blogList.length);
+    console.log('Desktop blog-list element:', blogListEl);
+    console.log('Mobile blog-list element:', mobileBlogListEl);
+
+    if (blogList.length === 0) {
+        console.warn('Blog list is empty!');
+        const emptyHTML = '<div class="blog-item"><div class="blog-item-title">暂无文章</div></div>';
+        if (blogListEl) blogListEl.innerHTML = emptyHTML;
+        if (mobileBlogListEl) mobileBlogListEl.innerHTML = emptyHTML;
+        return;
+    }
+
     const listHTML = blogList.map(blog => `
         <div class="blog-item" data-blog-id="${blog.id}" onclick="loadBlog('${blog.id}')">
             <div class="blog-item-title">${blog.title}</div>
@@ -136,8 +148,21 @@ function renderBlogList() {
         </div>
     `).join('');
 
-    if (blogListEl) blogListEl.innerHTML = listHTML;
-    if (mobileBlogListEl) mobileBlogListEl.innerHTML = listHTML;
+    console.log('Generated listHTML length:', listHTML.length);
+
+    if (blogListEl) {
+        blogListEl.innerHTML = listHTML;
+        console.log('Desktop blog list rendered successfully');
+    } else {
+        console.error('Desktop blog-list element not found!');
+    }
+    
+    if (mobileBlogListEl) {
+        mobileBlogListEl.innerHTML = listHTML;
+        console.log('Mobile blog list rendered successfully');
+    } else {
+        console.error('Mobile blog-list element not found!');
+    }
 }
 
 // Load and render a blog post
@@ -223,13 +248,26 @@ window.loadBlog = async function(blogId) {
 
 // Initialize blog page
 async function initBlogPage() {
+    console.log('Initializing blog page...');
+    
+    // Check if marked is loaded
+    if (typeof marked === 'undefined') {
+        console.error('Marked.js not loaded!');
+        return;
+    }
+    console.log('Marked.js is available');
+
     await loadBlogList();
+    console.log('Blog list loaded, length:', blogList.length);
     renderBlogList();
     initMobileDrawer();
 
     // Load first blog by default
     if (blogList.length > 0) {
+        console.log('Loading first blog:', blogList[0].id);
         loadBlog(blogList[0].id);
+    } else {
+        console.warn('No blogs found in list');
     }
 }
 
