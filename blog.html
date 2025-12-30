@@ -22,8 +22,36 @@
         </div>
     </nav>
 
+    <!-- Mobile Header -->
+    <div class="mobile-blog-header">
+        <div class="mobile-header-left">
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开文章列表">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="mobile-header-title" id="mobile-header-title">加载中...</span>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Overlay -->
+    <div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
+
+    <!-- Mobile Drawer Sidebar -->
+    <div class="mobile-drawer-sidebar" id="mobile-drawer-sidebar">
+        <div class="mobile-drawer-header">
+            <h2>文章列表</h2>
+            <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="关闭列表">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-drawer-content">
+            <div class="blog-list" id="mobile-blog-list">
+                <!-- 动态生成博客列表 -->
+            </div>
+        </div>
+    </div>
+
     <div class="blog-container">
-        <!-- 博客列表 -->
+        <!-- Desktop Sidebar -->
         <aside class="blog-sidebar">
             <h2>文章列表</h2>
             <div class="blog-list" id="blog-list">
@@ -31,7 +59,7 @@
             </div>
         </aside>
 
-        <!-- 博客内容 -->
+        <!-- Blog Content -->
         <main class="blog-main">
             <article class="blog-content" id="blog-content">
                 <div class="blog-placeholder">

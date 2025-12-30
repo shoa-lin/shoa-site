@@ -149,8 +149,7 @@ async function loadArticle(articleId) {
     const meta = getArticleMetadata(articleId);
     if (!meta) {
         modalBody.innerHTML = '<p style="color: var(--text-tertiary);">文章未找到</p>';
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        openModal();
         return;
     }
 
@@ -181,8 +180,7 @@ async function loadArticle(articleId) {
         `;
 
         modalBody.innerHTML = headerHtml + htmlContent + footerHtml;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        openModal();
 
     } catch (error) {
         console.error('Error loading article:', error);
@@ -193,9 +191,21 @@ async function loadArticle(articleId) {
                 <p style="color: var(--text-tertiary); font-size: 0.85rem;">${error.message}</p>
             </div>
         `;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        openModal();
     }
+}
+
+// Open modal with animation
+function openModal() {
+    modal.classList.add('active');
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        // Small delay to allow display:block to apply before adding transform
+        requestAnimationFrame(() => {
+            modalContent.classList.add('active');
+        });
+    }
+    document.body.style.overflow = 'hidden';
 }
 
 // Modal elements
@@ -205,8 +215,15 @@ const modalClose = document.getElementById('modal-close');
 
 // Close modal
 function closeModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        modalContent.classList.remove('active');
+    }
+    // Wait for animation to complete
+    setTimeout(() => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }, 300);
 }
 
 if (modalClose) {

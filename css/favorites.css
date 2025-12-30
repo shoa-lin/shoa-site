@@ -18,7 +18,7 @@
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
-    letter-spacing: -0.02em);
+    letter-spacing: -0.02em;
 }
 
 .page-subtitle {
@@ -156,7 +156,7 @@
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: -0.01em);
+    letter-spacing: -0.01em;
 }
 
 .article-link {
@@ -234,7 +234,7 @@
     border-color: var(--border-strong);
 }
 
-/* Article Modal */
+/* Article Modal - Desktop centered, Mobile bottom sheet */
 .article-modal {
     display: none;
     position: fixed;
@@ -306,7 +306,7 @@
     font-weight: 600;
     margin-bottom: 1rem;
     color: var(--text-primary);
-    letter-spacing: -0.02em);
+    letter-spacing: -0.02em;
 }
 
 .modal-body h2 {
@@ -315,7 +315,7 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
     color: var(--text-primary);
-    letter-spacing: -0.01em);
+    letter-spacing: -0.01em;
 }
 
 .modal-body h3 {
@@ -424,25 +424,68 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .favorites-container {
+        padding: 2rem 0 3rem;
+    }
+
     .collection-grid {
         grid-template-columns: 1fr;
     }
 
+    .disclaimer-notice {
+        padding: 0.875rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .collection-filters {
+        gap: 0.4rem;
+    }
+
+    .filter-btn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    /* Mobile modal - bottom sheet style */
     .modal-content {
-        width: 95%;
-        max-height: 95vh;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        max-height: 90vh;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .modal-content.active {
+        transform: translateY(0);
+    }
+
+    .modal-close {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 32px;
+        height: 32px;
     }
 
     .modal-body {
-        padding: 2rem 1.5rem 1.5rem;
+        padding: 2.5rem 1.25rem 1.5rem;
+        max-height: calc(90vh - 3rem);
     }
 
     .modal-body h1 {
         font-size: 1.5rem;
+        margin-right: 2rem;
     }
 
     .modal-body h2 {
         font-size: 1.2rem;
+        margin-top: 1.5rem;
     }
 
     .page-header h1 {
@@ -455,7 +498,20 @@
         font-size: 1.5rem;
     }
 
-    .section h2 {
-        font-size: 1.5rem;
+    .article-card {
+        padding: 1rem;
+    }
+
+    .article-title {
+        font-size: 1rem;
+    }
+
+    .article-excerpt {
+        font-size: 0.85rem;
+    }
+
+    .action-btn {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
     }
 }

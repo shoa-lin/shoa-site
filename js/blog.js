@@ -4,6 +4,55 @@
 let blogList = [];
 let currentBlogId = null;
 
+// Mobile drawer state
+let isDrawerOpen = false;
+
+// Initialize mobile drawer
+function initMobileDrawer() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const overlay = document.getElementById('mobile-drawer-overlay');
+    const sidebar = document.getElementById('mobile-drawer-sidebar');
+    const closeBtn = document.getElementById('mobile-drawer-close');
+
+    if (!menuBtn || !overlay || !sidebar || !closeBtn) return;
+
+    // Open drawer
+    function openDrawer() {
+        isDrawerOpen = true;
+        overlay.classList.add('active');
+        sidebar.classList.add('active');
+        document.body.classList.add('drawer-open');
+    }
+
+    // Close drawer
+    function closeDrawer() {
+        isDrawerOpen = false;
+        overlay.classList.remove('active');
+        sidebar.classList.remove('active');
+        document.body.classList.remove('drawer-open');
+    }
+
+    // Event listeners
+    menuBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isDrawerOpen) {
+            closeDrawer();
+        }
+    });
+}
+
+// Update mobile header title
+function updateMobileHeader(title) {
+    const headerTitle = document.getElementById('mobile-header-title');
+    if (headerTitle) {
+        headerTitle.textContent = title || '博客';
+    }
+}
+
 // Load blog list from blogs/ folder
 async function loadBlogList() {
     const blogFiles = [
@@ -71,14 +120,17 @@ function extractBlogMetadata(markdown, filename) {
 // Render blog list sidebar
 function renderBlogList() {
     const blogListEl = document.getElementById('blog-list');
-    if (!blogListEl) return;
+    const mobileBlogListEl = document.getElementById('mobile-blog-list');
 
-    blogListEl.innerHTML = blogList.map(blog => `
+    const listHTML = blogList.map(blog => `
         <div class="blog-item" data-blog-id="${blog.id}" onclick="loadBlog('${blog.id}')">
             <div class="blog-item-title">${blog.title}</div>
             <div class="blog-item-date">${blog.date || '最新'}</div>
         </div>
     `).join('');
+
+    if (blogListEl) blogListEl.innerHTML = listHTML;
+    if (mobileBlogListEl) mobileBlogListEl.innerHTML = listHTML;
 }
 
 // Load and render a blog post
@@ -91,7 +143,7 @@ window.loadBlog = async function(blogId) {
 
     console.log('Loading blog:', blog);
 
-    // Update active state in sidebar
+    // Update active state in both sidebars
     document.querySelectorAll('.blog-item').forEach(item => {
         item.classList.remove('active');
         if (item.dataset.blogId === blogId) {
@@ -131,9 +183,22 @@ window.loadBlog = async function(blogId) {
 
         currentBlogId = blogId;
 
+        // Update mobile header title
+        updateMobileHeader(title);
+
+        // Close mobile drawer if open
+        if (isDrawerOpen) {
+            const overlay = document.getElementById('mobile-drawer-overlay');
+            const sidebar = document.getElementById('mobile-drawer-sidebar');
+            if (overlay) overlay.classList.remove('active');
+            if (sidebar) sidebar.classList.remove('active');
+            document.body.classList.remove('drawer-open');
+            isDrawerOpen = false;
+        }
+
         // Scroll to top of content on mobile
         if (window.innerWidth <= 768) {
-            blogContentEl.scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
     } catch (error) {
@@ -153,6 +218,7 @@ window.loadBlog = async function(blogId) {
 async function initBlogPage() {
     await loadBlogList();
     renderBlogList();
+    initMobileDrawer();
 
     // Load first blog by default
     if (blogList.length > 0) {
