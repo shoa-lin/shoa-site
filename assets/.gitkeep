@@ -1,0 +1,29 @@
+# Assets Directory
+
+Static assets for the shoa-site project.
+
+## Directory Structure
+
+```
+assets/
+├── images/          # All images
+│   ├── avatar/      # Profile pictures
+│   ├── blog/        # Blog post images (by date: YYYY/MM/)
+│   └── projects/    # Project screenshots
+├── fonts/           # Custom fonts (if any)
+└── downloads/       # Downloadable files
+```
+
+## Quick Reference
+
+### Blog Image Path Formula
+```
+Local:   assets/images/blog/YYYY/MM/filename.jpg
+CDN:     https://cdn.jsdelivr.net/gh/shoa-lin/shoa-site@main/assets/images/blog/YYYY/MM/filename.jpg
+```
+
+### Example
+```markdown
+Blog: assets/images/blog/2025/12/my-post-cover.jpg
+CDN:  https://cdn.jsdelivr.net/gh/shoa-lin/shoa-site@main/assets/images/blog/2025/12/my-post-cover.jpg
+```

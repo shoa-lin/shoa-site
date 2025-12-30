@@ -1,0 +1,36 @@
+# Images Directory
+
+This directory stores all images used in the site.
+
+## Structure
+
+- `avatar/` - Profile pictures and avatars
+- `blog/` - Blog post images organized by date (YYYY/MM/)
+- `projects/` - Project screenshots and thumbnails
+
+## Usage
+
+### In Markdown (Blogs)
+```markdown
+# Local relative path (for development)
+![描述](../../assets/images/blog/2025/12/example.jpg)
+
+# With jsDelivr CDN (for production - faster loading)
+![描述](https://cdn.jsdelivr.net/gh/shoa-lin/shoa-site@main/assets/images/blog/2025/12/example.jpg)
+```
+
+### In HTML
+```html
+<!-- Local path -->
+<img src="assets/images/avatar/profile.jpg" alt="Profile">
+
+<!-- CDN -->
+<img src="https://cdn.jsdelivr.net/gh/shoa-lin/shoa-site@main/assets/images/avatar/profile.jpg" alt="Profile">
+```
+
+## Guidelines
+
+1. **Optimize images** - Compress to < 500KB when possible
+2. **Use descriptive names** - e.g., `blog-post-screenshot.jpg` not `img1.jpg`
+3. **Organize by date** for blog images: `blog/YYYY/MM/`
+4. **Max file size**: 100MB (GitHub limit), recommend < 1MB per image
