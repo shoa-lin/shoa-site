@@ -403,9 +403,12 @@
     }
 
     /* Mobile drawer - show via JS */
-    .mobile-drawer-overlay,
-    .mobile-drawer-sidebar {
+    .mobile-drawer-overlay {
         display: block;
+    }
+
+    .mobile-drawer-sidebar {
+        display: flex;
     }
 
     /* Prevent body scroll when drawer is open */

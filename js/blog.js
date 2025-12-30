@@ -14,14 +14,25 @@ function initMobileDrawer() {
     const sidebar = document.getElementById('mobile-drawer-sidebar');
     const closeBtn = document.getElementById('mobile-drawer-close');
 
-    if (!menuBtn || !overlay || !sidebar || !closeBtn) return;
+    console.log('Mobile drawer init:', { menuBtn, overlay, sidebar, closeBtn });
+
+    if (!menuBtn || !overlay || !sidebar || !closeBtn) {
+        console.error('Mobile drawer elements not found!');
+        return;
+    }
 
     // Open drawer
     function openDrawer() {
+        console.log('Opening drawer...');
         isDrawerOpen = true;
         overlay.classList.add('active');
         sidebar.classList.add('active');
         document.body.classList.add('drawer-open');
+        console.log('Drawer opened, classes:', {
+            overlay: overlay.className,
+            sidebar: sidebar.className,
+            body: document.body.className
+        });
     }
 
     // Close drawer
