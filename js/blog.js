@@ -14,25 +14,16 @@ function initMobileDrawer() {
     const sidebar = document.getElementById('mobile-drawer-sidebar');
     const closeBtn = document.getElementById('mobile-drawer-close');
 
-    console.log('Mobile drawer init:', { menuBtn, overlay, sidebar, closeBtn });
-
     if (!menuBtn || !overlay || !sidebar || !closeBtn) {
-        console.error('Mobile drawer elements not found!');
         return;
     }
 
     // Open drawer
     function openDrawer() {
-        console.log('Opening drawer...');
         isDrawerOpen = true;
         overlay.classList.add('active');
         sidebar.classList.add('active');
         document.body.classList.add('drawer-open');
-        console.log('Drawer opened, classes:', {
-            overlay: overlay.className,
-            sidebar: sidebar.className,
-            body: document.body.className
-        });
     }
 
     // Close drawer
@@ -66,22 +57,19 @@ function updateMobileHeader(title) {
 
 // Load blog list from blogs/ folder
 async function loadBlogList() {
-    // Try to fetch manifest if exists first
     try {
         const response = await fetch('blogs/manifest.json');
         if (response.ok) {
             const manifest = await response.json();
             if (Array.isArray(manifest) && manifest.length > 0) {
                 blogList = manifest;
-                console.log('Loaded manifest.json:', blogList);
                 return;
             }
         }
     } catch (e) {
-        console.log('Failed to load manifest.json:', e);
+        // Silent fail, use fallback
     }
 
-    // Fallback: use hardcoded list if manifest fails
     blogList = [
         {
             id: 'welcome',
@@ -90,7 +78,6 @@ async function loadBlogList() {
             filename: 'blogs/welcome.md'
         }
     ];
-    console.log('Using fallback blog list:', blogList);
 }
 
 // Extract metadata from markdown content
@@ -129,12 +116,7 @@ function renderBlogList() {
     const blogListEl = document.getElementById('blog-list');
     const mobileBlogListEl = document.getElementById('mobile-blog-list');
 
-    console.log('renderBlogList called, blogList.length =', blogList.length);
-    console.log('Desktop blog-list element:', blogListEl);
-    console.log('Mobile blog-list element:', mobileBlogListEl);
-
     if (blogList.length === 0) {
-        console.warn('Blog list is empty!');
         const emptyHTML = '<div class="blog-item"><div class="blog-item-title">暂无文章</div></div>';
         if (blogListEl) blogListEl.innerHTML = emptyHTML;
         if (mobileBlogListEl) mobileBlogListEl.innerHTML = emptyHTML;
@@ -148,32 +130,16 @@ function renderBlogList() {
         </div>
     `).join('');
 
-    console.log('Generated listHTML length:', listHTML.length);
-
-    if (blogListEl) {
-        blogListEl.innerHTML = listHTML;
-        console.log('Desktop blog list rendered successfully');
-    } else {
-        console.error('Desktop blog-list element not found!');
-    }
-    
-    if (mobileBlogListEl) {
-        mobileBlogListEl.innerHTML = listHTML;
-        console.log('Mobile blog list rendered successfully');
-    } else {
-        console.error('Mobile blog-list element not found!');
-    }
+    if (blogListEl) blogListEl.innerHTML = listHTML;
+    if (mobileBlogListEl) mobileBlogListEl.innerHTML = listHTML;
 }
 
 // Load and render a blog post
 window.loadBlog = async function(blogId) {
     const blog = blogList.find(b => b.id === blogId);
     if (!blog) {
-        console.error('Blog not found:', blogId, 'Available blogs:', blogList);
         return;
     }
-
-    console.log('Loading blog:', blog);
 
     // Update active state in both sidebars
     document.querySelectorAll('.blog-item').forEach(item => {
@@ -185,7 +151,6 @@ window.loadBlog = async function(blogId) {
 
     const blogContentEl = document.getElementById('blog-content');
     if (!blogContentEl) {
-        console.error('Blog content element not found');
         return;
     }
 
@@ -196,8 +161,6 @@ window.loadBlog = async function(blogId) {
         }
 
         const markdown = await response.text();
-        console.log('Markdown loaded, length:', markdown.length);
-
         const { title, date, content } = extractBlogMetadata(markdown, blog.filename);
         const htmlContent = marked.parse(content);
 
@@ -214,8 +177,6 @@ window.loadBlog = async function(blogId) {
         `;
 
         currentBlogId = blogId;
-
-        // Update mobile header title
         updateMobileHeader(title);
 
         // Close mobile drawer if open
@@ -234,13 +195,11 @@ window.loadBlog = async function(blogId) {
         }
 
     } catch (error) {
-        console.error('Error loading blog:', error);
         blogContentEl.innerHTML = `
             <div class="blog-placeholder">
                 <i class="fas fa-exclamation-triangle"></i>
                 <p>文章加载失败</p>
                 <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.5rem;">错误: ${error.message}</p>
-                <p style="font-size: 0.8rem; color: var(--text-tertiary);">文件路径: ${blog.filename}</p>
             </div>
         `;
     }
@@ -248,26 +207,16 @@ window.loadBlog = async function(blogId) {
 
 // Initialize blog page
 async function initBlogPage() {
-    console.log('Initializing blog page...');
-    
-    // Check if marked is loaded
     if (typeof marked === 'undefined') {
-        console.error('Marked.js not loaded!');
         return;
     }
-    console.log('Marked.js is available');
 
     await loadBlogList();
-    console.log('Blog list loaded, length:', blogList.length);
     renderBlogList();
     initMobileDrawer();
 
-    // Load first blog by default
     if (blogList.length > 0) {
-        console.log('Loading first blog:', blogList[0].id);
         loadBlog(blogList[0].id);
-    } else {
-        console.warn('No blogs found in list');
     }
 }
 
