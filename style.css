@@ -260,87 +260,20 @@ body {
 
 /* About Section */
 .about-content {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 2.5rem;
-    align-items: start;
-}
-
-.about-text p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-secondary);
-    line-height: 1.75;
-}
-
-.about-text p::first-letter {
-    font-size: 2.5rem;
-    font-weight: 700;
-    float: left;
-    line-height: 0.8;
-    margin-right: 0.15rem;
-    color: var(--text-primary);
-}
-
-.skills {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 0;
 }
 
-.skill-tag {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    padding: 0.25rem 0.6rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid var(--border-default);
-    transition: all 0.15s ease;
-}
-
-.skill-tag:hover {
-    background: var(--bg-hover);
-    border-color: var(--border-strong);
-}
-
-/* Colorful skill tags */
-.skill-tag:nth-child(1) { background: var(--accent-blue-bg); border-color: transparent; color: var(--accent-blue); }
-.skill-tag:nth-child(2) { background: var(--accent-green-bg); border-color: transparent; color: var(--accent-green); }
-.skill-tag:nth-child(3) { background: var(--accent-orange-bg); border-color: transparent; color: var(--accent-orange); }
-.skill-tag:nth-child(4) { background: var(--accent-pink-bg); border-color: transparent; color: var(--accent-pink); }
-
-.about-stats {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-.stat {
-    padding: 1.25rem;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-md);
-    transition: all 0.15s ease;
-}
-
-.stat:hover {
-    box-shadow: var(--shadow-sm);
-    border-color: var(--border-strong);
-}
-
-.stat h3 {
-    font-size: 1.75rem;
+.about-tagline {
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.25rem;
+    text-align: center;
+    line-height: 1.8;
     letter-spacing: -0.02em;
-}
-
-.stat p {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    font-weight: 500;
+    margin: 0;
 }
 
 /* Projects Section - Card style */
@@ -980,8 +913,12 @@ body {
     }
 
     .about-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .about-tagline {
+        font-size: 1.25rem;
+        line-height: 1.7;
     }
 
     .contact-content {
@@ -1001,10 +938,6 @@ body {
     }
 
     .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .about-stats {
         grid-template-columns: 1fr;
     }
 
