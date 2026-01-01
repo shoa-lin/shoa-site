@@ -57,9 +57,14 @@
     <div id="article-modal" class="article-modal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
-            <button class="modal-close" id="modal-close">
-                <i class="fas fa-times"></i>
-            </button>
+            <div class="modal-header">
+                <button class="modal-btn fullscreen-toggle" id="fullscreen-toggle" title="切换全屏">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="modal-btn modal-close" id="modal-close" title="关闭">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
             <div class="modal-body" id="modal-body">
                 <!-- 动态加载文章内容 -->
             </div>

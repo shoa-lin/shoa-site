@@ -206,6 +206,38 @@ function openModal() {
         });
     }
     document.body.style.overflow = 'hidden';
+
+    // Reset fullscreen state when opening new article
+    modalContent.classList.remove('fullscreen');
+    updateFullscreenIcon(false);
+}
+
+// Toggle fullscreen mode
+function toggleFullscreen() {
+    const modalContent = modal.querySelector('.modal-content');
+    if (!modalContent) return;
+
+    modalContent.classList.toggle('fullscreen');
+    const isFullscreen = modalContent.classList.contains('fullscreen');
+    updateFullscreenIcon(isFullscreen);
+
+    // Scroll to top when entering fullscreen
+    if (isFullscreen) {
+        const modalBody = document.getElementById('modal-body');
+        if (modalBody) modalBody.scrollTop = 0;
+    }
+}
+
+// Update fullscreen icon
+function updateFullscreenIcon(isFullscreen) {
+    const toggleBtn = document.getElementById('fullscreen-toggle');
+    if (!toggleBtn) return;
+
+    const icon = toggleBtn.querySelector('i');
+    if (icon) {
+        icon.className = isFullscreen ? 'fas fa-compress' : 'fas fa-expand';
+    }
+    toggleBtn.title = isFullscreen ? '退出全屏' : '全屏阅读';
 }
 
 // Modal elements
@@ -228,6 +260,12 @@ function closeModal() {
 
 if (modalClose) {
     modalClose.addEventListener('click', closeModal);
+}
+
+// Fullscreen toggle button
+const fullscreenToggle = document.getElementById('fullscreen-toggle');
+if (fullscreenToggle) {
+    fullscreenToggle.addEventListener('click', toggleFullscreen);
 }
 
 const overlay = document.querySelector('.modal-overlay');
