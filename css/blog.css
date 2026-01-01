@@ -274,7 +274,13 @@
     line-height: 1.75;
 }
 
-.blog-article-body h1 {
+/* Hide the first h1 and following date blockquote to avoid duplication with manifest */
+.blog-article-body > h1:first-of-type,
+.blog-article-body > h1:first-of-type + blockquote {
+    display: none;
+}
+
+.blog-article-body h1:not(:first-of-type) {
     font-size: 1.75rem;
     font-weight: 600;
     margin-top: 2.5rem;

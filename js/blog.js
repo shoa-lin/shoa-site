@@ -166,10 +166,6 @@ window.loadBlog = async function(blogId) {
 
         blogContentEl.innerHTML = `
             <article class="blog-article">
-                <header class="blog-article-header">
-                    <h1 class="blog-article-title">${title}</h1>
-                    <div class="blog-article-meta">发布于 ${date || '2025-12-28'}</div>
-                </header>
                 <div class="blog-article-body">
                     ${htmlContent}
                 </div>
