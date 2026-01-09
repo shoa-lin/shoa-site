@@ -10,5 +10,11 @@
         "title": "Project Vend 第二阶段：Claude 如何扭转其失败的自贩机生意",
         "date": "2024-12-29",
         "filename": "blogs/project-vend-phase-2.md"
+    },
+    {
+        "id": "claude-code-2.1.2-release",
+        "title": "Claude Code 2.1.0-2.1.2 版本更新：安全加固与体验全面升级",
+        "date": "2025-01-08",
+        "filename": "blogs/claude-code-2.1.2-release.md"
     }
 ]
