@@ -16,5 +16,11 @@
         "title": "Claude Code 2.1.0-2.1.2 版本更新：安全加固与体验全面升级",
         "date": "2025-01-08",
         "filename": "blogs/claude-code-2.1.2-release.md"
+    },
+    {
+        "id": "claude-agent-sdk-complete-guide",
+        "title": "使用 Claude Agent SDK 构建 Agent 的完整指南",
+        "date": "2025-01-09",
+        "filename": "blogs/claude-agent-sdk-complete-guide.md"
     }
 ]
