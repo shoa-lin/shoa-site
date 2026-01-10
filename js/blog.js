@@ -4,6 +4,10 @@
 let blogList = [];
 let currentBlogId = null;
 
+// TOC data
+let tocItems = [];
+let activeTocId = null;
+
 // Mobile drawer state
 let isDrawerOpen = false;
 
@@ -44,6 +48,39 @@ function initMobileDrawer() {
         if (e.key === 'Escape' && isDrawerOpen) {
             closeDrawer();
         }
+    });
+
+    // Initialize mobile drawer tabs
+    initMobileDrawerTabs();
+}
+
+// Initialize mobile drawer tabs
+function initMobileDrawerTabs() {
+    const tabs = document.querySelectorAll('.mobile-drawer-tab');
+    const blogList = document.getElementById('mobile-blog-list');
+    const tocList = document.getElementById('mobile-toc-list');
+
+    if (!tabs.length || !blogList || !tocList) {
+        return;
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabName = tab.dataset.tab;
+
+            // Update tab styles
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Toggle content visibility
+            if (tabName === 'articles') {
+                blogList.style.display = 'block';
+                tocList.style.display = 'none';
+            } else if (tabName === 'toc') {
+                blogList.style.display = 'none';
+                tocList.style.display = 'block';
+            }
+        });
     });
 }
 
@@ -134,6 +171,214 @@ function renderBlogList() {
     if (mobileBlogListEl) mobileBlogListEl.innerHTML = listHTML;
 }
 
+// Extract and generate TOC from article content
+function extractTOC(articleBody) {
+    const headers = articleBody.querySelectorAll('h2, h3');
+
+    // Filter out the first h1 and any h1s before content
+    const allHeaders = Array.from(articleBody.querySelectorAll('h1, h2, h3'));
+    let skipFirstH1 = true;
+    let foundContentStart = false;
+
+    tocItems = [];
+
+    headers.forEach((header, index) => {
+        // Skip until we find actual content (after first h1)
+        if (!foundContentStart) {
+            if (header.tagName === 'H1') {
+                return; // Skip first H1
+            }
+            foundContentStart = true;
+        }
+
+        // Generate unique ID for each header
+        const id = `section-${index}`;
+        header.id = id;
+
+        const level = parseInt(header.tagName.charAt(1)); // 2 for H2, 3 for H3
+
+        tocItems.push({
+            id: id,
+            title: header.textContent.trim(),
+            level: level,
+            element: header
+        });
+    });
+
+    return tocItems;
+}
+
+// Render TOC
+function renderTOC() {
+    const tocSidebar = document.getElementById('blog-toc-sidebar');
+    const tocContent = document.getElementById('blog-toc-content');
+    const mobileTocList = document.getElementById('mobile-toc-list');
+
+    // Hide TOC if no items
+    if (tocItems.length === 0) {
+        if (tocSidebar) {
+            tocSidebar.classList.remove('has-toc');
+            tocSidebar.style.display = 'none';
+        }
+        return;
+    }
+
+    // Show TOC sidebar
+    if (tocSidebar) {
+        tocSidebar.classList.add('has-toc');
+    }
+
+    // Generate TOC HTML
+    const tocHTML = `
+        <ul class="blog-toc-list">
+            ${tocItems.map(item => `
+                <li>
+                    <a href="#${item.id}"
+                       class="blog-toc-item level-${item.level - 1}"
+                       data-toc-id="${item.id}">
+                        ${item.title}
+                    </a>
+                </li>
+            `).join('')}
+        </ul>
+    `;
+
+    if (tocContent) {
+        tocContent.innerHTML = tocHTML;
+    }
+
+    if (mobileTocList) {
+        mobileTocList.innerHTML = tocHTML;
+    }
+
+    // Add click handlers for TOC items
+    const tocLinks = document.querySelectorAll('.blog-toc-item');
+    tocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-toc-id');
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                // Smooth scroll to target
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Close mobile drawer after clicking
+                if (window.innerWidth <= 768 && isDrawerOpen) {
+                    const overlay = document.getElementById('mobile-drawer-overlay');
+                    const sidebar = document.getElementById('mobile-drawer-sidebar');
+                    if (overlay) overlay.classList.remove('active');
+                    if (sidebar) sidebar.classList.remove('active');
+                    document.body.classList.remove('drawer-open');
+                    isDrawerOpen = false;
+                }
+            }
+        });
+    });
+}
+
+// Initialize scroll observer for TOC highlighting
+let scrollObserver = null;
+
+function initScrollObserver() {
+    // Disconnect existing observer
+    if (scrollObserver) {
+        scrollObserver.disconnect();
+    }
+
+    // Only initialize if we have TOC items
+    if (tocItems.length === 0) {
+        return;
+    }
+
+    const progressBar = document.getElementById('blog-toc-progress-bar');
+
+    const observerOptions = {
+        rootMargin: '-100px 0px -60% 0px',  // Trigger when item is in middle of viewport
+        threshold: 0
+    };
+
+    scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const tocId = entry.target.id;
+                setActiveTocItem(tocId);
+
+                // Update progress bar
+                if (progressBar) {
+                    const progress = calculateReadingProgress();
+                    progressBar.style.height = `${progress}%`;
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Observe all TOC items
+    tocItems.forEach(item => {
+        scrollObserver.observe(item.element);
+    });
+
+    // Show/hide back to top button based on scroll position
+    initBackToTopButton();
+}
+
+// Set active TOC item
+function setActiveTocItem(tocId) {
+    // Remove active class from all items
+    document.querySelectorAll('.blog-toc-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // Add active class to current item
+    const activeItem = document.querySelector(`.blog-toc-item[data-toc-id="${tocId}"]`);
+    if (activeItem) {
+        activeItem.classList.add('active');
+        activeTocId = tocId;
+    }
+}
+
+// Calculate reading progress percentage
+function calculateReadingProgress() {
+    if (tocItems.length === 0) return 0;
+
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+    return Math.min(100, Math.max(0, progress));
+}
+
+// Initialize back to top button
+function initBackToTopButton() {
+    const backToTopBtn = document.getElementById('back-to-top');
+
+    if (!backToTopBtn) return;
+
+    // Show/hide button based on scroll position
+    const toggleButton = () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    };
+
+    window.addEventListener('scroll', toggleButton);
+    toggleButton(); // Initial check
+
+    // Click handler
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
 // Load and render a blog post
 window.loadBlog = async function(blogId) {
     const blog = blogList.find(b => b.id === blogId);
@@ -171,6 +416,14 @@ window.loadBlog = async function(blogId) {
                 </div>
             </article>
         `;
+
+        // Extract and render TOC after content is loaded
+        const articleBody = blogContentEl.querySelector('.blog-article-body');
+        if (articleBody) {
+            extractTOC(articleBody);
+            renderTOC();
+            initScrollObserver();
+        }
 
         currentBlogId = blogId;
         updateMobileHeader(title);

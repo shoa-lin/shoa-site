@@ -270,7 +270,7 @@
 }
 
 .blog-article-body {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     line-height: 1.75;
 }
 
@@ -436,5 +436,226 @@
 
     .blog-article-title {
         font-size: 1.3rem;
+    }
+}
+
+/* ========================================
+   Table of Contents (TOC) Styles
+   ======================================== */
+
+/* Desktop TOC Sidebar */
+.blog-toc-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 5rem;
+    height: fit-content;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding-left: 2rem;
+    border-left: 1px solid var(--border-default);
+    display: none; /* Hidden by default, shown when TOC exists */
+}
+
+.blog-toc-sidebar.has-toc {
+    display: block;
+}
+
+.blog-toc-header {
+    margin-bottom: 1rem;
+}
+
+.blog-toc-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.blog-toc-content {
+    position: relative;
+}
+
+.blog-toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.blog-toc-item {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.5rem;
+    margin-bottom: 0.15rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--text-secondary);
+    border-left: 2px solid transparent;
+    display: block;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+/* Hierarchy indentation */
+.blog-toc-item.level-1 {
+    padding-left: 0.5rem;
+}
+
+.blog-toc-item.level-2 {
+    padding-left: 1.25rem;
+}
+
+.blog-toc-item:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.blog-toc-item.active {
+    color: var(--accent-blue);
+    border-left-color: var(--accent-blue);
+    background: var(--accent-blue-bg);
+    font-weight: 500;
+}
+
+/* Reading progress bar */
+.blog-toc-progress {
+    position: absolute;
+    right: -3px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-default);
+}
+
+.blog-toc-progress-bar {
+    width: 100%;
+    background: var(--accent-blue);
+    transition: height 0.15s ease;
+    height: 0%;
+}
+
+/* Mobile Drawer Tabs */
+.mobile-drawer-tabs {
+    display: none;
+    border-bottom: 1px solid var(--border-default);
+    background: var(--bg-secondary);
+}
+
+.mobile-drawer-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.mobile-drawer-tab i {
+    font-size: 1rem;
+}
+
+.mobile-drawer-tab span {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.mobile-drawer-tab {
+    color: var(--text-tertiary);
+}
+
+.mobile-drawer-tab:hover {
+    color: var(--text-secondary);
+}
+
+.mobile-drawer-tab.active {
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+}
+
+/* Mobile TOC List */
+.mobile-toc-list {
+    padding: 0 1rem 1rem;
+}
+
+.mobile-toc-list .blog-toc-item {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 400;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: #1a73d9;
+    transform: translateY(-2px);
+}
+
+.back-to-top:active {
+    transform: translateY(0);
+}
+
+/* Responsive - Hide TOC sidebar on mobile */
+@media (max-width: 768px) {
+    .blog-toc-sidebar {
+        display: none !important;
+    }
+
+    .mobile-drawer-tabs {
+        display: flex;
+    }
+
+    .back-to-top {
+        bottom: 1.5rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+
+    .back-to-top i {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-to-top {
+        bottom: 1rem;
+        right: 0.75rem;
+        width: 38px;
+        height: 38px;
     }
 }

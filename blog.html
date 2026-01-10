@@ -36,6 +36,18 @@
 
     <!-- Mobile Drawer Sidebar -->
     <div class="mobile-drawer-sidebar" id="mobile-drawer-sidebar">
+        <!-- Tabs -->
+        <div class="mobile-drawer-tabs">
+            <button class="mobile-drawer-tab active" data-tab="articles">
+                <i class="fas fa-list"></i>
+                <span>文章列表</span>
+            </button>
+            <button class="mobile-drawer-tab" data-tab="toc">
+                <i class="fas fa-bookmark"></i>
+                <span>目录</span>
+            </button>
+        </div>
+
         <div class="mobile-drawer-header">
             <h2>文章列表</h2>
             <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="关闭列表">
@@ -45,6 +57,9 @@
         <div class="mobile-drawer-content">
             <div class="blog-list" id="mobile-blog-list">
                 <!-- 动态生成博客列表 -->
+            </div>
+            <div class="mobile-toc-list" id="mobile-toc-list" style="display: none;">
+                <!-- 动态生成目录 -->
             </div>
         </div>
     </div>
@@ -67,7 +82,25 @@
                 </div>
             </article>
         </main>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="blog-toc-sidebar" id="blog-toc-sidebar">
+            <div class="blog-toc-header">
+                <h3 class="blog-toc-title">📑 目录</h3>
+            </div>
+            <nav class="blog-toc-content" id="blog-toc-content">
+                <!-- 动态生成目录 -->
+            </nav>
+            <div class="blog-toc-progress" id="blog-toc-progress">
+                <div class="blog-toc-progress-bar" id="blog-toc-progress-bar"></div>
+            </div>
+        </aside>
     </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <footer class="footer">
         <div class="container">
