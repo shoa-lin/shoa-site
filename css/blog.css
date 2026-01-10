@@ -443,37 +443,50 @@
    Table of Contents (TOC) Styles - New Design
    ======================================== */
 
-/* TOC Toggle Button - Fixed in top-right corner */
+/* TOC Toggle Button - Japanese Style Frosted Glass */
 .toc-toggle-btn {
     position: fixed;
     top: 5rem;
     right: 2rem;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-default);
-    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: #7B9ACC;
+    box-shadow:
+        0 4px 12px rgba(123, 154, 204, 0.15),
+        0 2px 4px rgba(123, 154, 204, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 500;
-    color: var(--text-secondary);
 }
 
 .toc-toggle-btn:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-    box-shadow: var(--shadow-lg);
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(123, 154, 204, 0.3);
+    color: #6B8ABC;
+    box-shadow:
+        0 6px 16px rgba(123, 154, 204, 0.2),
+        0 3px 6px rgba(123, 154, 204, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transform: scale(1.08);
 }
 
 .toc-toggle-btn.active {
-    background: var(--accent-blue);
-    color: white;
-    border-color: var(--accent-blue);
+    background: rgba(123, 154, 204, 0.15);
+    border-color: rgba(123, 154, 204, 0.4);
+    color: #5B7AAA;
+    box-shadow:
+        0 6px 16px rgba(123, 154, 204, 0.25),
+        0 3px 6px rgba(123, 154, 204, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* TOC Overlay - dim background when panel is open */
@@ -626,18 +639,23 @@
     background: var(--border-strong);
 }
 
-/* Back to Top Button */
+/* Back to Top Button - Japanese Style Frosted Glass */
 .back-to-top {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: var(--accent-blue);
-    color: white;
-    border: none;
-    box-shadow: var(--shadow-lg);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: #7B9ACC;
+    box-shadow:
+        0 4px 12px rgba(123, 154, 204, 0.15),
+        0 2px 4px rgba(123, 154, 204, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -645,7 +663,7 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 400;
 }
 
@@ -656,12 +674,22 @@
 }
 
 .back-to-top:hover {
-    background: #1a73d9;
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(123, 154, 204, 0.3);
+    color: #6B8ABC;
+    box-shadow:
+        0 6px 16px rgba(123, 154, 204, 0.2),
+        0 3px 6px rgba(123, 154, 204, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transform: translateY(-3px);
 }
 
 .back-to-top:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
+    box-shadow:
+        0 3px 8px rgba(123, 154, 204, 0.15),
+        0 1px 3px rgba(123, 154, 204, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* Responsive - Mobile Styles */
@@ -670,8 +698,8 @@
     .toc-toggle-btn {
         top: 4.5rem;
         right: 1rem;
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
     }
 
     /* TOC Panel - Mobile */
@@ -684,24 +712,20 @@
         max-height: calc(100vh - 6rem);
     }
 
-    /* Back to top button adjustment */
+    /* Back to top button - Mobile */
     .back-to-top {
         bottom: 1.5rem;
         right: 1rem;
-        width: 40px;
-        height: 40px;
-    }
-
-    .back-to-top i {
-        font-size: 0.9rem;
+        width: 44px;
+        height: 44px;
     }
 }
 
 @media (max-width: 480px) {
     /* TOC Toggle Button - Small mobile */
     .toc-toggle-btn {
-        width: 38px;
-        height: 38px;
+        width: 42px;
+        height: 42px;
     }
 
     /* TOC Panel - Small mobile */
@@ -719,7 +743,7 @@
     .back-to-top {
         bottom: 1rem;
         right: 0.75rem;
-        width: 38px;
-        height: 38px;
+        width: 42px;
+        height: 42px;
     }
 }
