@@ -8,8 +8,15 @@ let currentBlogId = null;
 let tocItems = [];
 let activeTocId = null;
 
+// TOC Panel state
+let isTocPanelOpen = false;
+
 // Mobile drawer state
 let isDrawerOpen = false;
+
+// =====================
+// Mobile Drawer Functions
+// =====================
 
 // Initialize mobile drawer
 function initMobileDrawer() {
@@ -49,39 +56,6 @@ function initMobileDrawer() {
             closeDrawer();
         }
     });
-
-    // Initialize mobile drawer tabs
-    initMobileDrawerTabs();
-}
-
-// Initialize mobile drawer tabs
-function initMobileDrawerTabs() {
-    const tabs = document.querySelectorAll('.mobile-drawer-tab');
-    const blogList = document.getElementById('mobile-blog-list');
-    const tocList = document.getElementById('mobile-toc-list');
-
-    if (!tabs.length || !blogList || !tocList) {
-        return;
-    }
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const tabName = tab.dataset.tab;
-
-            // Update tab styles
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            // Toggle content visibility
-            if (tabName === 'articles') {
-                blogList.style.display = 'block';
-                tocList.style.display = 'none';
-            } else if (tabName === 'toc') {
-                blogList.style.display = 'none';
-                tocList.style.display = 'block';
-            }
-        });
-    });
 }
 
 // Update mobile header title
@@ -91,6 +65,63 @@ function updateMobileHeader(title) {
         headerTitle.textContent = title || '博客';
     }
 }
+
+// =====================
+// TOC Panel Functions (New Design)
+// =====================
+
+// Initialize TOC panel
+function initTocPanel() {
+    const toggleBtn = document.getElementById('toc-toggle-btn');
+    const closeBtn = document.getElementById('toc-panel-close');
+    const overlay = document.getElementById('toc-overlay');
+    const panel = document.getElementById('toc-panel');
+
+    if (!toggleBtn || !closeBtn || !overlay || !panel) {
+        return;
+    }
+
+    // Open TOC panel
+    function openTocPanel() {
+        isTocPanelOpen = true;
+        panel.classList.add('active');
+        overlay.classList.add('active');
+        toggleBtn.classList.add('active');
+    }
+
+    // Close TOC panel
+    function closeTocPanel() {
+        isTocPanelOpen = false;
+        panel.classList.remove('active');
+        overlay.classList.remove('active');
+        toggleBtn.classList.remove('active');
+    }
+
+    // Toggle TOC panel
+    function toggleTocPanel() {
+        if (isTocPanelOpen) {
+            closeTocPanel();
+        } else {
+            openTocPanel();
+        }
+    }
+
+    // Event listeners
+    toggleBtn.addEventListener('click', toggleTocPanel);
+    closeBtn.addEventListener('click', closeTocPanel);
+    overlay.addEventListener('click', closeTocPanel);
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isTocPanelOpen) {
+            closeTocPanel();
+        }
+    });
+}
+
+// =====================
+// Blog List Functions
+// =====================
 
 // Load blog list from blogs/ folder
 async function loadBlogList() {
@@ -130,7 +161,7 @@ function extractBlogMetadata(markdown, filename) {
         const titleMatch = frontmatter.match(/title:\s*(.+)/);
         const dateMatch = frontmatter.match(/date:\s*(.+)/);
 
-        if (titleMatch) title = titleMatch[1].trim().replace(/^["']|["']$/g, '');
+        if (titleMatch) title = titleMatch[1].trim().replace(/^[\"']|[\"']$/g, '');
         if (dateMatch) date = dateMatch[1].trim();
 
         // Remove frontmatter from content
@@ -171,26 +202,16 @@ function renderBlogList() {
     if (mobileBlogListEl) mobileBlogListEl.innerHTML = listHTML;
 }
 
+// =====================
+// TOC Functions
+// =====================
+
 // Extract and generate TOC from article content
 function extractTOC(articleBody) {
     const headers = articleBody.querySelectorAll('h2, h3');
-
-    // Filter out the first h1 and any h1s before content
-    const allHeaders = Array.from(articleBody.querySelectorAll('h1, h2, h3'));
-    let skipFirstH1 = true;
-    let foundContentStart = false;
-
     tocItems = [];
 
     headers.forEach((header, index) => {
-        // Skip until we find actual content (after first h1)
-        if (!foundContentStart) {
-            if (header.tagName === 'H1') {
-                return; // Skip first H1
-            }
-            foundContentStart = true;
-        }
-
         // Generate unique ID for each header
         const id = `section-${index}`;
         header.id = id;
@@ -210,23 +231,17 @@ function extractTOC(articleBody) {
 
 // Render TOC
 function renderTOC() {
-    const tocSidebar = document.getElementById('blog-toc-sidebar');
-    const tocContent = document.getElementById('blog-toc-content');
-    const mobileTocList = document.getElementById('mobile-toc-list');
+    const tocPanelContent = document.getElementById('toc-panel-content');
 
-    // Hide TOC if no items
+    // Hide TOC toggle button if no items
+    const toggleBtn = document.getElementById('toc-toggle-btn');
     if (tocItems.length === 0) {
-        if (tocSidebar) {
-            tocSidebar.classList.remove('has-toc');
-            tocSidebar.style.display = 'none';
-        }
+        if (toggleBtn) toggleBtn.style.display = 'none';
         return;
     }
 
-    // Show TOC sidebar
-    if (tocSidebar) {
-        tocSidebar.classList.add('has-toc');
-    }
+    // Show TOC toggle button
+    if (toggleBtn) toggleBtn.style.display = 'flex';
 
     // Generate TOC HTML
     const tocHTML = `
@@ -243,12 +258,8 @@ function renderTOC() {
         </ul>
     `;
 
-    if (tocContent) {
-        tocContent.innerHTML = tocHTML;
-    }
-
-    if (mobileTocList) {
-        mobileTocList.innerHTML = tocHTML;
+    if (tocPanelContent) {
+        tocPanelContent.innerHTML = tocHTML;
     }
 
     // Add click handlers for TOC items
@@ -266,14 +277,15 @@ function renderTOC() {
                     block: 'start'
                 });
 
-                // Close mobile drawer after clicking
-                if (window.innerWidth <= 768 && isDrawerOpen) {
-                    const overlay = document.getElementById('mobile-drawer-overlay');
-                    const sidebar = document.getElementById('mobile-drawer-sidebar');
+                // Close TOC panel after clicking
+                if (isTocPanelOpen) {
+                    const overlay = document.getElementById('toc-overlay');
+                    const panel = document.getElementById('toc-panel');
+                    const toggleBtn = document.getElementById('toc-toggle-btn');
                     if (overlay) overlay.classList.remove('active');
-                    if (sidebar) sidebar.classList.remove('active');
-                    document.body.classList.remove('drawer-open');
-                    isDrawerOpen = false;
+                    if (panel) panel.classList.remove('active');
+                    if (toggleBtn) toggleBtn.classList.remove('active');
+                    isTocPanelOpen = false;
                 }
             }
         });
@@ -294,8 +306,6 @@ function initScrollObserver() {
         return;
     }
 
-    const progressBar = document.getElementById('blog-toc-progress-bar');
-
     const observerOptions = {
         rootMargin: '-100px 0px -60% 0px',  // Trigger when item is in middle of viewport
         threshold: 0
@@ -306,12 +316,6 @@ function initScrollObserver() {
             if (entry.isIntersecting) {
                 const tocId = entry.target.id;
                 setActiveTocItem(tocId);
-
-                // Update progress bar
-                if (progressBar) {
-                    const progress = calculateReadingProgress();
-                    progressBar.style.height = `${progress}%`;
-                }
             }
         });
     }, observerOptions);
@@ -340,17 +344,9 @@ function setActiveTocItem(tocId) {
     }
 }
 
-// Calculate reading progress percentage
-function calculateReadingProgress() {
-    if (tocItems.length === 0) return 0;
-
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-
-    const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
-    return Math.min(100, Math.max(0, progress));
-}
+// =====================
+// Back to Top Button
+// =====================
 
 // Initialize back to top button
 function initBackToTopButton() {
@@ -378,6 +374,10 @@ function initBackToTopButton() {
         });
     });
 }
+
+// =====================
+// Blog Loading
+// =====================
 
 // Load and render a blog post
 window.loadBlog = async function(blogId) {
@@ -454,6 +454,10 @@ window.loadBlog = async function(blogId) {
     }
 }
 
+// =====================
+// Initialization
+// =====================
+
 // Initialize blog page
 async function initBlogPage() {
     if (typeof marked === 'undefined') {
@@ -463,6 +467,7 @@ async function initBlogPage() {
     await loadBlogList();
     renderBlogList();
     initMobileDrawer();
+    initTocPanel();
 
     if (blogList.length > 0) {
         loadBlog(blogList[0].id);

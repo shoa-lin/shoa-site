@@ -440,155 +440,190 @@
 }
 
 /* ========================================
-   Table of Contents (TOC) Styles
+   Table of Contents (TOC) Styles - New Design
    ======================================== */
 
-/* Desktop TOC Sidebar */
-.blog-toc-sidebar {
-    width: 220px;
-    flex-shrink: 0;
-    position: sticky;
+/* TOC Toggle Button - Fixed in top-right corner */
+.toc-toggle-btn {
+    position: fixed;
     top: 5rem;
-    height: fit-content;
-    max-height: calc(100vh - 6rem);
-    overflow-y: auto;
-    padding-left: 2rem;
-    border-left: 1px solid var(--border-default);
-    display: none; /* Hidden by default, shown when TOC exists */
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 500;
+    color: var(--text-secondary);
 }
 
-.blog-toc-sidebar.has-toc {
-    display: block;
+.toc-toggle-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-lg);
+    transform: scale(1.05);
 }
 
-.blog-toc-header {
-    margin-bottom: 1rem;
+.toc-toggle-btn.active {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
 }
 
-.blog-toc-title {
-    font-size: 0.85rem;
+/* TOC Overlay - dim background when panel is open */
+.toc-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 498;
+}
+
+.toc-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Floating TOC Panel */
+.toc-panel {
+    position: fixed;
+    top: 5rem;
+    right: 2rem;
+    width: 280px;
+    max-width: calc(100vw - 4rem);
+    max-height: calc(100vh - 7rem);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.25s ease;
+    z-index: 499;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.toc-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* TOC Panel Header */
+.toc-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-default);
+    background: var(--bg-secondary);
+}
+
+.toc-panel-title {
+    font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    color: var(--text-primary);
     margin: 0;
 }
 
-.blog-toc-content {
-    position: relative;
+.toc-panel-close {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
 }
 
-.blog-toc-list {
+.toc-panel-close:hover {
+    background: var(--border-strong);
+    color: var(--text-primary);
+}
+
+/* TOC Panel Content - Scrollable */
+.toc-panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem;
+}
+
+/* TOC List Styles */
+.toc-panel-content .blog-toc-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.blog-toc-item {
+.toc-panel-content .blog-toc-item {
     font-size: 0.85rem;
-    padding: 0.35rem 0.5rem;
-    margin-bottom: 0.15rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.1rem;
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: all 0.15s ease;
     color: var(--text-secondary);
-    border-left: 2px solid transparent;
     display: block;
     text-decoration: none;
     line-height: 1.4;
+    border-left: 2px solid transparent;
 }
 
 /* Hierarchy indentation */
-.blog-toc-item.level-1 {
-    padding-left: 0.5rem;
+.toc-panel-content .blog-toc-item.level-1 {
+    padding-left: 0.75rem;
 }
 
-.blog-toc-item.level-2 {
-    padding-left: 1.25rem;
+.toc-panel-content .blog-toc-item.level-2 {
+    padding-left: 1.5rem;
 }
 
-.blog-toc-item:hover {
+.toc-panel-content .blog-toc-item:hover {
     background: var(--bg-hover);
     color: var(--text-primary);
 }
 
-.blog-toc-item.active {
+.toc-panel-content .blog-toc-item.active {
     color: var(--accent-blue);
     border-left-color: var(--accent-blue);
     background: var(--accent-blue-bg);
     font-weight: 500;
 }
 
-/* Reading progress bar */
-.blog-toc-progress {
-    position: absolute;
-    right: -3px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
+/* Scrollbar styling for TOC panel */
+.toc-panel-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.toc-panel-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.toc-panel-content::-webkit-scrollbar-thumb {
     background: var(--border-default);
+    border-radius: 3px;
 }
 
-.blog-toc-progress-bar {
-    width: 100%;
-    background: var(--accent-blue);
-    transition: height 0.15s ease;
-    height: 0%;
-}
-
-/* Mobile Drawer Tabs */
-.mobile-drawer-tabs {
-    display: none;
-    border-bottom: 1px solid var(--border-default);
-    background: var(--bg-secondary);
-}
-
-.mobile-drawer-tab {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    padding: 0.75rem 0.5rem;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-
-.mobile-drawer-tab i {
-    font-size: 1rem;
-}
-
-.mobile-drawer-tab span {
-    font-size: 0.75rem;
-    font-weight: 500;
-}
-
-.mobile-drawer-tab {
-    color: var(--text-tertiary);
-}
-
-.mobile-drawer-tab:hover {
-    color: var(--text-secondary);
-}
-
-.mobile-drawer-tab.active {
-    color: var(--accent-blue);
-    border-bottom-color: var(--accent-blue);
-}
-
-/* Mobile TOC List */
-.mobile-toc-list {
-    padding: 0 1rem 1rem;
-}
-
-.mobile-toc-list .blog-toc-item {
-    padding: 0.6rem 0.75rem;
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
+.toc-panel-content::-webkit-scrollbar-thumb:hover {
+    background: var(--border-strong);
 }
 
 /* Back to Top Button */
@@ -629,16 +664,27 @@
     transform: translateY(0);
 }
 
-/* Responsive - Hide TOC sidebar on mobile */
+/* Responsive - Mobile Styles */
 @media (max-width: 768px) {
-    .blog-toc-sidebar {
-        display: none !important;
+    /* TOC Toggle Button - Mobile */
+    .toc-toggle-btn {
+        top: 4.5rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
     }
 
-    .mobile-drawer-tabs {
-        display: flex;
+    /* TOC Panel - Mobile */
+    .toc-panel {
+        top: 4.5rem;
+        right: 0.5rem;
+        left: 0.5rem;
+        width: auto;
+        max-width: none;
+        max-height: calc(100vh - 6rem);
     }
 
+    /* Back to top button adjustment */
     .back-to-top {
         bottom: 1.5rem;
         right: 1rem;
@@ -652,6 +698,24 @@
 }
 
 @media (max-width: 480px) {
+    /* TOC Toggle Button - Small mobile */
+    .toc-toggle-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* TOC Panel - Small mobile */
+    .toc-panel {
+        top: 4rem;
+        right: 0;
+        left: 0;
+        max-height: calc(100vh - 5rem);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        border-left: none;
+        border-right: none;
+    }
+
+    /* Back to top button - Small mobile */
     .back-to-top {
         bottom: 1rem;
         right: 0.75rem;
