@@ -508,7 +508,7 @@
     visibility: hidden;
     transform: translateY(-5px);
     transition: all 0.25s ease;
-    z-index: 499;
+    z-index: 501;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -684,16 +684,18 @@
         right: 1rem;
         width: 36px;
         height: 36px;
+        z-index: 500;
     }
 
     /* TOC Panel - Mobile */
     .toc-panel {
-        top: 6rem;
+        top: 7rem;
         right: 0.5rem;
         left: 0.5rem;
         width: auto;
         max-width: none;
-        max-height: calc(100vh - 7.5rem);
+        max-height: calc(100vh - 8.5rem);
+        z-index: 501;
     }
 
     /* Back to top button - Mobile */
@@ -710,17 +712,19 @@
     .toc-toggle-btn {
         width: 36px;
         height: 36px;
+        z-index: 500;
     }
 
     /* TOC Panel - Small mobile */
     .toc-panel {
-        top: 5.5rem;
+        top: 6.5rem;
         right: 0;
         left: 0;
-        max-height: calc(100vh - 6.5rem);
+        max-height: calc(100vh - 8rem);
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         border-left: none;
         border-right: none;
+        z-index: 501;
     }
 
     /* Back to top button - Small mobile */
