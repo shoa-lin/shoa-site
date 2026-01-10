@@ -443,7 +443,7 @@
    Table of Contents (TOC) Styles - New Design
    ======================================== */
 
-/* TOC Toggle Button - Matching style with mobile menu button */
+/* TOC Toggle Button - Transparent, matching mobile menu button position */
 .toc-toggle-btn {
     position: fixed;
     top: 5rem;
@@ -451,24 +451,26 @@
     width: 36px;
     height: 36px;
     border: none;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.15s ease;
     z-index: 500;
+    padding: 0;
 }
 
 .toc-toggle-btn:hover {
-    background: var(--bg-hover);
+    color: var(--text-primary);
+    background: transparent;
 }
 
 .toc-toggle-btn.active {
-    background: var(--accent-blue-bg);
     color: var(--accent-blue);
+    background: transparent;
 }
 
 /* TOC Overlay - dim background when panel is open */
