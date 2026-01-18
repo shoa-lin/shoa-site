@@ -122,6 +122,8 @@
 
 我多次谈论过这些，并将它们综合成我自己的Human 3.0模型，但这里是9个自我发展阶段的80/20作为复习（因为重复有助于揭示你以前没有注意到的事情，并且有新人在读这些信）：
 
+![自我发展的9个阶段](https://substackcdn.com/image/fetch/$s_!PKbP!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbefe4764-cb9d-4415-a39e-4ddfe4164106_1000x672.jpeg)
+
 1. **冲动型** — 冲动和行动之间没有分离。黑白思维。例如，一个幼儿在愤怒时打人，因为感觉和行为是同一件事。
 2. **自我保护型** — 世界是危险的，你学会照顾自己。例如，一个孩子学会藏成绩单，对家务撒谎，并弄清楚成年人想听什么。
 3. **顺从型** — 你就是你的群体，它的规则感觉像是现实本身。例如，一个真正无法想象为什么有人会与他们的家庭或群体不同投票的人。
@@ -168,6 +170,8 @@
 - 感知你在哪里。
 - 将其与目标进行比较。
 - 基于那个反馈再次行动。
+
+![控制论循环](https://substackcdn.com/image/fetch/$s_!_2Vx!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6d235caf-992b-46be-b190-2507005ad52d_1150x364.jpeg)
 
 _你可以根据系统迭代和坚持试错的能力来判断智力。_
 
