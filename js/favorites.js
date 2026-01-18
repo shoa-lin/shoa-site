@@ -40,6 +40,18 @@ function getDefaultArticleList() {
             excerpt: '一个旨在重新定义智能体、致力于成为人类强大心智延伸的探索之旅，由此正式启航。',
             tags: ['AI Agent', '产品设计', '技术架构'],
             mdFile: 'favorites/articles/manus-meeting.md'
+        },
+        {
+            id: 'fix-your-life-in-one-day',
+            title: '如何在一天内彻底改变你的人生',
+            author: 'Dan Koe',
+            date: '2025-12-23',
+            source: 'X (Twitter)',
+            sourceType: 'other',
+            sourceUrl: 'https://x.com/thedankoe/status/2010751592346030461',
+            excerpt: '你很可能会放弃你的新年决心。但这没关系。大多数人都会这样做，因为大多数人并不想在深层次、内在的层面上真正改变自己...',
+            tags: ['个人成长', '自我提升', '生活哲学', '行为改变'],
+            mdFile: 'favorites/articles/fix-your-life-in-one-day.md'
         }
     ];
 }
