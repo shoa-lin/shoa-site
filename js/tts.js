@@ -14,12 +14,24 @@ class TTSController {
         this.initVoices();
     }
 
-    // 初始化语音，优先选择中文
+    // 初始化语音，优先选择中文男声
     initVoices() {
         const loadVoices = () => {
             this.voices = this.synthesis.getVoices();
-            // 优先选择中文语音
-            this.chineseVoice = this.voices.find(v => v.lang.startsWith('zh')) || this.voices[0];
+            console.log('可用语音列表:', this.voices.map(v => `${v.name} (${v.lang})`));
+
+            // 优先选择中文男声，其次中文语音，最后默认语音
+            this.chineseVoice = this.voices.find(v =>
+                v.lang.startsWith('zh-CN') && v.name.includes('Male')
+            ) || this.voices.find(v =>
+                v.lang.startsWith('zh-CN') && (v.name.includes('male') || v.name.includes('Male'))
+            ) || this.voices.find(v =>
+                v.lang.startsWith('zh-CN')
+            ) || this.voices.find(v =>
+                v.lang.startsWith('zh')
+            ) || this.voices[0];
+
+            console.log('选择的语音:', this.chineseVoice ? `${this.chineseVoice.name} (${this.chineseVoice.lang})` : '无');
         };
 
         loadVoices();
@@ -35,7 +47,12 @@ class TTSController {
         if (!articleBody) {
             articleBody = document.querySelector('.modal-body');
         }
-        if (!articleBody) return '';
+        if (!articleBody) {
+            console.warn('未找到文章内容容器');
+            return '';
+        }
+
+        console.log('找到文章容器，子元素数量:', articleBody.children.length);
 
         // 克隆节点避免修改原文
         const clonedBody = articleBody.cloneNode(true);
@@ -49,17 +66,24 @@ class TTSController {
             .replace(/\n\s*\n/g, '\n')
             .trim();
 
+        console.log('提取的文本预览:', text.substring(0, 100) + '...');
+
         return text;
     }
 
     // 切换播放/停止
     toggle() {
         if (this.isPlaying) {
+            console.log('停止播放');
             this.stop();
         } else {
             const text = this.extractArticleText();
+            console.log('提取的文本长度:', text.length);
             if (text) {
+                console.log('开始播放...');
                 this.speak(text);
+            } else {
+                console.warn('没有可播放的文本内容');
             }
         }
     }
@@ -70,33 +94,46 @@ class TTSController {
 
         if (!text) return;
 
+        console.log('准备播放，使用语音:', this.chineseVoice?.name);
+
         // 分段处理长文本
         const segments = this.splitText(text);
+        console.log('文本分段数:', segments.length);
 
         segments.forEach((segment, index) => {
             setTimeout(() => {
                 const utterance = new SpeechSynthesisUtterance(segment);
-                utterance.voice = this.chineseVoice;
-                utterance.rate = 1;
-                utterance.pitch = 1;
+
+                if (this.chineseVoice) {
+                    utterance.voice = this.chineseVoice;
+                }
+                utterance.rate = 1.0;
+                utterance.pitch = 0.8; // 降低音调模拟男声
                 utterance.volume = 1;
 
                 if (index === 0) {
                     utterance.onstart = () => {
+                        console.log('播放开始');
                         this.isPlaying = true;
                         this.updateButton();
+                    };
+
+                    utterance.onerror = (event) => {
+                        console.error('TTS播放错误:', event.error);
                     };
                 }
 
                 if (index === segments.length - 1) {
                     utterance.onend = () => {
+                        console.log('播放结束');
                         this.isPlaying = false;
                         this.updateButton();
                     };
                 }
 
                 this.synthesis.speak(utterance);
-            }, index * 100); // 短暂延迟避免浏览器限制
+                console.log(`播放第 ${index + 1}/${segments.length} 段`);
+            }, index * 100);
         });
     }
 
