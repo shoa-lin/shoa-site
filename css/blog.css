@@ -734,24 +734,13 @@
         width: 42px;
         height: 42px;
     }
-
-    /* TTS Panel - Small mobile */
-    .tts-panel {
-        top: 6.5rem;
-        right: 0;
-        left: 0;
-        max-height: calc(100vh - 8rem);
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-        border-left: none;
-        border-right: none;
-    }
 }
 
 /* ========================================
-   Text-to-Speech (TTS) Styles
+   Text-to-Speech (TTS) Styles - Simplified
    ======================================== */
 
-/* TTS Toggle Button - Matching TOC button style */
+/* TTS Toggle Button - Fixed position */
 .tts-toggle-btn {
     position: fixed;
     top: 5rem;
@@ -776,214 +765,14 @@
     background: transparent;
 }
 
-.tts-toggle-btn.active {
+.tts-toggle-btn.playing {
     color: var(--accent-blue);
-    background: transparent;
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* TTS Panel - Floating panel */
-.tts-panel {
-    position: fixed;
-    top: 6.5rem;
-    right: 2rem;
-    width: 300px;
-    max-width: calc(100vw - 4rem);
-    max-height: calc(100vh - 8.5rem);
-    background: var(--bg-primary);
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-5px);
-    transition: all 0.25s ease;
-    z-index: 501;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.tts-panel.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* TTS Panel Header */
-.tts-panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-default);
-    background: var(--bg-secondary);
-}
-
-.tts-panel-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0;
-}
-
-.tts-panel-close {
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: var(--bg-hover);
-    color: var(--text-secondary);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
-}
-
-.tts-panel-close:hover {
-    background: var(--border-strong);
-    color: var(--text-primary);
-}
-
-/* TTS Panel Content */
-.tts-panel-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem;
-}
-
-/* TTS Controls */
-.tts-controls {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-}
-
-.tts-controls button {
-    flex: 1;
-    height: 44px;
-    border: 1px solid var(--border-default);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
-    font-size: 1rem;
-}
-
-.tts-controls button:hover {
-    background: var(--bg-hover);
-    border-color: var(--border-strong);
-}
-
-.tts-controls button:active {
-    transform: scale(0.98);
-}
-
-#tts-play-pause {
-    background: var(--accent-blue-bg);
-    border-color: var(--accent-blue);
-    color: var(--accent-blue);
-}
-
-#tts-play-pause:hover {
-    background: var(--accent-blue);
-    color: white;
-}
-
-/* TTS Status */
-.tts-status {
-    padding: 0.75rem;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    margin-bottom: 1rem;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* TTS Settings */
-.tts-settings {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.tts-settings label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 0.25rem;
-    display: block;
-}
-
-.tts-settings select,
-.tts-settings input[type="range"] {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid var(--border-default);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
-}
-
-.tts-settings select:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-}
-
-.tts-settings input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    height: 6px;
-    background: var(--border-default);
-    border-radius: 3px;
-    padding: 0;
-}
-
-.tts-settings input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    background: var(--accent-blue);
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.tts-settings input[type="range"]::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: var(--accent-blue);
-    border-radius: 50%;
-    cursor: pointer;
-    border: none;
-}
-
-/* Scrollbar styling for TTS panel */
-.tts-panel-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.tts-panel-content::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.tts-panel-content::-webkit-scrollbar-thumb {
-    background: var(--border-default);
-    border-radius: 3px;
-}
-
-.tts-panel-content::-webkit-scrollbar-thumb:hover {
-    background: var(--border-strong);
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
 }
 
 /* Responsive - Mobile Styles */
@@ -993,27 +782,10 @@
         right: 4rem;
     }
 
-    .tts-panel {
-        top: 7rem;
-        right: 0.5rem;
-        left: 0.5rem;
-        width: auto;
-        max-width: none;
-    }
-
     @media (max-width: 480px) {
         .tts-toggle-btn {
             top: 4.5rem;
             right: 3rem;
-        }
-
-        .tts-panel {
-            top: 6.5rem;
-            right: 0;
-            left: 0;
-            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            border-left: none;
-            border-right: none;
         }
     }
 }
