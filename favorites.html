@@ -58,6 +58,9 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
+                <button class="modal-btn tts-toggle-btn" id="tts-toggle-btn" title="语音朗读">
+                    <i class="fas fa-volume-up"></i>
+                </button>
                 <button class="modal-btn fullscreen-toggle" id="fullscreen-toggle" title="切换全屏">
                     <i class="fas fa-expand"></i>
                 </button>
@@ -71,6 +74,35 @@
         </div>
     </div>
 
+    <!-- TTS Control Panel -->
+    <div class="tts-panel" id="tts-panel">
+        <div class="tts-panel-header">
+            <span class="tts-panel-title">🔊 语音朗读</span>
+            <button class="tts-panel-close" id="tts-panel-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="tts-panel-content">
+            <div class="tts-controls">
+                <button id="tts-play-pause" title="播放/暂停">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="tts-stop" title="停止">
+                    <i class="fas fa-stop"></i>
+                </button>
+            </div>
+            <div class="tts-status" id="tts-status">点击播放开始朗读</div>
+            <div class="tts-settings">
+                <label>语音选择</label>
+                <select id="tts-voice-select">
+                    <option value="">加载中...</option>
+                </select>
+                <label>语速: <span id="tts-rate-value">1.0</span>x</label>
+                <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1">
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
@@ -79,5 +111,6 @@
 
     <script src="js/common.js"></script>
     <script src="js/favorites.js"></script>
+    <script src="js/tts.js"></script>
 </body>
 </html>

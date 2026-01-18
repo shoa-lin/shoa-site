@@ -74,6 +74,40 @@
         <i class="fas fa-list"></i>
     </button>
 
+    <!-- TTS Toggle Button -->
+    <button class="tts-toggle-btn" id="tts-toggle-btn" aria-label="语音朗读">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <!-- TTS Control Panel -->
+    <div class="tts-panel" id="tts-panel">
+        <div class="tts-panel-header">
+            <span class="tts-panel-title">🔊 语音朗读</span>
+            <button class="tts-panel-close" id="tts-panel-close" aria-label="关闭">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="tts-panel-content">
+            <div class="tts-controls">
+                <button id="tts-play-pause" title="播放/暂停">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="tts-stop" title="停止">
+                    <i class="fas fa-stop"></i>
+                </button>
+            </div>
+            <div class="tts-status" id="tts-status">点击播放开始朗读</div>
+            <div class="tts-settings">
+                <label>语音选择</label>
+                <select id="tts-voice-select">
+                    <option value="">加载中...</option>
+                </select>
+                <label>语速: <span id="tts-rate-value">1.0</span>x</label>
+                <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1">
+            </div>
+        </div>
+    </div>
+
     <!-- Floating TOC Panel -->
     <div class="toc-panel" id="toc-panel">
         <div class="toc-panel-header">
@@ -104,5 +138,6 @@
     <script src="js/common.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="js/blog.js"></script>
+    <script src="js/tts.js"></script>
 </body>
 </html>
