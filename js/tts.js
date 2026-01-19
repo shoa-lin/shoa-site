@@ -10,11 +10,13 @@ class TTSController {
         this.isPlaying = false;
         this.voices = [];
         this.chineseVoice = null;
+        this.maleVoice = null; // 男声
+        this.femaleVoice = null; // 女声
 
         this.initVoices();
     }
 
-    // 初始化语音，优先选择高质量自然语音
+    // 初始化语音，优先选择高质量自然语音，同时准备男声和女声
     initVoices() {
         const loadVoices = () => {
             this.voices = this.synthesis.getVoices();
@@ -38,12 +40,72 @@ class TTSController {
             ) || this.voices.find(v => !v.name.includes('Google')) || this.voices[0];
 
             console.log('选择的语音:', this.chineseVoice ? `${this.chineseVoice.name} (${this.chineseVoice.lang})` : '无');
+
+            // 评估男声和女声选项
+            this.evaluateVoices();
         };
 
         loadVoices();
         if (speechSynthesis.onvoiceschanged !== undefined) {
             speechSynthesis.onvoiceschanged = loadVoices;
         }
+    }
+
+    // 评估可用的男声和女声
+    evaluateVoices() {
+        const zhVoices = this.voices.filter(v => v.lang.startsWith('zh'));
+
+        // 常见的男声标识
+        const maleKeywords = ['Male', 'male', 'Yunyang', 'Yunxi', 'Yunjian', 'Guy'];
+        // 常见的女声标识
+        const femaleKeywords = ['Female', 'female', 'Xiaoxiao', 'Xiaoyi', 'Xiaohan', 'Xiaomeng', 'Xiaoxuan', 'Girl', 'Yaoyao'];
+
+        // 查找男声（优先高质量）
+        this.maleVoice = zhVoices.find(v =>
+            v.name.includes('Neural') && maleKeywords.some(k => v.name.includes(k))
+        ) || zhVoices.find(v =>
+            maleKeywords.some(k => v.name.includes(k))
+        ) || zhVoices.find(v =>
+            !femaleKeywords.some(k => v.name.includes(k))
+        );
+
+        // 查找女声（优先高质量）
+        this.femaleVoice = zhVoices.find(v =>
+            v.name.includes('Neural') && femaleKeywords.some(k => v.name.includes(k))
+        ) || zhVoices.find(v =>
+            femaleKeywords.some(k => v.name.includes(k))
+        );
+
+        console.log('可用男声:', this.maleVoice ? this.maleVoice.name : '无');
+        console.log('可用女声:', this.femaleVoice ? this.femaleVoice.name : '无');
+    }
+
+    // 切换到男声
+    useMaleVoice() {
+        if (this.maleVoice) {
+            this.chineseVoice = this.maleVoice;
+            console.log('切换到男声:', this.chineseVoice.name);
+            return true;
+        }
+        console.warn('未找到男声');
+        return false;
+    }
+
+    // 切换到女声
+    useFemaleVoice() {
+        if (this.femaleVoice) {
+            this.chineseVoice = this.femaleVoice;
+            console.log('切换到女声:', this.chineseVoice.name);
+            return true;
+        }
+        console.warn('未找到女声');
+        return false;
+    }
+
+    // 重置状态（当打开新文章时调用）
+    reset() {
+        this.stop();
+        console.log('TTS状态已重置');
     }
 
     // 提取文章文本内容（过滤代码块等）
@@ -77,12 +139,23 @@ class TTSController {
         return text;
     }
 
-    // 切换播放/停止
+    // 切换播放/暂停/停止
     toggle() {
-        if (this.isPlaying) {
-            console.log('停止播放');
-            this.stop();
+        // 检查是否正在播放
+        if (this.synthesis.speaking && !this.synthesis.paused) {
+            // 正在播放，暂停
+            console.log('暂停播放');
+            this.synthesis.pause();
+            this.isPlaying = false;
+            this.updateButton();
+        } else if (this.synthesis.paused) {
+            // 已暂停，恢复播放
+            console.log('恢复播放');
+            this.synthesis.resume();
+            this.isPlaying = true;
+            this.updateButton();
         } else {
+            // 没有在播放，开始新的播放
             const text = this.extractArticleText();
             console.log('提取的文本长度:', text.length);
             if (text) {
@@ -204,11 +277,20 @@ class TTSController {
         const icon = btn.querySelector('i');
         if (!icon) return;
 
-        if (this.isPlaying) {
-            icon.className = 'fas fa-stop';
-            btn.title = '停止播放';
+        const isPaused = this.synthesis.paused;
+
+        if (this.isPlaying && !isPaused) {
+            // 正在播放
+            icon.className = 'fas fa-pause';
+            btn.title = '暂停播放';
             btn.classList.add('playing');
+        } else if (isPaused) {
+            // 已暂停
+            icon.className = 'fas fa-play';
+            btn.title = '继续播放';
+            btn.classList.remove('playing');
         } else {
+            // 未播放
             icon.className = 'fas fa-headphones';
             btn.title = '朗读文章';
             btn.classList.remove('playing');
@@ -230,11 +312,34 @@ function initTTS() {
 
     ttsController = new TTSController();
 
-    // 点击按钮直接播放/停止
+    // 点击按钮直接播放/暂停/恢复
     const ttsBtn = document.getElementById('tts-toggle-btn');
     if (ttsBtn) {
         ttsBtn.addEventListener('click', () => ttsController.toggle());
     }
+}
+
+// 重置TTS状态（打开新文章时调用）
+function resetTTS() {
+    if (ttsController) {
+        ttsController.reset();
+    }
+}
+
+// 切换到男声
+function switchToMaleVoice() {
+    if (ttsController) {
+        return ttsController.useMaleVoice();
+    }
+    return false;
+}
+
+// 切换到女声
+function switchToFemaleVoice() {
+    if (ttsController) {
+        return ttsController.useFemaleVoice();
+    }
+    return false;
 }
 
 // DOM 加载完成后初始化

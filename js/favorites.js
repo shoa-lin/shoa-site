@@ -222,6 +222,11 @@ function openModal() {
     // Reset fullscreen state when opening new article
     modalContent.classList.remove('fullscreen');
     updateFullscreenIcon(false);
+
+    // Reset TTS state when opening new article
+    if (typeof resetTTS === 'function') {
+        resetTTS();
+    }
 }
 
 // Toggle fullscreen mode
