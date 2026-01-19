@@ -10,13 +10,11 @@ class TTSController {
         this.isPlaying = false;
         this.voices = [];
         this.chineseVoice = null;
-        this.maleVoice = null; // 男声
-        this.femaleVoice = null; // 女声
 
         this.initVoices();
     }
 
-    // 初始化语音，优先选择高质量自然语音，同时准备男声和女声
+    // 初始化语音，优先选择高质量自然语音
     initVoices() {
         const loadVoices = () => {
             this.voices = this.synthesis.getVoices();
@@ -40,66 +38,12 @@ class TTSController {
             ) || this.voices.find(v => !v.name.includes('Google')) || this.voices[0];
 
             console.log('选择的语音:', this.chineseVoice ? `${this.chineseVoice.name} (${this.chineseVoice.lang})` : '无');
-
-            // 评估男声和女声选项
-            this.evaluateVoices();
         };
 
         loadVoices();
         if (speechSynthesis.onvoiceschanged !== undefined) {
             speechSynthesis.onvoiceschanged = loadVoices;
         }
-    }
-
-    // 评估可用的男声和女声
-    evaluateVoices() {
-        const zhVoices = this.voices.filter(v => v.lang.startsWith('zh'));
-
-        // 常见的男声标识
-        const maleKeywords = ['Male', 'male', 'Yunyang', 'Yunxi', 'Yunjian', 'Guy'];
-        // 常见的女声标识
-        const femaleKeywords = ['Female', 'female', 'Xiaoxiao', 'Xiaoyi', 'Xiaohan', 'Xiaomeng', 'Xiaoxuan', 'Girl', 'Yaoyao'];
-
-        // 查找男声（优先高质量）
-        this.maleVoice = zhVoices.find(v =>
-            v.name.includes('Neural') && maleKeywords.some(k => v.name.includes(k))
-        ) || zhVoices.find(v =>
-            maleKeywords.some(k => v.name.includes(k))
-        ) || zhVoices.find(v =>
-            !femaleKeywords.some(k => v.name.includes(k))
-        );
-
-        // 查找女声（优先高质量）
-        this.femaleVoice = zhVoices.find(v =>
-            v.name.includes('Neural') && femaleKeywords.some(k => v.name.includes(k))
-        ) || zhVoices.find(v =>
-            femaleKeywords.some(k => v.name.includes(k))
-        );
-
-        console.log('可用男声:', this.maleVoice ? this.maleVoice.name : '无');
-        console.log('可用女声:', this.femaleVoice ? this.femaleVoice.name : '无');
-    }
-
-    // 切换到男声
-    useMaleVoice() {
-        if (this.maleVoice) {
-            this.chineseVoice = this.maleVoice;
-            console.log('切换到男声:', this.chineseVoice.name);
-            return true;
-        }
-        console.warn('未找到男声');
-        return false;
-    }
-
-    // 切换到女声
-    useFemaleVoice() {
-        if (this.femaleVoice) {
-            this.chineseVoice = this.femaleVoice;
-            console.log('切换到女声:', this.chineseVoice.name);
-            return true;
-        }
-        console.warn('未找到女声');
-        return false;
     }
 
     // 重置状态（当打开新文章时调用）
@@ -324,22 +268,6 @@ function resetTTS() {
     if (ttsController) {
         ttsController.reset();
     }
-}
-
-// 切换到男声
-function switchToMaleVoice() {
-    if (ttsController) {
-        return ttsController.useMaleVoice();
-    }
-    return false;
-}
-
-// 切换到女声
-function switchToFemaleVoice() {
-    if (ttsController) {
-        return ttsController.useFemaleVoice();
-    }
-    return false;
 }
 
 // DOM 加载完成后初始化
