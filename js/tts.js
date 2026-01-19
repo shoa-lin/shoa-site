@@ -14,22 +14,28 @@ class TTSController {
         this.initVoices();
     }
 
-    // 初始化语音，优先选择中文男声
+    // 初始化语音，优先选择高质量自然语音
     initVoices() {
         const loadVoices = () => {
             this.voices = this.synthesis.getVoices();
             console.log('可用语音列表:', this.voices.map(v => `${v.name} (${v.lang})`));
 
-            // 优先选择中文男声，其次中文语音，最后默认语音
+            // 优先选择高质量的自然语音（Neural/Enhanced/Premium）
+            // 然后选择中文语音，避免机械感强的语音
             this.chineseVoice = this.voices.find(v =>
-                v.lang.startsWith('zh-CN') && v.name.includes('Male')
+                v.lang.startsWith('zh-CN') && (
+                    v.name.includes('Neural') ||
+                    v.name.includes('Enhanced') ||
+                    v.name.includes('Premium') ||
+                    v.name.includes('Natural')
+                )
             ) || this.voices.find(v =>
-                v.lang.startsWith('zh-CN') && (v.name.includes('male') || v.name.includes('Male'))
+                v.lang.startsWith('zh-CN') && !v.name.includes('Google')
             ) || this.voices.find(v =>
                 v.lang.startsWith('zh-CN')
             ) || this.voices.find(v =>
                 v.lang.startsWith('zh')
-            ) || this.voices[0];
+            ) || this.voices.find(v => !v.name.includes('Google')) || this.voices[0];
 
             console.log('选择的语音:', this.chineseVoice ? `${this.chineseVoice.name} (${this.chineseVoice.lang})` : '无');
         };
@@ -100,6 +106,11 @@ class TTSController {
         const segments = this.splitText(text);
         console.log('文本分段数:', segments.length);
 
+        // 检查是否是高质量语音，调整参数
+        const isHighQuality = this.chineseVoice?.name.includes('Neural') ||
+                              this.chineseVoice?.name.includes('Enhanced') ||
+                              this.chineseVoice?.name.includes('Premium');
+
         segments.forEach((segment, index) => {
             setTimeout(() => {
                 const utterance = new SpeechSynthesisUtterance(segment);
@@ -107,8 +118,17 @@ class TTSController {
                 if (this.chineseVoice) {
                     utterance.voice = this.chineseVoice;
                 }
-                utterance.rate = 1.0;
-                utterance.pitch = 0.8; // 降低音调模拟男声
+
+                // 根据语音质量调整参数
+                if (isHighQuality) {
+                    // 高质量语音使用标准参数
+                    utterance.rate = 1.0;
+                    utterance.pitch = 1.0;
+                } else {
+                    // 普通语音优化参数以减少机械感
+                    utterance.rate = 0.95; // 稍微放慢，增加自然感
+                    utterance.pitch = 0.9; // 略微降低音调
+                }
                 utterance.volume = 1;
 
                 if (index === 0) {
@@ -137,16 +157,22 @@ class TTSController {
         });
     }
 
-    // 分割文本为段落
+    // 分割文本为段落，改进断句逻辑
     splitText(text) {
-        const maxChunkLength = 200;
-        const sentences = text.split(/([。！？.!?])/);
+        // 更大的分段长度，减少频繁断句
+        const maxChunkLength = 300;
+
+        // 按句子分割，保留标点
+        const sentences = text.split(/([。！？.!?，,；;])/);
         const segments = [];
         let currentSegment = '';
 
-        for (let i = 0; i < sentences.length; i += 2) {
-            const sentence = sentences[i] + (sentences[i + 1] || '');
-            if (currentSegment.length + sentence.length > maxChunkLength && currentSegment) {
+        for (let i = 0; i < sentences.length; i++) {
+            const sentence = sentences[i];
+            if (!sentence) continue;
+
+            // 如果当前段加上新句子超过长度限制，且当前段不为空，保存当前段
+            if (currentSegment.length + sentence.length > maxChunkLength && currentSegment.trim()) {
                 segments.push(currentSegment.trim());
                 currentSegment = sentence;
             } else {
@@ -154,10 +180,12 @@ class TTSController {
             }
         }
 
-        if (currentSegment) {
+        // 添加最后一段
+        if (currentSegment.trim()) {
             segments.push(currentSegment.trim());
         }
 
+        // 过滤空段落
         return segments.filter(s => s.length > 0);
     }
 
