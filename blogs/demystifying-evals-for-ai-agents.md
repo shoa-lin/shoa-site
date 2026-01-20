@@ -12,42 +12,42 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     font-size: 1.05rem;
     line-height: 1.8;
 }
-.article-content h2 {
+.blog-article-body h2 {
     margin-top: 2.5rem;
     margin-bottom: 1.25rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #e5e7eb;
 }
-.article-content h3 {
+.blog-article-body h3 {
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
-.article-content h4 {
+.blog-article-body h4 {
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
 }
-.article-content p {
+.blog-article-body p {
     margin-bottom: 1.25rem;
 }
-.article-content ul, .article-content ol {
+.blog-article-body ul, .blog-article-body ol {
     margin-bottom: 1.5rem;
 }
-.article-content li {
+.blog-article-body li {
     margin-bottom: 0.5rem;
 }
-.article-content blockquote {
+.blog-article-body blockquote {
     border-left: 4px solid #667eea;
     padding-left: 1rem;
     margin: 1.5rem 0;
     color: #4b5563;
 }
-.article-content code {
+.blog-article-body code {
     background-color: #f3f4f6;
     padding: 0.125rem 0.375rem;
     border-radius: 0.25rem;
     font-size: 0.875em;
 }
-.article-content pre {
+.blog-article-body pre {
     background-color: #1f2937;
     color: #e5e7eb;
     padding: 1rem;
@@ -55,61 +55,61 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     overflow-x: auto;
     margin: 1.5rem 0;
 }
-.article-content pre code {
+.blog-article-body pre code {
     background-color: transparent;
     padding: 0;
 }
 /* 表格容器：支持横向滚动 */
-.article-content .table-wrapper {
+.blog-article-body .table-wrapper {
     overflow-x: auto;
     margin: 1.5rem 0;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-.article-content table {
+.blog-article-body table {
     border-collapse: collapse;
     width: 100%;
     min-width: 600px;
     margin: 0;
     font-size: 0.95rem;
 }
-.article-content table thead {
+.blog-article-body table thead {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
 }
-.article-content table thead th {
+.blog-article-body table thead th {
     border: 1px solid #5568d3;
     padding: 0.875rem 1rem;
     text-align: left;
     font-weight: 600;
     white-space: nowrap;
 }
-.article-content table tbody tr {
+.blog-article-body table tbody tr {
     border-bottom: 1px solid #e5e7eb;
     transition: background-color 0.2s ease;
 }
-.article-content table tbody tr:nth-child(even) {
+.blog-article-body table tbody tr:nth-child(even) {
     background-color: #f9fafb;
 }
-.article-content table tbody tr:hover {
+.blog-article-body table tbody tr:hover {
     background-color: #eef2ff;
 }
-.article-content table td {
+.blog-article-body table td {
     padding: 0.75rem 1rem;
     border-right: 1px solid #e5e7eb;
     text-align: left;
     vertical-align: top;
     line-height: 1.6;
 }
-.article-content table td:last-child {
+.blog-article-body table td:last-child {
     border-right: none;
 }
-.article-content table td:first-child {
+.blog-article-body table td:first-child {
     font-weight: 500;
     color: #374151;
     white-space: nowrap;
 }
-.article-content img {
+.blog-article-body img {
     max-width: 100%;
     height: auto;
     margin: 1.5rem 0;
@@ -120,16 +120,16 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     .blog-article-body {
         font-size: 1rem;
     }
-    .article-content .table-wrapper {
+    .blog-article-body .table-wrapper {
         margin: 1.5rem -1rem;
         border-radius: 0;
     }
-    .article-content table {
+    .blog-article-body table {
         font-size: 0.85rem;
         min-width: 500px;
     }
-    .article-content table th,
-    .article-content table td {
+    .blog-article-body table th,
+    .blog-article-body table td {
         padding: 0.5rem 0.75rem;
     }
 }
