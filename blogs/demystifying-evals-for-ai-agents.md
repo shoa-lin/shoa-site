@@ -63,51 +63,48 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
 .blog-article-body .table-wrapper {
     overflow-x: auto;
     margin: 1.5rem 0;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .blog-article-body table {
     border-collapse: collapse;
     width: 100%;
-    min-width: 600px;
-    margin: 0;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
 }
 .blog-article-body table thead {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    border-bottom: 1px solid var(--border-strong);
 }
 .blog-article-body table thead th {
-    border: 1px solid #5568d3;
-    padding: 0.875rem 1rem;
+    padding: 0.5rem 1rem;
     text-align: left;
     font-weight: 600;
-    white-space: nowrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 .blog-article-body table tbody tr {
-    border-bottom: 1px solid #e5e7eb;
-    transition: background-color 0.2s ease;
+    border-bottom: 1px solid var(--border-default);
 }
-.blog-article-body table tbody tr:nth-child(even) {
-    background-color: #f9fafb;
+.blog-article-body table tbody tr:last-child {
+    border-bottom: none;
 }
 .blog-article-body table tbody tr:hover {
-    background-color: #eef2ff;
+    background: var(--bg-hover);
 }
 .blog-article-body table td {
     padding: 0.75rem 1rem;
-    border-right: 1px solid #e5e7eb;
     text-align: left;
     vertical-align: top;
     line-height: 1.6;
 }
-.blog-article-body table td:last-child {
-    border-right: none;
-}
 .blog-article-body table td:first-child {
     font-weight: 500;
-    color: #374151;
-    white-space: nowrap;
+    color: var(--text-primary);
+    width: auto;
+}
+.blog-article-body table td:nth-child(2),
+.blog-article-body table td:nth-child(3) {
+    width: 40%;
 }
 .blog-article-body img {
     max-width: 100%;
@@ -122,15 +119,17 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     }
     .blog-article-body .table-wrapper {
         margin: 1.5rem -1rem;
-        border-radius: 0;
     }
     .blog-article-body table {
         font-size: 0.85rem;
-        min-width: 500px;
     }
     .blog-article-body table th,
     .blog-article-body table td {
-        padding: 0.5rem 0.75rem;
+        padding: 0.6rem 0.75rem;
+    }
+    .blog-article-body table td:nth-child(2),
+    .blog-article-body table td:nth-child(3) {
+        width: 42%;
     }
 }
 </style>
