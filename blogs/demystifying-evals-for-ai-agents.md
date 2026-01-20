@@ -59,12 +59,19 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     background-color: transparent;
     padding: 0;
 }
+/* 表格容器：支持横向滚动 */
+.article-content .table-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
 .article-content table {
     border-collapse: collapse;
     width: 100%;
-    margin: 1.5rem 0;
+    min-width: 600px;
+    margin: 0;
     font-size: 0.95rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .article-content table thead {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -75,6 +82,7 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     padding: 0.875rem 1rem;
     text-align: left;
     font-weight: 600;
+    white-space: nowrap;
 }
 .article-content table tbody tr {
     border-bottom: 1px solid #e5e7eb;
@@ -88,14 +96,18 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
 }
 .article-content table td {
     padding: 0.75rem 1rem;
-    border: none;
+    border-right: 1px solid #e5e7eb;
     text-align: left;
     vertical-align: top;
     line-height: 1.6;
 }
+.article-content table td:last-child {
+    border-right: none;
+}
 .article-content table td:first-child {
     font-weight: 500;
     color: #374151;
+    white-space: nowrap;
 }
 .article-content img {
     max-width: 100%;
@@ -108,11 +120,13 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     .article-content {
         font-size: 1rem;
     }
+    .article-content .table-wrapper {
+        margin: 1.5rem -1rem;
+        border-radius: 0;
+    }
     .article-content table {
         font-size: 0.85rem;
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
+        min-width: 500px;
     }
     .article-content table th,
     .article-content table td {
@@ -194,21 +208,33 @@ Agent 评估通常结合三种类型的评分器：基于代码、基于模型�
 
 #### 基于代码的评分器
 
+<div class="table-wrapper">
+
 | **方法** | **优势** | **劣势** |
 | --- | --- | --- |
 | 字符串匹配检查、二元测试、静态分析、结果验证、工具调用验证、轨录分析 | 快速、便宜、客观、可重现、易于调试 | 对于不完全符合预期模式的有效变体很脆弱、缺乏细微差别 |
 
+</div>
+
 #### 基于模型的评分器
+
+<div class="table-wrapper">
 
 | **方法** | **优势** | **劣势** |
 | --- | --- | --- |
 | 基于标准的评分、自然语言断言、成对比较、基于参考的评估、多评判共识 | 灵活、可扩展、捕获细微差别、处理开放式任务 | 不确定性、比代码更昂贵、需要与人工评分器校准 |
 
+</div>
+
 #### 人工评分器
+
+<div class="table-wrapper">
 
 | **方法** | **优势** | **劣势** |
 | --- | --- | --- |
 | SME 审查、众包判断、抽查采样、A/B 测试、评分者间一致性 | 黄金标准质量、匹配专家用户判断 | 昂贵、慢、通常需要大规模访问人工专家 |
+
+</div>
 
 ### 能力 vs 回归评估
 
@@ -304,6 +330,8 @@ Agent 评估通常结合三种类型的评分器：基于代码、基于模型�
 
 ### 方法对比表
 
+<div class="table-wrapper">
+
 | 方法 | 优点 | 缺点 |
 | --- | --- | --- |
 | 自动化评估 | 更快的迭代、完全可重现、无用户影响、可以在每次提交时运行 | 需要更多的前期投资来构建、需要持续维护 |
@@ -312,6 +340,8 @@ Agent 评估通常结合三种类型的评分器：基于代码、基于模型�
 | 用户反馈 | 显露您没有预料到的问题、来自实际人类用户的真实示例 | 稀疏和自我选择、偏向严重问题 |
 | 手动轨录审查 | 建立对失败模式的直觉、捕获自动化检查错过的微妙质量问题 | 时间密集、不扩展、覆盖不一致 |
 | 系统性人类研究 | 来自多个人类评分员的黄金标准质量判断 | 相对昂贵和慢周转、难以频繁运行 |
+
+</div>
 
 ## 结论
 
