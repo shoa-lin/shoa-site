@@ -13,21 +13,51 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     width: 100%;
     margin: 1.5rem 0;
     font-size: 0.95rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .article-content table thead {
-    background-color: #f5f5f5;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
 }
-.article-content table th,
-.article-content table td {
-    border: 1px solid #ddd;
-    padding: 0.75rem 1rem;
+.article-content table thead th {
+    border: 1px solid #5568d3;
+    padding: 0.875rem 1rem;
     text-align: left;
-}
-.article-content table th {
     font-weight: 600;
 }
+.article-content table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s ease;
+}
+.article-content table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
 .article-content table tbody tr:hover {
-    background-color: #f9f9f9;
+    background-color: #eef2ff;
+}
+.article-content table td {
+    padding: 0.75rem 1rem;
+    border: none;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.6;
+}
+.article-content table td:first-child {
+    font-weight: 500;
+    color: #374151;
+}
+/* Responsive tables */
+@media (max-width: 768px) {
+    .article-content table {
+        font-size: 0.85rem;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .article-content table th,
+    .article-content table td {
+        padding: 0.5rem 0.75rem;
+    }
 }
 </style>
 
@@ -236,7 +266,7 @@ tracked_metrics:
 
 **pass@k**衡量 Agent 在 _k_ 次尝试中至少获得一个正确解决方案的可能性。随着 k 的增加，pass@k 分数上升——更多的"射门"意味着至少 1 次成功的几率更高。50% pass@1 的分数意味着模型在其第一次尝试中成功了一半的任务。在编码中，我们通常最感兴趣的是 Agent 在第一次尝试中找到解决方案——pass@1。在其他情况下，提出许多解决方案是有效的，只要有一个有效。
 
-**pass^k**衡量所有 k 次试验都成功的概率。随着 _k_ 的增加，pass^k 下降，因为在更多试验中要求一致性是一个更难清除的障碍。如果您的 Agent 每次试验成功率为 75%，并且您运行 3 次试验，则通过所有三次的概率是 (0.75)³ ≈ 42%。此指标尤其对于面向客户的 Agent 很重要，用户期望每次都有可靠的行为。
+**pass\^k**衡量所有 k 次试验都成功的概率。随着 _k_ 的增加，pass^k 下降，因为在更多试验中要求一致性是一个更难清除的障碍。如果您的 Agent 每次试验成功率为 75%，并且您运行 3 次试验，则通过所有三次的概率是 (0.75)³ ≈ 42%。此指标尤其对于面向客户的 Agent 很重要，用户期望每次都有可靠的行为。
 
 ![pass@k 和 pass^k 随试验增加而分歧](https://www-cdn.anthropic.com/images/4zrzovbb/website/3ddac5be07a0773922ec9df06afec55922f8194a-4584x2580.png)
 
@@ -331,7 +361,7 @@ tracked_metrics:
 | **自动化评估**<br>_在没有真实用户的情况下以编程方式运行测试_ | - 更快的迭代<br>- 完全可重现<br>- 无用户影响<br>- 可以在每次提交时运行<br>- 在大规模测试场景而无需生产部署 | - 需要更多的前期投资来构建<br>- 需要持续维护，因为产品和模型演变以避免漂移<br>- 如果不匹配真实使用模式，可能会产生虚假信心 |
 | **生产监控**<br>_跟踪实时系统中的指标和错误_ | - 在大规模显示真实用户行为<br>- 捕获合成评估错过的东西<br>- 提供关于 Agent 如何实际表现的基本事实 | - 被动，问题在您知道之前达到用户<br>- 信号可能有噪声<br>- 需要投资工具<br>- 缺乏评分的基本事实 |
 | **A/B 测试**<br>_与真实用户流量比较变体_ | - 衡量实际用户结果（留存、任务完成）<br>- 控制混淆<br>- 可扩展和系统化 | - 慢，几天或几周才能达到显著性并需要足够的流量<br>- 只测试您部署的更改<br>- 关于指标变化的潜在"原因"的信号较少，而无法彻底审查轨录 |
-| **用户反馈**<br>_明确的信号，如竖起大拇指或错误报告_ | - 显露您没有预料到的问题<br>- 来自实际人类用户的真实示例<br>- 反馈通常与产品目标相关 | - 稀疏和自我选择<br>- 偏向严重问题<br>- 用户很少解释**为什么**某些东西失败了<br>- 未自动化<br>- 主要依赖用户来捕获问题可能会产生负面影响 |
+| **用户反馈**<br>_明确的信号，如竖起大拇指或错误报告_ | - 显露您没有预料到的问题<br>- 来自实际人类用户的真实示例<br>- 反馈通常与产品目标相关 | - 稀疏和自我选择<br>- 偏向严重问题<br>- 用户很少解释某些东西失败的原因<br>- 未自动化<br>- 主要依赖用户来捕获问题可能会产生负面影响 |
 | **手动轨录审查**<br>_人类阅读 Agent 对话_ | - 建立对失败模式的直觉<br>- 捕获自动化检查错过的微妙质量问题<br>- 帮助校准"好"的样子并掌握细节 | - 时间密集<br>- 不扩展<br>- 覆盖不一致<br>- 审查者疲劳或不同的审查者可能会影响信号质量<br>- 通常只给出定性信号，而不是清晰的定量评分 |
 | **系统性人类研究**<br>_训练评分员对 Agent 输出的结构化评分_ | - 来自多个人类评分员的黄金标准质量判断<br>- 处理主观或模糊的任务<br>- 提供改进基于模型的评分器的信号 | - 相对昂贵和慢周转<br>- 难以频繁运行<br>- 评分者间分歧需要和解<br>- 复杂领域（法律、金融、医疗保健）需要人类专家进行研究 |
 
