@@ -7,6 +7,30 @@ author: "Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares, Jiri De Jonghe"
 tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
 ---
 
+<style>
+.article-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+.article-content table thead {
+    background-color: #f5f5f5;
+}
+.article-content table th,
+.article-content table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+.article-content table th {
+    font-weight: 600;
+}
+.article-content table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+</style>
+
 > 发布于 2025年1月19日
 >
 > 原文：[Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) | 作者：Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares, Jiri De Jonghe
@@ -25,6 +49,8 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
 
 **单轮评估（single-turn evaluations）**很简单：一个提示、一个响应和评分逻辑。对于早期的 LLM，单轮、非 Agent 的评估是主要的评估方法。随着 AI 能力的进步，**多轮评估（multi-turn evaluations）**变得越来越普遍。
 
+![单轮评估与多轮评估对比](https://www-cdn.anthropic.com/images/4zrzovbb/website/bd42e7b2f3e9bb5218142796d3ede4816588dec0-4584x2834.png)
+
 在简单的评估中，Agent 处理一个提示，评分器检查输出是否符合预期。对于更复杂的多轮评估，编码 Agent 接收工具、任务（在这种情况下是构建 MCP 服务器）和环境，执行"Agent 循环"（工具调用和推理），并使用实现更新环境。然后评分使用单元测试来验证工作的 MCP 服务器。
 
 **Agent 评估**更加复杂。Agent 在多轮中使用工具，修改环境中的状态并随时适应——这意味着错误可以传播和复合。前沿模型还可以找到超越静态评估限制的创造性解决方案。例如，Opus 4.5 通过发现策略中的漏洞解决了 τ2-bench 中关于预订航班的问题。它在书面评估中"失败"了，但实际上为用户找到了更好的解决方案。
@@ -39,6 +65,8 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
 - **评估框架（evaluation harness）**是端到端运行评估的基础设施。它提供说明和工具，并发运行任务，记录所有步骤，对输出进行评分并汇总结果。
 - **Agent 框架（agent harness，也称 scaffold）**是使模型能够充当 Agent 的系统：它处理输入，编排工具调用并返回结果。当我们评估"一个 Agent"时，我们评估的是框架和模型一起工作。例如，Claude Code 是一个灵活的 Agent 框架，我们通过 Agent SDK 使用其核心原语来构建我们的长期运行 Agent 框架。
 - **评估套件（evaluation suite）**是旨在衡量特定能力或行为的任务集合。套件中的任务通常共享一个广泛的目标。例如，客户支持评估套件可能测试退款、取消和升级。
+
+![Agent 评估的组件](https://www-cdn.anthropic.com/images/4zrzovbb/website/0205b36f9639fc27f2f6566f73cb56b06f59d555-4584x2580.png)
 
 ## 为什么要构建评估？
 
@@ -210,6 +238,8 @@ tracked_metrics:
 
 **pass^k**衡量所有 k 次试验都成功的概率。随着 _k_ 的增加，pass^k 下降，因为在更多试验中要求一致性是一个更难清除的障碍。如果您的 Agent 每次试验成功率为 75%，并且您运行 3 次试验，则通过所有三次的概率是 (0.75)³ ≈ 42%。此指标尤其对于面向客户的 Agent 很重要，用户期望每次都有可靠的行为。
 
+![pass@k 和 pass^k 随试验增加而分歧](https://www-cdn.anthropic.com/images/4zrzovbb/website/3ddac5be07a0773922ec9df06afec55922f8194a-4584x2580.png)
+
 两个指标都很有用，使用哪个取决于产品要求：pass@k 适用于一次成功很重要的工具，pass^k 适用于一致性至关重要的 Agent。
 
 ## 从零到一：构建优秀 Agent 评估的路线图
@@ -284,9 +314,15 @@ tracked_metrics:
 
 最接近产品要求和用户的人最有能力定义成功。有了当前的模型能力，产品经理、客户成功经理或销售人员可以使用 Claude Code 贡献评估任务作为 PR——让他们！或者甚至更好，积极地启用他们。
 
+![创建有效评估的过程](https://www-cdn.anthropic.com/images/4zrzovbb/website/0db40cc0e14402222a179fc6297b9c8818e97c8a-4584x2580.png)
+
 ## 评估如何与其他方法相结合以全面了解 Agents
 
 可以对 Agent 在数千个任务中运行自动化评估，而无需部署到生产或影响真实用户。但这只是了解 Agent 性能的多种方式之一。完整的画面包括生产监控、用户反馈、A/B 测试、手动轨录审查和系统性人类评估。
+
+![了解 AI Agent 性能的方法对比](https://www-cdn.anthropic.com/images/4zrzovbb/website/b77b8dbb7c2e57f063fbc8a087a853d5809b74b0-4584x2580.png)
+
+像安全工程中的瑞士奶酪模型，没有单一的评估层能捕获每一个问题。通过结合多种方法，滑过一层的问题被另一层捕获。
 
 了解 AI Agent 性能的方法概述
 
