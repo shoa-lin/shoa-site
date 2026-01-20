@@ -152,9 +152,9 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
 
 在构建 Agent 评估时，我们使用以下定义：
 
-- **任务（task，也称 problem 或 test case）**是具有定义输入和成功标准的单个测试
+- **任务（task，也称 problem 或 test case）**：是具有定义输入和成功标准的单个测试
 - **试验（trial）**：每次尝试任务是一次试验。由于模型输出在运行之间变化，我们运行多个试验以产生更一致的结果
-- **评分器（grader）**：用于评分 Agent 性能某些方面的逻辑，包含多个**断言（assertion，也称 checks）**
+- **评分器（grader）**：用于评分 Agent 性能某些方面的逻辑，包含多个断言（assertion，也称 checks）
 - **轨录（transcript，也称 trace 或 trajectory）**：试验的完整记录，包括输出、工具调用、推理、中间结果等
 - **结果（outcome）**：试验结束时环境的最终状态
 - **评估框架（evaluation harness）**：端到端运行评估的基础设施
