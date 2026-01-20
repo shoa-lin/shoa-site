@@ -8,7 +8,7 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
 ---
 
 <style>
-.article-content {
+.blog-article-body {
     font-size: 1.05rem;
     line-height: 1.8;
 }
@@ -117,7 +117,7 @@ tags: ["AI", "Agent", "Evaluation", "Anthropic", "LLM"]
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 @media (max-width: 768px) {
-    .article-content {
+    .blog-article-body {
         font-size: 1rem;
     }
     .article-content .table-wrapper {
