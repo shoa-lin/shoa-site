@@ -1,5 +1,11 @@
 [
     {
+        "id": "x-algorithm-research-report",
+        "title": "X Algorithm 深度研究报告：X/Twitter 推荐系统开源解析",
+        "date": "2026-01-20",
+        "filename": "blogs/x-algorithm-research-report.md"
+    },
+    {
         "id": "demystifying-evals-for-ai-agents",
         "title": "揭秘 AI Agent 评估：从零到一的完整指南",
         "date": "2025-01-19",
