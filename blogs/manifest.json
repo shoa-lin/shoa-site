@@ -1,5 +1,11 @@
 [
     {
+        "id": "clawdbot-installation-guide",
+        "title": "Clawdbot 完整安装配置指南",
+        "date": "2026-01-27",
+        "filename": "blogs/clawdbot-installation-guide.md"
+    },
+    {
         "id": "x-algorithm-research-report",
         "title": "X Algorithm 深度研究报告：X/Twitter 推荐系统开源解析",
         "date": "2026-01-20",
