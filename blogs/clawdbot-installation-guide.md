@@ -104,9 +104,9 @@ tags: ["Clawdbot", "AI Agent", "DevOps", "Docker", "自动化工具"]
 
 ## 概述
 
-> **更新日期**: 2026年1月27日
-> **版本**: v2026.1.x
-> **官方文档**: https://docs.clawd.bot
+> **更新日期**: 2026年1月27日  
+> **版本**: v2026.1.x  
+> **官方文档**: https://docs.clawd.bot  
 > **GitHub**: https://github.com/clawdbot/clawdbot
 
 ### Clawdbot 是什么？
@@ -122,7 +122,7 @@ tags: ["Clawdbot", "AI Agent", "DevOps", "Docker", "自动化工具"]
 
 ### 核心架构
 
-```text
+\`\`\`text
 消息平台 (WhatsApp/Telegram/Discord/...)
             ↓
     ┌───────────────────┐
@@ -140,13 +140,13 @@ tags: ["Clawdbot", "AI Agent", "DevOps", "Docker", "自动化工具"]
               │
         Workspace
       (记忆/会话/技能)
-```
+\`\`\`
 
 ### 关键概念
 
 - **Gateway**: 控制平面，管理所有通信、会话、工具调用
 - **Agent**: AI 引擎，可以是 Claude、GPT 或其他 LLM
-- **Workspace**: 工作区目录（默认 `~/clawd`），存储记忆、会话历史
+- **Workspace**: 工作区目录（默认 \`~/clawd\`），存储记忆、会话历史
 - **Skills**: 扩展功能的指令集，告诉 AI 如何使用特定工具
 - **Sessions**: 会话管理，每个对话有独立的上下文
 - **Memory**: 记忆系统，自动持久化重要信息到 Markdown 文件
@@ -209,7 +209,7 @@ Clawdbot 提供多种安装方式，根据你的需求选择：
 
 ---
 
-## 安装步骤
+## 详细安装步骤
 
 ### 方式一：npm 全局安装（推荐新手）
 
@@ -217,7 +217,7 @@ Clawdbot 提供多种安装方式，根据你的需求选择：
 
 **使用 nvm（推荐）**：
 
-```bash
+\`\`\`bash
 # 安装 nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
@@ -230,11 +230,11 @@ nvm use 22
 
 # 验证安装
 node -v  # 应该显示 v22.x.x
-```
+\`\`\`
 
 **或使用系统包管理器**：
 
-```bash
+\`\`\`bash
 # macOS (Homebrew)
 brew install node@22
 
@@ -245,11 +245,11 @@ sudo apt-get install -y nodejs
 # 验证
 node -v
 npm -v
-```
+\`\`\`
 
 #### Step 2: 安装 Clawdbot CLI
 
-```bash
+\`\`\`bash
 # 使用 npm
 npm install -g clawdbot@latest
 
@@ -259,30 +259,30 @@ pnpm add -g clawdbot@latest
 
 # 验证安装
 clawdbot -v  # 应该显示版本号，如 2026.1.23-1
-```
+\`\`\`
 
 #### Step 3: 运行引导向导
 
-```bash
+\`\`\`bash
 # 启动配置向导（会自动安装后台服务）
 clawdbot onboard --install-daemon
-```
+\`\`\`
 
 向导会引导你完成以下配置：
 
 1. **安装位置**: 选择 Local（本地）或 Remote（远程服务器）
-1. **AI 模型认证**:
+2. **AI 模型认证**:
    - Anthropic API Key（推荐）
    - OpenAI API Key
    - OAuth (Claude Pro/Max 订阅)
-1. **默认模型**: 选择 Claude Opus 4.5 或 Sonnet 4.5
-1. **消息平台**: 选择要启用的平台（WhatsApp/Telegram/Discord 等）
-1. **工作区**: 设置 workspace 目录（默认 `~/clawd`）
-1. **后台服务**: 选择是否安装为系统服务（推荐选 Yes）
+3. **默认模型**: 选择 Claude Opus 4.5 或 Sonnet 4.5
+4. **消息平台**: 选择要启用的平台（WhatsApp/Telegram/Discord 等）
+5. **工作区**: 设置 workspace 目录（默认 \`~/clawd\`）
+6. **后台服务**: 选择是否安装为系统服务（推荐选 Yes）
 
 #### Step 4: 配置完成后验证
 
-```bash
+\`\`\`bash
 # 检查 Gateway 状态
 clawdbot gateway status
 
@@ -291,17 +291,17 @@ clawdbot status --all
 
 # 运行系统诊断
 clawdbot doctor
-```
+\`\`\`
 
 预期输出：
 
-```text
+\`\`\`text
 ✅ Gateway listening on ws://127.0.0.1:18789
 ✅ Control UI available at http://127.0.0.1:18789/
 ✅ Model: anthropic/claude-opus-4-5
 ✅ Workspace: ~/clawd
 ✅ Channels: whatsapp (linked), telegram (configured)
-```
+\`\`\`
 
 ---
 
@@ -311,7 +311,7 @@ clawdbot doctor
 
 #### Step 1: 克隆仓库
 
-```bash
+\`\`\`bash
 # 克隆项目
 git clone https://github.com/clawdbot/clawdbot.git
 cd clawdbot
@@ -324,24 +324,24 @@ pnpm ui:build
 
 # 构建项目
 pnpm build
-```
+\`\`\`
 
 #### Step 2: 运行引导向导
 
-```bash
+\`\`\`bash
 # 直接运行 TypeScript（开发模式）
 pnpm clawdbot onboard --install-daemon
 
 # 或运行构建后的版本
 node dist/cli.js onboard --install-daemon
-```
+\`\`\`
 
 #### Step 3: 开发模式（可选）
 
-```bash
+\`\`\`bash
 # 启动开发模式（自动重载）
 pnpm gateway:watch
-```
+\`\`\`
 
 ---
 
@@ -351,36 +351,36 @@ pnpm gateway:watch
 
 #### Step 1: 准备 Docker 环境
 
-```bash
+\`\`\`bash
 # 安装 Docker（如果未安装）
 # Ubuntu/Debian
 curl -fsSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
+sudo usermod -aG docker \$USER
 
 # macOS
 brew install docker
-```
+\`\`\`
 
 #### Step 2: 使用 Docker 脚本
 
-```bash
+\`\`\`bash
 # 克隆仓库
 git clone https://github.com/clawdbot/clawdbot.git
 cd clawdbot
 
 # 运行 Docker 设置脚本
 ./docker-setup.sh
-```
+\`\`\`
 
 这会自动：
 
 1. 构建 Docker 镜像
-1. 运行引导向导
-1. 启动 Gateway 容器
+2. 运行引导向导
+3. 启动 Gateway 容器
 
 #### Step 3: 访问 Control UI
 
-打开浏览器访问 `http://127.0.0.1:18789`，输入配置时生成的 token。
+打开浏览器访问 \`http://127.0.0.1:18789\`，输入配置时生成的 token。
 
 ---
 
@@ -393,13 +393,13 @@ cd clawdbot
 |提供商             |最低配置           |价格      |备注   |
 |----------------|---------------|--------|-----|
 |**Hetzner**     |4GB RAM, 2 vCPU|€3.49/月 |性价比高 |
-|**DigitalOcean**|2GB RAM        |$12/月   |界面友好 |
-|**Railway**     |按需计费           |~$5-20/月|一键部署 |
+|**DigitalOcean**|2GB RAM        |\$12/月   |界面友好 |
+|**Railway**     |按需计费           |~\$5-20/月|一键部署 |
 |**Render**      |免费层可用          |免费起     |有免费额度|
 
 #### VPS 部署步骤（以 Ubuntu 为例）
 
-```bash
+\`\`\`bash
 # 1. 连接到 VPS
 ssh user@your-vps-ip
 
@@ -426,7 +426,7 @@ sudo systemctl start clawdbot-gateway
 
 # 7. 查看日志
 journalctl -u clawdbot-gateway -f
-```
+\`\`\`
 
 **安全注意事项**：
 
@@ -443,18 +443,18 @@ journalctl -u clawdbot-gateway -f
 
 #### Step 1: 安装 WSL2
 
-```powershell
+\`\`\`powershell
 # 在 PowerShell (管理员) 中运行
 wsl --install -d Ubuntu
 
 # 重启电脑
-```
+\`\`\`
 
 #### Step 2: 在 WSL2 中安装
 
 重启后，打开 "Ubuntu" 应用，按照 Linux 安装步骤：
 
-```bash
+\`\`\`bash
 # 更新包列表
 sudo apt update && sudo apt upgrade -y
 
@@ -467,7 +467,7 @@ npm install -g clawdbot@latest
 
 # 运行向导
 clawdbot onboard --install-daemon
-```
+\`\`\`
 
 ---
 
@@ -475,9 +475,9 @@ clawdbot onboard --install-daemon
 
 ### 配置文件结构
 
-Clawdbot 的所有配置存储在 `~/.clawdbot/` 目录：
+Clawdbot 的所有配置存储在 \`~/.clawdbot/\` 目录：
 
-```text
+\`\`\`text
 ~/.clawdbot/
 ├── clawdbot.json           # 主配置文件
 ├── credentials/            # 认证凭证
@@ -491,28 +491,28 @@ Clawdbot 的所有配置存储在 `~/.clawdbot/` 目录：
         │   ├── auth-profiles.json  # API keys
         │   └── sessions/           # 会话历史
         └── MEMORY.md               # 长期记忆
-```
+\`\`\`
 
 ### 配置 API Keys
 
 #### 获取 Anthropic API Key
 
 1. 访问 https://console.anthropic.com/
-1. 登录/注册账号
-1. 创建 API Key
-1. 复制密钥
+2. 登录/注册账号
+3. 创建 API Key
+4. 复制密钥
 
 #### 配置方式一：通过向导
 
-```bash
+\`\`\`bash
 clawdbot configure --section auth
-```
+\`\`\`
 
 #### 配置方式二：手动编辑
 
-编辑 `~/.clawdbot/agents/main/agent/auth-profiles.json`:
+编辑 \`~/.clawdbot/agents/main/agent/auth-profiles.json\`:
 
-```json
+\`\`\`json
 {
   "profiles": [
     {
@@ -523,13 +523,13 @@ clawdbot configure --section auth
     }
   ]
 }
-```
+\`\`\`
 
 ### 工作区（Workspace）配置
 
-默认工作区在 `~/clawd`，可以自定义：
+默认工作区在 \`~/clawd\`，可以自定义：
 
-```bash
+\`\`\`bash
 # 通过环境变量
 export CLAWDBOT_WORKSPACE=/path/to/custom/workspace
 
@@ -541,11 +541,11 @@ export CLAWDBOT_WORKSPACE=/path/to/custom/workspace
     }
   }
 }
-```
+\`\`\`
 
 工作区结构：
 
-```text
+\`\`\`text
 ~/clawd/
 ├── MEMORY.md              # 长期记忆
 ├── memory/
@@ -553,7 +553,7 @@ export CLAWDBOT_WORKSPACE=/path/to/custom/workspace
 │   └── 2026-01-26.md
 ├── skills/               # 自定义技能
 └── .cache/              # 缓存数据
-```
+\`\`\`
 
 ### 记忆系统配置
 
@@ -566,7 +566,7 @@ Clawdbot 的记忆系统是其核心特性之一。
 
 #### 自动记忆刷新配置
 
-```json
+\`\`\`json
 {
   "agents": {
     "defaults": {
@@ -582,7 +582,7 @@ Clawdbot 的记忆系统是其核心特性之一。
     }
   }
 }
-```
+\`\`\`
 
 **工作原理**：
 
@@ -594,7 +594,7 @@ Clawdbot 的记忆系统是其核心特性之一。
 
 启用记忆的语义搜索：
 
-```json
+\`\`\`json
 {
   "tools": {
     "memory": {
@@ -605,7 +605,7 @@ Clawdbot 的记忆系统是其核心特性之一。
     }
   }
 }
-```
+\`\`\`
 
 ---
 
@@ -617,34 +617,34 @@ WhatsApp 使用 QR 码登录（基于 Baileys 库）。
 
 #### 初始配置
 
-```bash
+\`\`\`bash
 # 登录 WhatsApp
 clawdbot channels login
-```
+\`\`\`
 
 这会显示一个 QR 码：
 
-```text
+\`\`\`text
 █▀▀▀▀▀█ ▄▄▄▄▄ █▀▀▀▀▀█
 █ ███ █ █▄▄▄█ █ ███ █
 █ ▀▀▀ █ ▀▄▄▄▀ █ ▀▀▀ █
 ▀▀▀▀▀▀▀ █ █ █ ▀▀▀▀▀▀▀
 
 [用 WhatsApp 扫描此二维码]
-```
+\`\`\`
 
 #### 使用步骤
 
 1. 打开 WhatsApp 应用
-1. 进入 设置 → 已链接的设备
-1. 扫描终端显示的 QR 码
-1. 连接成功后，会话凭证存储在 `~/.clawdbot/credentials/whatsapp/`
+2. 进入 设置 → 已链接的设备
+3. 扫描终端显示的 QR 码
+4. 连接成功后，会话凭证存储在 \`~/.clawdbot/credentials/whatsapp/\`
 
 #### 权限控制
 
-配置 `clawdbot.json`:
+配置 \`clawdbot.json\`:
 
-```json
+\`\`\`json
 {
   "channels": {
     "whatsapp": {
@@ -654,17 +654,17 @@ clawdbot channels login
     }
   }
 }
-```
+\`\`\`
 
 #### 多账号配置
 
-```bash
+\`\`\`bash
 # 添加第二个账号
 clawdbot channels login --account work
 
 # 查看所有账号
 clawdbot channels status
-```
+\`\`\`
 
 ---
 
@@ -675,21 +675,21 @@ Telegram 需要创建 Bot。
 #### Step 1: 创建 Telegram Bot
 
 1. 在 Telegram 中打开 [@BotFather](https://t.me/BotFather)
-1. 发送 `/newbot`
-1. 按提示设置名称和用户名
-1. 记录 Bot Token（格式：`1234567890:ABCdefGHIjklMNOpqrsTUVwxyz`）
+2. 发送 \`/newbot\`
+3. 按提示设置名称和用户名
+4. 记录 Bot Token（格式：\`1234567890:ABCdefGHIjklMNOpqrsTUVwxyz\`）
 
 #### Step 2: 配置 Bot 权限
 
 在 BotFather 中：
 
-```text
-/setprivacy → Disable
-```
+\`\`\`text
+/setprivacy → Disable  # 允许在群组中接收所有消息
+\`\`\`
 
 #### Step 3: 配置 Clawdbot
 
-```bash
+\`\`\`bash
 # 方式一：通过向导
 clawdbot configure --section telegram
 
@@ -697,11 +697,11 @@ clawdbot configure --section telegram
 export TELEGRAM_BOT_TOKEN="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
 
 # 方式三：编辑配置文件
-```
+\`\`\`
 
-编辑 `clawdbot.json`:
+编辑 \`clawdbot.json\`:
 
-```json
+\`\`\`json
 {
   "channels": {
     "telegram": {
@@ -716,13 +716,13 @@ export TELEGRAM_BOT_TOKEN="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
     }
   }
 }
-```
+\`\`\`
 
 #### Step 4: 测试
 
 1. 在 Telegram 中搜索你的 Bot
-1. 点击 "Start"
-1. 发送消息测试
+2. 点击 "Start"
+3. 发送消息测试
 
 ---
 
@@ -731,10 +731,10 @@ export TELEGRAM_BOT_TOKEN="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
 #### Step 1: 创建 Discord Bot
 
 1. 访问 https://discord.com/developers/applications
-1. 点击 "New Application"
-1. 设置应用名称
-1. 进入 "Bot" 标签
-1. 点击 "Add Bot"
+2. 点击 "New Application"
+3. 设置应用名称
+4. 进入 "Bot" 标签
+5. 点击 "Add Bot"
 
 #### Step 2: 配置 Bot 权限
 
@@ -750,13 +750,13 @@ export TELEGRAM_BOT_TOKEN="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
 
 #### Step 4: 配置 Clawdbot
 
-```bash
+\`\`\`bash
 clawdbot configure --section discord
-```
+\`\`\`
 
 或编辑配置：
 
-```json
+\`\`\`json
 {
   "channels": {
     "discord": {
@@ -768,17 +768,17 @@ clawdbot configure --section discord
     }
   }
 }
-```
+\`\`\`
 
 #### Step 5: 邀请 Bot 到服务器
 
 生成邀请链接：
 
 1. 在 Discord Developer Portal 的 "OAuth2" → "URL Generator"
-1. 选择 Scopes: `bot`
-1. 选择 Permissions: `Send Messages`, `Read Message History` 等
-1. 复制生成的 URL，在浏览器中打开
-1. 选择服务器并授权
+2. 选择 Scopes: \`bot\`
+3. 选择 Permissions: \`Send Messages\`, \`Read Message History\` 等
+4. 复制生成的 URL，在浏览器中打开
+5. 选择服务器并授权
 
 ---
 
@@ -786,9 +786,9 @@ clawdbot configure --section discord
 
 #### Slack
 
-```bash
+\`\`\`bash
 clawdbot configure --section slack
-```
+\`\`\`
 
 需要创建 Slack App 并获取 Bot Token。
 
@@ -810,9 +810,9 @@ clawdbot configure --section slack
 
 #### 启用沙箱
 
-编辑 `clawdbot.json`:
+编辑 \`clawdbot.json\`:
 
-```json
+\`\`\`json
 {
   "agents": {
     "defaults": {
@@ -823,11 +823,11 @@ clawdbot configure --section slack
     }
   }
 }
-```
+\`\`\`
 
 #### 工具权限控制
 
-```json
+\`\`\`json
 {
   "tools": {
     "policy": {
@@ -837,13 +837,13 @@ clawdbot configure --section slack
     }
   }
 }
-```
+\`\`\`
 
 权限级别：
 
-- `auto`: 自动执行
-- `ask`: 执行前询问
-- `deny`: 禁止执行
+- \`auto\`: 自动执行
+- \`ask\`: 执行前询问
+- \`deny\`: 禁止执行
 
 ### 多 Agent 配置
 
@@ -851,13 +851,13 @@ clawdbot configure --section slack
 
 #### 创建新 Agent
 
-```bash
+\`\`\`bash
 clawdbot agents create work
-```
+\`\`\`
 
 #### 配置 Agent 路由
 
-```json
+\`\`\`json
 {
   "agents": {
     "routing": {
@@ -866,7 +866,7 @@ clawdbot agents create work
     }
   }
 }
-```
+\`\`\`
 
 ### Cron 任务配置
 
@@ -874,25 +874,25 @@ clawdbot agents create work
 
 #### 添加 Cron 任务
 
-```bash
+\`\`\`bash
 # 每天早上 8 点发送摘要
-clawdbot cron add \
-  --schedule "0 8 * * *" \
-  --message "Generate my daily briefing" \
+clawdbot cron add \\
+  --schedule "0 8 * * *" \\
+  --message "Generate my daily briefing" \\
   --target "+1234567890"
-```
+\`\`\`
 
 #### 查看 Cron 任务
 
-```bash
+\`\`\`bash
 clawdbot cron list
-```
+\`\`\`
 
 ### Webhooks 配置
 
 接收外部事件触发。
 
-```json
+\`\`\`json
 {
   "webhooks": {
     "endpoints": [
@@ -904,31 +904,31 @@ clawdbot cron list
     ]
   }
 }
-```
+\`\`\`
 
 ### Skills 管理
 
 #### 查看已安装的 Skills
 
-```bash
+\`\`\`bash
 clawdbot skills list
-```
+\`\`\`
 
 #### 从 ClawdHub 安装 Skills
 
-```bash
+\`\`\`bash
 # 安装单个 skill
 clawdhub install frontend-design
 
 # 同步所有 skills
 clawdhub sync --all
-```
+\`\`\`
 
 #### 创建自定义 Skill
 
-在 `~/clawd/skills/` 创建 `my-skill/SKILL.md`:
+在 \`~/clawd/skills/\` 创建 \`my-skill/SKILL.md\`:
 
-```markdown
+\`\`\`markdown
 ---
 name: my-skill
 description: 我的自定义技能
@@ -937,13 +937,13 @@ description: 我的自定义技能
 当用户请求 [某功能] 时，执行以下步骤：
 1. 使用 bash 工具运行命令
 2. 返回结果
-```
+\`\`\`
 
 ### 远程访问配置
 
 #### 使用 Tailscale（推荐）
 
-```bash
+\`\`\`bash
 # 安装 Tailscale
 curl -fsSL https://tailscale.com/install.sh | sh
 
@@ -952,7 +952,7 @@ sudo tailscale up
 
 # 暴露 Gateway
 tailscale funnel 18789
-```
+\`\`\`
 
 现在可以通过 Tailscale 网络远程访问 Gateway。
 
@@ -962,7 +962,7 @@ tailscale funnel 18789
 
 ### Gateway 管理
 
-```bash
+\`\`\`bash
 # 启动 Gateway（前台）
 clawdbot gateway --port 18789 --verbose
 
@@ -974,41 +974,41 @@ clawdbot gateway restart
 
 # 停止 Gateway
 clawdbot gateway stop
-```
+\`\`\`
 
 ### 消息发送
 
-```bash
+\`\`\`bash
 # 发送消息到 WhatsApp
-clawdbot message send \
-  --channel whatsapp \
-  --to "+1234567890" \
+clawdbot message send \\
+  --channel whatsapp \\
+  --to "+1234567890" \\
   --message "Hello from Clawdbot!"
 
 # 发送消息到 Telegram
-clawdbot message send \
-  --channel telegram \
-  --to "@username" \
+clawdbot message send \\
+  --channel telegram \\
+  --to "@username" \\
   --message "Test message"
-```
+\`\`\`
 
 ### Agent 交互
 
-```bash
+\`\`\`bash
 # 直接与 Agent 对话（可选择发送到频道）
-clawdbot agent \
-  --message "帮我总结今天的新闻" \
+clawdbot agent \\
+  --message "帮我总结今天的新闻" \\
   --thinking high
 
 # 后台运行任务
-clawdbot agent \
-  --message "分析这个 CSV 文件" \
+clawdbot agent \\
+  --message "分析这个 CSV 文件" \\
   --deliver telegram:@me
-```
+\`\`\`
 
 ### 会话管理
 
-```bash
+\`\`\`bash
 # 查看活跃会话
 clawdbot sessions list
 
@@ -1017,11 +1017,11 @@ clawdbot sessions history <session-id>
 
 # 清除会话
 clawdbot sessions clear <session-id>
-```
+\`\`\`
 
 ### 配置管理
 
-```bash
+\`\`\`bash
 # 打开配置向导
 clawdbot configure
 
@@ -1031,11 +1031,11 @@ clawdbot configure --section telegram
 
 # 重置配置
 clawdbot reset --confirm
-```
+\`\`\`
 
 ### 系统诊断
 
-```bash
+\`\`\`bash
 # 运行完整诊断
 clawdbot doctor
 
@@ -1044,11 +1044,11 @@ clawdbot doctor --fix
 
 # 查看详细状态
 clawdbot status --all
-```
+\`\`\`
 
 ### 日志查看
 
-```bash
+\`\`\`bash
 # 查看实时日志
 clawdbot logs --follow
 
@@ -1057,7 +1057,7 @@ clawdbot logs --tail 100
 
 # 查看特定日期
 clawdbot logs --date 2026-01-27
-```
+\`\`\`
 
 ---
 
@@ -1067,13 +1067,14 @@ clawdbot logs --date 2026-01-27
 
 #### 问题 1: Gateway 无法启动
 
-**症状**：运行 `clawdbot gateway` 后无响应或报错
+**症状**：运行 \`clawdbot gateway\` 后无响应或报错
 
 **解决方案**：
 
-```bash
+\`\`\`bash
 # 1. 检查端口占用
 lsof -i :18789
+# 如果被占用，杀死进程或更换端口
 
 # 2. 检查配置文件
 clawdbot doctor
@@ -1084,7 +1085,7 @@ clawdbot gateway --verbose
 # 4. 重置配置
 clawdbot reset --confirm
 clawdbot onboard --install-daemon
-```
+\`\`\`
 
 #### 问题 2: WhatsApp 无法连接
 
@@ -1092,7 +1093,7 @@ clawdbot onboard --install-daemon
 
 **解决方案**：
 
-```bash
+\`\`\`bash
 # 1. 清除现有会话
 rm -rf ~/.clawdbot/credentials/whatsapp/
 
@@ -1101,7 +1102,7 @@ clawdbot channels login
 
 # 3. 确保使用稳定的网络
 # 4. 尝试使用不同的 WhatsApp 账号
-```
+\`\`\`
 
 #### 问题 3: Discord Bot 无响应
 
@@ -1112,18 +1113,17 @@ clawdbot channels login
 1. 确认 Bot 权限：
    - Discord Developer Portal → Bot → Privileged Gateway Intents
    - 启用 "MESSAGE CONTENT INTENT"
+2. 检查配置：
 
-1. 检查配置：
-
-```bash
+\`\`\`bash
 clawdbot configure --section discord
-```
+\`\`\`
 
-1. 查看日志：
+3. 查看日志：
 
-```bash
+\`\`\`bash
 clawdbot logs --follow | grep discord
-```
+\`\`\`
 
 #### 问题 4: 内存不足（VPS）
 
@@ -1131,7 +1131,7 @@ clawdbot logs --follow | grep discord
 
 **解决方案**：
 
-```bash
+\`\`\`bash
 # 添加 2GB 交换空间
 sudo fallocate -l 2G /swapfile
 sudo chmod 600 /swapfile
@@ -1141,7 +1141,7 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 # 或限制 Node.js 内存
 export NODE_OPTIONS="--max-old-space-size=1024"
-```
+\`\`\`
 
 #### 问题 5: Token 超限
 
@@ -1151,7 +1151,7 @@ export NODE_OPTIONS="--max-old-space-size=1024"
 
 1. 调整 compaction 设置：
 
-```json
+\`\`\`json
 {
   "agents": {
     "defaults": {
@@ -1161,14 +1161,14 @@ export NODE_OPTIONS="--max-old-space-size=1024"
     }
   }
 }
-```
+\`\`\`
 
-1. 使用 `/compact` 或 `/new` 命令清理上下文
-1. 切换到更大 context window 的模型（如 Claude Opus 4.5）
+2. 使用 \`/compact\` 或 \`/new\` 命令清理上下文
+3. 切换到更大 context window 的模型（如 Claude Opus 4.5）
 
 ### 诊断命令
 
-```bash
+\`\`\`bash
 # 完整系统检查
 clawdbot doctor
 
@@ -1180,19 +1180,19 @@ clawdbot channels status
 
 # 检查权限配置
 clawdbot doctor --security
-```
+\`\`\`
 
 ### 日志分析
 
 日志位置：
 
-- Linux: `/tmp/clawdbot/clawdbot-gateway.log`
-- macOS: `~/Library/Logs/clawdbot/`
-- systemd: `journalctl -u clawdbot-gateway`
+- Linux: \`/tmp/clawdbot/clawdbot-gateway.log\`
+- macOS: \`~/Library/Logs/clawdbot/\`
+- systemd: \`journalctl -u clawdbot-gateway\`
 
 常用日志命令：
 
-```bash
+\`\`\`bash
 # 实时查看日志
 tail -f /tmp/clawdbot/clawdbot-gateway.log
 
@@ -1201,7 +1201,7 @@ grep -i error /tmp/clawdbot/clawdbot-gateway.log
 
 # 查看最近 1 小时
 journalctl -u clawdbot-gateway --since "1 hour ago"
-```
+\`\`\`
 
 ---
 
@@ -1211,18 +1211,18 @@ journalctl -u clawdbot-gateway --since "1 hour ago"
 
 1. **定期更新**
 
-```bash
+\`\`\`bash
 # 检查更新
 clawdbot update --check
 
 # 更新到最新版本
 npm update -g clawdbot@latest
 clawdbot doctor
-```
+\`\`\`
 
-1. **限制访问**
+2. **限制访问**
 
-```json
+\`\`\`json
 {
   "channels": {
     "whatsapp": {
@@ -1231,11 +1231,11 @@ clawdbot doctor
     }
   }
 }
-```
+\`\`\`
 
-1. **使用沙箱**
+3. **使用沙箱**
 
-```json
+\`\`\`json
 {
   "agents": {
     "defaults": {
@@ -1245,30 +1245,29 @@ clawdbot doctor
     }
   }
 }
-```
+\`\`\`
 
-1. **备份配置**
+4. **备份配置**
 
-```bash
+\`\`\`bash
 # 定期备份
-cp -r ~/.clawdbot ~/backups/clawdbot-$(date +%Y%m%d)
+cp -r ~/.clawdbot ~/backups/clawdbot-\$(date +%Y%m%d)
 
 # 或使用 Git
 cd ~/.clawdbot
 git init
 git add .
 git commit -m "Backup config"
-```
+\`\`\`
 
 ### 性能优化
 
 1. **使用更快的模型**
    - 日常任务：Claude Sonnet 4.5（速度快）
    - 复杂任务：Claude Opus 4.5（质量高）
+2. **配置模型回退**
 
-1. **配置模型回退**
-
-```json
+\`\`\`json
 {
   "models": {
     "defaults": {
@@ -1277,11 +1276,11 @@ git commit -m "Backup config"
     }
   }
 }
-```
+\`\`\`
 
-1. **限制会话历史**
+3. **限制会话历史**
 
-```json
+\`\`\`json
 {
   "agents": {
     "defaults": {
@@ -1289,44 +1288,42 @@ git commit -m "Backup config"
     }
   }
 }
-```
+\`\`\`
 
 ### 记忆管理最佳实践
 
 1. **定期审查 MEMORY.md**
-   - 每周检查一次 `~/clawd/MEMORY.md`
+   - 每周检查一次 \`~/clawd/MEMORY.md\`
    - 删除过时信息
    - 整理重要决策
-
-1. **使用明确的记忆提示**
+2. **使用明确的记忆提示**
    - 告诉 AI："记住我偏好使用 TypeScript"
    - 而不是隐式依赖 AI 记住
-
-1. **利用日志功能**
-   - `memory/YYYY-MM-DD.md` 自动记录每日上下文
+3. **利用日志功能**
+   - \`memory/YYYY-MM-DD.md\` 自动记录每日上下文
    - 可以手动编辑补充信息
 
 ### 多场景使用建议
 
 #### 个人助手场景
 
-```bash
+\`\`\`bash
 # 配置每日简报
-clawdbot cron add \
-  --schedule "0 8 * * *" \
-  --message "Generate my daily briefing: weather, calendar, news" \
+clawdbot cron add \\
+  --schedule "0 8 * * *" \\
+  --message "Generate my daily briefing: weather, calendar, news" \\
   --target "telegram:@me"
 
 # 配置晚间总结
-clawdbot cron add \
-  --schedule "0 20 * * *" \
-  --message "Summarize today's activities and plan for tomorrow" \
+clawdbot cron add \\
+  --schedule "0 20 * * *" \\
+  --message "Summarize today's activities and plan for tomorrow" \\
   --target "whatsapp:+1234567890"
-```
+\`\`\`
 
 #### 开发团队协作
 
-```json
+\`\`\`json
 {
   "agents": {
     "routing": {
@@ -1341,50 +1338,50 @@ clawdbot cron add \
     }
   }
 }
-```
+\`\`\`
 
 #### 内容创作
 
 安装相关 Skills：
 
-```bash
+\`\`\`bash
 clawdhub install frontend-design
 clawdhub install image-gen
 clawdhub install content-writer
-```
+\`\`\`
 
 ### 监控和维护
 
 1. **设置健康检查**
 
-```bash
+\`\`\`bash
 # 添加心跳检查
-clawdbot cron add \
-  --schedule "0 * * * *" \
-  --message "/status" \
+clawdbot cron add \\
+  --schedule "0 * * * *" \\
+  --message "/status" \\
   --target "telegram:@admin"
-```
+\`\`\`
 
-1. **监控资源使用**
+2. **监控资源使用**
 
-```bash
+\`\`\`bash
 # 查看内存使用
 ps aux | grep clawdbot
 
 # 查看磁盘使用
 du -sh ~/.clawdbot/
 du -sh ~/clawd/
-```
+\`\`\`
 
-1. **定期清理**
+3. **定期清理**
 
-```bash
+\`\`\`bash
 # 清理旧会话
 clawdbot sessions prune --days 30
 
 # 清理缓存
 rm -rf ~/clawd/.cache/*
-```
+\`\`\`
 
 ---
 
@@ -1392,7 +1389,7 @@ rm -rf ~/clawd/.cache/*
 
 ### 配置文件完整示例
 
-```json
+\`\`\`json
 {
   "gateway": {
     "port": 18789,
@@ -1449,7 +1446,7 @@ rm -rf ~/clawd/.cache/*
     }
   }
 }
-```
+\`\`\`
 
 ### 常用资源链接
 

@@ -1,5 +1,11 @@
 [
     {
+        "id": "pi-minimal-agent",
+        "title": "Pi：OpenClaw 内部的极简 Agent",
+        "date": "2026-01-31",
+        "filename": "blogs/pi-minimal-agent.md"
+    },
+    {
         "id": "clawdbot-installation-guide",
         "title": "Clawdbot 完整安装配置指南",
         "date": "2026-01-27",
