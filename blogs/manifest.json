@@ -46,5 +46,11 @@
         "title": "使用 Claude Agent SDK 构建 Agent 的完整指南",
         "date": "2025-01-09",
         "filename": "blogs/claude-agent-sdk-complete-guide.md"
+    },
+    {
+        "id": "prompt-caching-best-practices",
+        "title": "Prompt Caching 最佳实践：Claude Code 的大规模优化经验",
+        "date": "2026-02-26",
+        "filename": "blogs/prompt-caching-best-practices.md"
     }
 ]
