@@ -2,7 +2,9 @@
 
 // Blog list - auto-scanned from blogs/ folder
 let blogList = [];
+let filteredBlogList = [];
 let currentBlogId = null;
+let currentCategory = 'all';
 
 // TOC data
 let tocItems = [];
@@ -130,7 +132,8 @@ async function loadBlogList() {
         if (response.ok) {
             const manifest = await response.json();
             if (Array.isArray(manifest) && manifest.length > 0) {
-                blogList = manifest;
+                blogList = manifest.sort((a, b) => new Date(b.date) - new Date(a.date));
+                filteredBlogList = [...blogList];
                 return;
             }
         }
@@ -143,9 +146,11 @@ async function loadBlogList() {
             id: 'welcome',
             title: '欢迎来到我的博客',
             date: '2025-12-28',
+            category: 'general',
             filename: 'blogs/welcome.md'
         }
     ];
+    filteredBlogList = [...blogList];
 }
 
 // Extract metadata from markdown content
@@ -179,19 +184,43 @@ function extractBlogMetadata(markdown, filename) {
     return { title, date, content };
 }
 
+// Filter blog list by category
+function filterBlogList(category) {
+    currentCategory = category;
+
+    if (category === 'all') {
+        filteredBlogList = [...blogList];
+    } else {
+        filteredBlogList = blogList.filter(blog => blog.category === category);
+    }
+
+    renderBlogList();
+    updateCategoryActiveState();
+}
+
+// Update category filter active state
+function updateCategoryActiveState() {
+    document.querySelectorAll('.category-filter-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.category === currentCategory) {
+            item.classList.add('active');
+        }
+    });
+}
+
 // Render blog list sidebar
 function renderBlogList() {
     const blogListEl = document.getElementById('blog-list');
     const mobileBlogListEl = document.getElementById('mobile-blog-list');
 
-    if (blogList.length === 0) {
-        const emptyHTML = '<div class="blog-item"><div class="blog-item-title">暂无文章</div></div>';
+    if (filteredBlogList.length === 0) {
+        const emptyHTML = '<div class="blog-item"><div class="blog-item-title">该分类暂无文章</div></div>';
         if (blogListEl) blogListEl.innerHTML = emptyHTML;
         if (mobileBlogListEl) mobileBlogListEl.innerHTML = emptyHTML;
         return;
     }
 
-    const listHTML = blogList.map(blog => `
+    const listHTML = filteredBlogList.map(blog => `
         <div class="blog-item" data-blog-id="${blog.id}" onclick="loadBlog('${blog.id}')">
             <div class="blog-item-title">${blog.title}</div>
             <div class="blog-item-date">${blog.date || '最新'}</div>
@@ -386,6 +415,12 @@ window.loadBlog = async function(blogId) {
         return;
     }
 
+    // Check if blog is in current filtered list
+    if (currentCategory !== 'all' && blog.category !== currentCategory) {
+        // Switch to 'all' category to show this blog
+        filterBlogList('all');
+    }
+
     // Update active state in both sidebars
     document.querySelectorAll('.blog-item').forEach(item => {
         item.classList.remove('active');
@@ -468,10 +503,33 @@ async function initBlogPage() {
     renderBlogList();
     initMobileDrawer();
     initTocPanel();
+    initCategoryFilter();
 
-    if (blogList.length > 0) {
-        loadBlog(blogList[0].id);
+    if (filteredBlogList.length > 0) {
+        loadBlog(filteredBlogList[0].id);
     }
+}
+
+// Initialize category filter
+function initCategoryFilter() {
+    const categoryItems = document.querySelectorAll('.category-filter-item');
+
+    categoryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const category = item.dataset.category;
+            filterBlogList(category);
+
+            // Close mobile drawer if open
+            if (isDrawerOpen) {
+                const overlay = document.getElementById('mobile-drawer-overlay');
+                const sidebar = document.getElementById('mobile-drawer-sidebar');
+                if (overlay) overlay.classList.remove('active');
+                if (sidebar) sidebar.classList.remove('active');
+                document.body.classList.remove('drawer-open');
+                isDrawerOpen = false;
+            }
+        });
+    });
 }
 
 // Initialize when DOM is ready

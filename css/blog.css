@@ -79,6 +79,47 @@
     border-bottom: 1px solid var(--border-default);
 }
 
+/* Category Filter */
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-default);
+}
+
+.category-filter-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.category-filter-item:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-default);
+    color: var(--text-primary);
+}
+
+.category-filter-item.active {
+    background: var(--accent-blue-bg);
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+.category-icon {
+    font-size: 0.9rem;
+}
+
 .blog-list {
     display: flex;
     flex-direction: column;

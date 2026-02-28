@@ -1,56 +1,65 @@
 [
     {
+        "id": "prompt-caching-best-practices",
+        "title": "Prompt Caching 最佳实践：Claude Code 的大规模优化经验",
+        "date": "2026-02-26",
+        "category": "architecture",
+        "filename": "blogs/prompt-caching-best-practices.md"
+    },
+    {
         "id": "pi-minimal-agent",
         "title": "Pi：OpenClaw 内部的极简 Agent",
         "date": "2026-01-31",
+        "category": "architecture",
         "filename": "blogs/pi-minimal-agent.md"
     },
     {
         "id": "clawdbot-installation-guide",
         "title": "Clawdbot 完整安装配置指南",
         "date": "2026-01-27",
+        "category": "application",
         "filename": "blogs/clawdbot-installation-guide.md"
     },
     {
         "id": "x-algorithm-research-report",
         "title": "X Algorithm 深度研究报告：X/Twitter 推荐系统开源解析",
         "date": "2026-01-20",
+        "category": "algorithm",
         "filename": "blogs/x-algorithm-research-report.md"
     },
     {
         "id": "demystifying-evals-for-ai-agents",
         "title": "揭秘 AI Agent 评估：从零到一的完整指南",
         "date": "2025-01-19",
+        "category": "evaluation",
         "filename": "blogs/demystifying-evals-for-ai-agents.md"
+    },
+    {
+        "id": "claude-agent-sdk-complete-guide",
+        "title": "使用 Claude Agent SDK 构建 Agent 的完整指南",
+        "date": "2025-01-09",
+        "category": "development",
+        "filename": "blogs/claude-agent-sdk-complete-guide.md"
+    },
+    {
+        "id": "claude-code-2.1.2-release",
+        "title": "Claude Code 2.1.0-2.1.2 版本更新：安全加固与体验全面升级",
+        "date": "2025-01-08",
+        "category": "development",
+        "filename": "blogs/claude-code-2.1.2-release.md"
     },
     {
         "id": "welcome",
         "title": "欢迎来到我的博客",
         "date": "2025-12-28",
+        "category": "general",
         "filename": "blogs/welcome.md"
     },
     {
         "id": "project-vend-phase-2",
         "title": "Project Vend 第二阶段：Claude 如何扭转其失败的自贩机生意",
         "date": "2024-12-29",
+        "category": "application",
         "filename": "blogs/project-vend-phase-2.md"
-    },
-    {
-        "id": "claude-code-2.1.2-release",
-        "title": "Claude Code 2.1.0-2.1.2 版本更新：安全加固与体验全面升级",
-        "date": "2025-01-08",
-        "filename": "blogs/claude-code-2.1.2-release.md"
-    },
-    {
-        "id": "claude-agent-sdk-complete-guide",
-        "title": "使用 Claude Agent SDK 构建 Agent 的完整指南",
-        "date": "2025-01-09",
-        "filename": "blogs/claude-agent-sdk-complete-guide.md"
-    },
-    {
-        "id": "prompt-caching-best-practices",
-        "title": "Prompt Caching 最佳实践：Claude Code 的大规模优化经验",
-        "date": "2026-02-26",
-        "filename": "blogs/prompt-caching-best-practices.md"
     }
 ]
