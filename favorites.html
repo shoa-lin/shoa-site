@@ -82,23 +82,6 @@
 
     <script src="js/common.js"></script>
     <script src="js/favorites.js"></script>
-    <!-- Edge-TTS: 高质量语音合成，使用 zh-CN-YunyangNeural -->
-    <script>
-        // 配置Edge-TTS Worker URL（部署后需要修改为实际URL）
-        window.EDGE_TTS_WORKER_URL = 'https://edge-tts-proxy.YOUR_ACCOUNT.workers.dev/tts';
-    </script>
-    <script src="js/edge-tts.js"></script>
-    <!-- 备用: 浏览器原生TTS -->
-    <script>
-        // 如果Edge-TTS不可用，自动回退到浏览器原生TTS
-        window.addEventListener('load', () => {
-            if (!window.edgeTTSController) {
-                console.log('Edge-TTS未加载，使用浏览器原生TTS');
-                const script = document.createElement('script');
-                script.src = 'js/tts.js';
-                document.head.appendChild(script);
-            }
-        });
-    </script>
+    <script src="js/tts.js"></script>
 </body>
 </html>

@@ -20,17 +20,25 @@ class TTSController {
             this.voices = this.synthesis.getVoices();
             console.log('可用语音列表:', this.voices.map(v => `${v.name} (${v.lang})`));
 
-            // 优先选择高质量的自然语音（Neural/Enhanced/Premium）
-            // 然后选择中文语音，避免机械感强的语音
+            // 优先级顺序：
+            // 1. Microsoft 神经语音（Neural）- 最高质量
+            // 2. Microsoft 增强语音（Enhanced）
+            // 3. Microsoft Premium 语音
+            // 4. 其他中文语音（排除 Google）
+            // 5. 任何可用的语音
+
             this.chineseVoice = this.voices.find(v =>
+                v.lang.startsWith('zh-CN') && v.name.includes('Microsoft') && v.name.includes('Neural')
+            ) || this.voices.find(v =>
                 v.lang.startsWith('zh-CN') && (
                     v.name.includes('Neural') ||
                     v.name.includes('Enhanced') ||
-                    v.name.includes('Premium') ||
-                    v.name.includes('Natural')
+                    v.name.includes('Premium')
                 )
             ) || this.voices.find(v =>
-                v.lang.startsWith('zh-CN') && !v.name.includes('Google')
+                v.lang.startsWith('zh-CN') && v.name.includes('Microsoft')
+            ) || this.voices.find(v =>
+                v.lang.startsWith('zh-CN') && !v.name.includes('Google') && !v.name.includes('Tencent')
             ) || this.voices.find(v =>
                 v.lang.startsWith('zh-CN')
             ) || this.voices.find(v =>
@@ -38,6 +46,17 @@ class TTSController {
             ) || this.voices.find(v => !v.name.includes('Google')) || this.voices[0];
 
             console.log('选择的语音:', this.chineseVoice ? `${this.chineseVoice.name} (${this.chineseVoice.lang})` : '无');
+
+            // 显示语音质量提示
+            if (this.chineseVoice) {
+                if (this.chineseVoice.name.includes('Neural')) {
+                    console.log('✅ 使用高质量神经语音');
+                } else if (this.chineseVoice.name.includes('Enhanced') || this.chineseVoice.name.includes('Microsoft')) {
+                    console.log('✅ 使用高质量增强语音');
+                } else {
+                    console.log('⚠️ 使用标准语音（如需更高质量，请在 macOS 设置中下载更多语音）');
+                }
+            }
         };
 
         loadVoices();
@@ -144,13 +163,23 @@ class TTSController {
                 } else {
                     // 普通语音优化参数以减少机械感
                     utterance.rate = 0.95; // 稍微放慢，增加自然感
-                    utterance.pitch = 0.9; // 略微降低音调
+                    utterance.pitch = 0.95; // 略微降低音调，更稳重
                 }
-                utterance.volume = 1;
+                utterance.volume = 1.0;
+
+                // 添加语音间的停顿，增加自然感
+                utterance.onpause = () => {
+                    // 短暂停顿后继续
+                    setTimeout(() => {
+                        if (this.synthesis.paused) {
+                            this.synthesis.resume();
+                        }
+                    }, 100);
+                };
 
                 if (index === 0) {
                     utterance.onstart = () => {
-                        console.log('播放开始');
+                        console.log('播放开始，使用语音:', this.chineseVoice?.name);
                         this.isPlaying = true;
                         this.updateButton();
                     };
