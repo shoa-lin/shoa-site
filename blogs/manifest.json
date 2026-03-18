@@ -1,5 +1,12 @@
 [
     {
+        "id": "lessons-from-building-claude-code-skills",
+        "title": "构建 Claude Code 的经验：我们如何使用 Skills",
+        "date": "2026-03-17",
+        "category": "development",
+        "filename": "blogs/lessons-from-building-claude-code-skills.md"
+    },
+    {
         "id": "prompt-caching-best-practices",
         "title": "Prompt Caching 最佳实践：Claude Code 的大规模优化经验",
         "date": "2026-02-26",
