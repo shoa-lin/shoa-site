@@ -10,140 +10,167 @@
 
 ---
 
-"harness" 这个词已经成为一个简写，用来指代 AI agent 中除模型本身之外的所有东西——Agent = Model + Harness。这个定义非常宽泛，因此值得针对常见的 agent 类别进行收窄。我想在这里对编码 agent 这一限界上下文（bounded context）中的含义做一个界定。在编码 agent 中，一部分 harness 已经内建（例如通过 system prompt、选定的代码检索机制，甚至精密的编排系统）。但编码 agent 也为我们——它的用户——提供了许多功能，来构建专门针对我们用例和系统的外层 harness。
+> **术语说明**
+>
+> **Harness**：指 AI Agent 中除模型本身之外的所有组成部分，即 Agent = Model + Harness。在编码 Agent 的上下文中，它包括系统提示词、代码检索机制、编排系统等内置组件，也包括用户可以自定义的外层控制——如规则文件、Skills、自定义检查脚本等。本文中 Harness 一词保留不译。
+>
+> **Guides / Sensors**：Guides 是前馈控制（feedforward），在 Agent 行动之前提供引导；Sensors 是反馈控制（feedback），在 Agent 行动之后检测问题并触发自我修正。
+>
+> **Computational / Inferential**：Computational 指由 CPU 执行的确定性工具（如 linter、类型检查器）；Inferential 指由 GPU/NPU 执行的语义分析（如 AI code review、LLM-as-judge）。
 
-![三个同心圆：模型在核心（被 harness 的最终对象），编码 agent 的 builder harness 是中间一圈，编码 agent 的 user harness 是最外层](images/harness-engineering/harness-bounded-contexts.png)
+---
 
-图 1："harness" 这个词在不同的限界上下文中有不同的含义。
+如今 "harness" 已经成为 AI Agent 领域的常用简称，指代模型之外的一切——**Agent = Model + Harness**。但这个定义太宽泛了，值得针对不同的 Agent 类别做进一步收窄。本文聚焦于编码 Agent 这个限界上下文。
 
-一个构建良好的外层 harness 服务于两个目标：它提高 agent 第一次就做对的概率，并提供一个 feedback loop，在问题到达人类视线之前尽可能自我修正。最终它应该减少 review 工作量并提高系统质量，同时还带来额外的好处——减少沿途浪费的 token。
+在编码 Agent 中，一部分 harness 是由构建者（builder）内建的——系统提示词、代码检索机制、编排系统等。但编码 Agent 同时也为用户提供了丰富的能力，让我们可以针对自己的用例和系统构建一层**外层 harness**。
 
-![标题 "Harness engineering for coding agent users"。概览展示了 guides（示例包括 [inferential] principles、CfRs、Rules、Ref Docs、How-tos；[computational] Language Servers、CLIs、scripts、codemods）作为 feedforward 输入编码 agent；以及 feedback sensors（示例包括 [inferential] review agents；[computational] static analysis、logs、browser）。feedback sensors 指向编码 agent，同时输入其 self-correcting loop。左侧有一个人形图标，steer 着 guides 和 sensors。](images/harness-engineering/harness-overview.png)
+![三个同心圆：模型在核心（被 harness 的最终对象），编码 Agent 的 builder harness 是中间一圈，编码 Agent 的 user harness 是最外层](images/harness-engineering/harness-bounded-contexts.png)
+
+图 1：同一个词 "harness" 在不同限界上下文中含义不同。
+
+一个精心构建的外层 harness 有两个目标：**提高 Agent 首次生成的成功率**，以及**在问题暴露给人类之前通过反馈循环尽可能自我修正**。最终效果是减少人工 review 的工作量、提升系统质量，同时还能节省 token 消耗。
+
+![概览：Guides 通过 feedforward 输入编码 Agent；Sensors 通过 feedback 观察 Agent 的输出并输入其自修正循环；左侧的人类同时操控 Guides 和 Sensors。](images/harness-engineering/harness-overview.png)
 
 ## Feedforward 与 Feedback
 
-要 harness 一个编码 agent，我们既要预判不想要的输出并试图阻止它们，又要设置 sensor 让 agent 能够自我修正：
+为编码 Agent 构建 harness 的核心思路有两条：
 
-- **Guides（feedforward 控制）** —— 预判 agent 的行为，旨在其行动_之前_进行引导。Guides 提高 agent 在第一次尝试中产出良好结果的概率。
-- **Sensors（feedback 控制）** —— 在 agent 行动_之后_进行观察，帮助其自我修正。当它们产生的信号经过优化适合 LLM 消费时尤为强大，例如包含自修正指令的自定义 linter 消息——一种正向的 prompt injection。
+- **Guides（前馈控制）**：预判 Agent 可能出问题的地方，在它行动**之前**就加以引导，从而提高首次生成的成功率。
+- **Sensors（反馈控制）**：在 Agent 行动**之后**检测问题，帮助它自我修正。效果最佳的情况是：Sensor 输出的信号专门为 LLM 优化过——例如自定义 linter 消息中附带修正指令。这其实是一种"正向"的 prompt injection。
 
-如果只用 feedback 没有 feedforward，你会得到一个不断重复相同错误的 agent；如果只用 feedforward 没有 feedback，你会得到一个编码了规则但永远不知道它们是否有效的 agent。
+只用 feedback 而没有 feedforward，Agent 会反复犯同样的错误；只用 feedforward 而没有 feedback，Agent 写好了规则却永远不知道规则是否生效。两者缺一不可。
 
 ## Computational vs Inferential
 
-Guides 和 sensors 有两种执行类型：
+Guides 和 Sensors 各有两种执行方式：
 
-- **Computational** —— 确定性的、快速的，由 CPU 运行。测试、linter、类型检查器、结构分析。运行时间为毫秒到秒级；结果可靠。
-- **Inferential** —— 语义分析、AI code review、"LLM as judge"。通常由 GPU 或 NPU 运行。更慢、更昂贵；结果更具非确定性。
+- **Computational（计算型）**：确定性、快速，由 CPU 执行。典型例子：测试、linter、类型检查器、结构分析。运行时间从毫秒到秒级，结果可靠。
+- **Inferential（推理型）**：语义分析、AI code review、"LLM as judge"。通常由 GPU 或 NPU 执行，更慢、更贵，且结果具有非确定性。
 
-Computational guides 通过确定性工具提高良好结果的概率。Computational sensors 足够便宜和快速，可以在每次变更时与 agent 一起运行。Inferential 控制当然更昂贵且非确定性，但允许我们提供丰富的指导，并添加额外的语义判断。尽管存在非确定性，当 inferential sensors 与一个强模型（或者说是适合当前任务的模型）配合使用时，特别能增加我们的信任。
+Computational guides 用确定性工具为 Agent 铺路；Computational sensors 便宜且快速，可以配合 Agent 在每次代码变更时运行。Inferential 控制虽然更贵且非确定性，但能提供丰富的语义指导和判断——当与一个强模型（或说适合当前任务的模型）配合时，inferential sensors 对提升信任感尤其有效。
 
 **示例**
 
-|  | 方向 | Computational / Inferential | 示例实现 |
+| 场景 | 方向 | 类型 | 示例实现 |
 | --- | --- | --- | --- |
 | 编码规范 | feedforward | Inferential | AGENTS.md, Skills |
-| 如何引导新项目的说明 | feedforward | 两者 | 包含说明和 bootstrap 脚本的 Skill |
-| Codemods | feedforward | Computational | 可以访问 OpenRewrite recipes 的工具 |
-| 结构测试 | feedback | Computational | 运行 ArchUnit 测试的 pre-commit（或编码 agent）hook，检查模块边界违规 |
-| 如何 review 的说明 | feedback | Inferential | Skills |
+| 项目初始化说明 | feedforward | 两者 | 包含说明 + bootstrap 脚本的 Skill |
+| Codemods | feedforward | Computational | 集成 OpenRewrite recipes 的工具 |
+| 结构测试 | feedback | Computational | pre-commit hook 运行 ArchUnit 测试，检查模块边界 |
+| Code review 说明 | feedback | Inferential | Skills |
 
 ## Steering Loop
 
-人类在这个过程中的任务是 **steer** agent——通过迭代 harness 来实现。每当一个问题多次发生时，feedforward 和 feedback 控制都应该得到改进，使该问题在未来发生的概率降低，甚至完全阻止。
+人类在这个过程中的核心任务是 **steer（驾驭）** ——通过持续迭代 harness 来引导 Agent。每当某个问题反复出现，就应该改进 feedforward 和 feedback 控制，降低该问题再次发生的概率，甚至彻底杜绝。
 
-在 steering loop 中，我们当然也可以使用 AI 来改进 harness。编码 agent 现在使构建更多自定义控制和自定义 static analysis 变得便宜得多。Agent 可以帮助编写结构测试，从观察到的模式中生成规则草案，搭建自定义 linter，或通过 codebase archaeology 创建 how-to 指南。
+我们同样可以利用 AI 来改进 harness 本身。编码 Agent 大幅降低了构建自定义控制和静态分析的成本——Agent 可以帮你编写结构测试、从已有模式中生成规则草案、搭建自定义 linter，甚至通过代码考古生成 how-to 指南。
 
 ## 时机：将质量左移
 
-持续集成的团队一直面临着一个挑战：根据成本、速度和关键性，将测试、检查和人工 review 分布在开发时间线上。当你渴望持续交付时，理想情况下你甚至希望每个 commit 状态都是可部署的。你希望在通往生产的路径上尽可能靠左地放置检查点，因为越早发现问题，修复成本越低。Feedback sensors，包括新的 inferential sensors，需要相应地分布在整个生命周期中。
+持续集成的团队一直面临一个问题：如何根据成本、速度和关键性，将测试、检查和人工 review 合理分布在开发时间线上。追求持续交付的团队甚至希望每个 commit 都是可部署状态。核心原则是：**检查点尽量左移**——越早发现问题，修复成本越低。
+
+Feedback sensors——包括新兴的 inferential sensors——需要相应地分布在整个生命周期中。
 
 **变更生命周期中的 feedforward 和 feedback**
 
-- 什么是足够快的、应该在集成之前甚至在 commit 创建之前运行的？（例如 linter、快速测试套件、基础 code review agent）
-- 什么是更昂贵的、因此只应在集成后于 pipeline 中运行的，作为快速控制的补充？（例如 mutation testing、能够考虑更大局面的更全面的 code review）
+- 哪些检查足够快，应该在集成之前、甚至在 commit 生成之前就运行？（例如 linter、快速测试套件、基础 code review agent）
+- 哪些检查成本更高，应该仅在集成后于 pipeline 中运行，作为快速检查的补充？（例如 mutation testing、需要纵观全局的 code review）
 
 ![变更生命周期中 feedforward 和 feedback 的示例](images/harness-engineering/harness-change-lifecycle-examples.png)
 
 **持续 drift 和 health sensors**
 
-- 什么类型的 drift 是逐渐积累的、应该由持续运行在 codebase 上的 sensors 来监控的？（例如 dead code detection、测试覆盖率质量分析、dependency scanner）
-- agent 可以监控什么运行时 feedback？（例如让它们查看恶化的 SLO 来提出改进建议，或 AI judge 持续采样 response quality 并标记 log anomalies）
+除了变更生命周期内的检查，还有两类持续运行的 sensors：
 
-![变更集成后持续 feedback sensors 的示例](images/harness-engineering/harness-continuous-feedback-examples.png)
+- **Codebase drift sensors**：监控逐渐积累的代码库退化。例如死代码检测、测试覆盖率质量分析、依赖扫描。
+- **运行时 health sensors**：让 Agent 监控运行时指标。例如关注 SLO 恶化并主动提出改进建议，或用 AI judge 持续采样响应质量并标记日志异常。
+
+![变更集成后的持续 feedback sensors 示例](images/harness-engineering/harness-continuous-feedback-examples.png)
 
 ## 调节类别
 
-Agent harness 的作用就像一个 cybernetic governor，结合 feedforward 和 feedback 将 codebase 调节到期望的状态。区分该期望状态的多个维度是有用的，按 harness 应该调节什么来分类。区分这些类别是有帮助的，因为 harnessability 和复杂性在不同类别之间有所不同，并且用限定词修饰这个词能为我们提供更精确的语言，否则这个词是非常泛化的。
+Harness 就像一个调节器，通过 feedforward 和 feedback 将 codebase 逐步推向期望状态。这个"期望状态"本身有多个维度，每个维度对应一种 harness 类别。做这个区分很有必要——不同类别的 harnessability 和复杂度差异很大，而且用限定词修饰 "harness" 这个泛化的词，能让讨论更精确。
 
-以下是我目前认为有用的三个类别：
+目前我识别出三个有用的类别：
 
-### Maintainability harness
+### Maintainability Harness（可维护性）
 
-本文中我给出的几乎所有示例都是关于调节内部代码质量和可维护性的。这是目前最容易构建的 harness 类型，因为我们有大量预先存在的工具可以使用。
+本文绝大部分示例都属于这一类——调节内部代码质量和可维护性。这是目前最容易构建的 harness 类型，因为我们拥有大量现成工具。
 
-为了反思上述 maintainability harness 的想法在多大程度上增加了我对 agent 的信任，我将我之前编目的常见编码 agent 失败模式与之映射。
+为了评估 maintainability harness 在多大程度上提升了信任感，我将之前归纳的常见编码 Agent 失败模式与之做了映射：
 
-Computational sensors 可靠地捕获结构性问题：重复代码、圈复杂度、缺失的测试覆盖率、架构 drift、风格违规。这些是廉价、成熟且确定性的。
+- **Computational sensors 能可靠捕获的**：重复代码、圈复杂度、缺失的测试覆盖率、架构 drift、风格违规。这些工具廉价、成熟、确定性高。
+- **LLM 能部分应对、但代价高昂的**：语义重复代码、冗余测试、暴力修复、过度工程。这些问题需要语义判断，只能以概率性方式处理，不可能每次 commit 都跑。
+- **目前两者都难以可靠捕获的高影响问题**：问题误诊、过度工程和不必要的功能、被误解的指令。它们偶尔能被检测到，但不足以减少人类监督。**如果人类从一开始就没说清楚自己要什么，正确性就超出了任何 sensor 的能力范围。**
 
-LLM 可以部分解决需要语义判断的问题——语义重复代码、冗余测试、暴力修复、过度工程的解决方案——但代价高昂且是概率性的。不能在每次 commit 时运行。
+### Architecture Fitness Harness（架构适应度）
 
-更高影响的问题两者都不能可靠地捕获：问题的误诊、过度工程和不必要的功能、被误解的指令。它们有时能捕获这些，但不够可靠，无法减少监督。如果人类在一开始没有清楚地说明他们想要什么，正确性就超出了任何 sensor 的职责范围。
-
-### Architecture fitness harness
-
-这组 guides 和 sensors 定义并检查应用的架构特征。基本上就是：Fitness Functions。
+这类 guides 和 sensors 负责定义和验证应用的架构特征——本质上就是 **Fitness Functions**（适应度函数）。
 
 示例：
 
-- 前馈性能需求的 Skills，以及向 agent 反馈其是改善还是恶化了性能的性能测试。
-- 描述更好的 observability 编码规范（如 logging 标准）的 Skills，以及要求 agent 反思其可用日志质量的调试说明。
+- Skills 前馈描述性能需求，配合性能测试向 Agent 反馈改进或退化情况。
+- Skills 描述可观测性编码规范（如日志标准），配合调试说明要求 Agent 反思其日志质量。
 
-### Behaviour harness
+### Behaviour Harness（行为）
 
-这是房间里的大象——我们如何引导和感知应用是否按我们需要的方式在功能上运行？目前，我看到大多数给予编码 agent 高度自主权的人这样做：
+这是最难的问题——如何引导和检测应用的功能行为是否符合预期？目前大多数赋予编码 Agent 高度自主权的团队采用这样的方式：
 
-- Feedforward：功能规格说明（详细程度各异，从简短的 prompt 到多文件描述）
-- Feedback：检查 AI 生成的测试套件是否通过，覆盖率是否合理，有些人甚至用 mutation testing 来监控其质量。然后结合手动测试。
+- **Feedforward**：功能规格说明（详细程度从简短 prompt 到多文件描述不等）
+- **Feedback**：检查 AI 生成的测试套件是否通过、覆盖率是否合理，部分团队还会用 mutation testing 监控测试质量。最后辅以手动测试。
 
-这种方法对 AI 生成的测试寄予了很大的信任，但目前还不够好。我的一些同事在使用 approved fixtures pattern 方面看到了不错的效果，但它在某些领域比其他领域更容易应用。他们有选择性地在适合的地方使用，这不是测试质量问题的全面解决方案。
+这种方式对 AI 生成的测试寄予了过多信任。我的一些同事在使用 **approved fixtures pattern**（已批准的 fixtures 模式）方面取得了不错的效果，但它并非适用于所有场景——团队只在合适的地方选择性使用，算不上测试质量问题的全面解决方案。
 
-所以总体而言，我们在找到良好的 behaviour harness 以增加信心从而减少监督和手动测试方面，还有很多工作要做。
+总的来说，在 behaviour harness 方面我们还有很长的路要走——需要找到足够好的方案来提升信心，从而真正减少人工监督和手动测试。
 
-![harness 的简化概览，水平方向显示 guides 和 sensors，垂直方向显示调节维度——maintainability、architecture fitness 和 behaviour](images/harness-engineering/harness-types.png)
+![harness 简化概览：水平方向为 guides 和 sensors，垂直方向为三个调节维度——maintainability、architecture fitness 和 behaviour](images/harness-engineering/harness-types.png)
 
-## Harnessability
+## Harnessability（可 Harness 性）
 
-并非每个 codebase 都同样适合 harness。用强类型语言编写的 codebase 自然拥有类型检查作为 sensor；清晰可定义的模块边界允许架构约束规则；像 Spring 这样的框架抽象掉了 agent 甚至不需要关心的细节，因此隐含地提高了 agent 成功的概率。没有这些属性，那些控制就无法构建。
+并非所有 codebase 都同样适合构建 harness。用强类型语言编写的 codebase 天然拥有类型检查作为 sensor；清晰的模块边界使得架构约束规则成为可能；像 Spring 这样的框架把许多细节抽象掉了，Agent 无需关心，因此间接提升了成功率。**缺乏这些特性的 codebase，相应的控制手段就无从构建。**
 
-这在 greenfield 和 legacy 项目中表现不同。Greenfield 团队可以从第一天起就把 harnessability 融入其中——技术决策和架构选择决定了 codebase 的可治理程度。Legacy 团队，特别是那些积累了大量技术债务的应用，面临更困难的问题：harness 最需要的地方恰恰是最难构建的地方。
+Greenfield（绿地）和 Legacy（棕地）项目面临的挑战截然不同：
+
+- **Greenfield 团队**可以从第一天起就把 harnessability 纳入设计——技术选型和架构决策决定了 codebase 的可治理程度。
+- **Legacy 团队**，尤其是积累了大量技术债的项目，面临的是更棘手的困境：harness 最需要的地方，恰恰是最难构建的地方。
 
 ## Harness 模板
 
-大多数企业都有几种常见的服务拓扑，覆盖了他们 80% 的需求——通过 API 暴露数据的业务服务；事件处理服务；数据仪表盘。在许多成熟的工程组织中，这些拓扑已经被编码在 service template 中。未来这些可能演变为 harness template：一组 guides 和 sensors 的捆绑，将编码 agent 拴在拓扑的结构、规范和技术栈上。团队可能会根据已有可用的 harness 来部分地选择技术栈和结构。
+大多数企业都有少数几种常见的服务拓扑，覆盖了 80% 的需求——通过 API 暴露数据的业务服务、事件处理服务、数据仪表盘。在成熟的工程组织中，这些拓扑通常已经被编码为 service template。
 
-![拓扑示例的堆叠（Node 中的数据仪表盘、JVM 上的 CRUD 业务服务、Golang 中的事件处理器）](images/harness-engineering/harness-templates.png)
+未来这些可能演变为 **harness template**——一组 guides 和 sensors 的捆绑，将编码 Agent 约束在特定拓扑的结构、规范和技术栈之内。团队在选择技术栈和架构时，可能会优先考虑已有现成 harness 的方案。
 
-我们当然会面临与 service template 类似的挑战。一旦团队实例化它们，它们就开始与上游改进脱节。Harness template 将面临相同的版本管理和贡献问题，甚至可能更严重，因为非确定性的 guides 和 sensors 更难测试。
+![拓扑示例：Node 数据仪表盘、JVM CRUD 业务服务、Golang 事件处理器](images/harness-engineering/harness-templates.png)
+
+当然，与 service template 一样，一旦团队实例化模板，就会逐渐与上游更新脱节。Harness template 同样面临版本管理和贡献的问题——甚至可能更严重，因为非确定性的 guides 和 sensors 更难测试。
 
 ## 人类的角色
 
-作为人类开发者，我们将我们的技能和经验作为隐式 harness 带到每个 codebase。我们吸收了规范和良好实践，我们感受过复杂性的认知痛苦，我们知道我们的名字在 commit 上。我们还承载着组织对齐——意识到团队试图实现什么，哪些技术债务出于商业原因被容忍，以及在这个特定上下文中"好"是什么样的。我们以小步前进，以人类的节奏，这为经验被触发和应用创造了思考空间。
+作为人类开发者，我们把自己的技能和经验当作一层隐式 harness 带到每个 codebase。我们内化了编码规范和最佳实践，我们亲身体验过复杂性带来的认知负担，我们知道自己要对每个 commit 负责。我们还承载着组织层面的上下文——知道团队在做什么、哪些技术债是业务可以容忍的、在这个特定场景中"好的代码"长什么样。我们小步前进，以人类的节奏工作，这种节奏恰好为经验发挥作用提供了思考空间。
 
-编码 agent 没有这些：没有社会问责，没有对 300 行函数的审美厌恶，没有"我们这里不这么做"的直觉，没有组织记忆。它不知道哪个规范是承重的、哪个只是习惯，也不知道技术上正确的解决方案是否符合团队想要做的事情。
+编码 Agent 没有这些：它没有社会问责感，不会对 300 行的函数产生本能的厌恶，没有"我们这里不这么做"的直觉，也没有组织记忆。它分不清哪些规范是核心约束、哪些只是习惯，也不知道技术上正确的方案是否符合团队的实际意图。
 
-Harness 是试图将人类开发者经验带来的东西外化和明确化的尝试，但它只能走这么远。构建一个连贯的 guides、sensors 和 self-correction loops 的系统是昂贵的，所以我们必须以明确的目标来优先排序：一个好的 harness 不一定旨在完全消除人类输入，而是将其引导到我们的输入最重要的地方。
+Harness 的本质是试图把人类开发者经验中那些隐性的东西**外化、显式化**——但这有极限。构建一套 coherent 的 guides、sensors 和 self-correction loops 代价不低，所以必须聚焦核心目标：**一个好的 harness 不是要完全替代人类输入，而是把人类输入引导到最关键的地方。**
 
-## 起点——和开放问题
+## 起点与开放问题
 
-我在这里描述的思维模型描述了已经在实践中发生的技术，并帮助构建关于我们仍然需要弄清楚什么的讨论框架。它的目标是将对话提升到 feature 层面之上——从 skills 和 MCP server，到我们如何战略性地设计一个控制系统，使我们对 agent 产出的东西有真正的信心。
+本文描述的思维模型总结了实践中已经在发生的技术，并试图为"我们还缺什么"提供讨论框架。它的目的是将对话从具体功能（某个 skill、某个 MCP server）提升到系统层面——我们如何**战略性地设计一套控制系统**，让 Agent 的产出真正值得信赖。
 
-以下是当前讨论中一些与 harness 相关的示例：
+当前领域中一些与 harness 相关的实践：
 
-- 一个 OpenAI 团队记录了他们的 harness 是什么样的：通过自定义 linter 和结构测试强制执行的分层架构，以及定期扫描 drift 并让 agent 建议修复的"垃圾回收"。他们的结论是："我们现在最困难的挑战集中在设计环境、feedback loops 和控制系统上。"
-- Stripe 关于其 minions 的文章描述了诸如基于启发式运行相关 linter 的 pre-push hooks，他们强调了"shift feedback left"对他们的重要性，他们的"blueprints"展示了如何将 feedback sensors 集成到 agent 工作流中。
-- Mutation testing 和结构测试是 computational feedback sensors 的示例，过去一直未被充分利用，但现在正在复兴。
-- 开发者之间关于在编码 agent 中集成 LSP 和代码智能的讨论越来越多，这些是 computational feedforward guides 的示例。
-- 我听到 Thoughtworks 团队关于用 computational 和 inferential sensors 解决架构 drift 的故事，例如通过 agent 和自定义 linter 的混合来提高 API 质量，或通过"janitor army"来提高代码质量。
+- **OpenAI 团队**记录了他们的 harness 做法：用自定义 linter 和结构测试强制执行分层架构，加上定期扫描 drift 并让 Agent 建议修复的"垃圾回收"。他们的结论是："我们现在最困难的挑战集中在设计环境、feedback loops 和控制系统上。"
+- **Stripe 的 minions 文章**描述了基于启发式运行相关 linter 的 pre-push hooks，强调了 **"shift feedback left"** 对他们的重要性，他们的 "blueprints" 展示了如何将 feedback sensors 集成到 Agent 工作流中。
+- **Mutation testing 和结构测试**作为 computational feedback sensors 过去一直未被充分利用，现在正迎来复兴。
+- **LSP 和代码智能集成**到编码 Agent 中的讨论越来越多——这些正是 computational feedforward guides 的例子。
+- **Thoughtworks 的团队**分享了用 computational 和 inferential sensors 应对架构 drift 的经验，例如用 Agent + 自定义 linter 的组合提升 API 质量，或用 "janitor army" 提升代码质量。
 
-还有很多需要弄清楚的，不仅仅是已经提到的 behaviour harness。我们如何在 harness 增长的过程中保持其一致性，让 guides 和 sensors 保持同步、不相互矛盾？当指令和 feedback 信号指向不同方向时，我们能多大程度上信任 agent 做出合理的权衡？如果 sensors 从未触发，那是高质量的标志还是检测机制不足？我们需要一种评估 harness coverage 和质量的方法，类似于 code coverage 和 mutation testing 对测试所做的事情。Feedforward 和 feedback 控制目前分散在交付步骤中，确实有潜力开发帮助配置、同步和将它们作为系统来推理的工具。构建这个外层 harness 正在成为一种持续的工程实践，而不是一次性配置。
+但仍有大量问题待解——不仅限于前文提到的 behaviour harness：
+
+- 如何在 harness 不断扩展的过程中保持一致性，避免 guides 和 sensors 互相矛盾？
+- 当指令和 feedback 信号指向不同方向时，Agent 能做出合理权衡吗？我们能信任它到什么程度？
+- 如果某个 sensor 从未触发过——是质量确实高，还是检测能力不足？
+- 我们需要一种评估 harness 覆盖率和质量的方法，就像 code coverage 和 mutation testing 之于测试那样。
+- 目前 feedforward 和 feedback 控制散落在各个交付环节中，这里有很大的工具化空间——帮助配置、同步、将它们作为一个系统来审视。
+
+构建外层 harness 正在从一次性配置演变为**持续的工程实践**。
