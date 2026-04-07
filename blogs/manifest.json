@@ -1,5 +1,12 @@
 [
     {
+        "id": "harness-engineering",
+        "title": "面向编码 Agent 用户的 Harness 工程",
+        "date": "2026-04-07",
+        "category": "architecture",
+        "filename": "blogs/harness-engineering.md"
+    },
+    {
         "id": "lessons-from-building-claude-code-skills",
         "title": "构建 Claude Code 的经验：我们如何使用 Skills",
         "date": "2026-03-17",
