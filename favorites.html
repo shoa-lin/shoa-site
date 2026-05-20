@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>收藏 - Shoa Lin</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/favorites.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked@18/lib/marked.umd.js"></script>
 </head>
 <body class="favorites-page">
     <nav class="navbar">
         <div class="nav-content">
-            <h3><a href="index.html" style="text-decoration: none; color: inherit;">Shoa Lin</a></h3>
+            <h3><a href="index.html">Shoa Lin</a></h3>
             <div class="nav-links">
                 <a href="index.html">首页</a>
                 <a href="blog.html">博客</a>
@@ -76,11 +76,12 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
         </div>
     </footer>
 
     <script src="js/common.js"></script>
+    <script src="js/articles.js"></script>
     <script src="js/favorites.js"></script>
     <script src="js/tts.js"></script>
 </body>

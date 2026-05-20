@@ -4,22 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shoa Lin - 个人主页</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/home.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Marked.js for Markdown parsing -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <h3>Shoa Lin</h3>
+            <h3><a href="index.html">Shoa Lin</a></h3>
             <div class="nav-links">
-                <a href="#home">首页</a>
-                <a href="#about">关于</a>
-                <a href="#projects">项目</a>
+                <a href="index.html" class="active">首页</a>
                 <a href="blog.html">博客</a>
                 <a href="favorites.html">收藏</a>
-                <a href="#contact">联系</a>
+                <a href="index.html#contact">联系</a>
             </div>
         </div>
     </nav>
@@ -37,15 +34,8 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">查看项目</a>
-                    <a href="#contact" class="btn btn-secondary">联系我</a>
+                    <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
                 </div>
-            </div>
-        </div>
-        <div class="hero-animation">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
             </div>
         </div>
     </section>
@@ -115,26 +105,13 @@
                     <div class="contact-methods">
                         <div class="contact-method">
                             <i class="fab fa-github"></i>
-                            <a href="https://github.com/shoa-lin" target="_blank">GitHub</a>
+                            <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>
                         <div class="contact-method">
                             <i class="fas fa-envelope"></i>
-                            <a href="mailto:your-email@example.com">Email</a>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fab fa-linkedin"></i>
-                            <a href="#" target="_blank">LinkedIn</a>
+                            <a href="mailto:contact@shoa.lin">Email</a>
                         </div>
                     </div>
-                </div>
-                <div class="contact-form">
-                    <h3>快速留言</h3>
-                    <form action="https://formspree.io/f/your-form-id" method="POST">
-                        <input type="text" name="name" placeholder="您的姓名" required>
-                        <input type="email" name="email" placeholder="您的邮箱" required>
-                        <textarea name="message" placeholder="留言内容" rows="5" required></textarea>
-                        <button type="submit" class="btn btn-primary">发送消息</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -142,10 +119,11 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
         </div>
     </footer>
 
+    <script src="js/common.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

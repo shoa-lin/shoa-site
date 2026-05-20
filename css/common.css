@@ -7,7 +7,6 @@
 }
 
 :root {
-    /* Notion-inspired color palette */
     --bg-primary: #FFFFFF;
     --bg-secondary: #F7F7F5;
     --bg-tertiary: #FFFFFF;
@@ -58,9 +57,15 @@ body {
     color: var(--text-primary);
     background: var(--bg-primary);
     overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 
-/* Navigation - Minimal Notion-style */
+body.loaded {
+    opacity: 1;
+}
+
+/* Navigation */
 .navbar {
     position: fixed;
     top: 0;
@@ -93,6 +98,11 @@ body {
     letter-spacing: -0.01em;
 }
 
+.nav-content h3 a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .nav-links {
     display: flex;
     gap: 0.25rem;
@@ -123,19 +133,6 @@ body {
     max-width: 900px;
     margin: 0 auto;
     padding: 0 1.5rem;
-}
-
-/* Footer */
-.footer {
-    background: var(--bg-primary);
-    color: var(--text-secondary);
-    padding: 2rem 0;
-    text-align: center;
-    border-top: 1px solid var(--border-default);
-}
-
-.footer p {
-    font-size: 0.85rem;
 }
 
 /* Buttons */
@@ -171,14 +168,17 @@ body {
     background: var(--bg-hover);
 }
 
-/* Page load animation */
-body {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+/* Footer */
+.footer {
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border-default);
 }
 
-body.loaded {
-    opacity: 1;
+.footer p {
+    font-size: 0.85rem;
 }
 
 /* Responsive */
