@@ -1,5 +1,12 @@
 [
     {
+        "id": "hermes-memory-mechanism",
+        "title": "Hermes 的记忆机制：不是一个脑子，是三只抽屉",
+        "date": "2026-05-31",
+        "category": "architecture",
+        "filename": "blogs/hermes-memory-mechanism.md"
+    },
+    {
         "id": "harness-engineering",
         "title": "面向编码 Agent 用户的 Harness 工程",
         "date": "2026-04-07",
