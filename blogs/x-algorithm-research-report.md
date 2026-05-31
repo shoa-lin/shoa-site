@@ -96,6 +96,8 @@ tags: ["推荐系统", "X Algorithm", "xAI", "Rust", "机器学习"]
 }
 </style>
 
+# X Algorithm 深度研究报告：X/Twitter 推荐系统开源解析
+
 ---
 
 *发布于 2026年1月20日*

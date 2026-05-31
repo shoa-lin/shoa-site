@@ -66,6 +66,8 @@ tags: ["AI", "Pi", "OpenClaw", "Agent", "编程"]
 }
 </style>
 
+# Pi：OpenClaw 内部的极简 Agent
+
 <div class="blog-article-body">
 
 *写于 2026 年 1 月 31 日*

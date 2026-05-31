@@ -96,6 +96,8 @@ tags: ["Clawdbot", "AI Agent", "DevOps", "Docker", "自动化工具"]
 }
 </style>
 
+# Clawdbot 完整安装配置指南
+
 ---
 
 *发布于 2026年1月27日*
