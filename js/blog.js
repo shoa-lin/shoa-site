@@ -11,6 +11,23 @@ let isDrawerOpen = false;
 let scrollObserver = null;
 
 // =====================
+// URL Routing
+// =====================
+
+function getBlogIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('id')) return params.get('id');
+    const match = window.location.pathname.match(/^\/blog\/([^/]+)$/);
+    return match ? match[1] : null;
+}
+
+window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.blogId) {
+        loadBlog(e.state.blogId, false);
+    }
+});
+
+// =====================
 // Mobile Drawer
 // =====================
 
@@ -333,7 +350,7 @@ function initBackToTopButton() {
 // Blog Loading
 // =====================
 
-async function loadBlog(blogId) {
+async function loadBlog(blogId, updateUrl = true) {
     const blog = blogList.find(b => b.id === blogId);
     if (!blog) return;
 
@@ -388,6 +405,10 @@ async function loadBlog(blogId) {
 
         if (window.innerWidth <= 768) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        if (updateUrl) {
+            history.pushState({ blogId }, '', '/blog/' + blogId);
         }
 
     } catch (error) {
@@ -445,7 +466,12 @@ async function initBlogPage() {
     initCategoryFilter();
 
     if (filteredBlogList.length > 0) {
-        loadBlog(filteredBlogList[0].id);
+        const urlBlogId = getBlogIdFromUrl();
+        if (urlBlogId) {
+            loadBlog(urlBlogId, false);
+        } else {
+            loadBlog(filteredBlogList[0].id, false);
+        }
     }
 }
 
