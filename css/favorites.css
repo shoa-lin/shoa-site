@@ -575,18 +575,3 @@
     }
 }
 
-/* ========================================
-   Text-to-Speech (TTS) Styles for Favorites - Simplified
-   ======================================== */
-
-/* TTS Toggle Button in Modal Header */
-.modal-btn.tts-toggle-btn.playing {
-    background: var(--accent-blue-bg);
-    color: var(--accent-blue);
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}

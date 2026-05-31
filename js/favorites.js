@@ -56,10 +56,6 @@ openModal = function(modal) {
         }
     }
     document.body.style.overflow = 'hidden';
-
-    if (typeof resetTTS === 'function') {
-        resetTTS();
-    }
 };
 
 // Override closeModal for favorites (with animation delay)
