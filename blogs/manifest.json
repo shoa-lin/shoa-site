@@ -1,5 +1,12 @@
 [
     {
+        "id": "dynamic-workflows-in-claude-code",
+        "title": "为每个任务打造专属 harness：Claude Code 中的 dynamic workflow",
+        "date": "2026-06-03",
+        "category": "development",
+        "filename": "blogs/dynamic-workflows-in-claude-code.md"
+    },
+    {
         "id": "hermes-memory-mechanism",
         "title": "Hermes 的记忆机制：不是一个脑子，是三只抽屉",
         "date": "2026-05-31",
