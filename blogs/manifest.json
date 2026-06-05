@@ -1,5 +1,12 @@
 [
     {
+        "id": "state-of-ai-agent-memory-2026",
+        "title": "2026 年 AI Agent 记忆现状：Benchmark、架构与生产缺口",
+        "date": "2026-06-04",
+        "category": "architecture",
+        "filename": "blogs/state-of-ai-agent-memory-2026.md"
+    },
+    {
         "id": "dynamic-workflows-in-claude-code",
         "title": "为每个任务打造专属 harness：Claude Code 中的 dynamic workflow",
         "date": "2026-06-03",
