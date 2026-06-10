@@ -1,5 +1,12 @@
 [
     {
+        "id": "loop-engineering",
+        "title": "Loop Engineering",
+        "date": "2026-06-09",
+        "category": "development",
+        "filename": "blogs/loop-engineering.md"
+    },
+    {
         "id": "state-of-ai-agent-memory-2026",
         "title": "2026 年 AI Agent 记忆现状：Benchmark、架构与生产缺口",
         "date": "2026-06-04",
