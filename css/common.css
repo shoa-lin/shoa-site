@@ -177,6 +177,31 @@ body.loaded {
     border-top: 1px solid var(--border-default);
 }
 
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    transition: all 0.15s ease;
+}
+
+.social-links a:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
 .footer p {
     font-size: 0.85rem;
 }
