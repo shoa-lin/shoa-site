@@ -91,6 +91,17 @@ test("blog includes the Claude Code loops guide", () => {
   assert.match(markdown, /Goal-based loop/);
   assert.match(markdown, /Time-based loop/);
   assert.match(markdown, /Proactive loop/);
+  [
+    "6903d229e73ca2d0d73d78f7_682ac293884c9d4ee4ebe2355a2f6c4ecfdd9c1b-1000x1000.svg",
+    "6a43eb603762e725a739d98c_8ace2295.png",
+    "6a43eb603762e725a739d98f_c6fa9ae5.png",
+    "6a43eb603762e725a739d989_eb9e496a.png",
+  ].forEach((image) => {
+    assert.match(markdown, new RegExp(image.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  });
+  assert.match(markdown, /### Turn-based loop[\s\S]*6a43eb603762e725a739d98c_8ace2295\.png/);
+  assert.match(markdown, /### Goal-based loop[\s\S]*6a43eb603762e725a739d98f_c6fa9ae5\.png/);
+  assert.match(markdown, /### Proactive loop[\s\S]*6a43eb603762e725a739d989_eb9e496a\.png/);
 });
 
 test("all main pages share the global theme toggle runtime", () => {
