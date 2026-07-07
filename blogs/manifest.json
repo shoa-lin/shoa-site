@@ -1,5 +1,12 @@
 [
     {
+        "id": "getting-started-with-loops",
+        "title": "Claude Code Loops 入门：从手动回合到主动循环",
+        "date": "2026-07-07",
+        "category": "development",
+        "filename": "blogs/getting-started-with-loops.md"
+    },
+    {
         "id": "loop-engineering",
         "title": "Loop Engineering",
         "date": "2026-06-09",

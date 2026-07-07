@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const sitePages = ["index.html", "about.html", "projects.html", "blog.html", "favorites.html", "contact.html"];
+const readJson = (path) => JSON.parse(read(path));
 
 test("home page keeps the existing avatar asset", () => {
   const html = read("index.html");
@@ -72,6 +73,24 @@ test("blog page loads local assets from root paths for article deep links", () =
 
   const js = read("js/blog.js");
   assert.match(js, /normalizeArticleAssetPaths/);
+});
+
+test("blog includes the Claude Code loops guide", () => {
+  const manifest = readJson("blogs/manifest.json");
+  const article = manifest.find((item) => item.id === "getting-started-with-loops");
+
+  assert.ok(article, "loops guide must be registered in the blog manifest");
+  assert.equal(article.title, "Claude Code Loops 入门：从手动回合到主动循环");
+  assert.equal(article.category, "development");
+  assert.equal(article.filename, "blogs/getting-started-with-loops.md");
+
+  const markdown = read(article.filename);
+  assert.match(markdown, /Getting started with loops/);
+  assert.match(markdown, /https:\/\/claude\.com\/blog\/getting-started-with-loops/);
+  assert.match(markdown, /Turn-based loop/);
+  assert.match(markdown, /Goal-based loop/);
+  assert.match(markdown, /Time-based loop/);
+  assert.match(markdown, /Proactive loop/);
 });
 
 test("all main pages share the global theme toggle runtime", () => {
