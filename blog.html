@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>博客 - Shoa Lin</title>
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/blog.css">
+    <link rel="icon" href="/assets/images/avatar/profile.jpg">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/blog.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked@18/lib/marked.umd.js"></script>
 </head>
@@ -23,6 +24,20 @@
         </div>
     </nav>
 
+    <section class="blog-masthead" aria-labelledby="blog-title">
+        <div class="blog-masthead-inner">
+            <div class="blog-kicker">Shoa Lin Journal</div>
+            <h1 id="blog-title">技术笔记</h1>
+            <p>关于 AI Agent、记忆系统、workflow harness 与产品工程的长期记录。</p>
+            <div class="blog-masthead-tags" aria-label="博客主题">
+                <span>AI Agent</span>
+                <span>Memory systems</span>
+                <span>Harness</span>
+                <span>Product engineering</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Mobile Header -->
     <div class="mobile-blog-header">
         <div class="mobile-header-left">
@@ -34,47 +49,48 @@
     </div>
 
     <!-- Mobile Drawer Overlay -->
-    <div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
+    <div class="mobile-drawer-overlay" id="mobile-drawer-overlay" aria-hidden="true"></div>
 
     <!-- Mobile Drawer Sidebar -->
-    <div class="mobile-drawer-sidebar" id="mobile-drawer-sidebar">
+    <div class="mobile-drawer-sidebar" id="mobile-drawer-sidebar" role="dialog" aria-modal="true" aria-labelledby="mobile-drawer-title" aria-hidden="true">
         <div class="mobile-drawer-header">
-            <h2>文章列表</h2>
+            <h2 id="mobile-drawer-title">文章列表</h2>
             <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="关闭列表">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <div class="mobile-drawer-content">
             <!-- Category Filter -->
+            <p class="category-filter-label">按主题筛选</p>
             <div class="category-filter">
-                <div class="category-filter-item active" data-category="all">
-                    <span class="category-icon">📚</span>
+                <button type="button" class="category-filter-item active" data-category="all" aria-pressed="true">
+                    <i class="fas fa-layer-group category-icon" aria-hidden="true"></i>
                     <span>全部</span>
-                </div>
-                <div class="category-filter-item" data-category="architecture">
-                    <span class="category-icon">🏗️</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="architecture" aria-pressed="false">
+                    <i class="fas fa-diagram-project category-icon" aria-hidden="true"></i>
                     <span>架构</span>
-                </div>
-                <div class="category-filter-item" data-category="development">
-                    <span class="category-icon">💻</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="development" aria-pressed="false">
+                    <i class="fas fa-code category-icon" aria-hidden="true"></i>
                     <span>开发</span>
-                </div>
-                <div class="category-filter-item" data-category="evaluation">
-                    <span class="category-icon">📊</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="evaluation" aria-pressed="false">
+                    <i class="fas fa-chart-simple category-icon" aria-hidden="true"></i>
                     <span>评估</span>
-                </div>
-                <div class="category-filter-item" data-category="application">
-                    <span class="category-icon">🚀</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="application" aria-pressed="false">
+                    <i class="fas fa-cubes category-icon" aria-hidden="true"></i>
                     <span>应用</span>
-                </div>
-                <div class="category-filter-item" data-category="algorithm">
-                    <span class="category-icon">🧮</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="algorithm" aria-pressed="false">
+                    <i class="fas fa-wave-square category-icon" aria-hidden="true"></i>
                     <span>算法</span>
-                </div>
-                <div class="category-filter-item" data-category="general">
-                    <span class="category-icon">📝</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="general" aria-pressed="false">
+                    <i class="fas fa-pen-nib category-icon" aria-hidden="true"></i>
                     <span>通用</span>
-                </div>
+                </button>
             </div>
 
             <div class="blog-list" id="mobile-blog-list">
@@ -86,38 +102,43 @@
     <div class="blog-container">
         <!-- Desktop Sidebar -->
         <aside class="blog-sidebar">
-            <h2>文章列表</h2>
+            <div class="blog-sidebar-header">
+                <span class="sidebar-eyebrow">Index</span>
+                <h2>文章索引</h2>
+                <p>按主题快速定位文章，点击标题进入阅读。</p>
+            </div>
 
             <!-- Category Filter -->
+            <p class="category-filter-label">按主题筛选</p>
             <div class="category-filter">
-                <div class="category-filter-item active" data-category="all">
-                    <span class="category-icon">📚</span>
+                <button type="button" class="category-filter-item active" data-category="all" aria-pressed="true">
+                    <i class="fas fa-layer-group category-icon" aria-hidden="true"></i>
                     <span>全部</span>
-                </div>
-                <div class="category-filter-item" data-category="architecture">
-                    <span class="category-icon">🏗️</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="architecture" aria-pressed="false">
+                    <i class="fas fa-diagram-project category-icon" aria-hidden="true"></i>
                     <span>架构</span>
-                </div>
-                <div class="category-filter-item" data-category="development">
-                    <span class="category-icon">💻</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="development" aria-pressed="false">
+                    <i class="fas fa-code category-icon" aria-hidden="true"></i>
                     <span>开发</span>
-                </div>
-                <div class="category-filter-item" data-category="evaluation">
-                    <span class="category-icon">📊</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="evaluation" aria-pressed="false">
+                    <i class="fas fa-chart-simple category-icon" aria-hidden="true"></i>
                     <span>评估</span>
-                </div>
-                <div class="category-filter-item" data-category="application">
-                    <span class="category-icon">🚀</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="application" aria-pressed="false">
+                    <i class="fas fa-cubes category-icon" aria-hidden="true"></i>
                     <span>应用</span>
-                </div>
-                <div class="category-filter-item" data-category="algorithm">
-                    <span class="category-icon">🧮</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="algorithm" aria-pressed="false">
+                    <i class="fas fa-wave-square category-icon" aria-hidden="true"></i>
                     <span>算法</span>
-                </div>
-                <div class="category-filter-item" data-category="general">
-                    <span class="category-icon">📝</span>
+                </button>
+                <button type="button" class="category-filter-item" data-category="general" aria-pressed="false">
+                    <i class="fas fa-pen-nib category-icon" aria-hidden="true"></i>
                     <span>通用</span>
-                </div>
+                </button>
             </div>
 
             <div class="blog-list" id="blog-list">
@@ -144,7 +165,7 @@
     <!-- Floating TOC Panel -->
     <div class="toc-panel" id="toc-panel">
         <div class="toc-panel-header">
-            <h3 class="toc-panel-title">📑 目录</h3>
+            <h3 class="toc-panel-title">目录</h3>
             <button class="toc-panel-close" id="toc-panel-close" aria-label="关闭目录">
                 <i class="fas fa-times"></i>
             </button>
@@ -167,13 +188,13 @@
             <div class="social-links">
                 <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://x.com/pand_lin" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-                <a href="mailto:contact@shoa.lin" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:shoa_lin@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. Built on GitHub Pages.</p>
         </div>
     </footer>
 
-    <script src="js/common.js?v=2"></script>
-    <script src="js/blog.js?v=2"></script>
+    <script src="/js/common.js?v=2"></script>
+    <script src="/js/blog.js?v=2"></script>
 </body>
 </html>

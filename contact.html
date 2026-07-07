@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/home.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="contact-page">
     <nav class="navbar">
         <div class="nav-content">
             <h3><a href="/">Shoa Lin</a></h3>
@@ -22,39 +22,64 @@
         </div>
     </nav>
 
-    <section class="section" style="min-height: 70vh; display: flex; align-items: center;">
-        <div class="container">
-            <h2>联系方式</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <p>如果你想了解更多，或者有任何合作意向，欢迎联系我！</p>
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <i class="fab fa-github"></i>
-                            <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fab fa-x-twitter"></i>
-                            <a href="https://x.com/pand_lin" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:contact@shoa.lin">Email</a>
-                        </div>
+    <main>
+        <section class="contact-hero">
+            <div class="container-wide">
+                <p class="hero-kicker">Contact</p>
+                <h1>一起把想法做成系统。</h1>
+                <p>如果你想交流 AI Agent、自动化工作流、个人工具链或系统设计，可以从这里找到我。</p>
+            </div>
+        </section>
+
+        <section class="contact-main">
+            <div class="container-wide contact-grid">
+                <div class="contact-copy">
+                    <h2>适合聊什么</h2>
+                    <p>我更喜欢围绕真实问题交流：一个流程为什么跑不稳，一套工具怎样变得可验证，或者一个 agent 产品如何从演示走向日常使用。</p>
+                    <p>如果只是想交换想法，也可以直接发邮件。说清楚背景、目标和你卡住的位置，我会更容易接住。</p>
+                    <div class="contact-note">
+                        头像和个人身份素材保持不变。这个页面只整理联系路径和表达方式。
                     </div>
                 </div>
+
+                <div class="contact-channel-list" aria-label="联系渠道">
+                    <a class="contact-card" href="mailto:shoa_lin@outlook.com">
+                        <span class="contact-card-icon"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+                        <div>
+                            <h3>Email</h3>
+                            <p>适合合作、长问题和需要上下文的讨论。</p>
+                            <span>shoa_lin@outlook.com</span>
+                        </div>
+                    </a>
+                    <a class="contact-card" href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-card-icon"><i class="fab fa-github" aria-hidden="true"></i></span>
+                        <div>
+                            <h3>GitHub</h3>
+                            <p>看项目、代码和正在整理的公开工作。</p>
+                            <span>github.com/shoa-lin</span>
+                        </div>
+                    </a>
+                    <a class="contact-card" href="https://x.com/pand_lin" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-card-icon"><i class="fab fa-x-twitter" aria-hidden="true"></i></span>
+                        <div>
+                            <h3>X</h3>
+                            <p>适合轻量交流、动态更新和技术话题碰撞。</p>
+                            <span>x.com/pand_lin</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer class="footer">
         <div class="container">
             <div class="social-links">
                 <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://x.com/pand_lin" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-                <a href="mailto:contact@shoa.lin" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:shoa_lin@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. Built on GitHub Pages.</p>
         </div>
     </footer>
 

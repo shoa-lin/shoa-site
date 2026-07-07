@@ -23,36 +23,44 @@
         </div>
     </nav>
 
-    <div class="favorites-container">
-        <div class="container">
-            <header class="page-header">
-                <h1>收藏夹</h1>
-                <p class="page-subtitle">有价值的文章、资源和思考</p>
-            </header>
+    <main>
+        <section class="favorites-hero">
+            <div class="container-wide">
+                <p class="hero-kicker">Favorites</p>
+                <h1>收藏是工作台。</h1>
+                <p>把值得反复翻看的文章、论文和工具收在这里，方便在做系统、写代码和思考产品时重新调用。</p>
+            </div>
+        </section>
 
-            <!-- 免责声明 -->
-            <div class="disclaimer-notice">
-                <i class="fas fa-info-circle"></i>
-                <div class="disclaimer-content">
-                    <strong>版权声明：</strong>本收藏夹展示的文章版权归原作者及原作者所有。文章内容仅供个人学习、研究之用，版权归原作者所有。如作者或版权方认为本站收录内容侵犯您的权益，请联系我删除。
+        <section class="favorites-container">
+            <div class="container-wide">
+                <div class="favorites-toolbar">
+                    <div>
+                        <h2>阅读索引</h2>
+                        <p>按来源筛选收藏内容，点开卡片可以直接阅读摘要或跳到原文。</p>
+                    </div>
+                    <div class="disclaimer-notice">
+                        <i class="fas fa-info-circle" aria-hidden="true"></i>
+                        <div class="disclaimer-content">
+                            <strong>版权声明：</strong>本收藏夹展示的文章版权归原作者及原作者所有。文章内容仅供个人学习、研究之用。如作者或版权方认为本站收录内容侵犯您的权益，请联系我删除。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-filters" aria-label="收藏来源筛选">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="wechat">公众号</button>
+                    <button class="filter-btn" data-filter="blog">博客</button>
+                    <button class="filter-btn" data-filter="paper">论文</button>
+                    <button class="filter-btn" data-filter="other">其他</button>
+                </div>
+
+                <div class="collection-grid">
+                    <!-- 文章卡片将通过 JavaScript 动态生成 -->
                 </div>
             </div>
-
-            <!-- 来源筛选 -->
-            <div class="collection-filters">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="wechat">公众号</button>
-                <button class="filter-btn" data-filter="blog">博客</button>
-                <button class="filter-btn" data-filter="paper">论文</button>
-                <button class="filter-btn" data-filter="other">其他</button>
-            </div>
-
-            <!-- 文章卡片列表 -->
-            <div class="collection-grid">
-                <!-- 文章卡片将通过 JavaScript 动态生成 -->
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <!-- 文章详情弹窗 -->
     <div id="article-modal" class="article-modal">
@@ -77,9 +85,9 @@
             <div class="social-links">
                 <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://x.com/pand_lin" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-                <a href="mailto:contact@shoa.lin" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:shoa_lin@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. Built on GitHub Pages.</p>
         </div>
     </footer>
 

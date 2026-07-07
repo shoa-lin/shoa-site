@@ -9,6 +9,41 @@ let activeTocId = null;
 let isTocPanelOpen = false;
 let isDrawerOpen = false;
 let scrollObserver = null;
+let backToTopObserver = null;
+
+const CATEGORY_LABELS = {
+    all: '全部',
+    architecture: '架构',
+    development: '开发',
+    evaluation: '评估',
+    application: '应用',
+    algorithm: '算法',
+    general: '通用'
+};
+
+function formatCategoryLabel(category) {
+    return CATEGORY_LABELS[category] || '通用';
+}
+
+function formatDate(date) {
+    if (!date) return '最新';
+    const parsed = new Date(date);
+    if (Number.isNaN(parsed.getTime())) return date;
+
+    return new Intl.DateTimeFormat('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).format(parsed);
+}
+
+function normalizeArticleAssetPaths(articleBody) {
+    articleBody.querySelectorAll('img').forEach(img => {
+        const src = img.getAttribute('src');
+        if (!src || /^(https?:|data:|\/|#)/i.test(src)) return;
+        img.setAttribute('src', '/' + src.replace(/^\.?\//, ''));
+    });
+}
 
 // =====================
 // URL Routing
@@ -43,6 +78,8 @@ function initMobileDrawer() {
         isDrawerOpen = true;
         overlay.classList.add('active');
         sidebar.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        sidebar.setAttribute('aria-hidden', 'false');
         document.body.classList.add('drawer-open');
     }
 
@@ -50,6 +87,8 @@ function initMobileDrawer() {
         isDrawerOpen = false;
         overlay.classList.remove('active');
         sidebar.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        sidebar.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('drawer-open');
     }
 
@@ -110,7 +149,7 @@ function initTocPanel() {
 
 async function loadBlogList() {
     try {
-        const response = await fetch('blogs/manifest.json');
+        const response = await fetch('/blogs/manifest.json');
         if (response.ok) {
             const manifest = await response.json();
             if (Array.isArray(manifest) && manifest.length > 0) {
@@ -171,11 +210,13 @@ function filterBlogList(category) {
 
 function updateCategoryActiveState() {
     document.querySelectorAll('.category-filter-item').forEach(item => {
-        item.classList.toggle('active', item.dataset.category === currentCategory);
+        const isActive = item.dataset.category === currentCategory;
+        item.classList.toggle('active', isActive);
+        item.setAttribute('aria-pressed', String(isActive));
     });
 }
 
-// Render blog list — XSS-safe using DOM API
+// Render blog list with DOM API.
 function renderBlogList() {
     const blogListEl = document.getElementById('blog-list');
     const mobileBlogListEl = document.getElementById('mobile-blog-list');
@@ -199,20 +240,35 @@ function renderBlogList() {
     targets.forEach(el => {
         el.innerHTML = '';
         filteredBlogList.forEach(blog => {
-            const item = document.createElement('div');
+            const item = document.createElement('button');
+            item.type = 'button';
             item.className = 'blog-item';
             item.dataset.blogId = blog.id;
+            if (blog.id === currentBlogId) {
+                item.classList.add('active');
+                item.setAttribute('aria-current', 'page');
+            }
 
             const titleDiv = document.createElement('div');
             titleDiv.className = 'blog-item-title';
             titleDiv.textContent = blog.title;
 
-            const dateDiv = document.createElement('div');
-            dateDiv.className = 'blog-item-date';
-            dateDiv.textContent = blog.date || '最新';
+            const metaDiv = document.createElement('div');
+            metaDiv.className = 'blog-item-meta';
+
+            const dateSpan = document.createElement('span');
+            dateSpan.className = 'blog-item-date';
+            dateSpan.textContent = formatDate(blog.date);
+
+            const categorySpan = document.createElement('span');
+            categorySpan.className = 'blog-item-category';
+            categorySpan.textContent = formatCategoryLabel(blog.category);
+
+            metaDiv.appendChild(dateSpan);
+            metaDiv.appendChild(categorySpan);
 
             item.appendChild(titleDiv);
-            item.appendChild(dateDiv);
+            item.appendChild(metaDiv);
 
             item.addEventListener('click', () => loadBlog(blog.id));
             el.appendChild(item);
@@ -325,25 +381,23 @@ function initBackToTopButton() {
     const backToTopBtn = document.getElementById('back-to-top');
     if (!backToTopBtn) return;
 
-    let ticking = false;
-    const toggleButton = () => {
-        backToTopBtn.classList.toggle('visible', window.scrollY > 300);
-    };
+    if (backToTopObserver) backToTopObserver.disconnect();
 
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                toggleButton();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }, { passive: true });
-    toggleButton();
+    const masthead = document.querySelector('.blog-masthead');
+    if (masthead && 'IntersectionObserver' in window) {
+        backToTopObserver = new IntersectionObserver((entries) => {
+            const [entry] = entries;
+            backToTopBtn.classList.toggle('visible', !entry.isIntersecting);
+        }, { threshold: 0 });
+        backToTopObserver.observe(masthead);
+    }
 
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (!backToTopBtn.dataset.bound) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        backToTopBtn.dataset.bound = 'true';
+    }
 }
 
 // =====================
@@ -367,21 +421,51 @@ async function loadBlog(blogId, updateUrl = true) {
     if (!blogContentEl) return;
 
     try {
-        const response = await fetch(blog.filename);
+        const response = await fetch('/' + blog.filename.replace(/^\/+/, ''));
         if (!response.ok) throw new Error('HTTP ' + response.status + ': ' + response.statusText);
 
         const markdown = await response.text();
-        const { title, content } = extractBlogMetadata(markdown);
+        const { title, date, content } = extractBlogMetadata(markdown);
+        const displayTitle = title || blog.title;
+        const displayDate = date || blog.date;
         const htmlContent = marked.parse(content);
 
         // Build article safely
         const article = document.createElement('article');
         article.className = 'blog-article';
 
+        const header = document.createElement('header');
+        header.className = 'blog-article-header';
+
+        const category = document.createElement('span');
+        category.className = 'blog-article-category';
+        category.textContent = formatCategoryLabel(blog.category);
+
+        const titleEl = document.createElement('h1');
+        titleEl.className = 'blog-article-title';
+        titleEl.textContent = displayTitle;
+
+        const meta = document.createElement('div');
+        meta.className = 'blog-article-meta';
+
+        const dateEl = document.createElement('span');
+        dateEl.textContent = formatDate(displayDate);
+
+        const sourceEl = document.createElement('span');
+        sourceEl.textContent = '技术笔记';
+
+        meta.appendChild(dateEl);
+        meta.appendChild(sourceEl);
+        header.appendChild(category);
+        header.appendChild(titleEl);
+        header.appendChild(meta);
+
         const body = document.createElement('div');
         body.className = 'blog-article-body';
         body.innerHTML = htmlContent;
+        normalizeArticleAssetPaths(body);
 
+        article.appendChild(header);
         article.appendChild(body);
         blogContentEl.innerHTML = '';
         blogContentEl.appendChild(article);
@@ -391,7 +475,7 @@ async function loadBlog(blogId, updateUrl = true) {
         initScrollObserver();
 
         currentBlogId = blogId;
-        updateMobileHeader(title);
+        updateMobileHeader(displayTitle);
 
         // Close mobile drawer if open
         if (isDrawerOpen) {
@@ -399,6 +483,8 @@ async function loadBlog(blogId, updateUrl = true) {
             const sidebar = document.getElementById('mobile-drawer-sidebar');
             if (overlay) overlay.classList.remove('active');
             if (sidebar) sidebar.classList.remove('active');
+            if (overlay) overlay.setAttribute('aria-hidden', 'true');
+            if (sidebar) sidebar.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('drawer-open');
             isDrawerOpen = false;
         }
@@ -449,6 +535,8 @@ function initCategoryFilter() {
                 const sidebar = document.getElementById('mobile-drawer-sidebar');
                 if (overlay) overlay.classList.remove('active');
                 if (sidebar) sidebar.classList.remove('active');
+                if (overlay) overlay.setAttribute('aria-hidden', 'true');
+                if (sidebar) sidebar.setAttribute('aria-hidden', 'true');
                 document.body.classList.remove('drawer-open');
                 isDrawerOpen = false;
             }

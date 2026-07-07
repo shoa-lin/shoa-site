@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>项目 - Shoa Lin</title>
+    <meta name="description" content="Shoa Lin 的项目与研究方向，覆盖 AI Agent、工作流、记忆系统和运行时基础设施。">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/home.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="projects-page">
     <nav class="navbar">
         <div class="nav-content">
             <h3><a href="/">Shoa Lin</a></h3>
@@ -22,57 +23,96 @@
         </div>
     </nav>
 
-    <section class="section section-alt" style="min-height: 70vh; display: flex; align-items: center;">
-        <div class="container">
-            <h2>项目展示</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>项目一</h3>
-                    <p>这里可以描述你的第一个项目，介绍项目的功能和特点。</p>
-                    <div class="project-links">
-                        <a href="#" class="project-link">查看详情</a>
-                        <a href="#" class="project-link">GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>项目二</h3>
-                    <p>这里可以描述你的第二个项目，介绍使用的技术栈和实现思路。</p>
-                    <div class="project-links">
-                        <a href="#" class="project-link">查看详情</a>
-                        <a href="#" class="project-link">GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>项目三</h3>
-                    <p>这里可以描述你的第三个项目，分享开发过程中的收获和经验。</p>
-                    <div class="project-links">
-                        <a href="#" class="project-link">查看详情</a>
-                        <a href="#" class="project-link">GitHub</a>
-                    </div>
-                </div>
+    <main>
+        <section class="page-hero">
+            <div class="container-wide">
+                <p class="hero-kicker">Projects</p>
+                <h1>项目是系统实验，<span class="no-wrap">不是截图。</span></h1>
+                <p>
+                    这里先放正在反复研究和建设的方向。公开代码和更完整的案例会逐步补齐。
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section class="project-showcase">
+            <div class="container-wide">
+                <article class="project-entry">
+                    <div class="project-entry-meta">
+                        <span>Agent memory</span>
+                        <i class="fas fa-layer-group" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-entry-body">
+                        <h2>Hermes</h2>
+                        <p>
+                            一个围绕 agent 记忆、profile、任务接续和多轮协作展开的长期系统实验。重点不是让 agent 显得更会聊天，而是让它能在真实工作里稳定接住上下文。
+                        </p>
+                        <div class="project-tags">
+                            <span>Memory</span>
+                            <span>Profiles</span>
+                            <span>Agent workflow</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="/blog?id=hermes-memory-mechanism">相关笔记</a>
+                            <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer">GitHub profile</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-entry">
+                    <div class="project-entry-meta">
+                        <span>Model workflows</span>
+                        <i class="fas fa-code-branch" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-entry-body">
+                        <h2>ModelBase</h2>
+                        <p>
+                            面向模型能力、变更流程和编码任务的项目研究。核心问题是如何把复杂需求拆成可追踪、可验证、可回放的工程过程。
+                        </p>
+                        <div class="project-tags">
+                            <span>Change sets</span>
+                            <span>Evaluation</span>
+                            <span>Code workflow</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="/blog?id=loop-engineering">方法笔记</a>
+                            <a href="/blog?id=dynamic-workflows-in-claude-code">Workflow 参考</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-entry">
+                    <div class="project-entry-meta">
+                        <span>Runtime systems</span>
+                        <i class="fas fa-cube" aria-hidden="true"></i>
+                    </div>
+                    <div class="project-entry-body">
+                        <h2>AI Habitat</h2>
+                        <p>
+                            对真实 AI 应用运行时的长期梳理，覆盖工具调用、计费、日志、服务边界和后台观测。重点是把系统跑起来以后仍然能解释清楚。
+                        </p>
+                        <div class="project-tags">
+                            <span>Runtime</span>
+                            <span>Billing</span>
+                            <span>Observability</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="/blog?id=harness-engineering">工程视角</a>
+                            <a href="/blog?id=prompt-caching-best-practices">性能笔记</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
 
     <footer class="footer">
         <div class="container">
             <div class="social-links">
                 <a href="https://github.com/shoa-lin" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://x.com/pand_lin" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-                <a href="mailto:contact@shoa.lin" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:shoa_lin@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. 用 ❤️ 和 GitHub Pages 构建</p>
+            <p>&copy; <span id="copyright-year">2025</span> Shoa Lin. Built on GitHub Pages.</p>
         </div>
     </footer>
 

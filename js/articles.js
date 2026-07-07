@@ -88,7 +88,7 @@ function createArticleCard(article) {
 
     const sourceTag = document.createElement('span');
     sourceTag.className = 'article-source-tag source-' + article.sourceType;
-    sourceTag.innerHTML = '<i class="' + iconClass + '"></i> ';
+    sourceTag.innerHTML = '<i class="' + iconClass + '" aria-hidden="true"></i> ';
     sourceTag.appendChild(document.createTextNode(article.source));
 
     const dateSpan = document.createElement('span');
@@ -101,8 +101,8 @@ function createArticleCard(article) {
     const titleEl = document.createElement('h3');
     titleEl.className = 'article-title';
 
-    const titleLink = document.createElement('a');
-    titleLink.href = '#';
+    const titleLink = document.createElement('button');
+    titleLink.type = 'button';
     titleLink.className = 'article-link';
     titleLink.dataset.article = article.id;
     titleLink.textContent = article.title;
@@ -138,7 +138,7 @@ function createArticleCard(article) {
     const viewBtn = document.createElement('button');
     viewBtn.className = 'action-btn view-btn';
     viewBtn.dataset.article = article.id;
-    viewBtn.innerHTML = '<i class="fas fa-eye"></i> ';
+    viewBtn.innerHTML = '<i class="fas fa-eye" aria-hidden="true"></i> ';
     viewBtn.appendChild(document.createTextNode('查看'));
 
     const origLink = document.createElement('a');
@@ -146,7 +146,7 @@ function createArticleCard(article) {
     origLink.target = '_blank';
     origLink.rel = 'noopener noreferrer';
     origLink.className = 'action-btn';
-    origLink.innerHTML = '<i class="fas fa-external-link-alt"></i> ';
+    origLink.innerHTML = '<i class="fas fa-external-link-alt" aria-hidden="true"></i> ';
     origLink.appendChild(document.createTextNode('原文'));
 
     actions.appendChild(viewBtn);
@@ -161,18 +161,45 @@ function createArticleCard(article) {
     return articleDiv;
 }
 
+function createCollectionEmptyState() {
+    const emptyState = document.createElement('div');
+    emptyState.className = 'collection-empty';
+    emptyState.dataset.dynamic = 'true';
+
+    const icon = document.createElement('i');
+    icon.className = 'fas fa-folder-open';
+    icon.setAttribute('aria-hidden', 'true');
+
+    const title = document.createElement('h3');
+    title.textContent = '这里暂时没有内容';
+
+    const description = document.createElement('p');
+    description.textContent = '当前筛选下暂无符合条件的收藏，换一个来源看看。';
+
+    emptyState.appendChild(icon);
+    emptyState.appendChild(title);
+    emptyState.appendChild(description);
+
+    return emptyState;
+}
+
 // Render article cards
 function renderArticleCards(filter) {
     filter = filter || 'all';
     const grid = document.querySelector('.collection-grid');
     if (!grid) return;
 
-    const existingCards = grid.querySelectorAll('.article-card[data-dynamic]');
-    existingCards.forEach(card => card.remove());
+    const existingDynamicItems = grid.querySelectorAll('[data-dynamic="true"]');
+    existingDynamicItems.forEach(item => item.remove());
 
     const filteredArticles = filter === 'all'
         ? articleList
         : articleList.filter(a => a.sourceType === filter);
+
+    if (filteredArticles.length === 0) {
+        grid.appendChild(createCollectionEmptyState());
+        return;
+    }
 
     filteredArticles.forEach(article => {
         grid.appendChild(createArticleCard(article));
