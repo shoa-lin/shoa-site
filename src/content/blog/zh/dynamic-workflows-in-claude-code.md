@@ -1,10 +1,10 @@
 ---
 translationKey: "dynamic-workflows-in-claude-code"
 locale: "zh"
-title: "为每个任务打造专属 harness：Claude Code 中的 dynamic workflow"
-description: "根据任务动态组合工具、上下文和验证步骤，而不是把所有工作塞进固定流程。"
-publishedAt: "2026-06-03"
-updatedAt: "2026-06-03"
+title: "为每个任务打造专属 harness：Claude Code 中的 dynamic workflows"
+description: "Claude Code 现在可以即时编写并编排面向具体任务的多 agent harness。"
+publishedAt: "2026-06-02"
+updatedAt: "2026-07-07"
 category: "development"
 sourceLocale: "en"
 sourceUrl: "https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code"
@@ -13,210 +13,212 @@ contentType: "adaptation"
 translationStatus: "reviewed"
 ---
 
-上周，我们在 Claude Code 中发布了 dynamic workflow。Claude 现在可以即时编写自己的 harness，针对当前任务量身定制。
+上周，我们在 Claude Code 中发布了 [dynamic workflows](https://code.claude.com/docs/en/workflows)。Claude 现在可以即时编写自己的 [harness](https://code.claude.com/docs/en/glossary#agentic-harness)，为手头的任务量身定制。
 
-> **Harness**：指 AI agent 中除模型本身之外的所有外围控制层——包括 prompt 组装、工具调度、上下文管理、错误恢复等。可以把 Claude Code 理解为 **Model + Harness**。下文中的 "harness" 均不翻译。
+> **Harness** 指 AI 模型周围的控制层，包括 prompt 组装、工具编排、上下文管理和错误恢复等。可以把 Claude Code 理解为 **Model + Harness**。本文保留 harness 原词。
 
-Claude Code 的默认 harness 是为编码构建的，但它对许多其他类型的任务也同样有用，因为事实证明，许多任务本质上与编码任务相似。但对于某些特定类别的任务，我们必须在 Claude Code 之上构建自定义 harness 才能达到最佳性能，例如 Research、安全分析、agent 团队协作或 Code Review。
+Claude Code 的默认 harness 面向编码，但许多其他任务本质上也很像编码任务，因此同样适用。不过，有些工作要达到最佳效果，仍需要在 Claude Code 之上构建专门的 harness，例如 [Research](https://support.claude.com/en/articles/11088861-using-research-on-claude)、[安全分析](https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code)、[agent teams](https://code.claude.com/docs/en/agent-teams) 和 [Code Review](https://code.claude.com/docs/en/code-review)。
 
-Workflow 允许你动态创建构建在 Claude Code 之上的 harness，使 Claude 能够更原生地解决所有这些问题。你还可以与他人分享和复用这些 workflow。
+Workflows 让 Claude 能够在 Claude Code 之上动态创建这些面向任务的 harness，也可以保存、分享和复用。
 
-在本文中，我将分享我在 workflow 方面的初步经验和心得，帮助你充分利用它们。请记住，最佳实践仍在发展中：dynamic workflow 通常会消耗更多 token，最适合复杂、高价值的任务。
+本文整理我们使用 workflows 的早期经验。最佳实践仍在发展中：dynamic workflows 往往消耗更多 token，更适合复杂且高价值的任务。
 
-## 示例 prompt
+## 示例 prompts
 
-在深入技术细节之前，我想先用几个示例 prompt 来启发你思考 workflow 的可能性：
+在进入技术细节之前，先看几个例子，感受 workflows 可以解决什么问题：
 
-"这个测试大约每 50 次运行会失败 1 次。设置一个 workflow 来复现它。对竞争条件形成竞争性假设，不要停下来，直到某个假设能经受住证据的检验。"
+"这个测试大约每运行 50 次会失败一次。建立一个 workflow 来复现它。针对竞争条件提出相互竞争的理论，在某个理论经受住证据检验之前不要停。"
 
-"使用一个 workflow，检查我最近 50 个 session，挖掘我一直反复做的修正，把反复出现的那些变成 `CLAUDE.md` 规则。"
+"用一个 workflow 检查我最近 50 个 session，找出我反复做出的修正，把重复出现的修正写成 `CLAUDE.md` 规则。"
 
-"使用一个 workflow 深入 Slack 的 #incidents 频道过去六个月的内容，找出没有提交过 ticket 的反复出现的根因。"
+"用一个 workflow 深挖 Slack 的 #incidents 频道过去六个月的内容，找出那些反复发生、却一直没人提交 ticket 的根因。"
 
-"拿我的商业计划书，运行一个 workflow，让不同的 agent 分别从投资者、客户和竞争对手的角度来挑毛病。"
+"拿我的商业计划书运行一个 workflow，让不同 agent 分别从投资者、客户和竞争对手的视角来挑问题。"
 
-"这里有一个文件夹里有 80 份简历，使用一个 workflow 来为后端岗位对它们排名，并复核前 10 名。用 AskUserQuestion 工具根据评分标准来面试我。"
+"这里有 80 份简历。用一个 workflow 为后端岗位排序，并复核前十名。使用 AskUserQuestion 工具采访我，确定评分 rubric。"
 
-"我需要给这个 CLI 工具起个名字。使用一个 workflow 头脑风暴一堆选项，然后运行一个锦标赛选出前 3 名。"
+"我需要给这个 CLI 工具起名。用一个 workflow 广泛发散，再运行 tournament 选出前三名。"
 
-"使用一个 workflow 把我们的 User model 重命名为 Account，覆盖所有出现的地方。"
+"用一个 workflow 把 User model 在所有地方重命名为 Account。"
 
-"过一遍我的博客草稿，用 workflow 针对代码库验证每一个技术声明，我不想发布任何有错误的内容。"
+"检查我的博客草稿，用 workflow 对照代码库验证每一项技术声明。我不想发布任何错误内容。"
 
-## Dynamic workflow 的工作原理
+## Dynamic workflows 如何工作
 
-Dynamic workflow 执行一个 JavaScript 文件，其中包含几个特殊函数，用于生成和协调 subagent：
+Dynamic workflows 会执行一个 JavaScript 文件，其中包含若干用于生成和协调 [subagents](https://code.claude.com/docs/en/sub-agents) 的特殊函数：
 
-![Dynamic workflow 执行示意图](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f1684f559cc83ff4b465b_image1.png)
+![Dynamic workflow 生成并协调 subagents 的示意图](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f1684f559cc83ff4b465b_image1.png)
 
-Dynamic workflow 还包含标准的 JavaScript 函数，如 JSON、Math 和 Array，帮助处理数据。
+它也提供 JSON、Math、Array 等标准 JavaScript 对象来处理数据。
 
-特别值得注意的是，dynamic workflow 可以决定 agent 使用哪个模型，以及 subagent 是否在自己的 worktree 中运行，这让 Claude 能够选择所需的智能级别和隔离程度。
+Dynamic workflow 可以决定 agent 使用哪个模型，以及 subagent 是否在独立 worktree 中运行，让 Claude 为每一步选择合适的智能水平和隔离程度。
 
-如果 workflow 被中断（例如用户操作或退出终端），恢复 session 将允许 workflow 从中断的地方继续执行。
+如果 workflow 因用户操作或退出终端而中断，恢复 session 后可以从中断处继续。
 
-## 为什么需要 dynamic workflow
+## 为什么需要 dynamic workflows
 
-当你要求 Claude Code 的默认 harness 执行任务时，它需要在同一个 context window 中同时规划和执行。对于许多编码任务来说，这非常高效，但在长时间运行、大规模并行、高度结构化和/或对抗性任务中，可能会出问题。
+Claude Code 的默认 harness 必须在同一个 context window 中规划并执行任务。对许多编码任务而言，这非常有效；但面对长时间运行、大规模并行、高度结构化或对抗性的工作时，它可能失效。
 
-这是因为 Claude 在单个 context window 中处理复杂任务的时间越长，就越容易出现以下几种特定的失败模式：
+Claude 在单个 context window 中处理复杂任务越久，就越容易出现几类失败模式：
 
-- **Agentic laziness（agent 懒惰）** 指 Claude 在完成一个特别复杂的多部分任务之前就停下来，在只完成部分进度后宣布任务完成，例如在安全 review 中只处理了 50 项中的 35 项。
-- **Self-preferential bias（自我偏好偏差）** 指 Claude 倾向于偏好自己的结果或发现，尤其是在被要求根据 rubric 验证或评判自己的工作时。
-- **Goal drift（目标漂移）** 指在多轮对话中逐渐偏离原始目标，尤其是在 compaction 之后。每次摘要步骤都是有损的，边缘情况的需求或"不要做 X"这样的约束可能会丢失。
+- **Agentic laziness**：复杂的多部分任务还没完成，Claude 就在取得部分进展后宣布结束，例如安全 review 的 50 项只处理了 35 项。
+- **Self-preferential bias**：Claude 倾向于偏好自己的结果，尤其是在按 rubric 验证或评判自己的工作时。
+- **Goal drift**：多轮交互后逐渐偏离原始目标，compaction 之后尤其明显。每次摘要都有信息损失，边缘需求和“不要做 X”之类的约束可能被漏掉。
 
-创建 workflow 通过编排各自拥有独立 context window 和专注、隔离目标的 Claude subagent，来帮助应对这些问题。
+Workflow 通过编排多个独立的 Claude subagents 来应对这些问题：每个 subagent 都有自己的 context window，以及聚焦、隔离的目标。
 
-## Dynamic workflow vs Static workflow
+## Dynamic 与 static workflows
 
-你可能之前已经使用 Claude Agent SDK 或 `claude -p` 创建过 static workflow，来协调多个 Claude Code 实例。
+你可能已经用 Claude Agent SDK 或 `claude -p` 构建过 static workflow，用来协调多个 Claude Code 实例。
 
-但由于 static workflow 需要应对所有边缘情况，它们通常更通用。借助 Claude Opus 4.8 和 dynamic workflow，Claude 现在足够智能，能够为你的具体用例编写量身定制的 harness。
+Static workflows 必须提前覆盖各种边缘情况，因此通常更通用。借助 [Claude Opus 4.8](https://www.anthropic.com/news/claude-opus-4-8) 和 dynamic workflows，Claude 可以针对当前用例编写专属 harness。
 
-![Static workflow 与 Dynamic workflow 对比](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f3a0e17e2844bed86f22a_image9.png)
+![Static 与 dynamic workflows 对比](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f3a0e17e2844bed86f22a_image9.png)
 
-## Dynamic workflow 的常用模式
+## Dynamic workflows 的常用模式
 
-你可以直接要求 Claude 创建一个 dynamic workflow，或者使用触发词 "`ultracode`" 来确保 Claude Code 创建 workflow。
+你可以直接要求 Claude 创建 dynamic workflow，也可以使用触发词 `ultracode` 明确表达这个意图。
 
-但建立 dynamic workflow 工作原理的思维模型，将帮助你理解何时使用它们，以及如何通过 prompt 来引导 Claude。
+理解常见模式，有助于判断何时该用 workflow，以及如何在 prompt 中引导 Claude。
 
-以下是 Claude 在构建 workflow 时可能会使用和组合的几种常见模式：
+Claude 可以使用并组合以下模式：
 
-![Workflow 常用模式概览](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f16d86247e586b929a407_image10.png)
+![Dynamic workflows 常用模式概览](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f16d86247e586b929a407_image10.png)
 
-### Classify-and-act（分类后行动）
+### Classify-and-act
 
-使用一个分类 agent 来判断任务类型，然后根据任务路由到不同的 agent 或行为。或者，在最后使用分类器来确定输出。
+由 classifier agent 判断任务类型，再路由到不同的 agent 或行为。也可以在流程末尾运行 classifier，决定如何处理输出。
 
-### Fan-out-and-synthesize（扇出后综合）
+### Fan-out-and-synthesize
 
-将任务拆分为许多较小的步骤，在每个步骤上运行一个 agent，然后综合这些结果。这在有大量较小步骤时特别有用，或者当每个步骤受益于自己独立的 context window，以免互相干扰或交叉污染时。综合步骤是一个屏障——它等待所有扇出的 agent 完成，然后将它们的结构化输出合并为一个结果。
+把任务拆成较小步骤，为每一步运行独立 agent，再综合结果。这适合步骤很多的任务，也适合让每一步使用干净的 context window，避免相互干扰和交叉污染。综合步骤是一道屏障：等待所有 fan-out agents 完成，再把结构化输出合并为一个结果。
 
-### Adversarial verification（对抗性验证）
+### Adversarial verification
 
-对于每个生成的 agent，运行一个独立的 agent 来根据 rubric 或标准对抗性地验证其输出。
+每当一个 agent 产出结果，就启动另一个独立 agent，依据 rubric 或明确标准对其进行对抗性验证。
 
-### Generate-and-filter（生成后过滤）
+### Generate-and-filter
 
-针对某个主题生成大量想法，然后通过 rubric 或验证来过滤它们，去除重复项，只返回经过测试的最高质量想法。
+先生成大量想法，再通过 rubric 或验证步骤筛选、去重，只返回经过检验的最佳候选。
 
-### Tournament（锦标赛）
+### Tournament
 
-不是分割工作，而是让 agent 竞争。生成 N 个 agent，每个 agent 用不同的方法尝试同一任务。然后通过 prompt 或模型使用评判 agent 以两两对决的方式评判结果，直到产生赢家。
+不拆分工作，而是让 agents 竞争。生成 N 个 agents，用不同方法尝试同一任务，再由 judge agent 或模型两两比较，直到选出赢家。
 
-### Loop until done（循环直到完成）
+### Loop until done
 
-对于工作量未知的任务，循环生成 agent 直到满足停止条件（没有新发现，或者日志中没有更多错误），而不是固定次数的迭代。
+面对工作量未知的任务，不预设固定轮次，而是持续生成 agents，直到没有新发现、日志中不再有错误等停止条件成立。
 
 ## 使用场景
 
-创造性地思考何时以及如何让 Claude Code 创建 dynamic workflow。我发现 workflow 有时甚至对非技术工作更有用。
+可以更大胆地思考何时让 Claude Code 创建 dynamic workflow。对某些非技术工作，workflows 甚至比对编码更有价值。
 
-### 迁移和重构
+### 迁移与重构
 
-Bun 从 Zig 重写到 Rust 就是使用 workflow 完成的。你可以在 Jarred 的 X 帖子中了解更多细节。
+[Bun](https://bun.com/) 从 Zig 重写到 Rust 时使用了 workflows。[Jarred 的 X thread](https://x.com/jarredsumner/status/2060050578026189172) 介绍了具体做法。
 
-关键是将任务分解为一系列需要处理的步骤，例如调用点、失败的测试、模块等。为每个修复在一个 worktree 中启动一个 subagent 来执行修复，然后让另一个 agent 对抗性 review，最后 merge 它们。考虑告诉 agent 不要使用资源密集型命令，这样你就可以最大化并行度，而不会耗尽机器上的资源。
+关键是把迁移拆成调用点、失败测试、模块等具体单元。为每个修复在 worktree 中启动 subagent，再让另一个 agent 做对抗性 review，最后合并。必要时要求 agents 避免资源密集型命令，让机器能够承受更高并行度。
 
-### 深度研究
+### Deep research
 
-我们在 Claude Code 中发布了一个深度研究 skill（`/deep-research`），它使用了 dynamic workflow。具体来说，它扇出网络搜索、获取来源、对抗性验证其声明，然后综合生成一份带引用的报告。
+Claude Code 内置了基于 dynamic workflows 的深度研究 skill：`/deep-research`。它会 fan out 网络搜索、获取来源、对声明进行对抗性验证，最后综合为带引用的报告。
 
-但你可能不仅仅对网络搜索需要这种研究。例如，让 Claude 从 Slack 中的上下文编译状态报告，或者通过深入探索代码库来研究某个功能的工作原理。
+这一模式不限于网络搜索。Claude 也可以根据 Slack 上下文整理状态报告，或深入代码库研究某个功能如何工作。
 
-### 深度验证
+### Deep verification
 
-![深度验证 workflow 示意](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f1721824a27cf13da87f4_image2.png)
+![Deep verification workflow 示意图](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f1721824a27cf13da87f4_image2.png)
 
-另一方面，如果你有一份报告，想要检查和溯源其中引用的每一个事实声明，你可能想生成一个 workflow：一个 agent 识别所有事实声明，然后为每个声明启动一个 subagent 来详细检查。你还可以让一个验证 agent 检查来源 subagent，确保其来源质量可靠。
+如果已有一份报告，需要逐项检查其中的事实声明，可以让一个 agent 识别全部声明，再为每项声明启动独立 subagent。还可以增加 verifier，判断每个来源是否足够可靠。
 
 ### 排序
 
-![排序 workflow 示意](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f173ce727a972001584cc_image3.png)
+![排序 workflow 示意图](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f173ce727a972001584cc_image3.png)
 
-你可能有一组项目想按照某种你认为 Claude Code 擅长评估的定性指标来排序，例如：按 bug 严重程度对支持工单排序。但如果你试图在一个 prompt 中对 1000+ 行进行排序，质量会下降，而且无法放入 context 中。相反，可以运行一个锦标赛、一个两两比较 agent 的 pipeline（比较判断比绝对评分更可靠），或者分桶并行排序后合并。每次比较都是一个独立的 agent，因此确定性循环持有对阵表，只有运行顺序留在 context 中。
+假设你要按某种 Claude Code 擅长判断的定性指标排序，例如按 bug 严重程度排列支持工单。把 1,000 多行一次塞进 prompt，会导致质量下降，也超出有效 context。更合适的方式是 tournament、两两比较 agents 组成的 pipeline，或先并行分桶排序再合并。比较判断通常比绝对打分更可靠，而且每次比较都有独立 context window。
 
-### 记忆和规则遵守
+### 记忆与规则遵守
 
-![记忆和规则遵守 workflow 示意](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f17517076bb59050d90bb_image8.png)
+![记忆与规则遵守 workflow 示意图](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f17517076bb59050d90bb_image8.png)
 
-如果你有一组特定的规则发现 Claude 经常遗漏或难以遵守，即使写进了 `CLAUDE.md`，也可以创建一个 workflow，列出必须由验证 agent 检查的规则——每条规则一个验证者。创建一个怀疑者角色的 subagent 来审查规则，确保规则合理，有助于避免过多误报。
+如果 Claude 即使面对 `CLAUDE.md` 仍反复遗漏某些规则，可以建立 workflow，每条规则配一个 verifier。再用 skeptic subagent 审查规则本身，以减少误报。
 
-反向操作也有效：挖掘你最近的 session 和 code review 评论中反复做的修正，用并行 agent 对它们聚类，对抗性验证每个候选规则（这条规则是否能阻止一个真实的错误？），然后将幸存者提炼回 `CLAUDE.md`。
+反向操作也成立：从近期 sessions 和 code review 评论中挖掘反复出现的修正，用并行 agents 聚类，对抗性检验每条候选规则是否真的能避免一次错误，再把有效规则提炼回 `CLAUDE.md`。
 
 ### 根因调查
 
-调试在提出多个独立假设并逐一验证时效果最好，但如果你只使用一个 context window，Claude 可能会遇到 self-preferential bias。
+调试最适合先提出多个独立假设，再逐一验证。只使用一个 context window，更容易出现 self-preferential bias。
 
-Workflow 可以从结构上防止这种情况，方法是启动 agent 从不重叠的证据中生成假设。例如，分别针对日志、文件和数据的独立 agent。每个假设然后面对一组验证者和反驳者。
+Workflow 可以从结构上规避这一点：让独立 agents 分别分析日志、文件、数据等互不重叠的证据，再让每个假设接受独立 verifier 和 refuter 的检验。
 
-这不仅适用于代码。Workflow 可用于销售（为什么三月份销量下降了？）、数据工程（为什么这个 pipeline 失败了？），或任何事后分析。
+这一模式不限于代码，也适用于销售分析、数据工程故障和各种事后复盘。
 
 ### 大规模分诊
 
-![大规模分诊 workflow 示意](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f1778dc00d34cca70819d_image6.png)
+![大规模分诊 workflow 示意图](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f1778dc00d34cca70819d_image6.png)
 
-每个团队都有支持队列、bug 报告或其他无法由人力完全处理的工作积压。
+每个团队都有支持队列、bug 报告或其他人力无法完全处理的积压。
 
-分诊 workflow 对每个项目进行分类、对已跟踪的内容去重，然后采取行动。这可能意味着尝试修复或将问题升级给人工处理。
+分诊 workflow 会分类每个项目，与已跟踪内容去重，再采取相应行动，例如尝试修复或升级给人工处理。
 
-分诊 workflow 的一个有用模式是隔离（quarantine）。这涉及禁止读取不受信任公开内容的 agent 执行高权限操作，这些操作由负责根据信息采取行动的 agent 来完成。
+Quarantine 是这里很有用的模式：读取不受信任公开内容的 agents 不得执行高权限操作，由另一组 agents 根据信息采取行动。
 
-将分诊 workflow 与 `/loop` 配对使用，让 Claude 持续执行。
+把分诊 workflows 与 [`/loop`](https://claude.com/blog/getting-started-with-loops) 配合，让 Claude 持续运行。
 
-### 探索和审美判断
+### 探索与品味判断
 
-Workflow 在探索解决方案的不同方法时很有用，尤其是当选择基于审美时，如设计或命名，并且可以从 rubric 中受益。
+当需要探索多种方案，而最终选择取决于品味，例如设计或命名，并且可以通过 rubric 表达时，workflows 很有用。
 
-尝试让 Claude 探索一堆解决方案，并给 review agent 一个好方案应具备的 rubric。当 review agent 认为满足标准时，任务完成。解决方案也可以根据 rubric 通过锦标赛进行排序或选择。
+让 Claude 探索多种方案，再给 review agent 一套好方案应满足的 rubric。Review agent 判断标准已满足时，任务结束。也可以用 tournament 按 rubric 排序或选出候选。
 
-### Eval
+### Evals
 
-你可以通过在 worktree 中启动独立的 agent，然后启动比较 agent 来根据 rubric 比较和评级特定输出，从而为特定任务运行轻量级 eval。例如，根据特定标准评估和改进你创建的 skill。
+可以在 worktrees 中启动独立 agents，再由 comparison agents 按 rubric 评价输出，从而运行轻量 eval。例如，根据具体标准评估并改进某个 skill。
 
-### 模型和智能级别路由
+### 模型与智能路由
 
-创建一个针对你的任务调优的分类 agent，决定使用哪个模型。当你的任务将涉及大量工具调用，并且在执行前进行研究可以确定最佳模型时，这会很有帮助。
+创建针对任务调优的 classifier agent，让它选择模型。这适合先通过研究和工具调用判断实际执行需要多少智能的任务。
 
-例如，任务"解释 auth 模块的工作原理"的最佳模型取决于 auth 模块中有多少文件以及代码库的结构。分类 agent 可以进行这项研究，然后根据任务的预期复杂度路由到 Sonnet 或 Opus。
+例如，“解释 auth 模块如何工作”该用哪个模型，取决于模块规模和代码库结构。Classifier 可以先检查这些信息，再按预期复杂度路由到 Sonnet 或 Opus。
 
-## 何时不该使用 dynamic workflow
+## 何时不该使用 dynamic workflows
 
-Workflow 是新功能。虽然许多用例会产生超预期的效果，但它们并非每个任务都需要，可能最终消耗显著更多的 token。
+Workflows 仍是新能力。它们可能带来超预期结果，但不是每个任务都需要，而且可能显著增加 token 用量。
 
-最好创造性地使用 workflow，以之前未尝试过的方式推动 Claude Code。对于常规编码任务，问问自己：它真的需要更多计算吗？例如，大多数传统编码任务不需要 5 个 reviewer 组成的评审团。
+只有当并行、专业分工或对抗性检查值得其协调成本时才使用。多数常规编码任务不需要五人 reviewer 小组。系统架构层面对 [multi-agent 与 single-agent](https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them) 的选择也遵循同样原则。
 
-## 构建 dynamic workflow 的技巧
+## 构建 dynamic workflows 的技巧
 
 ### Prompting
 
-使用我们上面描述的特定技术进行详细的 prompt，能为 dynamic workflow 带来最佳结果。
+在 prompt 中明确需要的 workflow 模式，通常能得到更好的结果。
 
-Workflow 不仅适用于大型任务。你可以 prompt 模型使用"快速 workflow"。例如，你可以对某个假设进行一次快速的对抗性 review。
+Workflows 也不只用于大型任务。你可以要求一个“quick workflow”，例如快速对抗性 review 某个假设。
 
-### 与 `/goal` 和 `/loop` 配合使用
+### 与 `/goal` 和 `/loop` 配合
 
-当使用可重复的 workflow 时（例如分诊、研究或验证），将它们与 `/loop` 配对以定期运行，与 `/goal` 配对以设置硬性完成条件。
+对于分诊、研究、验证等可重复 workflows，把 [`/loop`](https://claude.com/blog/getting-started-with-loops) 与 [`/goal`](https://code.claude.com/docs/en/workflows) 配合使用：前者按周期运行，后者设置硬性完成条件。
 
 ### Token 用量预算
 
-你可以为 dynamic workflow 设置明确的 token 用量预算，以限制任务消耗的 token 数量。你可以用这样的 prompt 设置预算："使用 10k token"，这将设置上限。
+可以为 dynamic workflow 设置明确的 token 预算。像“use 10k tokens”这样的 prompt，会为任务设置 10k token cap。
 
-### 保存和分享 dynamic workflow
+### 保存与分享 dynamic workflows
 
-你可以通过在 workflow 菜单中按 "s" 来保存 workflow。你可以将它们提交到 `~/.claude/workflows` 或通过 skill 分发。
+在 workflow 菜单中按 `s` 即可保存。你可以把它提交到 `~/.claude/workflows`，或通过 skill 分发。
 
-![保存 workflow](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f17b1ca20533e666c867c_image4.png)
+![从 workflow 菜单保存 workflow](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f17b1ca20533e666c867c_image4.png)
 
-要通过 skill 分享，将你的 JavaScript workflow 文件放在 skill 文件夹中，并在 `SKILL.MD` 中引用它们。为了获得更大的灵活性，你可能想 prompt Claude 将 skill 中的 workflow 视为模板，而不是需要逐字执行的脚本。
+通过 skill 分享时，把 JavaScript workflow 文件放入 skill 文件夹，并在 `SKILL.md` 中引用。为了保留灵活性，可以让 Claude 把 workflow 当作模板，而不是必须逐字执行的脚本。
 
 ![通过 skill 分享 workflow](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a1f17cb835cf4f9fd5da921_image7.png)
 
 ## 探索的新起点
 
-Workflow 是扩展 Claude Code 的一种有益新方式。我鼓励你将它们视为一个起点，去探索使用 Claude 帮助完成任务的新方法。关于如何最好地使用它们，还有很多有待发现。告诉我你的发现。
+Workflows 是扩展 Claude Code 的一种新方式。可以把它们当作探索起点，寻找 Claude 协助完成工作的更多方法；关于如何用好它们，仍有很多值得发现。
+
+关于 harness 中应该包含什么，可参阅 Anthropic 的[三种 harness 设计模式](https://claude.com/blog/harnessing-claudes-intelligence)。
 
 ---
 
-*本文由 Thariq Shihipar 和 Sid Bidasaria 撰写，他们是 Anthropic 的技术团队成员，在 Claude Code 团队工作。*
+*本文由 Anthropic Claude Code 团队的 technical staff Thariq Shihipar 和 Sid Bidasaria 撰写。*
