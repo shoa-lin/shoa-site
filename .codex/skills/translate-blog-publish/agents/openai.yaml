@@ -1,0 +1,4 @@
+interface:
+  display_name: "Translate Blog Publish"
+  short_description: "Prepare six-language public articles safely"
+  default_prompt: "Use $translate-blog-publish to translate or review an approved public article across all required locales, preserve structure and images, run privacy and parity gates, and stop before production publication."
