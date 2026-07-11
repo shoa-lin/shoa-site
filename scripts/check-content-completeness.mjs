@@ -24,6 +24,10 @@ for (const [key, group] of groups) {
     return status === "reviewed" || status === "published";
   });
   const found = [...new Set(active.map((entry) => entry.data.locale))].sort();
+  if (allowDrafts) {
+    if (active.length !== found.length) failures.push(`${key}: duplicate locale files`);
+    continue;
+  }
   if (active.length !== 6 || found.length !== 6) {
     failures.push(`${key.split(":")[1]}: expected 6 locales, found ${found.length}`);
   }

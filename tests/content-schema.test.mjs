@@ -79,6 +79,23 @@ test("content completeness requires exactly six reviewed locale files", () => {
   }
 });
 
+test("content completeness allows partial draft batches only with the explicit flag", () => {
+  const directory = mkdtempSync(join(tmpdir(), "shoa-content-draft-"));
+  try {
+    const localeDir = join(directory, "blog", "zh");
+    mkdirSync(localeDir, { recursive: true });
+    writeFileSync(join(localeDir, "example.md"), article("zh").replace("translationStatus: reviewed", "translationStatus: draft"));
+
+    const strict = run("scripts/check-content-completeness.mjs", ["--content-root", directory]);
+    assert.equal(strict.status, 1);
+
+    const drafts = run("scripts/check-content-completeness.mjs", ["--content-root", directory, "--allow-drafts"]);
+    assert.equal(drafts.status, 0, `${drafts.stdout}\n${drafts.stderr}`);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
 test("translation parity detects changed headings and image positions", () => {
   const directory = mkdtempSync(join(tmpdir(), "shoa-content-parity-"));
   try {
