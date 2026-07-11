@@ -2,9 +2,13 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
+import { loadContentEntries } from "../scripts/lib/content-files.mjs";
 
 const root = new URL("../", import.meta.url);
 const manifest = JSON.parse(readFileSync(new URL("../blogs/manifest.json", import.meta.url), "utf8"));
+const publicChineseFavorites = loadContentEntries(fileURLToPath(new URL("../src/content", import.meta.url)))
+  .filter((entry) => entry.collection === "favorites" && entry.data.locale === "zh" && entry.data.publicationStatus !== "draft");
 
 test("approved Chinese articles build as static canonical pages", () => {
   const build = spawnSync("npm", ["run", "build"], { cwd: root, encoding: "utf8" });
@@ -28,5 +32,5 @@ test("Blog and Favorites indexes are generated from content collections", () => 
   const blog = readFileSync(new URL("../dist/blog/index.html", import.meta.url), "utf8");
   const favorites = readFileSync(new URL("../dist/favorites/index.html", import.meta.url), "utf8");
   assert.equal((blog.match(/class="article-card"/g) ?? []).length, manifest.length);
-  assert.equal((favorites.match(/class="favorite-item"/g) ?? []).length, 2);
+  assert.equal((favorites.match(/class="favorite-item"/g) ?? []).length, publicChineseFavorites.length);
 });

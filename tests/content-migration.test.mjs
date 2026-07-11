@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
-import { parseFrontmatter } from "../scripts/lib/content-files.mjs";
+import { locales, parseFrontmatter } from "../scripts/lib/content-files.mjs";
 
 const manifest = JSON.parse(readFileSync(new URL("../blogs/manifest.json", import.meta.url), "utf8"));
 
@@ -61,7 +61,7 @@ test("every approved legacy manifest entry has a normalized Chinese content file
 });
 
 test("Chinese favorites are summaries with canonical public source links", () => {
-  for (const slug of ["fix-your-life-in-one-day", "manus-meeting"]) {
+  for (const slug of ["fix-your-life-in-one-day"]) {
     const path = `src/content/favorites/zh/${slug}.md`;
     const entry = parseFrontmatter(read(path), path);
     assert.equal(entry.data.locale, "zh");
@@ -69,5 +69,10 @@ test("Chinese favorites are summaries with canonical public source links", () =>
     assert.equal(entry.data.publicationStatus, "reviewed");
     assert.match(entry.data.sourceUrl, /^https:\/\//);
     assert.ok(entry.body.length < 1200, `${slug} must remain a concise summary`);
+  }
+
+  for (const locale of locales) {
+    const path = `src/content/favorites/${locale}/manus-meeting.md`;
+    assert.equal(existsSync(new URL(`../${path}`, import.meta.url)), false, path);
   }
 });
