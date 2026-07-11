@@ -1,11 +1,13 @@
 ---
-import { favorites } from "../../data/favorites";
+import { getCollection } from "astro:content";
 import { getDictionary, type Locale } from "../../lib/i18n";
 import PageLayout from "../../layouts/PageLayout.astro";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dictionary = getDictionary(locale);
+const favorites = (await getCollection("favorites", ({ data }) => data.locale === locale && data.publicationStatus !== "draft"))
+  .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf());
 ---
 
 <PageLayout locale={locale} path="/favorites" title={dictionary.favorites.title} description={dictionary.favorites.description}>
@@ -14,15 +16,16 @@ const dictionary = getDictionary(locale);
     <p>{dictionary.favorites.description}</p>
   </header>
   <div class="favorite-list">
-    {favorites.map((item) => (
+    {favorites.map((entry) => (
       <article class="favorite-item">
         <div>
-          <span>{item.source}</span>
-          <h2>{item.copy[locale].title}</h2>
-          <p>{item.copy[locale].summary}</p>
+          <span>{entry.data.sourceAuthor}</span>
+          <h2>{entry.data.title}</h2>
+          <p>{entry.data.description}</p>
         </div>
-        <a href={item.sourceUrl} rel="noopener noreferrer">{dictionary.favorites.visitSource}</a>
+        <a href={entry.data.sourceUrl} rel="noopener noreferrer">{dictionary.favorites.visitSource}</a>
       </article>
     ))}
+    {favorites.length === 0 && <p class="collection-empty">{dictionary.favorites.empty}</p>}
   </div>
 </PageLayout>

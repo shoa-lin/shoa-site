@@ -1,0 +1,56 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
+import { localizedPath } from "../../lib/routes";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<"blog">;
+}
+
+const { locale, entry } = Astro.props;
+const dictionary = getDictionary(locale);
+const { Content, headings } = await render(entry);
+const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
+const visibleHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+<ArticleLayout
+  locale={locale}
+  path={`/blog/${entry.data.translationKey}`}
+  title={entry.data.title}
+  description={entry.data.description}
+>
+  <article>
+    <header class="article-header">
+      <a class="article-back" href={localizedPath(locale, "/blog")}>{dictionary.article.back}</a>
+      <p>{dictionary.blog.categories[entry.data.category]}</p>
+      <h1>{entry.data.title}</h1>
+      <p class="article-header__description">{entry.data.description}</p>
+      <dl class="article-meta">
+        <div><dt>{dictionary.article.published}</dt><dd>{dateFormatter.format(entry.data.publishedAt)}</dd></div>
+        <div><dt>{dictionary.article.author}</dt><dd>{entry.data.sourceAuthor}</dd></div>
+        <div><dt>{dictionary.article.source}</dt><dd><a href={entry.data.sourceUrl} rel="noopener noreferrer">{new URL(entry.data.sourceUrl).hostname}</a></dd></div>
+      </dl>
+      {entry.data.contentType === "adaptation" && <p class="article-notice">{dictionary.article.adaptationNotice}</p>}
+    </header>
+    <div class:list={["article-reading-grid", { "article-reading-grid--single": visibleHeadings.length < 3 }]}>
+      {
+        visibleHeadings.length >= 3 && (
+          <aside class="article-toc" aria-label={dictionary.article.toc}>
+            <strong>{dictionary.article.toc}</strong>
+            <nav>
+              {visibleHeadings.map((heading) => (
+                <a class:list={[{ "article-toc__nested": heading.depth === 3 }]} href={`#${heading.slug}`}>{heading.text}</a>
+              ))}
+            </nav>
+          </aside>
+        )
+      }
+      <div class="article-content">
+        <Content />
+      </div>
+    </div>
+  </article>
+</ArticleLayout>

@@ -236,6 +236,12 @@
   padding-bottom: clamp(5rem, 10vw, 8rem);
 }
 
+.collection-empty {
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+
 .favorite-item,
 .contact-list > a {
   display: grid;

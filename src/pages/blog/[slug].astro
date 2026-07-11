@@ -1,0 +1,14 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import ArticlePage from "../../components/pages/ArticlePage.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blog", ({ data }) => data.locale === "zh" && data.translationStatus !== "draft");
+  return entries.map((entry) => ({ params: { slug: entry.data.translationKey }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<"blog"> }
+const { entry } = Astro.props;
+---
+
+<ArticlePage locale="zh" entry={entry} />

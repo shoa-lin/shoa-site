@@ -1,14 +1,18 @@
 ---
 import ArticleCard from "../ArticleCard.astro";
+import { getCollection } from "astro:content";
 import { profile } from "../../data/profile";
-import { latestPublications } from "../../data/publications";
-import { getDictionary, type Locale } from "../../lib/i18n";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { localizedPath } from "../../lib/routes";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dictionary = getDictionary(locale);
+const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
+const latestPublications = (await getCollection("blog", ({ data }) => data.locale === locale && data.translationStatus !== "draft"))
+  .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf())
+  .slice(0, 3);
 ---
 
 <BaseLayout locale={locale} path="/" description={dictionary.meta.siteDescription}>
@@ -50,13 +54,13 @@ const dictionary = getDictionary(locale);
       <a href={localizedPath(locale, "/blog")}>{dictionary.nav.blog}</a>
     </div>
     <div>
-      {latestPublications.map((item) => (
+      {latestPublications.map((entry) => (
         <ArticleCard
-          href={localizedPath(locale, `/blog/${item.slug}`)}
-          title={item.copy[locale].title}
-          description={item.copy[locale].description}
-          date={item.date}
-          category={dictionary.blog.categories[item.category]}
+          href={localizedPath(locale, `/blog/${entry.data.translationKey}`)}
+          title={entry.data.title}
+          description={entry.data.description}
+          date={dateFormatter.format(entry.data.publishedAt)}
+          category={dictionary.blog.categories[entry.data.category]}
         />
       ))}
     </div>

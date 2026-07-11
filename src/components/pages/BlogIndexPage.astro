@@ -1,7 +1,7 @@
 ---
 import ArticleCard from "../ArticleCard.astro";
-import { latestPublications } from "../../data/publications";
-import { getDictionary, type Locale } from "../../lib/i18n";
+import { getCollection } from "astro:content";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { localizedPath } from "../../lib/routes";
 import BlogIndexLayout from "../../layouts/BlogIndexLayout.astro";
 
@@ -9,6 +9,9 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dictionary = getDictionary(locale);
 const categories = Object.entries(dictionary.blog.categories);
+const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
+const entries = (await getCollection("blog", ({ data }) => data.locale === locale && data.translationStatus !== "draft"))
+  .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf());
 ---
 
 <BlogIndexLayout locale={locale} path="/blog" title={dictionary.blog.title} description={dictionary.blog.description}>
@@ -21,14 +24,15 @@ const categories = Object.entries(dictionary.blog.categories);
     {categories.map(([key, label]) => <a href={`${localizedPath(locale, "/blog")}?category=${key}`}>{label}</a>)}
   </nav>
   <div class="blog-list-quiet">
-    {latestPublications.map((item) => (
+    {entries.map((entry) => (
       <ArticleCard
-        href={localizedPath(locale, `/blog/${item.slug}`)}
-        title={item.copy[locale].title}
-        description={item.copy[locale].description}
-        date={item.date}
-        category={dictionary.blog.categories[item.category]}
+        href={localizedPath(locale, `/blog/${entry.data.translationKey}`)}
+        title={entry.data.title}
+        description={entry.data.description}
+        date={dateFormatter.format(entry.data.publishedAt)}
+        category={dictionary.blog.categories[entry.data.category]}
       />
     ))}
+    {entries.length === 0 && <p class="collection-empty">{dictionary.blog.empty}</p>}
   </div>
 </BlogIndexLayout>
