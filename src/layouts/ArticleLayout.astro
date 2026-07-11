@@ -1,0 +1,20 @@
+---
+import type { Locale } from "../lib/i18n";
+import BaseLayout from "./BaseLayout.astro";
+import "../styles/article.css";
+
+interface Props {
+  locale: Locale;
+  path: string;
+  title: string;
+  description: string;
+}
+
+const props = Astro.props;
+---
+
+<BaseLayout {...props} article>
+  <div class="article-shell">
+    <slot />
+  </div>
+</BaseLayout>

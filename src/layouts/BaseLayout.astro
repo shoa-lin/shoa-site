@@ -1,0 +1,61 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { getDictionary, localeMeta, type Locale } from "../lib/i18n";
+import { buildSeo } from "../lib/seo";
+import "../styles/global.css";
+import "../styles/components.css";
+
+interface Props {
+  locale: Locale;
+  path: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+}
+
+const { locale, path, title, description, image = "/assets/avatar/profile.jpg", article = false } = Astro.props;
+const dictionary = getDictionary(locale);
+const resolvedTitle = title ? `${title} | Shoa Lin` : dictionary.meta.siteTitle;
+const resolvedDescription = description ?? dictionary.meta.siteDescription;
+const seo = buildSeo(locale, path, resolvedTitle, resolvedDescription);
+---
+
+<!doctype html>
+<html lang={localeMeta[locale].htmlLang} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={seo.description} />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href={seo.canonical} />
+    {seo.alternates.map((link) => <link rel="alternate" hreflang={link.hreflang} href={link.href} />)}
+    <meta property="og:type" content={article ? "article" : "website"} />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={seo.canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content={seo.openGraphLocale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{seo.title}</title>
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem("shoa-theme");
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = saved === "light" || saved === "dark"
+          ? saved
+          : systemDark ? "dark" : "light";
+      })();
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{dictionary.a11y.skip}</a>
+    <Header locale={locale} path={path} />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

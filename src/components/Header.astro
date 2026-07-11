@@ -1,0 +1,43 @@
+---
+import { getDictionary, type Locale } from "../lib/i18n";
+import { localizedPath } from "../lib/routes";
+import LanguageMenu from "./LanguageMenu.astro";
+import MobileNav from "./MobileNav.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+
+const { locale, path } = Astro.props;
+const dictionary = getDictionary(locale);
+const items = [
+  ["home", "/"],
+  ["about", "/about"],
+  ["blog", "/blog"],
+  ["favorites", "/favorites"],
+  ["contact", "/contact"],
+] as const;
+const isCurrent = (target: string) => target === "/" ? path === "/" : path === target || path.startsWith(`${target}/`);
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-brand" href={localizedPath(locale, "/")}>Shoa Lin</a>
+    <nav class="desktop-nav" aria-label={dictionary.a11y.mainNavigation}>
+      {
+        items.map(([key, target]) => (
+          <a href={localizedPath(locale, target)} aria-current={isCurrent(target) ? "page" : undefined}>
+            {dictionary.nav[key]}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="site-header__tools">
+      <LanguageMenu locale={locale} path={path} />
+      <ThemeToggle locale={locale} />
+      <MobileNav locale={locale} path={path} />
+    </div>
+  </div>
+</header>

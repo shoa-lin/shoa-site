@@ -1,0 +1,20 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  date: string;
+  category: string;
+}
+
+const { href, title, description, date, category } = Astro.props;
+---
+
+<article class="article-card">
+  <div class="article-card__meta">
+    <time datetime={date}>{date}</time>
+    <span>{category}</span>
+  </div>
+  <h2><a href={href}>{title}</a></h2>
+  <p>{description}</p>
+</article>

@@ -1,0 +1,21 @@
+---
+import { getDictionary, type Locale } from "../lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p>© {new Date().getFullYear()} Shoa Lin. {dictionary.footer.rights}</p>
+    <div class="site-footer__links">
+      <a href="mailto:shoa_lin@outlook.com">Email</a>
+      <a href="https://x.com/pand_lin" rel="me noopener noreferrer">X</a>
+      <a href="https://github.com/shoa-lin" rel="me noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+</footer>

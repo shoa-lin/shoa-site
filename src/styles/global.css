@@ -8,6 +8,9 @@ html {
   background: var(--bg);
   color: var(--text);
   font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -16,6 +19,48 @@ body {
   background: var(--bg);
 }
 
+html:lang(ja) {
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", ui-sans-serif, sans-serif;
+}
+
+html:lang(ko) {
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, sans-serif;
+}
+
+html:lang(th) {
+  font-family: Thonburi, Tahoma, ui-sans-serif, sans-serif;
+  line-height: 1.65;
+}
+
 a {
   color: var(--accent);
+}
+
+button,
+summary,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 70%, white);
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

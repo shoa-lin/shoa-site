@@ -1,0 +1,34 @@
+---
+import { getDictionary, localeMeta, locales, type Locale } from "../lib/i18n";
+import { localizedPath } from "../lib/routes";
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+
+const { locale, path } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<details class="language-menu">
+  <summary aria-label={dictionary.language.menu}>
+    <span class="language-menu__code" aria-hidden="true">{locale.toUpperCase()}</span>
+    <span>{localeMeta[locale].label}</span>
+  </summary>
+  <div class="language-menu__popover" role="list" aria-label={dictionary.a11y.languageMenu}>
+    {
+      locales.map((option) => (
+        <a
+          href={localizedPath(option, path)}
+          lang={localeMeta[option].htmlLang}
+          role="listitem"
+          aria-current={option === locale ? "page" : undefined}
+        >
+          <span>{localeMeta[option].label}</span>
+          <span class="language-menu__code" aria-hidden="true">{option.toUpperCase()}</span>
+        </a>
+      ))
+    }
+  </div>
+</details>

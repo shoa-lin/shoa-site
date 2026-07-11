@@ -1,0 +1,113 @@
+---
+import { getDictionary, type Locale } from "../lib/i18n";
+import { localizedPath } from "../lib/routes";
+
+interface Props {
+  locale: Locale;
+  path: string;
+}
+
+const { locale, path } = Astro.props;
+const dictionary = getDictionary(locale);
+const items = [
+  ["home", "/"],
+  ["about", "/about"],
+  ["blog", "/blog"],
+  ["favorites", "/favorites"],
+  ["contact", "/contact"],
+] as const;
+
+const isCurrent = (target: string) => target === "/" ? path === "/" : path === target || path.startsWith(`${target}/`);
+---
+
+<div class="mobile-nav" data-mobile-nav>
+  <button
+    class="mobile-nav__trigger icon-button"
+    type="button"
+    aria-label={dictionary.a11y.menuOpen}
+    aria-expanded="false"
+    aria-controls="mobile-nav-panel"
+    data-mobile-nav-open
+  >
+    <span aria-hidden="true">☰</span>
+  </button>
+  <div class="mobile-nav__backdrop" data-mobile-nav-backdrop hidden></div>
+  <nav
+    class="mobile-nav__panel"
+    id="mobile-nav-panel"
+    aria-label={dictionary.a11y.mobileNavigation}
+    aria-hidden="true"
+    data-mobile-nav-panel
+    hidden
+  >
+    <div class="mobile-nav__head">
+      <span>Shoa Lin</span>
+      <button class="icon-button" type="button" aria-label={dictionary.a11y.menuClose} data-mobile-nav-close>
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="mobile-nav__links">
+      {
+        items.map(([key, target]) => (
+          <a href={localizedPath(locale, target)} aria-current={isCurrent(target) ? "page" : undefined}>
+            {dictionary.nav[key]}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</div>
+
+<script is:inline>
+  for (const root of document.querySelectorAll("[data-mobile-nav]")) {
+    const openButton = root.querySelector("[data-mobile-nav-open]");
+    const closeButton = root.querySelector("[data-mobile-nav-close]");
+    const panel = root.querySelector("[data-mobile-nav-panel]");
+    const backdrop = root.querySelector("[data-mobile-nav-backdrop]");
+    let restoreFocus = null;
+
+    const focusable = () => panel?.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? [];
+
+    const close = () => {
+      if (!panel || !backdrop || !openButton) return;
+      panel.hidden = true;
+      backdrop.hidden = true;
+      panel.setAttribute("aria-hidden", "true");
+      openButton.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+      restoreFocus?.focus();
+    };
+
+    const open = () => {
+      if (!panel || !backdrop || !openButton) return;
+      restoreFocus = document.activeElement;
+      panel.hidden = false;
+      backdrop.hidden = false;
+      panel.setAttribute("aria-hidden", "false");
+      openButton.setAttribute("aria-expanded", "true");
+      document.body.classList.add("nav-open");
+      focusable()[0]?.focus();
+    };
+
+    openButton?.addEventListener("click", open);
+    closeButton?.addEventListener("click", close);
+    backdrop?.addEventListener("click", close);
+    panel?.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+
+    document.addEventListener("keydown", (event) => {
+      if (panel?.hidden) return;
+      if (event.key === "Escape") close();
+      if (event.key !== "Tab") return;
+      const items = [...focusable()];
+      const first = items[0];
+      const last = items.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    });
+  }
+</script>

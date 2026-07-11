@@ -1,0 +1,30 @@
+.article-shell {
+  padding-top: clamp(3rem, 8vw, 6rem);
+  padding-bottom: clamp(4rem, 9vw, 7rem);
+}
+
+.article-content {
+  width: min(100%, 720px);
+  margin: 0 auto;
+}
+
+.article-content :where(p, li) {
+  color: var(--text-secondary);
+  line-height: 1.82;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.article-content pre {
+  max-width: 100%;
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+}

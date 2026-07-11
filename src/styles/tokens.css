@@ -2,18 +2,31 @@
   color-scheme: light dark;
   --bg: #f7f8fa;
   --surface: #ffffff;
+  --surface-muted: #eef1f5;
   --text: #181a1f;
+  --text-secondary: #3f444d;
   --muted: #626773;
+  --muted-soft: #7b818c;
   --border: #dfe2e8;
   --accent: #175cd3;
   --radius: 8px;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --shadow: 0 14px 36px rgba(24, 26, 31, 0.1);
+  --shadow-strong: -18px 0 50px rgba(24, 26, 31, 0.18);
+  --code-bg: #eef1f5;
 }
 
 html[data-theme="dark"] {
   --bg: #111317;
   --surface: #181b20;
+  --surface-muted: #22262d;
   --text: #f3f5f7;
+  --text-secondary: #d4d8df;
   --muted: #a9afb9;
+  --muted-soft: #858d99;
   --border: #30343c;
   --accent: #76a9ff;
+  --shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+  --shadow-strong: -18px 0 50px rgba(0, 0, 0, 0.46);
+  --code-bg: #0d0f12;
 }
