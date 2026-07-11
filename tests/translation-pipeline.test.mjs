@@ -68,7 +68,8 @@ test("translation CLI keeps Blog and Favorites metadata boundaries separate", as
   const { readFile } = await import("node:fs/promises");
   const source = await readFile(new URL("../scripts/translate-content.mjs", import.meta.url), "utf8");
   assert.match(source, /entry\.collection === "blog"/);
-  assert.match(source, /data\.contentType = "translation"/);
+  assert.match(source, /data\.contentType = entry\.data\.contentType/);
+  assert.doesNotMatch(source, /data\.contentType = "translation"/);
   assert.match(source, /data\.tags = await Promise\.all/);
   assert.doesNotMatch(source, /contentType:\s*"translation"/);
 });

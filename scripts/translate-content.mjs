@@ -116,7 +116,7 @@ for (const entry of entries) {
     sourceLocale: "zh",
   };
   if (entry.collection === "blog") {
-    data.contentType = "translation";
+    data.contentType = entry.data.contentType;
     data.translationStatus = "draft";
   } else {
     data.tags = await Promise.all(entry.data.tags.map((tag) => translateText(tag, target)));
