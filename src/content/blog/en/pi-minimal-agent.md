@@ -6,7 +6,7 @@ description: "Learn how the minimally coded Agent remains small and scalable thr
 publishedAt: "2026-01-31"
 updatedAt: "2026-01-31"
 category: "architecture"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://lucumr.pocoo.org/2026/1/31/pi/"
 sourceAuthor: "Armin Ronacher"
 contentType: "translation"

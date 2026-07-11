@@ -6,7 +6,7 @@ description: "Summarize the engineering practices of Prompt Caching around cache
 publishedAt: "2026-02-26"
 updatedAt: "2026-02-26"
 category: "architecture"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://x.com/trq212/status/2024574133011673516"
 sourceAuthor: "Claude Code Team"
 contentType: "translation"

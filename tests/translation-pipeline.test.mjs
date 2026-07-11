@@ -73,3 +73,11 @@ test("translation CLI keeps Blog and Favorites metadata boundaries separate", as
   assert.match(source, /data\.tags = await Promise\.all/);
   assert.doesNotMatch(source, /contentType:\s*"translation"/);
 });
+
+test("translation CLI preserves the canonical source locale", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const source = await readFile(new URL("../scripts/translate-content.mjs", import.meta.url), "utf8");
+
+  assert.match(source, /sourceLocale:\s*entry\.data\.sourceLocale/);
+  assert.doesNotMatch(source, /sourceLocale:\s*"zh"/);
+});

@@ -6,7 +6,7 @@ description: "根据任务动态组合工具、上下文和验证步骤，而不
 publishedAt: "2026-06-03"
 updatedAt: "2026-06-03"
 category: "development"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code"
 sourceAuthor: "Thariq Shihipar, Sid Bidasaria"
 contentType: "adaptation"

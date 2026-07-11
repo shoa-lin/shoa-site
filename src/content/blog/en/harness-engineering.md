@@ -6,7 +6,7 @@ description: "For coding agent users, the system organizes guides, sensors, feed
 publishedAt: "2026-04-07"
 updatedAt: "2026-04-07"
 category: "architecture"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://martinfowler.com/articles/harness-engineering.html"
 sourceAuthor: "Birgitta Böckeler"
 contentType: "translation"

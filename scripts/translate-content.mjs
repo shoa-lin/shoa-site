@@ -113,7 +113,7 @@ for (const entry of entries) {
     locale: target,
     title,
     description,
-    sourceLocale: "zh",
+    sourceLocale: entry.data.sourceLocale,
   };
   if (entry.collection === "blog") {
     data.contentType = entry.data.contentType;

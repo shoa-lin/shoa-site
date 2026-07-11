@@ -6,7 +6,7 @@ description: "面向编码 Agent 用户，系统整理 guides、sensors、反馈
 publishedAt: "2026-04-07"
 updatedAt: "2026-04-07"
 category: "architecture"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://martinfowler.com/articles/harness-engineering.html"
 sourceAuthor: "Birgitta Böckeler"
 contentType: "adaptation"

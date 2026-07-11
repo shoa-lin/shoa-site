@@ -6,7 +6,7 @@ description: "Claude Code team's hands-on experience in designing, organizing, a
 publishedAt: "2026-03-17"
 updatedAt: "2026-03-17"
 category: "development"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://x.com/trq212/status/2033949937936085378"
 sourceAuthor: "Thariq Shihipar"
 contentType: "translation"

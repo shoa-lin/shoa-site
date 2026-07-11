@@ -5,7 +5,7 @@ title: "如何重新审视改变"
 description: "关于身份、目标与行为改变的一篇长文，适合慢慢读并做笔记。"
 publishedAt: "2025-12-23"
 updatedAt: "2025-12-23"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1"
 sourceAuthor: "Dan Koe"
 tags: ["个人成长","行为改变"]

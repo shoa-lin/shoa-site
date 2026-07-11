@@ -6,7 +6,7 @@ description: "Dynamically combine tools, context, and validation steps based on 
 publishedAt: "2026-06-03"
 updatedAt: "2026-06-03"
 category: "development"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code"
 sourceAuthor: "Thariq Shihipar, Sid Bidasaria"
 contentType: "translation"

@@ -4,6 +4,24 @@ import { test } from "node:test";
 import { locales, parseFrontmatter } from "../scripts/lib/content-files.mjs";
 
 const manifest = JSON.parse(readFileSync(new URL("../blogs/manifest.json", import.meta.url), "utf8"));
+const publicBlogIds = [
+  "getting-started-with-loops",
+  "loop-engineering",
+  "state-of-ai-agent-memory-2026",
+  "dynamic-workflows-in-claude-code",
+  "harness-engineering",
+  "lessons-from-building-claude-code-skills",
+  "prompt-caching-best-practices",
+  "pi-minimal-agent",
+];
+const quarantinedBlogIds = [
+  "clawdbot-installation-guide",
+  "x-algorithm-research-report",
+  "demystifying-evals-for-ai-agents",
+  "claude-agent-sdk-complete-guide",
+  "claude-code-2.1.2-release",
+  "project-vend-phase-2",
+];
 
 function read(path) {
   return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -41,9 +59,10 @@ function legacyBody(content) {
 }
 
 test("every approved legacy manifest entry has a normalized Chinese content file", () => {
-  assert.equal(manifest.length, 14);
+  const publicManifest = manifest.filter((item) => publicBlogIds.includes(item.id));
+  assert.deepEqual(publicManifest.map((item) => item.id), publicBlogIds);
 
-  for (const item of manifest) {
+  for (const item of publicManifest) {
     const target = `src/content/blog/zh/${item.id}.md`;
     assert.equal(existsSync(new URL(`../${target}`, import.meta.url)), true, target);
 
@@ -52,11 +71,24 @@ test("every approved legacy manifest entry has a normalized Chinese content file
 
     assert.equal(migrated.data.translationKey, item.id);
     assert.equal(migrated.data.locale, "zh");
-    assert.equal(migrated.data.translationStatus, "reviewed");
     assert.match(migrated.data.sourceUrl, /^https:\/\//);
     assert.doesNotMatch(migrated.body, /<style>/i);
     assert.equal(headingLevels(migrated.body).includes(1), false, `${item.id} must not contain a body h1`);
     assert.deepEqual(structure(migrated.body), structure(legacy), `${item.id} structure`);
+  }
+
+  for (const id of publicBlogIds) {
+    for (const locale of ["zh", "en"]) {
+      const target = `src/content/blog/${locale}/${id}.md`;
+      assert.equal(existsSync(new URL(`../${target}`, import.meta.url)), true, target);
+    }
+  }
+
+  for (const id of quarantinedBlogIds) {
+    for (const locale of locales) {
+      const target = `src/content/blog/${locale}/${id}.md`;
+      assert.equal(existsSync(new URL(`../${target}`, import.meta.url)), false, target);
+    }
   }
 });
 

@@ -5,7 +5,7 @@ title: "How to rethink change"
 description: "A long article about identity, goals and behavior change, suitable for reading slowly and taking notes."
 publishedAt: "2025-12-23"
 updatedAt: "2025-12-23"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1"
 sourceAuthor: "Dan Koe"
 tags: ["personal growth","behavior change"]
