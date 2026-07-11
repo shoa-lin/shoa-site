@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "siteTitle": "Shoa Lin",
+    "siteDescription": "Shoa Lin 的个人主页，记录 AI Agent、知识系统、开发者工具与技术写作。"
+  },
+  "nav": { "home": "首页", "about": "关于", "blog": "文章", "favorites": "收藏", "contact": "联系" },
+  "theme": { "label": "主题", "toggle": "切换浅色与暗色主题", "light": "浅色", "dark": "暗色", "system": "跟随系统" },
+  "language": { "label": "语言", "menu": "选择语言", "current": "当前语言" },
+  "home": {
+    "greeting": "你好，我是 Shoa Lin。",
+    "intro": "我关注 AI Agent、知识系统和开发者工具，主要研究工具调用、记忆、评估与工作流如何在真实任务中协同工作。",
+    "supporting": "这里收录我的文章、研究笔记和长期收藏。",
+    "interestsTitle": "关注方向",
+    "interestsBody": "我持续研究 Agent 如何可靠地使用工具、保留上下文、处理失败，并留下可以复查的结果。",
+    "backgroundTitle": "公开经历",
+    "backgroundBody": "我的工作经历涉及知识图谱、数据与企业架构。现在，我把主要精力放在 AI Agent 系统和开发者工作流上。",
+    "approachTitle": "工作方式",
+    "approachBody": "先核对真实状态，再拆解问题、验证假设，并把结果整理成可以复用的代码或文字。",
+    "latestTitle": "最近文章",
+    "contactTitle": "保持联系",
+    "contactBody": "欢迎通过邮件或 X 讨论 AI Agent、知识系统、开发工具和技术写作。"
+  },
+  "about": {
+    "title": "关于我",
+    "paragraphOne": "我的工作经历涉及知识图谱、数据与企业架构。现在，我把主要精力放在 AI Agent 系统和开发者工作流上。",
+    "paragraphTwo": "我关心的不只是模型能回答什么，也关心它如何使用工具、保留上下文、处理失败，并留下可以复查的结果。",
+    "backgroundTitle": "经历",
+    "backgroundBody": "这些经历让我更关注系统边界、信息结构，以及复杂工作如何被拆成可验证的步骤。",
+    "interestsTitle": "现在关注",
+    "interestsBody": "工具调用、记忆、评估、工作流和知识组织，以及它们在真实任务中的组合方式。",
+    "principlesTitle": "工作原则",
+    "principleEvidenceTitle": "先看证据",
+    "principleEvidenceBody": "涉及运行状态、代码行为或产品判断时，尽量回到真实文件、日志和测试结果。",
+    "principleClarityTitle": "说清边界",
+    "principleClarityBody": "区分已经验证的事实、合理推断和仍然未知的部分。",
+    "principleUsefulTitle": "留下可用结果",
+    "principleUsefulBody": "让研究最终落到可以执行、复查或继续迭代的产物上。"
+  },
+  "blog": {
+    "title": "文章",
+    "description": "关于 AI Agent、知识系统、开发工具和工程实践的长期记录。",
+    "all": "全部",
+    "empty": "这个分类暂时没有文章。",
+    "categories": { "architecture": "架构", "development": "开发", "evaluation": "评估", "application": "应用", "algorithm": "算法", "general": "通用" }
+  },
+  "favorites": {
+    "title": "收藏",
+    "description": "我会把值得再次阅读的文章、论文和工具放在这里，并附上简短的整理说明。",
+    "visitSource": "查看原文",
+    "empty": "暂时没有符合条件的收藏。"
+  },
+  "contact": {
+    "title": "联系我",
+    "description": "如果你想讨论 AI Agent、知识系统、开发工具或技术写作，可以通过邮件或 X 联系我。",
+    "emailTitle": "邮件",
+    "emailNote": "适合需要上下文的讨论。",
+    "xTitle": "X",
+    "xNote": "适合简短交流和公开讨论。"
+  },
+  "article": {
+    "source": "来源", "author": "作者", "published": "发布于", "updated": "更新于", "languages": "文章语言", "toc": "目录", "previous": "上一篇", "next": "下一篇", "back": "返回文章列表", "adaptationNotice": "本文为结构化译介，请以原文为准。"
+  },
+  "errors": { "notFoundTitle": "页面不存在", "notFoundBody": "这个地址可能已经变化，或者页面尚未发布。", "home": "返回首页" },
+  "a11y": { "skip": "跳到主要内容", "menuOpen": "打开导航", "menuClose": "关闭导航", "mainNavigation": "主要导航", "mobileNavigation": "移动端导航", "languageMenu": "语言菜单", "themeToggle": "主题切换" },
+  "footer": { "rights": "保留所有权利。" }
+}

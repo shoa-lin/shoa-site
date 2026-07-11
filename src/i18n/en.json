@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "siteTitle": "Shoa Lin",
+    "siteDescription": "Shoa Lin's personal site about AI agents, knowledge systems, developer tools, and technical writing."
+  },
+  "nav": { "home": "Home", "about": "About", "blog": "Writing", "favorites": "Favorites", "contact": "Contact" },
+  "theme": { "label": "Theme", "toggle": "Switch between light and dark themes", "light": "Light", "dark": "Dark", "system": "System" },
+  "language": { "label": "Language", "menu": "Choose a language", "current": "Current language" },
+  "home": {
+    "greeting": "Hi, I'm Shoa Lin.",
+    "intro": "I focus on AI agents, knowledge systems, and developer tools, especially how tool use, memory, evaluation, and workflows come together in real tasks.",
+    "supporting": "This site collects my articles, research notes, and long-term reading list.",
+    "interestsTitle": "Areas of interest",
+    "interestsBody": "I study how agents can use tools reliably, retain context, recover from failure, and leave results that people can review.",
+    "backgroundTitle": "Public background",
+    "backgroundBody": "My work has involved knowledge graphs, data, and enterprise architecture. I now spend most of my time on AI agent systems and developer workflows.",
+    "approachTitle": "How I work",
+    "approachBody": "I check the real state first, break the problem down, test assumptions, and turn the result into reusable code or writing.",
+    "latestTitle": "Latest writing",
+    "contactTitle": "Keep in touch",
+    "contactBody": "Email or find me on X to discuss AI agents, knowledge systems, developer tools, and technical writing."
+  },
+  "about": {
+    "title": "About",
+    "paragraphOne": "My work has involved knowledge graphs, data, and enterprise architecture. I now spend most of my time on AI agent systems and developer workflows.",
+    "paragraphTwo": "I care not only about what a model can answer, but also how it uses tools, retains context, handles failure, and leaves work that can be reviewed.",
+    "backgroundTitle": "Background",
+    "backgroundBody": "That experience shaped my interest in system boundaries, information structure, and turning complex work into verifiable steps.",
+    "interestsTitle": "Current interests",
+    "interestsBody": "Tool use, memory, evaluation, workflows, knowledge organization, and how they combine in real tasks.",
+    "principlesTitle": "Working principles",
+    "principleEvidenceTitle": "Start with evidence",
+    "principleEvidenceBody": "For runtime state, code behavior, or product decisions, I return to real files, logs, and test results.",
+    "principleClarityTitle": "State the boundaries",
+    "principleClarityBody": "Separate verified facts, reasonable inferences, and what remains unknown.",
+    "principleUsefulTitle": "Leave useful results",
+    "principleUsefulBody": "Research should end in something executable, reviewable, or ready for the next iteration."
+  },
+  "blog": {
+    "title": "Writing",
+    "description": "Long-form notes on AI agents, knowledge systems, developer tools, and engineering practice.",
+    "all": "All",
+    "empty": "There are no articles in this category yet.",
+    "categories": { "architecture": "Architecture", "development": "Development", "evaluation": "Evaluation", "application": "Applications", "algorithm": "Algorithms", "general": "General" }
+  },
+  "favorites": {
+    "title": "Favorites",
+    "description": "Articles, papers, and tools worth returning to, each with a short note on why I saved it.",
+    "visitSource": "View source",
+    "empty": "No saved items match this filter yet."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Get in touch by email or X to discuss AI agents, knowledge systems, developer tools, or technical writing.",
+    "emailTitle": "Email",
+    "emailNote": "Best for conversations that need context.",
+    "xTitle": "X",
+    "xNote": "Best for short exchanges and public discussion."
+  },
+  "article": {
+    "source": "Source", "author": "Author", "published": "Published", "updated": "Updated", "languages": "Article languages", "toc": "Contents", "previous": "Previous", "next": "Next", "back": "Back to writing", "adaptationNotice": "This is a structured adaptation. Please refer to the original source."
+  },
+  "errors": { "notFoundTitle": "Page not found", "notFoundBody": "The address may have changed, or the page has not been published.", "home": "Back home" },
+  "a11y": { "skip": "Skip to main content", "menuOpen": "Open navigation", "menuClose": "Close navigation", "mainNavigation": "Main navigation", "mobileNavigation": "Mobile navigation", "languageMenu": "Language menu", "themeToggle": "Theme control" },
+  "footer": { "rights": "All rights reserved." }
+}

@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "siteTitle": "Shoa Lin",
+    "siteDescription": "Le site personnel de Shoa Lin consacré aux agents IA, aux systèmes de connaissance, aux outils de développement et à l'écriture technique."
+  },
+  "nav": { "home": "Accueil", "about": "À propos", "blog": "Articles", "favorites": "Sélection", "contact": "Contact" },
+  "theme": { "label": "Thème", "toggle": "Basculer entre les thèmes clair et sombre", "light": "Clair", "dark": "Sombre", "system": "Système" },
+  "language": { "label": "Langue", "menu": "Choisir une langue", "current": "Langue actuelle" },
+  "home": {
+    "greeting": "Bonjour, je suis Shoa Lin.",
+    "intro": "Je m'intéresse aux agents IA, aux systèmes de connaissance et aux outils de développement, notamment à la manière dont outils, mémoire, évaluation et workflows coopèrent dans des tâches réelles.",
+    "supporting": "Ce site rassemble mes articles, mes notes de recherche et une sélection de ressources à relire.",
+    "interestsTitle": "Sujets de recherche",
+    "interestsBody": "J'étudie comment les agents peuvent utiliser des outils de façon fiable, conserver le contexte, gérer les échecs et produire des résultats vérifiables.",
+    "backgroundTitle": "Parcours public",
+    "backgroundBody": "Mon parcours touche aux graphes de connaissances, aux données et à l'architecture d'entreprise. Je travaille aujourd'hui surtout sur les systèmes d'agents IA et les workflows de développement.",
+    "approachTitle": "Méthode de travail",
+    "approachBody": "Je vérifie d'abord l'état réel, je décompose le problème, je teste les hypothèses, puis je transforme le résultat en code ou en texte réutilisable.",
+    "latestTitle": "Derniers articles",
+    "contactTitle": "Restons en contact",
+    "contactBody": "Écrivez-moi ou retrouvez-moi sur X pour parler d'agents IA, de systèmes de connaissance, d'outils de développement ou d'écriture technique."
+  },
+  "about": {
+    "title": "À propos",
+    "paragraphOne": "Mon parcours touche aux graphes de connaissances, aux données et à l'architecture d'entreprise. Je travaille aujourd'hui surtout sur les systèmes d'agents IA et les workflows de développement.",
+    "paragraphTwo": "Je ne m'intéresse pas seulement à ce qu'un modèle peut répondre, mais aussi à sa manière d'utiliser des outils, de conserver le contexte, de gérer les échecs et de laisser un résultat vérifiable.",
+    "backgroundTitle": "Parcours",
+    "backgroundBody": "Cette expérience a renforcé mon intérêt pour les limites des systèmes, la structure de l'information et la décomposition d'un travail complexe en étapes vérifiables.",
+    "interestsTitle": "Sujets actuels",
+    "interestsBody": "L'utilisation d'outils, la mémoire, l'évaluation, les workflows, l'organisation des connaissances et leur combinaison dans des tâches réelles.",
+    "principlesTitle": "Principes de travail",
+    "principleEvidenceTitle": "Commencer par les faits",
+    "principleEvidenceBody": "Pour l'état d'un système, le comportement du code ou une décision produit, je reviens aux fichiers, aux journaux et aux résultats de test réels.",
+    "principleClarityTitle": "Préciser les limites",
+    "principleClarityBody": "Je distingue les faits vérifiés, les déductions raisonnables et ce qui reste inconnu.",
+    "principleUsefulTitle": "Produire un résultat utile",
+    "principleUsefulBody": "Une recherche doit aboutir à quelque chose d'exécutable, de vérifiable ou de prêt pour l'itération suivante."
+  },
+  "blog": {
+    "title": "Articles",
+    "description": "Des notes au long cours sur les agents IA, les systèmes de connaissance, les outils de développement et la pratique de l'ingénierie.",
+    "all": "Tous",
+    "empty": "Aucun article dans cette catégorie pour le moment.",
+    "categories": { "architecture": "Architecture", "development": "Développement", "evaluation": "Évaluation", "application": "Applications", "algorithm": "Algorithmes", "general": "Général" }
+  },
+  "favorites": {
+    "title": "Sélection",
+    "description": "Des articles, travaux de recherche et outils qui méritent d'être relus, accompagnés d'une courte note.",
+    "visitSource": "Voir la source",
+    "empty": "Aucun élément ne correspond encore à ce filtre."
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Contactez-moi par e-mail ou sur X pour parler d'agents IA, de systèmes de connaissance, d'outils de développement ou d'écriture technique.",
+    "emailTitle": "E-mail",
+    "emailNote": "Idéal pour les échanges qui demandent du contexte.",
+    "xTitle": "X",
+    "xNote": "Adapté aux échanges courts et aux discussions publiques."
+  },
+  "article": {
+    "source": "Source", "author": "Auteur", "published": "Publié le", "updated": "Mis à jour le", "languages": "Langues de l'article", "toc": "Sommaire", "previous": "Article précédent", "next": "Article suivant", "back": "Retour aux articles", "adaptationNotice": "Cet article est une adaptation structurée. Veuillez vous référer à la source originale."
+  },
+  "errors": { "notFoundTitle": "Page introuvable", "notFoundBody": "L'adresse a peut-être changé ou la page n'est pas encore publiée.", "home": "Retour à l'accueil" },
+  "a11y": { "skip": "Aller au contenu principal", "menuOpen": "Ouvrir la navigation", "menuClose": "Fermer la navigation", "mainNavigation": "Navigation principale", "mobileNavigation": "Navigation mobile", "languageMenu": "Menu des langues", "themeToggle": "Contrôle du thème" },
+  "footer": { "rights": "Tous droits réservés." }
+}

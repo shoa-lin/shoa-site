@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "siteTitle": "Shoa Lin",
+    "siteDescription": "AIエージェント、知識システム、開発者ツール、技術文書について発信するShoa Linの個人サイトです。"
+  },
+  "nav": { "home": "ホーム", "about": "プロフィール", "blog": "記事", "favorites": "コレクション", "contact": "連絡先" },
+  "theme": { "label": "テーマ", "toggle": "ライトとダークを切り替える", "light": "ライト", "dark": "ダーク", "system": "システム設定" },
+  "language": { "label": "言語", "menu": "言語を選択", "current": "現在の言語" },
+  "home": {
+    "greeting": "こんにちは、Shoa Linです。",
+    "intro": "AIエージェント、知識システム、開発者ツールに関心があり、ツール利用、記憶、評価、ワークフローが実際のタスクでどう連携するかを研究しています。",
+    "supporting": "このサイトでは、記事、リサーチノート、長く参照したい資料をまとめています。",
+    "interestsTitle": "関心領域",
+    "interestsBody": "エージェントが確実にツールを使い、文脈を保ち、失敗から回復し、検証できる結果を残す方法を考えています。",
+    "backgroundTitle": "公開プロフィール",
+    "backgroundBody": "これまで知識グラフ、データ、エンタープライズアーキテクチャに関わってきました。現在はAIエージェントシステムと開発者ワークフローに注力しています。",
+    "approachTitle": "仕事の進め方",
+    "approachBody": "まず実際の状態を確認し、問題を分解して仮説を検証し、再利用できるコードや文章として残します。",
+    "latestTitle": "最新の記事",
+    "contactTitle": "連絡する",
+    "contactBody": "AIエージェント、知識システム、開発者ツール、技術文書について、メールまたはXでご連絡ください。"
+  },
+  "about": {
+    "title": "プロフィール",
+    "paragraphOne": "これまで知識グラフ、データ、エンタープライズアーキテクチャに関わってきました。現在はAIエージェントシステムと開発者ワークフローに注力しています。",
+    "paragraphTwo": "モデルが何を答えられるかだけでなく、ツールの使い方、文脈の保持、失敗への対処、検証可能な結果の残し方を重視しています。",
+    "backgroundTitle": "これまでの経験",
+    "backgroundBody": "こうした経験から、システムの境界、情報構造、複雑な仕事を検証可能な手順に分ける方法に関心を持つようになりました。",
+    "interestsTitle": "現在の関心",
+    "interestsBody": "ツール利用、記憶、評価、ワークフロー、知識整理、そして実際のタスクでの組み合わせ方です。",
+    "principlesTitle": "仕事の原則",
+    "principleEvidenceTitle": "証拠から始める",
+    "principleEvidenceBody": "実行状態、コードの挙動、プロダクト判断は、実際のファイル、ログ、テスト結果に戻って確認します。",
+    "principleClarityTitle": "境界を明確にする",
+    "principleClarityBody": "確認済みの事実、妥当な推論、まだ分からないことを分けて伝えます。",
+    "principleUsefulTitle": "使える結果を残す",
+    "principleUsefulBody": "調査を、実行、確認、次の改善に使える成果へつなげます。"
+  },
+  "blog": {
+    "title": "記事",
+    "description": "AIエージェント、知識システム、開発者ツール、エンジニアリング実践についての継続的な記録です。",
+    "all": "すべて",
+    "empty": "このカテゴリの記事はまだありません。",
+    "categories": { "architecture": "アーキテクチャ", "development": "開発", "evaluation": "評価", "application": "活用", "algorithm": "アルゴリズム", "general": "一般" }
+  },
+  "favorites": {
+    "title": "コレクション",
+    "description": "もう一度読みたい記事、論文、ツールを、保存した理由とともにまとめています。",
+    "visitSource": "原文を見る",
+    "empty": "条件に合う項目はまだありません。"
+  },
+  "contact": {
+    "title": "連絡先",
+    "description": "AIエージェント、知識システム、開発者ツール、技術文書について、メールまたはXでご連絡ください。",
+    "emailTitle": "メール",
+    "emailNote": "背景を含む相談に向いています。",
+    "xTitle": "X",
+    "xNote": "短いやり取りや公開の議論に向いています。"
+  },
+  "article": {
+    "source": "出典", "author": "著者", "published": "公開日", "updated": "更新日", "languages": "記事の言語", "toc": "目次", "previous": "前の記事", "next": "次の記事", "back": "記事一覧へ", "adaptationNotice": "この記事は構成を保った紹介です。内容は原文をご確認ください。"
+  },
+  "errors": { "notFoundTitle": "ページが見つかりません", "notFoundBody": "URLが変更されたか、まだ公開されていない可能性があります。", "home": "ホームへ戻る" },
+  "a11y": { "skip": "本文へ移動", "menuOpen": "ナビゲーションを開く", "menuClose": "ナビゲーションを閉じる", "mainNavigation": "メインナビゲーション", "mobileNavigation": "モバイルナビゲーション", "languageMenu": "言語メニュー", "themeToggle": "テーマ切り替え" },
+  "footer": { "rights": "無断転載を禁じます。" }
+}
