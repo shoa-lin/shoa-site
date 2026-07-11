@@ -6,21 +6,11 @@ description: "根据任务动态组合工具、上下文和验证步骤，而不
 publishedAt: "2026-06-03"
 updatedAt: "2026-06-03"
 category: "development"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code"
 sourceAuthor: "Thariq Shihipar, Sid Bidasaria"
 contentType: "adaptation"
 translationStatus: "reviewed"
----
-
-> 原文链接：[A harness for every task: dynamic workflows in Claude Code](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code)
->
-> 作者：Thariq Shihipar, Sid Bidasaria
->
-> 原文发布日期：2026 年 6 月 2 日
->
-> 翻译日期：2026 年 6 月 3 日
-
 ---
 
 上周，我们在 Claude Code 中发布了 dynamic workflow。Claude 现在可以即时编写自己的 harness，针对当前任务量身定制。

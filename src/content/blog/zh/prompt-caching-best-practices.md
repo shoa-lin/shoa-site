@@ -6,7 +6,7 @@ description: "围绕缓存边界、提示词稳定性和上下文组织，总结
 publishedAt: "2026-02-26"
 updatedAt: "2026-02-26"
 category: "architecture"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://x.com/trq212/status/2024574133011673516"
 sourceAuthor: "Claude Code Team"
 contentType: "adaptation"

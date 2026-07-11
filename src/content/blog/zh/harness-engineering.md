@@ -6,21 +6,11 @@ description: "面向编码 Agent 用户，系统整理 guides、sensors、反馈
 publishedAt: "2026-04-07"
 updatedAt: "2026-04-07"
 category: "architecture"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://martinfowler.com/articles/harness-engineering.html"
 sourceAuthor: "Birgitta Böckeler"
 contentType: "adaptation"
 translationStatus: "reviewed"
----
-
-> 原文链接：[Harness engineering for coding agent users](https://martinfowler.com/articles/harness-engineering.html)
->
-> 作者：Birgitta Böckeler (Thoughtworks)
->
-> 原文修改日期：2026年4月2日
->
-> 翻译日期：2026年4月15日
-
 ---
 
 > **术语说明**

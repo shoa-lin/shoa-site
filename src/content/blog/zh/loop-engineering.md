@@ -6,21 +6,11 @@ description: "从目标、观察、反馈、停止条件和安全边界出发，
 publishedAt: "2026-06-09"
 updatedAt: "2026-06-09"
 category: "development"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://addyosmani.com/blog/loop-engineering/"
 sourceAuthor: "Addy Osmani"
 contentType: "adaptation"
 translationStatus: "reviewed"
----
-
-> 原文链接：[Loop Engineering](https://addyosmani.com/blog/loop-engineering/)
->
-> 作者：Addy Osmani
->
-> 原文发布日期：2026 年 6 月 7 日
->
-> 翻译日期：2026 年 6 月 9 日
-
 ---
 
 **Loop engineering 是用设计系统来替代你自己成为那个 prompt agent 的人。** 这里的 loop 可以理解为一个递归目标——你定义一个目的，AI 迭代直到完成。我认为这可能是我们与编码 agent 协作方式的未来。不过现在还早，我对此持怀疑态度，而且你绝对**必须**注意 token 成本（使用模式因你的 token 充裕程度而大相径庭），所以我想拆解一下它是什么、意味着什么。

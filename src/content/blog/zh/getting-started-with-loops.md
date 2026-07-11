@@ -6,22 +6,12 @@ description: "从手动回合到目标、时间与主动循环，理解四种 lo
 publishedAt: "2026-07-07"
 updatedAt: "2026-07-07"
 category: "development"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://claude.com/blog/getting-started-with-loops"
 sourceAuthor: "Delba de Oliveira, Michael Segner"
 contentType: "adaptation"
 translationStatus: "reviewed"
 ---
-
-> 原文链接：[Getting started with loops](https://claude.com/blog/getting-started-with-loops)
->
-> 作者：Delba de Oliveira, Michael Segner
->
-> 原文发布日期：2026 年 6 月 30 日
->
-> 译介日期：2026 年 7 月 7 日
->
-> 说明：本文按原文结构做忠实中文译介，并保留原文图片位置。若需逐字引用，请以官方原文为准。
 
 ![Getting started with loops 封面图](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6903d229e73ca2d0d73d78f7_682ac293884c9d4ee4ebe2355a2f6c4ecfdd9c1b-1000x1000.svg)
 

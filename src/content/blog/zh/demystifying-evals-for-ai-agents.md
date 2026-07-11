@@ -6,7 +6,7 @@ description: "从评估对象、任务设计、评分方法和持续改进解释
 publishedAt: "2025-01-19"
 updatedAt: "2025-01-19"
 category: "evaluation"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
 sourceAuthor: "Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares, Jiri De Jonghe"
 contentType: "adaptation"

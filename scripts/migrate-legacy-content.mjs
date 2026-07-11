@@ -47,9 +47,9 @@ const metadata = {
     sourceAuthor: "Armin Ronacher",
   },
   "clawdbot-installation-guide": {
-    description: "整理 Clawdbot 的安装、配置、容器部署和常见问题排查步骤。",
-    sourceUrl: "https://docs.clawd.bot",
-    sourceAuthor: "Clawdbot Documentation",
+    description: "整理 OpenClaw（原 Clawdbot）的安装、配置、容器部署和常见问题排查步骤。",
+    sourceUrl: "https://docs.openclaw.ai/",
+    sourceAuthor: "OpenClaw Documentation",
   },
   "x-algorithm-research-report": {
     description: "根据公开仓库梳理 X 推荐系统的组件、数据流和工程实现。",
@@ -86,6 +86,13 @@ function normalizeBody(content) {
   body = body.replace(/^#\s+[^\n]+\n+/, "");
   body = body.replaceAll("/home/user/clawd", "~/clawd");
   body = body.replaceAll('export TELEGRAM_BOT_TOKEN="1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"', "export TELEGRAM_BOT_TOKEN=$YOUR_TELEGRAM_BOT_TOKEN");
+  const lines = body.split(/\r?\n/);
+  const firstContent = lines.findIndex((line) => line.trim());
+  if (firstContent !== -1 && lines[firstContent].startsWith(">") && lines.slice(firstContent, firstContent + 12).join("\n").match(/原文|作者|译介|翻译|来源/)) {
+    let end = firstContent;
+    while (end < lines.length && (!lines[end].trim() || lines[end].startsWith(">"))) end += 1;
+    body = [...lines.slice(0, firstContent), ...lines.slice(end)].join("\n").replace(/^\s*---\s*\n+/, "");
+  }
   body = body.replaceAll("blogs/images/harness-engineering/", "/assets/blog/harness-engineering/");
   return body.trim();
 }
@@ -108,7 +115,7 @@ for (const item of manifest) {
     publishedAt: item.date,
     updatedAt: item.date,
     category: item.category,
-    sourceLocale: "en",
+    sourceLocale: "zh",
     sourceUrl: details.sourceUrl,
     sourceAuthor: details.sourceAuthor,
     contentType: "adaptation",
@@ -126,7 +133,7 @@ const favoriteEntries = [
       description: "关于身份、目标与行为改变的一篇长文，适合慢慢读并做笔记。",
       publishedAt: "2025-12-23",
       updatedAt: "2025-12-23",
-      sourceLocale: "en",
+      sourceLocale: "zh",
       sourceUrl: "https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1",
       sourceAuthor: "Dan Koe",
       tags: ["个人成长", "行为改变"],

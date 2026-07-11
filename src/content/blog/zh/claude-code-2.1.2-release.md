@@ -6,7 +6,7 @@ description: "整理 Claude Code 2.1.0 至 2.1.2 的安全、技能和使用体�
 publishedAt: "2025-01-08"
 updatedAt: "2025-01-08"
 category: "development"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://github.com/anthropics/claude-code/releases"
 sourceAuthor: "Anthropic"
 contentType: "adaptation"

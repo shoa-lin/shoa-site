@@ -6,17 +6,11 @@ description: "介绍 Claude Agent SDK 的核心概念、工具调用、权限和
 publishedAt: "2025-01-09"
 updatedAt: "2025-01-09"
 category: "development"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://nader.substack.com/p/the-complete-guide-to-building-agents"
 sourceAuthor: "Nader Dabit"
 contentType: "adaptation"
 translationStatus: "reviewed"
----
-
-> 原文链接：[The Complete Guide to Building Agents with the Claude Agent SDK](https://nader.substack.com/p/the-complete-guide-to-building-agents)
->
-> 翻译日期：2025年1月9日
-
 ---
 
 如果你使用过 Claude Code，你就见识过 AI agent 真正能做什么：读取文件、运行命令、编辑代码、找出完成任务的步骤。

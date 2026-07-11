@@ -6,7 +6,7 @@ description: "根据公开仓库梳理 X 推荐系统的组件、数据流和工
 publishedAt: "2026-01-20"
 updatedAt: "2026-01-20"
 category: "algorithm"
-sourceLocale: "en"
+sourceLocale: "zh"
 sourceUrl: "https://github.com/xai-org/x-algorithm"
 sourceAuthor: "xAI"
 contentType: "adaptation"
