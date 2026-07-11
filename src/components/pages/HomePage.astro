@@ -1,0 +1,72 @@
+---
+import ArticleCard from "../ArticleCard.astro";
+import { profile } from "../../data/profile";
+import { latestPublications } from "../../data/publications";
+import { getDictionary, type Locale } from "../../lib/i18n";
+import { localizedPath } from "../../lib/routes";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<BaseLayout locale={locale} path="/" description={dictionary.meta.siteDescription}>
+  <section class="home-hero">
+    <div class="home-hero__copy">
+      <h1>{dictionary.home.greeting}</h1>
+      <p class="home-hero__intro">{dictionary.home.intro}</p>
+      <p class="home-hero__supporting">{dictionary.home.supporting}</p>
+      <div class="inline-links">
+        <a href={`mailto:${profile.email}`}>Email</a>
+        <a href={profile.x} rel="me noopener noreferrer">X</a>
+        <a href={profile.github} rel="me noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+    <div class="home-hero__portrait">
+      <img src={profile.avatar} alt="Shoa Lin" width="320" height="320" />
+    </div>
+  </section>
+
+  <section class="editorial-section editorial-split">
+    <h2>{dictionary.home.interestsTitle}</h2>
+    <p>{dictionary.home.interestsBody}</p>
+  </section>
+
+  <section class="editorial-section profile-notes">
+    <article>
+      <h2>{dictionary.home.backgroundTitle}</h2>
+      <p>{dictionary.home.backgroundBody}</p>
+    </article>
+    <article>
+      <h2>{dictionary.home.approachTitle}</h2>
+      <p>{dictionary.home.approachBody}</p>
+    </article>
+  </section>
+
+  <section class="editorial-section latest-writing">
+    <div class="section-row-head">
+      <h2>{dictionary.home.latestTitle}</h2>
+      <a href={localizedPath(locale, "/blog")}>{dictionary.nav.blog}</a>
+    </div>
+    <div>
+      {latestPublications.map((item) => (
+        <ArticleCard
+          href={localizedPath(locale, `/blog/${item.slug}`)}
+          title={item.copy[locale].title}
+          description={item.copy[locale].description}
+          date={item.date}
+          category={dictionary.blog.categories[item.category]}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="editorial-section contact-strip">
+    <div>
+      <h2>{dictionary.home.contactTitle}</h2>
+      <p>{dictionary.home.contactBody}</p>
+    </div>
+    <a class="text-command" href={localizedPath(locale, "/contact")}>{dictionary.nav.contact}</a>
+  </section>
+</BaseLayout>

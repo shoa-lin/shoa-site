@@ -1,0 +1,34 @@
+---
+import ArticleCard from "../ArticleCard.astro";
+import { latestPublications } from "../../data/publications";
+import { getDictionary, type Locale } from "../../lib/i18n";
+import { localizedPath } from "../../lib/routes";
+import BlogIndexLayout from "../../layouts/BlogIndexLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const categories = Object.entries(dictionary.blog.categories);
+---
+
+<BlogIndexLayout locale={locale} path="/blog" title={dictionary.blog.title} description={dictionary.blog.description}>
+  <header class="page-intro page-intro--compact">
+    <h1>{dictionary.blog.title}</h1>
+    <p>{dictionary.blog.description}</p>
+  </header>
+  <nav class="filter-row" aria-label={dictionary.blog.title}>
+    <a href={localizedPath(locale, "/blog")} aria-current="page">{dictionary.blog.all}</a>
+    {categories.map(([key, label]) => <a href={`${localizedPath(locale, "/blog")}?category=${key}`}>{label}</a>)}
+  </nav>
+  <div class="blog-list-quiet">
+    {latestPublications.map((item) => (
+      <ArticleCard
+        href={localizedPath(locale, `/blog/${item.slug}`)}
+        title={item.copy[locale].title}
+        description={item.copy[locale].description}
+        date={item.date}
+        category={dictionary.blog.categories[item.category]}
+      />
+    ))}
+  </div>
+</BlogIndexLayout>

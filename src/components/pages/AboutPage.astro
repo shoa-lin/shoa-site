@@ -1,0 +1,38 @@
+---
+import { getDictionary, type Locale } from "../../lib/i18n";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<PageLayout locale={locale} path="/about" title={dictionary.about.title} description={dictionary.about.paragraphTwo}>
+  <header class="page-intro">
+    <h1>{dictionary.about.title}</h1>
+    <div class="page-intro__body">
+      <p>{dictionary.about.paragraphOne}</p>
+      <p>{dictionary.about.paragraphTwo}</p>
+    </div>
+  </header>
+
+  <section class="editorial-section about-sections">
+    <article>
+      <h2>{dictionary.about.backgroundTitle}</h2>
+      <p>{dictionary.about.backgroundBody}</p>
+    </article>
+    <article>
+      <h2>{dictionary.about.interestsTitle}</h2>
+      <p>{dictionary.about.interestsBody}</p>
+    </article>
+  </section>
+
+  <section class="editorial-section principles-section">
+    <h2>{dictionary.about.principlesTitle}</h2>
+    <div class="principles-grid">
+      <article><h3>{dictionary.about.principleEvidenceTitle}</h3><p>{dictionary.about.principleEvidenceBody}</p></article>
+      <article><h3>{dictionary.about.principleClarityTitle}</h3><p>{dictionary.about.principleClarityBody}</p></article>
+      <article><h3>{dictionary.about.principleUsefulTitle}</h3><p>{dictionary.about.principleUsefulBody}</p></article>
+    </div>
+  </section>
+</PageLayout>

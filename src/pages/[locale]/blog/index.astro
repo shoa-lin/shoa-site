@@ -1,0 +1,13 @@
+---
+import BlogIndexPage from "../../../components/pages/BlogIndexPage.astro";
+import { locales, type Locale } from "../../../lib/i18n";
+
+export function getStaticPaths() {
+  return locales.filter((locale) => locale !== "zh").map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+---
+
+<BlogIndexPage locale={locale} />

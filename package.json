@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "npm run test:unit",
-    "test:unit": "node --test tests/*.test.mjs",
+    "test:unit": "node --test --test-concurrency=1 tests/*.test.mjs",
     "test:e2e": "playwright test",
     "audit:content": "node scripts/check-public-content.mjs",
     "audit:links": "node scripts/check-links.mjs dist",

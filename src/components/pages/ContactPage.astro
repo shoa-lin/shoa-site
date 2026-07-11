@@ -1,0 +1,28 @@
+---
+import { profile } from "../../data/profile";
+import { getDictionary, type Locale } from "../../lib/i18n";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<PageLayout locale={locale} path="/contact" title={dictionary.contact.title} description={dictionary.contact.description}>
+  <header class="page-intro page-intro--compact">
+    <h1>{dictionary.contact.title}</h1>
+    <p>{dictionary.contact.description}</p>
+  </header>
+  <div class="contact-list">
+    <a href={`mailto:${profile.email}`}>
+      <span>{dictionary.contact.emailTitle}</span>
+      <strong>{profile.email}</strong>
+      <p>{dictionary.contact.emailNote}</p>
+    </a>
+    <a href={profile.x} rel="me noopener noreferrer">
+      <span>{dictionary.contact.xTitle}</span>
+      <strong>@pand_lin</strong>
+      <p>{dictionary.contact.xNote}</p>
+    </a>
+  </div>
+</PageLayout>

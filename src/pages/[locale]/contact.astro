@@ -1,0 +1,13 @@
+---
+import ContactPage from "../../components/pages/ContactPage.astro";
+import { locales, type Locale } from "../../lib/i18n";
+
+export function getStaticPaths() {
+  return locales.filter((locale) => locale !== "zh").map((locale) => ({ params: { locale }, props: { locale } }));
+}
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+---
+
+<ContactPage locale={locale} />

@@ -1,0 +1,20 @@
+---
+import { getDictionary, type Locale } from "../../lib/i18n";
+import { localizedPath } from "../../lib/routes";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<PageLayout locale={locale} path="/404" title={dictionary.errors.notFoundTitle} description={dictionary.errors.notFoundBody}>
+  <section class="not-found">
+    <p aria-hidden="true">404</p>
+    <h1>{dictionary.errors.notFoundTitle}</h1>
+    <div>
+      <p>{dictionary.errors.notFoundBody}</p>
+      <a class="text-command" href={localizedPath(locale, "/")}>{dictionary.errors.home}</a>
+    </div>
+  </section>
+</PageLayout>

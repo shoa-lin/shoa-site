@@ -1,0 +1,28 @@
+---
+import { favorites } from "../../data/favorites";
+import { getDictionary, type Locale } from "../../lib/i18n";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<PageLayout locale={locale} path="/favorites" title={dictionary.favorites.title} description={dictionary.favorites.description}>
+  <header class="page-intro page-intro--compact">
+    <h1>{dictionary.favorites.title}</h1>
+    <p>{dictionary.favorites.description}</p>
+  </header>
+  <div class="favorite-list">
+    {favorites.map((item) => (
+      <article class="favorite-item">
+        <div>
+          <span>{item.source}</span>
+          <h2>{item.copy[locale].title}</h2>
+          <p>{item.copy[locale].summary}</p>
+        </div>
+        <a href={item.sourceUrl} rel="noopener noreferrer">{dictionary.favorites.visitSource}</a>
+      </article>
+    ))}
+  </div>
+</PageLayout>
