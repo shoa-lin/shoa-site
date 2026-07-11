@@ -1,253 +1,262 @@
 ---
 translationKey: "state-of-ai-agent-memory-2026"
 locale: "en"
-title: "The current state of AI Agent memory in 2026: Benchmark, architecture and production gaps"
-description: "Sort out the benchmarks, architecture choices, production requirements and unresolved issues of AI Agent memory."
+title: "The State of AI Agent Memory in 2026: Benchmarks, Architecture, and Production Gaps"
+description: "A review of AI agent memory benchmarks, architecture choices, production requirements, and the problems that remain unsolved."
 publishedAt: "2026-06-04"
 updatedAt: "2026-06-04"
 category: "architecture"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://mem0.ai/blog/state-of-ai-agent-memory-2026"
 sourceAuthor: "Mem0 Team"
-contentType: "translation"
-translationStatus: "draft"
+contentType: "adaptation"
+translationStatus: "reviewed"
 ---
 
-**Core Points**
+**Key takeaways**
 
-> - LoCoMo, LongMemEval and BEAM benchmarks are now standards for comparing memory architectures.
+> - LoCoMo, LongMemEval, and BEAM are now the standard benchmarks for comparing memory architectures.
 >
-> - LoCoMo scored 92.5, LongMemEval scored 94.4, and each query consumes approximately 6,900 tokens.
+> - Scores reach 92.5 on LoCoMo and 94.4 on LongMemEval at approximately 6,900 tokens per query.
 >
-> - Maximum gain: temporal reasoning +29.6 points, multi-hop reasoning +23.1 points.
+> - The largest gains are +29.6 points on temporal reasoning and +23.1 points on multi-hop reasoning.
 >
-> - 21 frames and 20 vector stores integrated.
+> - The ecosystem includes integrations with 21 frameworks and platforms and 20 vector stores.
 >
-> - The most difficult open problems: cross-session identity resolution, large-scale time abstraction, memory expiration.
+> - The hardest open problems are cross-session identity resolution, temporal abstraction at scale, and memory staleness.
 
 ---
 
-Three years ago, "AI agent memory" meant stuffing conversation history into a context window and hoping the model would remember it. Stateless agents, repeated instructions, zero personalization across sessions - these are seen as inherent costs of building applications with LLM.
+Three years ago, "AI agent memory" meant shoving conversation history into a context window and hoping the model kept track. Stateless agents, repeated instructions, and zero personalization across sessions were accepted as the cost of building with LLMs.
 
-That perception is outdated. In 2026, memory has become a first-class architectural component: with its own benchmark suite, independent research literature, quantifiable performance gaps between solutions, and an ecosystem built around it.
+That framing is obsolete. In 2026, memory is a first-class architectural component with its own benchmark suite, research literature, measurable performance differences between approaches, and a growing ecosystem built around it.
 
-This report covers the current reality: what benchmarks measure, how solutions compare, what the integration ecosystem looks like, where technical work has been concentrated over the past 18 months, and which issues are still truly unsolved.
+This report covers where things actually stand: what the benchmarks measure, how the approaches compare, what the integration landscape looks like, where technical work has concentrated over the past 18 months, and which problems remain genuinely open.
 
-All content in this article is derived from published research, real release logs, and documented integration specifications. There are no forecasts, no market size claims.
+Everything here comes from published research, real release changelogs, and documented integration specifications. There are no forecasts or market-size claims.
 
-## Research and Methodology
+## Research and methodology
 
 ### What are we measuring?
 
-The most important development in AI agent memory research is the emergence of standardized benchmarks - which allow completely different memory architectures to be compared on the same evaluation set. There are currently three benchmarks that define the measurement landscape:
+The most important development in AI agent memory research is the emergence of standardized benchmarks. They allow fundamentally different memory architectures to be compared on the same evaluation set. Three benchmarks now define the measurement landscape:
 
-1. **LoCoMo**: 1,540 questions across four categories, testing memory recall at different difficulty levels on multi-session dialogue data: single-hop, multi-hop, open-domain and temporal memory recall. Before LoCoMo, memory quality was mostly self-reported or based on ad hoc task assessments that were not reproducible across laboratories.
-2. **LongMemEval**: 500 questions across six categories: single-session user recall, single-session assistant recall, single-session preference recall, knowledge update, temporal reasoning, and cross-session recall. It tests a wider range of memory scenarios and is particularly demanding on knowledge updating and cross-session tasks.
-3. **BEAM**: This benchmark runs on 1M and 10M token scales and tests the performance of the memory system when the context magnitude is much larger than that of typical benchmarks. BEAM cannot be solved by simply extending the context window, making it the most relevant benchmark for production-scale deployments. Its ten categories include preference following, instruction following, information extraction, knowledge updating, cross-session reasoning, summarization, temporal reasoning, event sequencing, abstention, and conflict resolution.
+1. [**LoCoMo**](https://github.com/snap-research/locomo): 1,540 questions across four categories, testing memory recall at different difficulty levels on multi-session conversational data: single-hop, multi-hop, open-domain, and temporal recall. Before LoCoMo, memory quality was mostly self-reported or evaluated on ad hoc tasks that could not be reproduced across labs.
+2. [**LongMemEval**](https://github.com/xiaowu0162/longmemeval): 500 questions across six categories: single-session user recall, single-session assistant recall, single-session preference recall, knowledge update, temporal reasoning, and cross-session recall. It covers a broader set of memory scenarios and is especially demanding on knowledge updates and cross-session tasks.
+3. [**BEAM**](https://github.com/mohammadtavakoli78/BEAM): A benchmark that operates at 1M and 10M token scales, testing what memory systems do when context volumes are far larger than those in typical benchmarks. BEAM cannot be solved by simply expanding the context window, which makes it particularly relevant to production-scale deployments. Its ten categories include preference following, instruction following, information extraction, knowledge update, cross-session reasoning, summarization, temporal reasoning, event ordering, abstention, and contradiction resolution.
 
-The evaluation framework of the three benchmarks combines five dimensions:
+The evaluation framework across the three benchmarks combines five dimensions:
 
-| Metrics | What to measure |
+| Metric | What it measures |
 | --- | --- |
-| BLEU score | token-level similarity to ground truth |
-| F1 score | Precision and recall rate of response token |
-| LLM score | Binary correctness determination of LLM judge |
-| Token consumption | Total number of tokens required for each query |
-| Latency | Actual time spent searching and generating responses |
+| BLEU score | Token-level similarity to the ground truth |
+| F1 score | Precision and recall over response tokens |
+| LLM score | A binary correctness judgment from an LLM judge |
+| Token consumption | Total tokens required per query |
+| Latency | Wall-clock time for search and response generation |
 
-This combination prevents optimization on one axis at the expense of the others. A system with high accuracy but requiring 26,000 tokens per query is not suitable for production. A system with low latency but poor recall has no practical value.
+This combination prevents a system from optimizing one axis at the expense of the others. A highly accurate full-context system that uses roughly 26,000 tokens per conversation may still be unsuitable for production. A low-latency system with poor recall is equally impractical.
 
-### Research Basics
+### Research foundation
 
-The Mem0 research paper (arXiv:2504.19413) published at ECAI 2025 provides the first extensive head-to-head comparison of ten memory methods, including literature baselines, open source tools, RAG, full-context, OpenAI Memory and Zep, running on the LoCoMo benchmark. The paper establishes a baseline of what selective memory can achieve. Mem0's new algorithm significantly improves this baseline.
+The Mem0 research paper published at ECAI 2025 ([arXiv:2504.19413](https://arxiv.org/abs/2504.19413)) provided the first broad head-to-head comparison of ten memory methods on the LoCoMo benchmark, including literature baselines, open-source tools, RAG, full-context, OpenAI Memory, and Zep. The paper established a baseline for what selective memory could achieve. Mem0's newer algorithm significantly raises that baseline.
 
-In April 2026, we released a new efficient token memory algorithm based on single-pass hierarchical extraction and multi-signal retrieval. The following are the improved benchmark results:
+In April 2026, we released a new token-efficient memory algorithm based on single-pass hierarchical extraction and multi-signal retrieval. The improved benchmark results are:
 
-| Benchmark | Score | Average Token / Query |
+| Benchmark | Score | Average tokens / query |
 | --- | --- | --- |
 | LoCoMo | **92.5** | 6,956 |
 | LongMemEval | **94.4** | 6,787 |
 | BEAM (1M) | **64.1** | 6,719 |
 | BEAM (10M) | **48.6** | 6,914 |
 
-*Note: The 2025 paper reports the number of tokens per conversation (full-context is about 26,000). The 2026 algorithm reports the average number of tokens per retrieval call (~6,956 for LoCoMo). These are different units of measurement, but measure the same underlying efficiency. *
+*Note: The 2025 paper reports tokens per conversation, with full-context at roughly 26,000. The 2026 algorithm reports average tokens per retrieval call, with LoCoMo at roughly 6,956. These are different units, though they measure the same underlying efficiency dimension.*
 
-The two largest gains for the new algorithm come from temporal queries (+29.6 points over the old algorithm) and multi-hop inference (+23.1 points). These two categories best reflect how the agent handles real user history—where facts accumulate, change, and correlate with each other over time.
+The two largest gains from the new algorithm are on temporal queries, up 29.6 points over the previous algorithm, and multi-hop reasoning, up 23.1 points. These two categories most closely reflect how an agent handles real user history, where facts accumulate, change, and become connected over time.
 
 **Two architectural changes drove these results:**
 
-- **Single-pass ADD-only extraction:** Mem0 now treats agent-generated facts as first-class citizens, storing agent confirmations and recommendations with equal weight as user-stated facts, significantly closing the memory coverage gap.
-- **Multi-signal retrieval:** The retrieval stack runs three rounds of scoring - semantic similarity, keyword matching and entity matching - in parallel and then fuses the results. The combined score is better than any single signal.
+- **Single-pass ADD-only extraction:** Mem0 now treats agent-generated facts as first-class information. Agent confirmations and recommendations are stored with the same weight as user-stated facts, substantially narrowing the memory coverage gap.
+- **Multi-signal retrieval:** The retrieval stack scores semantic similarity, keyword matches, and entity matches in parallel, then fuses the results. The combined score performs better than any individual signal.
 
-> The complete evaluation framework has been open sourced at github.com/mem0ai/memory-benchmarks.
+> The complete evaluation framework is open source at [github.com/mem0ai/memory-benchmarks](https://github.com/mem0ai/memory-benchmarks).
 
-## Integrated Ecosystem
+## The integration ecosystem
 
-The fastest growing area of AI agent memory is not the core pipeline, but the integration layer. As of early 2026, Mem0's official integration documentation covers 21 frameworks and platforms, spanning Python and TypeScript.
+The fastest-growing part of AI agent memory is not the core pipeline but the integration layer. As of early 2026, Mem0's official integration documentation covers 21 frameworks and platforms across Python and TypeScript.
 
-### Agent Framework
+### Agent frameworks
 
-Agent framework coverage reflects the fragmentation of the agent ecosystem. No single framework has won the market. Developers build on all frameworks, and a memory layer tied to a single framework is a memory layer that developers will not adopt at scale.
+Framework coverage reflects how fragmented the agent ecosystem remains. No single framework has won the market. Developers build across all of them, and a memory layer tied to one framework is unlikely to see broad adoption.
 
-Currently documented 13 agent framework integrations:
+The 13 documented agent framework integrations are:
 
-- LangChain (Python, and standalone LangChain Tools integration)
-- LangGraph, for stateful agent workflow
-- LlamaIndex for document-intensive RAG pipelines
+- LangChain, including Python and a separate LangChain Tools integration
+- LangGraph for stateful agent workflows
+- LlamaIndex for document-heavy RAG pipelines
 - CrewAI for multi-agent teams
-- AutoGen, for conversational multi-agent systems
--Agno
+- AutoGen for conversational multi-agent systems
+- Agno
 - CAMEL AI for role-playing and collaborative agents
-- Dify, for no-code and low-code agent builders
-- Flowise, for visual agent builders
+- Dify for no-code and low-code agent builders
+- Flowise for visual agent builders
 - Google ADK for multi-agent hierarchies
 - OpenAI Agents SDK
-- Mastra, a TypeScript native agent framework
+- Mastra, a TypeScript-native agent framework
 
-The Mastra integration is noteworthy because it's TypeScript-first. The `@mastra/mem0` package provides first-class integration without the need to manage a Python server. It exposes memory as two tools: `Mem0-memorize` and `Mem0-remember`. The Mastra agent uses it through standard tool-calling, and the memory is saved asynchronously to avoid blocking response generation.
+The Mastra integration is notable because it is TypeScript-first. The `@mastra/mem0` package provides a first-class integration without requiring a Python service. It exposes memory through two tools, `Mem0-memorize` and `Mem0-remember`, which Mastra agents call through standard tool calling. Memories are saved asynchronously so response generation is not blocked.
 
-### Voice Agent Integration
+### Voice agent integrations
 
 Three dedicated voice integrations represent one of the most important emerging use cases for persistent memory: ElevenLabs for conversational voice AI, LiveKit for real-time voice and video agents, and Pipecat for voice-first AI applications.
 
-Speech agents have a memory problem that is qualitatively different from text agents. In voice interactions, the user cannot scroll back, copy-paste context from a previous session, or manually remind the agent of past conversations. If the agent doesn't remember, the friction is immediate and obvious.
+Voice agents face a qualitatively different memory problem from text agents. In a voice interaction, users cannot scroll back, copy and paste context from a previous session, or manually remind the agent about an earlier conversation. When the agent does not remember, the friction is immediate and obvious.
 
-The ElevenLabs integration handles this problem by exposing two asynchronous utility functions: `addMemories` and `retrieveMemories`, which the speech agent calls through ElevenLabs' function-calling system. Memory writing is asynchronous and does not increase speech latency. The `USER_ID` that determines the memory scope comes from the identity of the authenticated user in the calling application rather than being generated by the memory system, making memory isolation tied to application-level authentication without the need for a separate identity layer.
+The ElevenLabs integration addresses this by exposing two asynchronous tool functions: `addMemories` and `retrieveMemories`. Voice agents call them through ElevenLabs' function-calling system. Memory writes happen asynchronously, so they do not add voice latency. The `USER_ID` that scopes memory comes from the authenticated user identity in the calling application rather than being generated by the memory system. This ties memory isolation to application-level authentication without requiring a separate identity layer.
 
-### Developer Tools Integration
+### Developer tool integrations
 
-Vercel AI SDK (via `@mem0/vercel-ai-provider` for TypeScript web apps, support for Vercel AI SDK V5 as of August 2025, multimodal files and Google provider support), AgentOps for agent monitoring and observability, Raycast for AI-driven developer productivity tools, OpenClaw via `@mem0/openclaw-mem0`, and AWS Bedrock for managed LLM infrastructure.
+The developer tool integrations include Vercel AI SDK through `@mem0/vercel-ai-provider` for TypeScript web applications, with Vercel AI SDK V5 support since August 2025 as well as multimodal files and Google providers; AgentOps for agent monitoring and observability; Raycast for AI-powered developer productivity; OpenClaw through `@mem0/openclaw-mem0`; and AWS Bedrock for managed LLM infrastructure.
 
-### Diffusion of vector storage
+### Vector store proliferation
 
-Mem0's open source and cloud products currently support 20 vector storage backends.
+Mem0's open-source and cloud products currently support 20 vector store backends.
 
-- **Self-hosted and open source:** Qdrant, Chroma, Weaviate, Milvus, PGVector, Redis, Elasticsearch, FAISS, Apache Cassandra, Valkey, Kuzu (pictured)
-- **Cloud & Hosting:** Pinecone, ChromaDB Cloud, Azure AI Search, Azure MySQL, Amazon S3 Vectors, Databricks Mosaic AI, Neptune Analytics, OpenAI Store, MongoDB
+- **Self-hosted and open source:** Qdrant, Chroma, Weaviate, Milvus, PGVector, Redis, Elasticsearch, FAISS, Apache Cassandra, Valkey, and Kuzu (graph)
+- **Cloud and managed:** Pinecone, ChromaDB Cloud, Azure AI Search, Azure MySQL, Amazon S3 Vectors, Databricks Mosaic AI, Neptune Analytics, OpenAI Store, and MongoDB
 
-The addition of Neptune Analytics (September 2025) brings AWS native graph memory support. Teams running on AWS can use Neptune as a graph backend without running a standalone Neo4j or Kuzu instance. Apache Cassandra support (v1.0.1, November 2025) and Valkey support (v0.1.118, September 2025) serve teams running high-throughput distributed storage. FastEmbed integration for native embedding allows teams to run the entire embedding pipeline on the device without requiring API calls, reducing costs and data egress for privacy-sensitive deployments.
+The addition of Neptune Analytics in September 2025 brought AWS-native graph memory support. Teams running on AWS can use Neptune as a graph backend without operating a separate Neo4j or Kuzu instance. Apache Cassandra support in v1.0.1 from November 2025 and Valkey support in v0.1.118 from September 2025 serve teams running high-throughput distributed storage. FastEmbed provides local embeddings, allowing teams to run the full embedding pipeline on-device without API calls. That reduces cost and data egress for privacy-sensitive deployments.
 
-## Graph Memory: Linking from external graph storage to built-in entities
+## Graph Memory: from external graph stores to built-in entity linking
 
-Graph memory in AI agents is basically in the experimental stage in 2024. By 2026, production models have changed. The important shift is not that "every agent now needs a graph database", but that memory systems are moving beyond pure vector similarity.
+[Graph memory](https://docs.mem0.ai/migration/oss-v2-to-v3#graph-memory-%E2%86%92-entity-linking) was largely experimental in AI agents in 2024. By 2026, the production pattern had changed. The important shift is not that every agent now needs a graph database, but that memory systems are moving beyond pure vector similarity.
 
-![Comparison between vector memory and graph memory: vector memory uses embedding similarity, while graph memory maps entity relationships and connections](https://framerusercontent.com/images/spAOWCO0vkktuAbZjdTyi1auejU.png)
+![Comparison of vector and graph memory: vector memory uses embedding similarity, while graph memory maps entities, relationships, and connections](https://framerusercontent.com/images/spAOWCO0vkktuAbZjdTyi1auejU.png)
 
-*Figure: Comparison of vector memory and graph memory*
+*Figure: Vector memory compared with graph memory*
 
-**Vector Memory** retrieves semantically similar facts. **Schema Memory** Retrieve facts through entities and relationships. Both are useful; neither is sufficient alone.
+**Vector memory** retrieves semantically similar facts. **Graph-style memory** retrieves facts through entities and relationships. Both are useful; neither is sufficient on its own.
 
-In our new open source algorithm, we replace external graph storage support with built-in entity linking. On `add()`, Mem0 fetches entities from each memory and stores them in a parallel entity collection named `{collection}_entities`. At search time, entities in the query match this collection. These matches then boost the ranking of the associated memory in the final combined score.
+In our new [open-source algorithm](https://mem0.ai/research), external graph store support was replaced by built-in entity linking. During `add()`, Mem0 extracts entities from each memory and stores them in a parallel collection named `{collection}_entities`. At search time, entities in the query are matched against that collection. Those matches then raise the ranking of relevant memories in the final combined score.
 
-This is part of a broader redesign of multi-signal retrieval: semantic similarity, BM25 keyword matching and entity matching - all three are normalized and merged into a single result score.
+This is part of the broader multi-signal retrieval redesign: semantic similarity, BM25 keyword matching, and entity matching are normalized and fused into one result score.
 
-*Tradeoff:* This is no longer a queryable graph interface. The `relations` field from previous versions has been removed. Entity relationships now affect search ranking, but cannot be traversed directly. This is a step back for teams that need graph interfaces for custom reasoning. This is a net improvement for teams that need entity-aware retrieval but don't want the overhead of a Neo4j deployment.
+*Trade-off:* This is no longer a queryable graph interface. The `relations` field from earlier versions has been removed. Entity relationships now affect retrieval ranking but cannot be traversed directly. That is a regression for teams that need a graph interface for custom reasoning. For teams that need entity-aware retrieval without the operational cost of Neo4j, it is a net improvement.
 
-## Multi-scope memory: Implemented API design
+## Multi-scope memory: an API design that works in practice
 
-One of the cleanest design decisions in the area of AI agent memory is Mem0’s four-scope memory model. Each memory write is associated with at least one of the following:
+One of the cleanest design choices in AI agent memory is Mem0's four-scope memory model. Every memory write is associated with at least one of the following:
 
-- `user_id`: a memory that belongs to a specific user and persists across all sessions
-- `agent_id`: memory belonging to a specific agent instance
-- `run_id` or `session_id`: memory scoped to a single session or workflow run
-- `app_id` or `org_id`: shared organizational context memory
+- `user_id`: memory that belongs to a specific user and persists across all sessions
+- `agent_id`: memory that belongs to a specific agent instance
+- `run_id` or `session_id`: memory scoped to one conversation or workflow run
+- `app_id` or `org_id`: shared organizational context
 
-These identifiers determine what is returned when searching, and they can be combined. Queries can be limited to a specific user in a specific run, or retrieve all memories for a user across all runs. The retrieval pipeline automatically handles the merge, ranking user memory above session context, and session context above raw history.
+These identifiers determine what search returns, and they can be combined. A query can target a specific user within a particular run, or retrieve all memories for that user across every run. The retrieval pipeline handles merging automatically, ranking user memory above session context and session context above raw history.
 
-This range model becomes more useful with the metadata filtering function of v1.0.0. Before this, memory searches were based purely on semantics. With metadata filtering, memories can carry structured attributes `{"context": "healthcare"}` and be queried independently of their semantic content. This is critical for multi-tenant applications - the same user memory store handles different application contexts.
+This scope model became more useful with metadata filtering in v1.0.0. Before that change, memory search was purely semantic. With metadata filtering, a memory can carry structured attributes such as `{"context": "healthcare"}` that can be queried independently of semantic content. This is essential for multi-tenant applications in which the same user memory store serves different application contexts.
 
-## Actor-aware memory in multi-Agent systems
+## Actor-aware memory in multi-agent systems
 
-Group Chat with actor-aware memory solves a real failure mode in multi-agent systems: confusion about who said what.
+Group Chat with actor-aware memory solves a real failure mode in multi-agent systems: losing track of who said what.
 
-In the shared conversation, a line like "User needs help with deployment" is vaguely remembered. Did the user say it directly? Is it inferred by the monitoring agent? Or is the planning agent created as an intermediate step?
+In a shared conversation, a memory such as "the user needs help with deployment" is ambiguous. Did the user say it directly? Did a monitoring agent infer it? Or did a planning agent create it as an intermediate step?
 
-Mem0 The current Group Chat process uses the `name` field of the message for attribution marking. User messages are stored under `user_id` and assistant or agent messages are stored under `agent_id`. When retrieving, the agent can filter by participant and session, helping to differentiate between user-stated facts and agent-generated inferences. As multi-agent systems become more complex, provenance in the memory layer becomes part of reliability, not just a debugging tool.
+Mem0's current Group Chat flow uses the message `name` field for attribution. User messages are stored under `user_id`, while assistant or agent messages are stored under `agent_id`. At retrieval time, an agent can filter by participant and session, helping it distinguish user-stated facts from agent-generated inferences. As multi-agent systems become more complex, provenance in the memory layer becomes part of reliability, not merely a debugging aid.
 
-## Procedural Memory: The third type of memory
+## Procedural Memory: the third kind of memory
 
-Most AI memory systems focus on two types:
+Most AI memory systems focus on two categories:
 
 - *Episodic memory*: what happened
-- *Semantic memory*: What to know
+- *Semantic memory*: what is known
 
-Producing agents also requires a third type: *Procedural memory* (procedural memory).
+Production agents also need a third category: *procedural memory*.
 
-Procedural memory stores how things should be done. For agents, this means learned workflows, coding patterns, tool usage habits, review specifications, and deployment steps. A coding assistant might learn how the team organizes pull requests, which test commands to run before merging, and how to handle release notes. This is not just a preference or a fact. This is procedural knowledge that the agent should apply consistently.
+Procedural memory stores how things should be done. For an agent, that includes learned workflows, coding patterns, tool-use habits, review standards, and deployment steps. A coding assistant might learn how a team structures pull requests, which test commands must run before merge, and how release notes are handled. This is more than a preference or a fact. It is process knowledge the agent should apply consistently.
 
-This is one area where the Mem0 architecture supports the concept, but tools specifically for managing procedural memory are still in their early stages.
+Mem0's architecture supports the concept, but tooling dedicated to managing procedural memory is still at an early stage.
 
-## OpenMemory MCP: Privacy First Branch
+## OpenMemory MCP: the privacy-first branch
 
-OpenMemory is Mem0’s local-first memory layer for developers to implement persistent memory across AI tools. It runs as an MCP-compliant memory server and supports Claude Desktop, Cursor, Windsurf, VS Code, and other MCP-compliant agents. Memories are stored locally, with a dashboard for browsing and managing saved content.
+[OpenMemory](https://mem0.ai/openmemory) is Mem0's local-first memory layer for developers who want persistent memory across AI tools. It runs as an MCP-compatible memory server and supports [Claude Desktop](https://claude.ai/download), [Cursor](https://cursor.so/), [Windsurf](https://codeium.com/windsurf), VS Code, and other MCP-compatible agents. Memories are stored locally, with a dashboard for browsing and managing saved content.
 
-The key difference is control. OpenMemory MCP stores memory locally and comes with a dashboard for browsing and managing saved content. Mem0 also provides managed OpenMemory and cloud MCP paths to reduce setup costs. Targeted at a different audience than hosting platforms: individual developers, coding agent users, and teams who want portable memory across tools without building a product-specific memory backend.
+The key distinction is control. OpenMemory MCP stores memory locally and provides a dashboard for inspecting and managing it. Mem0 also offers managed OpenMemory and a cloud MCP path to reduce setup overhead. The target audience differs from the hosted platform: individual developers, coding agent users, and teams that want portable memory across tools without building a product-specific memory backend.
 
-## What exactly is needed to produce memory?
+## What production memory actually requires
 
-Six features released in the past 18 months signal real needs for real-world deployments:
+Six features released over the past 18 months reveal what real deployments need:
 
-![Six production memory requirements that Mem0 delivered in 18 months: asynchronous mode, reordering, metadata filtering, update timestamps, memory depth configuration, and structured exceptions](https://framerusercontent.com/images/bK41JaQimY0tyGl8MNoAmJSs.png)
+![Six production memory requirements delivered by Mem0 over 18 months: async mode, reranking, metadata filtering, update timestamps, memory-depth configuration, and structured exceptions](https://framerusercontent.com/images/bK41JaQimY0tyGl8MNoAmJSs.png)
 
 *Figure: Production memory requirements*
 
-- **Asynchronous mode is default:** Memory writes that block the response pipeline will increase user-perceived latency. v1.0.0 sets `async_mode=True` as the default, eliminating the most common production pitfalls.
-- **Reranking:** Vector similarity can return the correct candidate results, but the order is often wrong. The second-pass reorderer uses Cohere, Hugging Face, Sentence Transformers, or LLM-based models to rescore the query before the content enters the context window.
-- **Metadata filtering:** Structured attributes on memory (`{"context": "healthcare"}`) enable range queries. Filter by project, time range or any structured attribute.
-- **Update Timestamp:** Backfills the memory store with the exact creation time, important when migrating historical data. Temporal ordering affects the weight of recency at retrieval time.
-- **Memory Depth and Use Case Configuration:** Include prompt, exclude prompt and depth are now project-level settings. Medical assistants store less and exclude medication details; customer service bots store only product and problem history.
-- **Structured Exceptions:** The error code and recommended action in the exception replace the unparsable string. Unobtrusive in a changelog, but hugely valuable in a 2am production mishap.
+- **Async mode by default:** Memory writes that block the response pipeline add user-visible latency. v1.0.0 made `async_mode=True` the default, eliminating one of the most common production pitfalls.
+- **Reranking:** Vector similarity often returns the right candidates in the wrong order. A second-pass reranker uses Cohere, Hugging Face, Sentence Transformers, or LLM-based models to rescore results before content enters the context window.
+- **Metadata filtering:** Structured memory attributes such as `{"context": "healthcare"}` enable scoped queries. Teams can filter by project, time range, or any other structured property.
+- **Update timestamps:** Memory stores can be backfilled with accurate creation times, which matters when migrating historical data. Temporal ordering affects recency weighting during retrieval.
+- **Memory depth and use-case configuration:** Include prompts, exclude prompts, and depth are now project-level settings. A healthcare assistant can store less and exclude medication details, while a customer service bot stores only product and issue history.
+- **Structured exceptions:** Error codes and recommended actions replace unparseable strings in exceptions. It is an understated changelog item with enormous value during a production incident at 2 a.m.
 
-## Open questions
+## Open problems
 
-Despite the progress, several issues remain truly unsolved or only partially resolved:
+Despite the progress, several problems remain genuinely unsolved or only partially solved:
 
-![Six open issues in AI agent memory: time abstraction, cross-session structure, application-level evaluation, privacy and permission architecture, cross-session identity resolution and memory expiration](https://framerusercontent.com/images/4vaSqjzyjwPtsvkH8WFCqPRq2o.png)
+![Six open problems in AI agent memory: temporal abstraction, cross-session structure, application-level evaluation, privacy and permission architecture, cross-session identity resolution, and memory staleness](https://framerusercontent.com/images/4vaSqjzyjwPtsvkH8WFCqPRq2o.png)
 
-*Figure: Open issues in AI agent memory*
+*Figure: Open problems in AI agent memory*
 
-- **Temporal abstraction:** The drop from BEAM 1M to BEAM 10M (64.1 → 48.6) is about a 25% performance penalty when increasing the context size by a factor of 10. Temporal queries are the hardest category and even after the +29.6 point gain of the new algorithm, there is still a lot of room for improvement.
-- **Cross-session structure:** A user moves from New York to San Francisco, this change should be understood, not just stored in the new city. Most systems treat changes as replacements. Correct behavior would be to view this as evolution.
-- **Application Level Assessment:** A score of 91.6 on LoCoMo doesn't tell you much about how the system will perform on medical or legal workloads. Benchmark measures universal recall. Application-level assessment remains a manual and customized process for most teams.
-- **Privacy and Permission Architecture:** Who can inspect stored memories? How long to keep it? How do users delete them? These are currently application layer decisions. As persistent memory is added to consumer products, regulatory expectations will become more specific.
-- **Cross-session identity resolution:** The memory model assumes that `user_id` is stable. Anonymous sessions, multi-device users, and hybrid authentication flows break this assumption. Determining whether two interactions are from the same person is an unresolved identity problem in the memory layer.
-- **Memory staleness:** A frequently retrieved, highly relevant memory about the user's employer is accurate until the user changes jobs, after which it becomes "confidently wrong." Decay can handle low-relevance memories. The expiration of high-relevance memories is a more difficult open problem.
+- **Temporal abstraction:** The drop from BEAM 1M to BEAM 10M, from 64.1 to 48.6, is roughly a 25% performance loss when context scale increases tenfold. Temporal queries remain the hardest category. Even after a gain of 29.6 points in the new algorithm, there is substantial room to improve.
+- **Cross-session structure:** If a user moves from New York to San Francisco, the system should understand the change rather than merely store a new city. Most systems treat change as replacement. The correct behavior is to model it as evolution.
+- **Application-level evaluation:** A score of 91.6 on LoCoMo does not tell you how a system will perform on medical or legal workloads. Benchmarks measure general recall. For most teams, application-level evaluation remains a custom, manual process.
+- **Privacy and permission architecture:** Who can inspect stored memories? How long are they retained? How can users delete them? These remain application-layer decisions. As consumer products add persistent memory, regulatory expectations will become more specific.
+- **Cross-session identity resolution:** Memory models assume that `user_id` is stable. Anonymous sessions, multi-device users, and hybrid authentication flows break that assumption. Determining whether two interactions came from the same person remains an unsolved identity problem in the memory layer.
+- **Memory staleness:** A frequently retrieved, highly relevant memory about a user's employer is accurate until the user changes jobs. After that, it becomes confidently wrong. Decay can handle low-relevance memories. Staleness in highly relevant memories is a harder open problem.
 
-## Quick start
+## Quickstart
 
-AI agent memory in 2026 is a production engineering discipline with real benchmarks, quantifiable trade-offs, and a growing body of operational knowledge.
+AI agent memory in 2026 is a production engineering discipline with real benchmarks, measurable trade-offs, and a growing body of operational knowledge.
 
-The infrastructure for deploying memory has been expanded to cover 21 frameworks, 20 vector stores and three different hosting models - managed cloud, open source self-hosted and on-premises MCP. The remaining open questions are real, but they are specific and bounded rather than fundamental.
+The infrastructure for deploying memory now covers 21 frameworks and platforms, 20 vector stores, and three distinct hosting models: managed cloud, open-source self-hosting, and local MCP. The remaining open problems are real, but they are specific and bounded rather than fundamental.
 
-- **Engineers** can now access persistent memory in an afternoon. Mem0 Docker Self-Hosting Guide uses Qdrant as the vector backend to set up a working local API in less than 20 minutes.
-- **Founders and Architects** When evaluating the memory layer: token efficiency numbers are indicators that need to be stress tested. 6,956 tokens per retrieval call on LoCoMo vs around 26,000 for full-context – a real difference in the bill of inference at scale. The Benchmark assessment framework is open source – run it on your own workloads before settling on an architecture.
+- **Engineers** can now add persistent memory in an afternoon. The [Mem0 Docker self-hosting guide](https://mem0.ai/blog/self-host-mem0-docker) uses Qdrant as the vector backend and produces a working local API in under 20 minutes. For local open-weight models, the [Hermes agent tutorial](https://mem0.ai/blog/how-to-add-memory-to-your-hermes-agent) shows how to add cross-session persistent memory without relying on cloud services.
+- **Founders and architects** evaluating a memory layer should treat token-efficiency numbers as metrics to stress-test. LoCoMo uses 6,956 tokens per retrieval call, while full-context uses roughly 26,000 tokens per conversation. The units are different, but the difference still needs to be measured against your inference bill at scale. The [benchmark evaluation framework](https://github.com/mem0ai/memory-benchmarks) is open source, so run it on your own workload before committing to an architecture.
 
-| Options | Best for | Set Time |
+| Option | Best for | Setup time |
 | --- | --- | --- |
-| Mem0 Managed Cloud | Fast integration, no infrastructure overhead | 2 minutes |
-| Self-hosted OSS | Full data control, cost at scale | 20 minutes |
-| OpenMemory MCP | Local memory across development tools (Claude, Cursor, Windsurf) | 5 min |
+| [Mem0 managed cloud](https://app.mem0.ai/) | Fast integration with no infrastructure overhead | 2 minutes |
+| [Self-hosted OSS](https://github.com/mem0ai/mem0) | Full data control and lower cost at scale | 20 minutes |
+| OpenMemory MCP | Local memory across developer tools such as Claude, Cursor, and Windsurf | 5 minutes |
 
-- **Researchers** want to learn more about the evaluation methodology: our latest token-efficient memory algorithm is the best place to start. Two architectural changes combine semantic similarity, BM25, and entity matching into a single fusion score. The largest gains come from temporal queries (+29.6 points) and multi-hop reasoning (+23.1 points) - the two categories that best reflect how the agent handles real user history.
+- **Researchers** who want to understand the evaluation methodology should start with the latest [token-efficient memory algorithm](https://mem0.ai/research). Its two architectural changes combine semantic similarity, BM25, and entity matching into a single fused score. The largest gains are on temporal queries, up 29.6 points, and multi-hop reasoning, up 23.1 points. Those are the two categories that best reflect how an agent handles real user history.
 
 ## FAQ
 
-### Question: What is AI agent memory?
+### What is AI agent memory?
 
-AI agent memory is a persistent storage layer that allows the agent to retain information across sessions. Without it, every conversation starts from scratch—no user preference, no previous context, no continuity. With memory, the agent remembers what the user said before, how needs have changed, and which problems have been solved. In 2026, memory is treated as a dedicated architectural component independent of the model context window, not just a longer prompt.
+AI agent memory is a persistent storage layer that lets an agent retain information across sessions. Without it, every conversation starts from zero: no user preferences, no previous context, and no continuity. With memory, an agent can remember what the user said before, how their needs changed, and which problems were resolved. In 2026, memory is treated as a dedicated architectural component separate from the model's context window, not merely as a longer prompt.
 
-### Question: How does the AI ​​agent’s memory work?
+### How does AI agent memory work?
 
-During a conversation, the memory layer extracts facts and stores them in a vector database, indexed by user, session, and agent identifiers. At the beginning of a new session, relevant memories are retrieved using semantic similarity, keyword matching, and entity matching, and then injected into the context window before the model responds. Only the most relevant facts surface, keeping token usage low and retrieval precise.
+During a conversation, the memory layer extracts facts and stores them in a vector database indexed by user, session, and agent identifiers. At the start of a new session, relevant memories are retrieved using semantic similarity, keyword matching, and entity matching, then injected into the context window before the model responds. Only the most relevant facts surface, keeping token usage low and retrieval precise.
 
-### Question: What are the open issues in AI agent memory?
+### What are the open problems in AI agent memory?
 
-Key remaining challenges include large-scale temporal abstraction; modeling cross-session structures so that memory evolves rather than overwrites; an application-level evaluation framework; a robust privacy and permission architecture; cross-session identity resolution across devices and anonymous sessions; and handling memory expiration when previously retrieved facts become incorrect after user circumstances change.
+The key remaining challenges are temporal abstraction at scale; cross-session structures that let memories evolve instead of being overwritten; application-level evaluation frameworks; robust privacy and permission architecture; cross-session identity resolution across devices and anonymous sessions; and memory staleness when previously retrieved facts become wrong after a user's circumstances change.
 
-### Question: What is multi-scope memory?
+### What is multi-scope memory?
 
-Multi-scope memory is a design pattern in which each memory write tags one or more identity scopes: `user_id` for facts that are persisted across sessions, `agent_id` for facts that are bound to a specific agent instance, `run_id` or `session_id` for conversation-scoped facts, `app_id` or `org_id` for shared organization-level context. These ranges are combined during retrieval, and the pipeline automatically merges and sorts the results.
+Multi-scope memory is a design pattern in which every memory write is tagged with one or more identity scopes: `user_id` for facts that persist across sessions, `agent_id` for facts tied to a specific agent instance, `run_id` or `session_id` for conversation-scoped facts, and `app_id` or `org_id` for shared organization-level context. These scopes are combined during retrieval, and the pipeline automatically merges and ranks the results.
 
-### Question: Which benchmarks measure AI agent memory quality?
+### Which benchmarks measure AI agent memory quality?
 
-Three benchmarks typically define the field: LoCoMo (1,540 questions, covering single-hop, multi-hop, open domain, and temporal recall), LongMemEval (500 questions, including categories such as knowledge update and cross-session recall), and BEAM (evaluated across multiple categories at 1M and 10M token scales). These benchmarks measure accuracy as well as token consumption and latency.
+Three benchmarks commonly define the field: LoCoMo, with 1,540 questions covering single-hop, multi-hop, open-domain, and temporal recall; LongMemEval, with 500 questions across categories including knowledge update and cross-session recall; and BEAM, which evaluates multiple categories at 1M and 10M token scales. Together, they measure accuracy alongside token consumption and latency.
+
+## Sources and References
+
+- [Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory (ECAI 2025 paper)](https://arxiv.org/abs/2504.19413)
+- [Mem0: The Token-Efficient Memory Algorithm (2026)](https://mem0.ai/blog/mem0-the-token-efficient-memory-algorithm)
+- [Mem0 Research](https://mem0.ai/research)
+- [Evaluating Very Long-Term Conversational Memory of LLM Agents (LoCoMo paper)](https://arxiv.org/abs/2402.17753)
+- [Mem0 memory-benchmarks](https://github.com/mem0ai/memory-benchmarks)
+- [Mem0 releases](https://github.com/mem0ai/mem0/releases)

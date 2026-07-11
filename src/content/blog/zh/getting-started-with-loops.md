@@ -6,7 +6,7 @@ description: "从手动回合到目标、时间与主动循环，理解四种 lo
 publishedAt: "2026-07-07"
 updatedAt: "2026-07-07"
 category: "development"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://claude.com/blog/getting-started-with-loops"
 sourceAuthor: "Delba de Oliveira, Michael Segner"
 contentType: "adaptation"
@@ -45,26 +45,26 @@ translationStatus: "reviewed"
 
 比如你让 Claude 做一个点赞按钮。它会读代码、修改文件、运行测试，然后交还一个它认为可用的结果。之后你人工检查，再写下一条 prompt。
 
-要改善这个验证步骤，可以把你原本手动做的检查写进 `SKILL.md`，让 Claude 能端到端检查更多自己的工作。这个 skill 应该给 Claude 工具或 connector，让它能够看到、测量或直接交互结果。检查越量化，Claude 越容易自我验证。
+要改善这个验证步骤，可以把你原本手动做的检查写进 `SKILL.md`，让 Claude 能端到端检查更多自己的工作。关于这类自动化应选择 skills、hooks 还是 subagents，可以参考 [steering Claude Code](https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more) 指南。这个 skill 应该给 Claude 工具或 connector，让它能够看到、测量或直接交互结果。检查越量化，Claude 越容易自我验证。
 
 例如，前端验证 skill 可以表达成这样：
 
 ```markdown
 ---
 name: verify-frontend-change
-description: 在宣布任何 UI 变更完成前，端到端验证它。
+description: Verify any UI change end-to-end before declaring it done.
 ---
 
-# 验证前端变更
+# Verifying frontend changes
 
-不要只因为代码编辑成功就说 UI 已完成。要像人工 reviewer 一样验证：
+Never report a UI change as complete based on a successful edit alone. Verify it the way a human reviewer would:
 
-1. 启动 dev server，并在浏览器中打开被修改页面。
-2. 直接交互这次改动。新增按钮、输入框或切换控件时，要点击它，确认状态变化，并保存前后截图。
-3. 检查浏览器 console，确认没有新增 error 或 warning。
-4. 使用 Chrome DevTools MCP 跑 performance trace，并检查 Core Web Vitals。
+1. Start the dev server and open the edited page in the browser.
+2. Interact with the change directly. For a new control (button, input, toggle): click it, confirm the expected state change, and screenshot before/after.
+3. Check the browser console: zero new errors or warnings.
+4. Use the Chrome DevTools MCP, run a performance trace and audit Core Web Vitals.
 
-如果任何步骤失败，修复问题并从第 1 步重新验证，不要交付半验证结果。
+If any step fails, fix the issue and rerun from step 1 - do not hand back partially verified work.
 ```
 
 这段的重点不是“写一个万能 skill”，而是把你对“完成”的真实标准写出来。否则 Claude 只能靠自己的判断决定什么时候停。
@@ -87,7 +87,7 @@ description: 在宣布任何 UI 变更完成前，端到端验证它。
 一个例子：
 
 ```text
-/goal 把首页 Lighthouse 分数提升到 90 或更高，最多尝试 5 次。
+/goal get the homepage Lighthouse score to 90 or above, stop after 5 tries.
 ```
 
 这类 loop 的核心是：把“停止权”从 agent 的主观感觉，转移到可检查的条件上。
@@ -104,7 +104,7 @@ description: 在宣布任何 UI 变更完成前，端到端验证它。
 这类场景可以用 `/loop` 按间隔重新运行 prompt。例子：
 
 ```text
-/loop 5m 检查我的 PR，处理 review 评论，并修复失败的 CI。
+/loop 5m check my PR, address review comments, and fix failing CI
 ```
 
 `/loop` 在你的电脑上运行，所以电脑关掉，它也会停止。如果要把 loop 移到云端，可以用 `/schedule` 创建 routine。
@@ -132,9 +132,7 @@ description: 在宣布任何 UI 变更完成前，端到端验证它。
 组合起来的 prompt 可以是这种形状：
 
 ```text
-/schedule 每小时检查 #project-feedback 里的 bug reports。
-/goal 本轮发现的每条 report 都必须完成分诊、采取行动并回复，不要提前停止。
-修 bug 时，用 workflow 在三个并行 worktree 中探索三种方案，并让 judge 做对抗性 review。
+/schedule every hour: check #project-feedback for bug reports. /goal: don't stop until every report found this run is triaged, actioned, and responded to. When fixing a bug, use a workflow to explore three solutions in parallel worktrees and have a judge adversarially review them.
 ```
 
 这不是把一个 prompt 写得更长，而是把触发、停止、并行探索、review 和权限边界放进同一个运行系统里。
@@ -144,9 +142,9 @@ description: 在宣布任何 UI 变更完成前，端到端验证它。
 Loop 输出质量取决于它周围的系统。设计这个系统时，原文强调了几件事：
 
 1. **保持代码库本身干净**：Claude 会跟随代码库里已有的模式和约定。如果代码库混乱，loop 会放大这种混乱。
-2. **给 Claude 自我验证的方式**：用 skills 写清楚你和团队眼里的“好”是什么。
+2. **给 Claude 自我验证的方式**：用 [skills](https://code.claude.com/docs/en/skills) 写清楚你和团队眼里的“好”是什么。
 3. **让文档容易访问**：框架和库文档包含更新的最佳实践，Claude 需要能触达它们。
-4. **用第二个 agent 做 code review**：带着新上下文的 reviewer 偏差更小，也不会被主 agent 的推理链影响。可以用内置 `/code-review` skill，或 GitHub 的 Code Review。
+4. **用第二个 agent 做 code review**：带着新上下文的 reviewer 偏差更小，也不会被主 agent 的推理链影响。可以用内置 `/code-review` skill，或 GitHub 的 [Code Review](https://code.claude.com/docs/en/code-review)。
 
 当某个单次结果不达标时，不要只修这个问题。更好的做法是把这次失败编码回系统，让未来所有 iteration 都受益。也就是说，失败应该变成 skill、测试、脚本、规则或 review rubric，而不是只变成一次临时补丁。
 
@@ -161,6 +159,8 @@ Loop 输出质量取决于它周围的系统。设计这个系统时，原文强
 5. **不要让 routine 运行得比需要更频繁**：周期要匹配被观察对象的真实变化频率。
 6. **复盘 usage**：`/usage` 可以按 skills、subagents、MCP 拆解近期用量；不带参数的 `/goal` 会显示目前轮次和 token 用量；`/workflows` 会显示每个 agent 的 token 用量，并允许你随时停止 agent。
 
+[模型和 effort level](https://claude.com/blog/claude-model-and-effort-level-in-claude-code) 也是决定 loop 成本的主要杠杆之一。
+
 一句话：loop 不是让 agent 无限跑，而是让它在明确边界内重复工作。
 
 ## Getting started
@@ -171,11 +171,11 @@ Loop 输出质量取决于它周围的系统。设计这个系统时，原文强
 | --- | --- | --- | --- |
 | Turn-based | 检查步骤 | 你还在探索或决策 | 自定义验证 skills |
 | Goal-based | 停止条件 | 你知道完成长什么样 | `/goal` |
-| Time-based | 触发器 | 工作按时间发生，或发生在项目外部 | `/loop`、`/schedule` |
-| Proactive | prompt 和运行流程 | 工作重复且定义清楚 | 以上全部，加 dynamic workflows |
+| Time-based | 触发器 | 工作在项目外按计划发生 | `/loop`、`/schedule` |
+| Proactive | prompt | 工作重复且定义清楚 | 以上全部，加 dynamic workflows |
 
-开始使用 loops 时，先看你已经在做的工作。挑一个你自己正在成为瓶颈的任务，然后问：我能不能写出验证检查？目标是否清楚到足以判断完成？这类工作是不是按计划或外部事件到来？
+开始使用 loops 时，先看你已经在做的工作。挑一个因你而卡住的任务，然后问：我能不能写出验证检查？目标是否清楚到足以判断完成？这类工作是不是按计划或外部事件到来？
 
 一旦有了想法，就运行 loop，观察它在哪里卡住、在哪里越界，然后继续迭代它。
 
-更多信息可以看 Claude Code 文档中关于 parallel agents、loop、schedule、goal 和 dynamic workflows 的页面。
+更多信息可以看 Claude Code 文档中关于 [parallel agents](https://code.claude.com/docs/en/agents)、[loop](https://code.claude.com/docs/en/goal)、[schedule](https://code.claude.com/docs/en/routines)、[goal](https://code.claude.com/docs/en/goal) 和 [dynamic workflows](https://code.claude.com/docs/en/workflows#orchestrate-subagents-at-scale-with-dynamic-workflows) 的页面。

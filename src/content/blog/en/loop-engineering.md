@@ -2,120 +2,122 @@
 translationKey: "loop-engineering"
 locale: "en"
 title: "Loop Engineering"
-description: "Design a continuously improving Agent loop starting from goals, observations, feedback, stopping conditions, and safety boundaries."
+description: "A breakdown of loop engineering's five components and external state, plus why verification, comprehension debt, and cognitive surrender remain the engineer's responsibility."
 publishedAt: "2026-06-09"
 updatedAt: "2026-06-09"
 category: "development"
-sourceLocale: "zh"
+sourceLocale: "en"
 sourceUrl: "https://addyosmani.com/blog/loop-engineering/"
 sourceAuthor: "Addy Osmani"
-contentType: "translation"
-translationStatus: "draft"
+contentType: "adaptation"
+translationStatus: "reviewed"
 ---
 
-**Loop engineering is using a design system to replace yourself as the prompt agent. ** The loop here can be understood as a recursive goal - you define a goal, and the AI ​​iterates until it is completed. I think this may be the future of how we collaborate with coding agents. It's still early, I'm skeptical, and you absolutely **must** pay attention to the token cost (usage patterns vary greatly depending on how token-rich you are), so I wanted to break down what it is and what it means.
+**Loop engineering is replacing yourself as the person who prompts the agent. You design the system that does it instead.** A loop here can be understood as a recursive goal: you define the purpose, and the AI iterates until it is complete. I think this may be the future of how we work with coding agents. But it is still early, I remain skeptical, and you absolutely **must** be [careful](https://x.com/weswinder/status/2063700289710964906) about token costs because usage patterns change dramatically with the available token budget. So I want to unpack what loop engineering is and what it means.
 
 ---
 
-Peter Steinberger recently said: "You should no longer manually prompt Claude code agents. You should design loops to prompt your agents." Similarly, Boris Cherny, head of Anthropic Claude Code, said: "I don't prompt Claude anymore. I have loops running that prompt Claude and figure out what to do. My job is to write the loops."
+Peter Steinberger recently [said](https://x.com/steipete/status/2063697162748260627): "You shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents." Similarly, Boris Cherny, head of Claude Code at Anthropic, [said](https://x.com/rohanpaul_ai/status/2063289804708835412): "I don't prompt Claude anymore. I have loops running that prompt Claude and figuring out what to do. My job is to write loops."
 
-Okay, what does any of this really mean?
+So what does any of that actually mean?
 
-For about two years, the way you got output from a coding agent was to write a good prompt and share enough context. You enter something, what is read back, and then enter the next thing. The agent is a tool, and you hold it every step of the way, round after round. This part is basically over, or at least that's what some people think.
+For roughly two years, getting something useful from a coding agent meant writing a good prompt and providing enough context. You typed something, read what came back, then typed the next thing. The agent was a tool you held throughout the process, one turn after another. That part is basically over, or at least some people think it is.
 
-Now you build a small system to discover work, assign work, check work, record completion, and then decide the next step, you let this system drive the agent instead of you. I've written before about its close cousins ​​- agent harness engineering, the environment in which a single agent runs, and the factory model - the system for building software. Loop engineering sits one level above the harness. It's a harness, but it runs on a timer, spawns helpers, and feeds itself.
+Now you build a small system that finds work, assigns it, checks it, records what is done, and decides what comes next. You let that system drive the agents instead of doing it yourself. I have written about two close relatives: [agent harness engineering](https://addyosmani.com/blog/agent-harness-engineering/), which designs the environment a single agent runs inside, and the [factory model](https://addyosmani.com/blog/factory-model/), the system that builds the software. Loop engineering sits one level above the harness. It is a harness that runs on a timer, spawns helpers, and feeds results into the next cycle.
 
-To my surprise, this isn't a tool level thing anymore. A year ago, if you wanted a loop, you wrote a bunch of bash scripts and maintained that thing forever, and it was yours and yours alone. These components are now built directly into the product. Steinberger's list corresponds almost exactly to the Codex app, and then almost equally to Claude Code. Once you notice that the shapes are the same, you're no longer debating which tool to use, you're just designing a loop that will work no matter which tool it's sitting in.
+What surprised me is that this is no longer really a tool-level concern. A year ago, if you wanted a loop, you wrote a pile of bash scripts, maintained them forever, and owned a one-off system no one else had. Now the pieces ship inside the products. Steinberger's list maps almost exactly to the Codex app, and nearly as closely to Claude Code. Once you see that the shape is the same, you stop arguing about tools and start designing a loop that works no matter which product it runs in.
 
-## Five components, and some instructions
+## The five components, plus a note on state
 
-A loop requires five things, plus a place to remember state. Let me list them first and then go through them one by one.
+A [loop](https://x.com/reach_vb/status/2063713960495558940) needs five things, plus somewhere to remember state. Here they are before we map them in detail.
 
-1. **Automations**, run automatically according to plan, complete discovery and triage by themselves.
-2. **Worktrees**, so that two agents working in parallel will not step on each other's feet.
-3. **Skills**, write down project knowledge so that the agent no longer has to guess.
-4. **Plugins and connectors**, connect the agent to the tools you are already using.
-5. **Sub-agents**, let one be responsible for coming up with the plan, and the other is responsible for checking.
+1. **Automations** that run on a schedule and handle discovery and triage on their own.
+2. **Worktrees** so two agents working in parallel do not step on each other's files.
+3. **Skills** that record project knowledge the agent would otherwise have to guess.
+4. **Plugins and connectors** that connect the agent to the tools you already use.
+5. **Sub-agents** so one can propose a solution and another can check it.
 
-Then comes the sixth thing - memory. A markdown file, or a Linear panel, anything that lives beyond a single conversation and records what's been done and what's to be done. It sounds too simple to be worth mentioning. But this is the same trick that every long-running agent relies on - I discuss it in detail in long-running agents , the model forgets everything between runs, so the memory has to be on disk rather than in the context. The agent will forget, but the repo will not.
+Then there is a sixth element: memory. It might be a Markdown file, a Linear board, or anything else that outlives a single conversation and records what is done and what comes next. It sounds almost too simple to matter. But it is the same technique every long-running agent depends on, as I discussed in [long-running agents](https://addyosmani.com/blog/long-running-agents/): the model forgets everything between runs, so memory must live on disk rather than in the context. The agent forgets; the repo does not.
 
-Both products now have these five components.
+Both products now provide all five components.
 
-| Primitives | Responsibilities in Loop | Codex app | Claude Code |
+| Primitive | Job in the loop | Codex app | Claude Code |
 | --- | --- | --- | --- |
-| **Automations** | Scheduled discovery + triage | Automations tab: Select project, prompt, frequency, environment; results enter Triage inbox; `/goal` implements running until completion | Scheduled tasks and cron, `/loop`, `/goal`, hooks, GitHub Actions |
-| **Worktrees** | Isolated parallel feature | Built-in worktree for each thread | `isolation: worktree` of `git worktree`, `--worktree`, subagent |
-| **Skills** | Solidified project knowledge | Agent Skills (`SKILL.md`), called through `$name` or triggered implicitly | Agent Skills (`SKILL.md`) |
-| **Plugins/connectors** | Connect your tools | Connectors (MCP) + plugins for distribution | MCP servers + plugins |
-| **Sub-agents** | Solution development and verification | Define subagent in TOML in `.codex/agents/` | Subagent, agent teams in `.claude/agents/` |
-| **State** | Track completed work | markdown or Linear via connector | markdown (`AGENTS.md`, progress file) or Linear via MCP |
+| **Automations** | Scheduled discovery + triage | [Automations tab](https://developers.openai.com/codex/app/automations): choose a project, prompt, cadence, and environment; results land in a Triage inbox; `/goal` provides run-until-done behavior | Scheduled tasks and cron, `/loop`, `/goal`, hooks, GitHub Actions |
+| **Worktrees** | Isolate parallel features | Built-in worktree per thread | `git worktree`, `--worktree`, and `isolation: worktree` on a subagent |
+| **Skills** | Codify project knowledge | [Agent Skills](https://developers.openai.com/codex/skills) (`SKILL.md`), invoked with `$name` or triggered implicitly | [Agent Skills](https://addyosmani.com/blog/agent-skills/) (`SKILL.md`) |
+| **Plugins / connectors** | Connect your tools | Connectors (MCP) plus plugins for distribution | MCP servers plus plugins |
+| **Sub-agents** | Develop and verify solutions | [Subagents](https://developers.openai.com/codex/subagents), defined as TOML in `.codex/agents/` | Subagents in `.claude/agents/`, plus agent teams |
+| **State** | Track completed work | Markdown or Linear through a connector | Markdown (`AGENTS.md`, progress files) or Linear through MCP |
 
-The names are slightly different here and there, but the abilities are the same thing. Let me go through them one by one, because honestly, the details are what determine whether a loop is solid or quietly leaking here and there.
+The names differ slightly, but the capabilities are the same. The details matter because they determine whether a loop holds together or quietly leaks everywhere.
 
-## Automations, this is the heartbeat
+## Automations: the heartbeat
 
-Automation is what makes a loop a real loop rather than a single run that you only do once. In the Codex app, you create one in the Automations tab, select the project, the prompt to run, how often, and whether to run it on a local checkout or a background worktree. Runs that find problems go into the Triage inbox, and runs that find nothing are automatically archived, which is a nice touch. OpenAI uses them internally to do boring things, such as daily issue triage, summarizing CI failures, writing commit briefings, and tracking down bugs introduced by someone last week. And automation can call skills, so you keep reusable things maintainable, you trigger `$skill-name` instead of sticking a bunch of instructions into a plan that no one will update.
+Automations are what make a loop an actual loop instead of a run you performed once. In the Codex app, you create one in the Automations tab, choose the project, the prompt, the cadence, and whether it runs against a local checkout or a background worktree. Runs that find something enter the Triage inbox; runs that find nothing archive themselves. OpenAI uses automations internally for routine work such as daily issue triage, summarizing CI failures, writing commit briefings, and tracking down bugs introduced the week before. An automation can also call a skill, which keeps reusable behavior maintainable: trigger `$skill-name` instead of pasting a wall of instructions into a schedule no one will update.
 
-Claude Code gets to the same place via dispatch and hooks. You can use `/loop` to run a prompt or command at intervals, you can schedule cron tasks, you can use hooks to trigger shell commands at specific moments in the agent lifecycle, or just push the whole thing to GitHub Actions if you want it to continue running after you close your laptop. The exact same idea - you define an autonomous task, give it a frequency, and problems found will come to you, and you don't need to check everywhere by yourself.
+Claude Code reaches the same destination through scheduling and hooks. You can use `/loop` to run a prompt or command at an interval, schedule cron tasks, use hooks to fire shell commands at specific moments in the agent lifecycle, or move the whole process into GitHub Actions so it continues after you close your laptop. The idea is identical: define an autonomous task, give it a cadence, and let findings come to you instead of checking every system yourself.
 
-There is another intra-session primitive worth knowing about that is closer to the heart of this article. `/loop` runs repeatedly in rhythm. `/goal` continues to run until the conditions you wrote are actually true. After each round, a small independent model checks whether you have completed it, so the agent who writes the code is not the one who scores himself. You give it conditions like "all tests in test/auth pass and lint is clean" and then walk away. Codex has the same thing, also called `/goal`, which works continuously across turns until a verifiable stopping condition is met, supporting pause, resume and clear. The same primitives, two tools, this is also the pattern of the entire article.
+There is also an in-session primitive that gets closer to the core of this article. `/loop` repeats on a cadence. `/goal` keeps working until a condition you wrote is actually true. After every turn, a separate small model checks whether the condition has been met, so the agent that wrote the code is not grading its own work. Give it a condition such as "all tests in test/auth pass and lint is clean," then walk away. Codex has the same primitive, also called `/goal`: it continues across turns until a verifiable stop condition holds, with support for pause, resume, and clear. The same primitive exists in both tools, which is the pattern throughout this article.
 
-So this is the discovery part. The rest of the loop is to act on it.
+That is the part that surfaces the work. The rest of the loop acts on it.
 
-## Worktrees, keep parallelism from becoming chaos
+## Worktrees keep parallel work from becoming chaos
 
-The moment you run more than one agent, files start to conflict, and that's the point of failure. Two agents write the same file, submit the same line of code to two engineers, and neither one says hello to the other. It’s the exact same headache. git worktree solves it - it's a separate working directory on a separate branch that shares the same repo history, so it's literally impossible for one agent's edits to hit another's checkout.
+The moment you run more than one agent, files begin to collide. Two agents editing the same file create the same headache as two engineers changing the same lines without coordinating. A git worktree solves the mechanical problem: it is an independent working directory on its own branch that shares the repository history, so one agent's edits cannot touch another agent's checkout.
 
-Codex has built-in worktree support directly, so multiple threads working on the same repo at the same time will not collide with each other. Claude Code provides the same isolation through `git worktree`, a `--worktree` flag to open the session in its own checkout, and an `isolation: worktree` option set on the subagent, giving each assistant a fresh checkout that is automatically cleaned after use. I wrote about the human side of this in orchestration tax - worktree eliminates mechanical collisions, but **you** are still the ceiling, and your review bandwidth determines how many you can actually run, not the tool.
+Codex builds worktree support directly into the app, allowing multiple threads to work on the same repository without modifying one another's checkout. Claude Code provides the same isolation through `git worktree`, a `--worktree` flag that opens a session in its own checkout, and an `isolation: worktree` setting for subagents that gives each helper a fresh checkout and cleans it up afterward. I wrote about the human side in [the orchestration tax](https://addyosmani.com/blog/orchestration-tax/): worktrees remove mechanical collisions, but **you** remain the ceiling. Your review bandwidth, not the tool, determines how many agents you can actually run.
 
-## Skills so you don’t have to explain your project every time
+## Skills stop you from re-explaining the project
 
-Skills are how you stop being like a goldfish and reinterpreting the same project context every session. Both tools use the same format - a folder containing `SKILL.md`, which holds instructions and metadata, followed by optional scripts, references, and resources. Codex runs the skill when you call it via `$` or `/skills`, or triggers itself when your task matches the skill description - which is why a tight, boring description is better than a clever one. Claude Code works in the same way, a pattern I wrote about in agent skills.
+A skill saves you from re-explaining the same project context in every session. Both tools use the same format: a folder containing `SKILL.md` with instructions and metadata, plus optional scripts, references, and assets. Codex runs a skill when you invoke it with `$` or `/skills`, or triggers it automatically when the task matches the skill description. That is why a concise, literal description beats a clever one. Claude Code works the same way, a pattern I described in [agent skills](https://addyosmani.com/blog/agent-skills/).
 
-Skills is also where intention stops consuming you repeatedly. I argued in intent debt that the agent starts from scratch every session and will fill in any gaps in your intent with confident guesses. Skills are intentions written out there - conventions, build steps, "we didn't do this because of that accident" - written once and read by the agent every time it runs. Without skill, each cycle of loop re-derives your entire project from scratch; with skill, it is a bit like growing with compound interest.
+Skills are also where intent stops costing you repeatedly. In [intent debt](https://addyosmani.com/blog/intent-debt/), I argued that an agent begins every session cold and fills gaps in your intent with confident guesses. A skill externalizes that intent: conventions, build steps, and notes such as "we do not do it this way because of that incident." Write it once, and the agent reads it on every run. Without skills, the loop re-derives the project from zero in every cycle. With skills, project knowledge can accumulate across cycles.
 
-One thing to be clear about: skill is the authoring format, plugin is the distribution method. When you want to share a skill across repos or package several together, you package them as plugins. This is true for both Codex and Claude Code.
+One distinction matters: a skill is the authoring format, while a plugin is how you distribute it. When you want to share a skill across repositories or bundle several together, you package them as a plugin. That is true in both Codex and Claude Code.
 
-A loop that only sees the file system is a very small loop. Connectors (based on MCP) allow the agent to read your issue tracker, check the database, open the staging API, and send messages in Slack. Both Codex and Claude Code support MCP, so a connector you write for one will usually work in the other. Plugins package connectors and skills together, so your teammates install your entire configuration in one go, rather than rebuilding the entire thing from memory.
+## Plugins and connectors let the loop reach real tools
 
-This is the difference between a "here's the fix" agent and a loop that automatically opens a PR, associates a Linear ticket, and pings in the channel after the CI turns green. Connectors are the reason the loop can act in your real environment rather than just telling you what it would do if it could.
+A loop that can only see the filesystem is a very small loop. Connectors, built on MCP, let the agent read your issue tracker, query a database, call a staging API, or send a message in Slack. Codex and Claude Code both support MCP, so a connector written for one will usually work in the other. Plugins bundle connectors and skills together, allowing a teammate to install the full setup at once instead of reconstructing it from memory.
 
-## Sub-agents, keep makers and checkers separate
+This is the difference between an agent that says "here is the fix" and a loop that opens the PR, links the Linear ticket, and pings the channel when CI turns green. Connectors let the loop act inside your actual environment instead of merely describing what it would do if it had access.
 
-By far the most useful structuring device in a loop is to separate the people who write from the people who check. The model who wrote the code was too polite when grading his own work. A second agent, with different instructions and sometimes a different model, can capture what the first self-convinced.
+## Sub-agents separate the maker from the checker
 
-Codex only generates subagents when you ask them to, runs them concurrently, and collapses the results back into a single answer. You define your agents as TOML files in `.codex/agents/`, each with a name, description, directives and optional model and reasoning effort, so your security reviewer can be a strong model with high effort, and your explorer is something fast and read-only. Claude Code does the same thing via subagents in `.claude/agents/` and agent teams that pass work between them. The common split between the two is an agent exploration, an implementation, and a comparison spec verification.
+The most useful structural technique in a loop is separating the agent that writes from the agent that checks. A model is too generous when grading its own work. A second agent with different instructions, and sometimes a different model, can catch the things the first one talked itself into accepting.
 
-I've demonstrated this twice - once with code agent orchestra and once with adversarial code review. The reason it's important inside a loop specifically is that the loop runs when you're not looking, so a validator you really trust is the only reason you can walk away. Subagent does consume more tokens because each does its own model and tooling work, so the tokens spent are worth paying for a second opinion. This is also what Claude Code's `/goal` does under the hood - a completely new model determines whether the loop completes, rather than the one doing the work - the split of makers and checkers applies to the stop condition itself.
+Codex spawns subagents when you ask, runs them concurrently, and folds their results back into one answer. You define custom agents as TOML files in `.codex/agents/`, each with a name, description, instructions, and optional model and reasoning effort. That means a security reviewer can use a strong model at high effort while an explorer uses something fast and read-only. Claude Code does the same through subagents in `.claude/agents/` and agent teams that pass work between them. A common division in both tools is one agent to explore, one to implement, and one to verify against the specification.
 
-## What does a loop look like?
+I have made this case twice already: once in [the code agent orchestra](https://addyosmani.com/blog/code-agent-orchestra/) and again in [agentic code review](https://addyosmani.com/blog/agentic-code-review/). It matters especially inside a loop because the loop runs while you are not watching. A verifier you genuinely trust is what makes it possible to step away. Subagents do consume more tokens because each performs its own model and tool work, so spend those tokens where a second opinion is worth the cost. This is also the structure behind Claude Code's `/goal`: a fresh model decides whether the loop is done instead of the model that performed the work. The maker-checker split is applied to the stop condition itself.
 
-Glue them together and a single thread becomes a small control panel. This is a pattern I use all the time.
+## What a loop looks like
 
-An automation runs on the repo every morning. Its prompt calls a triage skill, reads yesterday's CI failures, open issues, and recent commits, and writes the findings into a markdown file or Linear panel. For each finding worth working on, the thread opens an isolated worktree, sends a subagent to draft the fix, and a second subagent reviews that draft against the project skill and existing tests.
+Put the pieces together and a single thread becomes a small control panel. Here is one pattern I keep using.
 
-Connectors let the loop open the PR and update the ticket. Stuff that loop can't handle goes into my triage inbox. The state file is the backbone of the entire system - it remembers what was tried, what passed, and what is still open, so tomorrow morning's run picks up where it left off today.
+An automation runs against the repository every morning. Its prompt calls a triage skill that reads yesterday's CI failures, open issues, and recent commits, then writes its findings to a Markdown file or Linear board. For every finding worth pursuing, the thread opens an isolated worktree, sends one subagent to draft the fix, and sends a second subagent to review that draft against the project skill and existing tests.
 
-See what you actually did. You designed it once. You don't prompt any of the steps. This is where Steinberger's point comes true, and it's the same loop in Codex and Claude Code because the components are the same components.
+Connectors let the loop open the PR and update the ticket. Anything the loop cannot handle lands in my triage inbox. The state file is the backbone of the system: it remembers what was attempted, what passed, and what remains open, so tomorrow morning's run can continue where today's stopped.
 
-## Loop still can't do anything for you
+Look at what you actually did. You designed the process once. You did not prompt any of the individual steps. That is Steinberger's point made concrete, and it is the same loop in Codex and Claude Code because the components are the same.
 
-The Loop changes work, it doesn't remove you from work. Three problems actually become more acute as the loop gets stronger, not easier.
+## What the loop still cannot do for you
 
-**The verification is still yours. ** A loop that runs unattended is also a loop that makes an unattended error. The whole reason you separate the validation subagent from the producer is to make the loop's "completed" mean something, and even then, "completed" is a statement rather than a proof. I keep repeating the same line from code review in the age of AI - your job is to ship code that you confirm works.
+The loop changes the work; it does not remove you from it. Three problems become sharper as the loop improves, not easier.
 
-**Your understanding will still degrade if allowed to do so. ** Loop The faster you release code you didn't write, the greater the gap between what exists and what you actually understand. This is comprehension debt, a smooth loop will only make it grow faster unless you read what the loop generates.
+**Verification is still your responsibility.** A loop running unattended can also make mistakes unattended. The reason for separating the verifier subagent from the maker is to give the loop's claim of "done" more weight. Even then, done is still a claim, not proof. I keep repeating the same line from [code review in the age of AI](https://addyosmani.com/blog/code-review-ai/): your job is to ship code you have confirmed works.
 
-**Comfortable postures are dangerous. ** When the loop runs on its own, it's very tempting to stop holding an opinion and just take whatever it gives back. I call it cognitive surrender. Designing loops with judgment is the antidote, designing loops to avoid thinking is an accelerator - same action, opposite result.
+**Your understanding still degrades if you let it.** The faster the loop ships code you did not write, the wider the gap becomes between the system that exists and the system you actually understand. That is [comprehension debt](https://addyosmani.com/blog/comprehension-debt/). Unless you carefully read what the loop produces, a smooth loop only makes that debt grow faster.
 
-## Build loop. Stay an engineer.
+**A comfortable posture is dangerous.** When the loop runs itself, it is tempting to stop forming judgments and accept whatever comes back. I call this [cognitive surrender](https://addyosmani.com/blog/cognitive-surrender/). Designing a loop with judgment can be the cure; designing one to avoid thinking accelerates the problem. The action looks the same, but the outcome is the opposite.
 
-I think this is a preview of how our work will evolve. In other words, if I don't review the code myself, or rely entirely on automated loops to fix it, the quality of my product will suffer. I might end up in a downward spiral, digging myself into a deeper hole.
+## Build the loop. Stay the engineer.
 
-Having said that, go ahead and set up your loop, but don't forget that prompting your agent directly will work just as well. The key is to find the right balance.
+I think this is a preview of how our work will evolve. That said, if I stopped reviewing the code myself or relied entirely on automated loops to fix it, my product's quality would suffer. I would likely end up in a downward spiral, continuously digging a deeper hole.
 
-Loops may also produce different results depending on you. Two people can build the exact same loop and get completely opposite results. One uses it to move faster on work that one deeply understands. Another uses it to avoid understanding the work itself. Loop doesn't know the difference. You know.
+So go ahead and build your loops, but remember that prompting your agents directly is still effective. The goal is to find the right balance.
 
-This is what makes loop design harder, not easier, than prompt engineering. Cherny's point is not that work has become easier. Rather, the fulcrum of the lever moves.
+Loops can also produce very different outcomes depending on the person using them. Two people can build the exact same loop and get opposite results. One uses it to move faster on work they understand deeply. The other uses it to avoid understanding the work at all. The loop does not know the difference. You do.
 
-Build loop. But build like someone who intends to remain an engineer, not someone who just pushes the launch button.
+That is what makes loop design harder than prompt engineering, not easier. Cherny's point is not that the work became easier. The leverage point moved.
+
+Build the loop. But build it like someone who intends to stay the engineer, not someone who only presses go.
