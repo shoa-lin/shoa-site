@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
@@ -7,18 +7,33 @@ import { loadContentEntries, locales } from "../scripts/lib/content-files.mjs";
 
 const root = new URL("../", import.meta.url);
 const entries = loadContentEntries(fileURLToPath(new URL("../src/content", import.meta.url)));
+const approvedGroups = new Set([
+  "blog:getting-started-with-loops",
+  "blog:loop-engineering",
+  "blog:state-of-ai-agent-memory-2026",
+  "blog:dynamic-workflows-in-claude-code",
+  "blog:harness-engineering",
+  "blog:lessons-from-building-claude-code-skills",
+  "blog:prompt-caching-best-practices",
+  "blog:pi-minimal-agent",
+  "favorites:fix-your-life-in-one-day",
+]);
+const approvedBlogIds = new Set([...approvedGroups]
+  .filter((key) => key.startsWith("blog:"))
+  .map((key) => key.slice("blog:".length)));
 const publicChineseArticles = entries
   .filter((entry) => entry.collection === "blog" && entry.data.locale === "zh" && entry.data.translationStatus !== "draft");
 const publicChineseFavorites = entries
   .filter((entry) => entry.collection === "favorites" && entry.data.locale === "zh" && entry.data.publicationStatus !== "draft");
-const quarantinedBlogIds = [
-  "clawdbot-installation-guide",
-  "x-algorithm-research-report",
-  "demystifying-evals-for-ai-agents",
-  "claude-agent-sdk-complete-guide",
-  "claude-code-2.1.2-release",
-  "project-vend-phase-2",
-];
+
+function builtBlogSlugs(locale) {
+  const directory = new URL(locale === "zh" ? "../dist/blog/" : `../dist/${locale}/blog/`, import.meta.url);
+  if (!existsSync(directory)) return [];
+  return readdirSync(directory, { withFileTypes: true })
+    .filter((item) => item.isDirectory() && existsSync(new URL(`${item.name}/index.html`, directory)))
+    .map((item) => item.name)
+    .sort();
+}
 
 test("approved Chinese articles build as static canonical pages", () => {
   const build = spawnSync("npm", ["run", "build"], { cwd: root, encoding: "utf8" });
@@ -35,12 +50,20 @@ test("approved Chinese articles build as static canonical pages", () => {
     assert.match(html, new RegExp(`https://www\\.bydziwen\\.top/blog/${slug}`));
   }
 
-  for (const slug of quarantinedBlogIds) {
-    assert.equal(existsSync(new URL(`../dist/blog/${slug}/index.html`, import.meta.url)), false, slug);
-    for (const locale of locales.filter((value) => value !== "zh")) {
-      const path = new URL(`../dist/${locale}/blog/${slug}/index.html`, import.meta.url);
-      assert.equal(existsSync(path), false, `${locale}/${slug}`);
-    }
+  assert.equal(entries.length, 24);
+  assert.deepEqual(
+    [...new Set(entries.map((entry) => `${entry.collection}:${entry.data.translationKey}`))].sort(),
+    [...approvedGroups].sort(),
+  );
+
+  for (const locale of locales) {
+    const expected = entries
+      .filter((entry) => entry.collection === "blog" && entry.data.locale === locale && entry.data.translationStatus !== "draft")
+      .map((entry) => entry.data.translationKey)
+      .sort();
+    const actual = builtBlogSlugs(locale);
+    assert.deepEqual(actual, expected, locale);
+    assert.ok(actual.every((slug) => approvedBlogIds.has(slug)), locale);
   }
 });
 
