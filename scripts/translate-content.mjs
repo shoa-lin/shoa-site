@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
-import { loadContentEntries, parseFrontmatter, resolveContentRoot } from "./lib/content-files.mjs";
+import { loadContentEntries, resolveContentRoot } from "./lib/content-files.mjs";
 import { chunkMarkdown, protectCodeBlocks, protectHeadings, protectImages, protectLinks, restoreCodeBlocks, restoreHeadings, restoreImages, restoreLinks, structureSignature } from "./lib/translate-markdown.mjs";
 
 const supportedTargets = ["en", "ja", "ko", "th", "fr"];
