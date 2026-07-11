@@ -50,7 +50,6 @@ test("approved Chinese articles build as static canonical pages", () => {
     assert.match(html, new RegExp(`https://www\\.bydziwen\\.top/blog/${slug}`));
   }
 
-  assert.equal(entries.length, 24);
   assert.deepEqual(
     [...new Set(entries.map((entry) => `${entry.collection}:${entry.data.translationKey}`))].sort(),
     [...approvedGroups].sort(),

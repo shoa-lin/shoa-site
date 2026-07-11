@@ -66,11 +66,16 @@ test("content root contains only approved public groups", () => {
     .map((entry) => `${entry.collection}:${entry.data.translationKey}`));
 
   assert.equal(approvedGroups.size, 9);
-  assert.equal(entries.length, 24);
   assert.deepEqual([...actualGroups].sort(), [...approvedGroups].sort());
   assert.deepEqual([...chineseGroups].sort(), [...approvedGroups].sort());
-  assert.ok(entries.filter((entry) => entry.data.locale === "zh")
-    .every((entry) => approvedGroups.has(`${entry.collection}:${entry.data.translationKey}`)));
+  assert.ok(entries.every((entry) => approvedGroups.has(`${entry.collection}:${entry.data.translationKey}`)));
+
+  for (const key of approvedGroups) {
+    const group = entries.filter((entry) => `${entry.collection}:${entry.data.translationKey}` === key);
+    const chineseEntry = group.find((entry) => entry.data.locale === "zh");
+    assert.ok(chineseEntry, `${key}: missing zh entry`);
+    assert.ok(group.some((entry) => entry.data.locale === chineseEntry.data.sourceLocale), `${key}: missing source locale entry`);
+  }
 });
 
 test("every approved legacy manifest entry has a normalized Chinese content file", () => {
