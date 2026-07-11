@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 ---
 
-Peter Steinberger 最近[说](https://x.com/steipete/status/2063697162748260627)："你不应该再手动 prompt coding agents 了。你应该设计 loop 来 prompt 你的 agents。" 类似地，Anthropic Claude Code 负责人 Boris Cherny 也[说](https://x.com/rohanpaul_ai/status/2063289804708835412)："我不再 prompt Claude 了。我有 loop 在运行，由它们 prompt Claude 并弄清楚该做什么。我的工作是写 loop。"
+Peter Steinberger 最近[说](https://x.com/steipete/status/2063697162748260627)："你不应该再手动 prompt coding agents 了。你应该设计 loop 来 prompt 你的 agents。" 类似地，canonical 原文[转述](https://addyosmani.com/blog/loop-engineering/)了 Anthropic Claude Code 负责人 Boris Cherny 的说法："我不再 prompt Claude 了。我有 loop 在运行，由它们 prompt Claude 并弄清楚该做什么。我的工作是写 loop。"
 
 好吧，这些到底意味着什么？
 

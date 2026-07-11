@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 ---
 
-Peter Steinberger recently [said](https://x.com/steipete/status/2063697162748260627): "You shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents." Similarly, Boris Cherny, head of Claude Code at Anthropic, [said](https://x.com/rohanpaul_ai/status/2063289804708835412): "I don't prompt Claude anymore. I have loops running that prompt Claude and figuring out what to do. My job is to write loops."
+Peter Steinberger recently [said](https://x.com/steipete/status/2063697162748260627): "You shouldn't be prompting coding agents anymore. You should be designing loops that prompt your agents." Similarly, the canonical source [recounts](https://addyosmani.com/blog/loop-engineering/) Boris Cherny, head of Claude Code at Anthropic, as saying: "I don't prompt Claude anymore. I have loops running that prompt Claude and figuring out what to do. My job is to write loops."
 
 So what does any of that actually mean?
 

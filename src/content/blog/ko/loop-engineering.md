@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 ---
 
-Peter Steinberger는 최근 [이렇게 말했습니다](https://x.com/steipete/status/2063697162748260627). "이제 코딩 에이전트에 직접 프롬프트를 보내지 말아야 합니다. 대신 에이전트에 프롬프트를 보내는 루프를 설계해야 합니다." Anthropic의 Claude Code 책임자 Boris Cherny도 비슷하게 [말했습니다](https://x.com/rohanpaul_ai/status/2063289804708835412). "저는 더 이상 Claude에 직접 프롬프트를 보내지 않습니다. Claude에 프롬프트를 보내고 해야 할 일을 파악하는 루프를 실행합니다. 제 일은 루프를 작성하는 것입니다."
+Peter Steinberger는 최근 [이렇게 말했습니다](https://x.com/steipete/status/2063697162748260627). "이제 코딩 에이전트에 직접 프롬프트를 보내지 말아야 합니다. 대신 에이전트에 프롬프트를 보내는 루프를 설계해야 합니다." 마찬가지로 canonical 원문은 Anthropic의 Claude Code 책임자 Boris Cherny의 발언을 [다음과 같이 전합니다](https://addyosmani.com/blog/loop-engineering/). "저는 더 이상 Claude에 직접 프롬프트를 보내지 않습니다. Claude에 프롬프트를 보내고 해야 할 일을 파악하는 루프를 실행합니다. 제 일은 루프를 작성하는 것입니다."
 
 그렇다면 이 말은 실제로 무엇을 뜻할까요?
 

@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 ---
 
-Peter Steinberger เพิ่ง[กล่าวไว้](https://x.com/steipete/status/2063697162748260627)ว่า: "คุณไม่ควรเขียนพรอมป์ให้ AI Agent สำหรับเขียนโค้ดด้วยตัวเองอีกต่อไป แต่ควรออกแบบลูปที่เขียนพรอมป์ให้ AI Agent ของคุณ" ในทำนองเดียวกัน Boris Cherny หัวหน้าทีม Claude Code ที่ Anthropic [กล่าวว่า](https://x.com/rohanpaul_ai/status/2063289804708835412): "ผมไม่เขียนพรอมป์ให้ Claude แล้ว ผมมีลูปที่ทำงานอยู่ คอยเขียนพรอมป์ให้ Claude และหาว่าควรทำอะไร งานของผมคือเขียนลูป"
+Peter Steinberger เพิ่ง[กล่าวไว้](https://x.com/steipete/status/2063697162748260627)ว่า: "คุณไม่ควรเขียนพรอมป์ให้ AI Agent สำหรับเขียนโค้ดด้วยตัวเองอีกต่อไป แต่ควรออกแบบลูปที่เขียนพรอมป์ให้ AI Agent ของคุณ" ในทำนองเดียวกัน canonical source [ถ่ายทอดคำกล่าว](https://addyosmani.com/blog/loop-engineering/)ของ Boris Cherny หัวหน้าทีม Claude Code ที่ Anthropic ว่า: "ผมไม่เขียนพรอมป์ให้ Claude แล้ว ผมมีลูปที่ทำงานอยู่ คอยเขียนพรอมป์ให้ Claude และหาว่าควรทำอะไร งานของผมคือเขียนลูป"
 
 แล้วทั้งหมดนี้หมายความว่าอย่างไรกันแน่?
 

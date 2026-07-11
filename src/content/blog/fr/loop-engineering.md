@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 ---
 
-Peter Steinberger a récemment [déclaré](https://x.com/steipete/status/2063697162748260627) : « Vous ne devriez plus envoyer vous-même des prompts aux agents de programmation. Vous devriez concevoir des boucles qui envoient des prompts à vos agents. » Dans le même esprit, Boris Cherny, responsable de Claude Code chez Anthropic, a [déclaré](https://x.com/rohanpaul_ai/status/2063289804708835412) : « Je n'envoie plus de prompts à Claude. J'ai des boucles qui s'en chargent et déterminent ce qu'il faut faire. Mon travail consiste à écrire des boucles. »
+Peter Steinberger a récemment [déclaré](https://x.com/steipete/status/2063697162748260627) : « Vous ne devriez plus envoyer vous-même des prompts aux agents de programmation. Vous devriez concevoir des boucles qui envoient des prompts à vos agents. » Dans le même esprit, la source canonique [rapporte](https://addyosmani.com/blog/loop-engineering/) les propos de Boris Cherny, responsable de Claude Code chez Anthropic : « Je n'envoie plus de prompts à Claude. J'ai des boucles qui s'en chargent et déterminent ce qu'il faut faire. Mon travail consiste à écrire des boucles. »
 
 Mais qu'est-ce que cela signifie concrètement ?
 

@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 ---
 
-Peter Steinberger は最近、[こう述べました](https://x.com/steipete/status/2063697162748260627)。「もうコーディングエージェントにプロンプトを書くべきではない。エージェントへプロンプトを与えるループを設計すべきだ」。同じく Anthropic の Claude Code 責任者 Boris Cherny も、[こう述べています](https://x.com/rohanpaul_ai/status/2063289804708835412)。「私はもう Claude にプロンプトを与えていない。Claude にプロンプトを与え、何をすべきか判断するループを動かしている。私の仕事はループを書くことだ」
+Peter Steinberger は最近、[こう述べました](https://x.com/steipete/status/2063697162748260627)。「もうコーディングエージェントにプロンプトを書くべきではない。エージェントへプロンプトを与えるループを設計すべきだ」。同じく canonical 原文は、Anthropic の Claude Code 責任者 Boris Cherny の発言を[次のように紹介しています](https://addyosmani.com/blog/loop-engineering/)。「私はもう Claude にプロンプトを与えていない。Claude にプロンプトを与え、何をすべきか判断するループを動かしている。私の仕事はループを書くことだ」
 
 では、これは実際にはどういう意味なのでしょうか。
 
