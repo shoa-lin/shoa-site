@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+artifacts/
+playwright-report/
+test-results/
+lighthouse-reports/
+*.log

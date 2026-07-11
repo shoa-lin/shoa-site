@@ -37,7 +37,8 @@ test("public content checker accepts the current repository output", () => {
 test("private-term scan tolerates tracked files deleted in the working tree", () => {
   const directory = mkdtempSync(join(tmpdir(), "shoa-public-content-"));
   const termsFile = join(directory, "terms.txt");
-  writeFileSync(termsFile, "definitely-not-present-private-term\n");
+  const absentTerm = ["absent", process.pid, Date.now().toString(36)].join("-");
+  writeFileSync(termsFile, `${absentTerm}\n`);
 
   try {
     const result = spawnSync(process.execPath, ["scripts/check-public-content.mjs"], {

@@ -1,0 +1,19 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #181a1f;
+  --muted: #626773;
+  --border: #dfe2e8;
+  --accent: #175cd3;
+  --radius: 8px;
+}
+
+html[data-theme="dark"] {
+  --bg: #111317;
+  --surface: #181b20;
+  --text: #f3f5f7;
+  --muted: #a9afb9;
+  --border: #30343c;
+  --accent: #76a9ff;
+}

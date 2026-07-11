@@ -1,0 +1,31 @@
+{
+  "name": "shoa-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "npm run test:unit",
+    "test:unit": "node --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "audit:content": "node scripts/check-public-content.mjs",
+    "audit:links": "node scripts/check-links.mjs dist",
+    "audit:seo": "node scripts/check-seo.mjs dist",
+    "verify": "npm run check && npm run test:unit && npm run audit:content && npm run build && npm run audit:seo && npm run audit:links && npm run test:e2e"
+  },
+  "dependencies": {
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.3",
+    "astro": "7.0.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "@axe-core/playwright": "4.12.1",
+    "@playwright/test": "1.61.1",
+    "lighthouse": "13.4.0",
+    "typescript": "6.0.3"
+  }
+}
