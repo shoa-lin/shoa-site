@@ -73,8 +73,11 @@ test("content root contains only approved public groups", () => {
   for (const key of approvedGroups) {
     const group = entries.filter((entry) => `${entry.collection}:${entry.data.translationKey}` === key);
     const chineseEntry = group.find((entry) => entry.data.locale === "zh");
+    const sourceLocales = new Set(group.map((entry) => entry.data.sourceLocale));
     assert.ok(chineseEntry, `${key}: missing zh entry`);
-    assert.ok(group.some((entry) => entry.data.locale === chineseEntry.data.sourceLocale), `${key}: missing source locale entry`);
+    assert.equal(sourceLocales.size, 1, `${key}: inconsistent source locale metadata`);
+    const [sourceLocale] = sourceLocales;
+    assert.ok(group.some((entry) => entry.data.locale === sourceLocale), `${key}: missing source locale entry`);
   }
 });
 
