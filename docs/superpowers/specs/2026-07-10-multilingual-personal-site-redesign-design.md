@@ -108,11 +108,16 @@ src/
     ThemeToggle.astro
     ArticleCard.astro
     ArticleLanguageMenu.astro
+    # Future public-project module, not rendered in the current release:
+    ProjectCard.astro
   layouts/
     BaseLayout.astro
     PageLayout.astro
     BlogIndexLayout.astro
     ArticleLayout.astro
+    # Future public-project module, not rendered in the current release:
+    ProjectIndexLayout.astro
+    ProjectLayout.astro
   i18n/
     zh.json
     en.json
@@ -122,6 +127,14 @@ src/
     fr.json
   content/
     blog/
+      zh/<slug>.md
+      en/<slug>.md
+      ja/<slug>.md
+      ko/<slug>.md
+      th/<slug>.md
+      fr/<slug>.md
+    # Reserved for future, explicitly approved public work:
+    projects/
       zh/<slug>.md
       en/<slug>.md
       ja/<slug>.md
@@ -150,6 +163,8 @@ scripts/
 ```
 
 The exact directory layout may be adjusted to Astro's installed version, but the boundaries remain: shared UI, locale dictionaries, locale-specific article files, shared article assets, and deterministic validation scripts.
+
+The project module is an extension contract, not current public content. Its components, routes, or empty content directories do not need to be created during the first release if doing so would add unused code. The architecture must simply keep navigation, content schemas, page composition, and route conventions open to adding the module later without redesigning the whole site.
 
 ## 6. Routing And Locale Behavior
 
@@ -185,6 +200,20 @@ Rules:
 - Theme preference may remain in local storage
 - First-visit theme respects `prefers-color-scheme`
 
+Future public-project routes, when explicitly enabled, follow the same convention:
+
+```text
+/projects
+/projects/<slug>
+/en/projects/<slug>
+/ja/projects/<slug>
+/ko/projects/<slug>
+/th/projects/<slug>
+/fr/projects/<slug>
+```
+
+The current release generates none of these routes. It does not show a disabled navigation item, empty project page, teaser, or "coming soon" state.
+
 ## 7. Content Model
 
 Each blog translation must include validated metadata:
@@ -207,6 +236,37 @@ translationStatus: draft | reviewed | published
 The underlying category key remains stable. Category labels are translated by the locale dictionary.
 
 Every article approved for public publication must have all six locale files before it can be included in a production build. Private articles are removed from the public collection rather than translated.
+
+### 7.1 Future Public Project Model
+
+Future projects use a separate content collection. A project becomes publishable only after the user explicitly marks it as public and all six localized versions pass review.
+
+Proposed metadata:
+
+```yaml
+translationKey: stable-project-id
+locale: zh
+title: Public project title
+summary: Public, non-confidential description
+role: Public role description
+period: Public date or date range
+responsibilities: []
+outcomes: []
+technologies: []
+links: []
+coverImage: /assets/projects/<slug>/cover.webp
+visibility: public
+publicationStatus: draft | reviewed | published
+```
+
+Rules:
+
+- No project is inferred from repositories, browser history, private documents, or prior conversations
+- `visibility: public` requires direct user approval
+- All six locales are required before publication
+- Internal architecture, customer information, private metrics, credentials, and unreleased capabilities remain excluded
+- Shared images and links must also be explicitly approved for public use
+- Removing or unpublishing a project must remove it from routes, navigation, Home, sitemap, RSS, and social metadata in one build
 
 ## 8. Translation Workflow
 
@@ -369,7 +429,9 @@ Sections:
 - Latest articles generated from the content collection
 - Contact links
 
-There is no project section, project teaser, case study, client logo wall, or current-work status block.
+The current release has no project section, project teaser, case study, client logo wall, or current-work status block.
+
+The Home layout keeps a documented insertion point between public background and latest articles for a future "Selected Projects" section. That section is rendered only when at least one project is explicitly public, reviewed, and available in all six languages.
 
 ### 10.3 About
 
@@ -408,6 +470,32 @@ Favorites becomes a curated library with localized summaries and source links. M
 ### 10.6 Contact
 
 Use direct contact copy. Remove visitor-facing implementation notes and all references to viewing projects or ongoing work.
+
+### 10.7 Future Projects
+
+The project experience is designed now but activated later.
+
+Future project index:
+
+- Short functional heading
+- A compact list or asymmetric editorial grid
+- Project title, public role, concise summary, period, and approved links
+- No confidential process diagrams, internal metrics, repository details, or vague marketing claims
+
+Future project detail:
+
+- Problem or context that is safe to disclose
+- Shoa's public role and responsibilities
+- Selected decisions or lessons that are safe to publish
+- Verifiable public outcomes
+- Related writing and approved external links
+
+Activation behavior:
+
+- The navigation item is absent until public projects exist
+- Home does not reserve empty visual space
+- Enabling projects is a content-and-configuration change, not a layout rewrite
+- Project routes follow the same six-language, SEO, theme, responsive, privacy, and accessibility rules as blog articles
 
 ## 11. Visual System
 
@@ -486,7 +574,7 @@ Remove current private project exposure, update tests, audit history, verify rem
 
 ### Phase P1: Static foundation
 
-Introduce Astro, shared layouts, locale routing, theme bootstrap, content schemas, and GitHub Pages build output.
+Introduce Astro, shared layouts, data-driven navigation, locale routing, theme bootstrap, content schemas, the future-project extension contract, and GitHub Pages build output. Do not generate public project routes in this phase.
 
 ### Phase P2: Core six-language pages
 
@@ -517,6 +605,8 @@ The repository already contains unrelated uncommitted changes in Blog files and 
 The redesign is complete only when:
 
 - No private project information appears in the current repository output or live site
+- The current release contains no public project route, navigation item, placeholder, or teaser
+- Future public projects can be added through a separate six-language content collection without restructuring Home, navigation, routing, or SEO
 - Historical exposure has been reviewed and handled according to the user's decision
 - Every approved public blog article exists in all six languages
 - All core pages and controls exist in all six languages
@@ -527,4 +617,3 @@ The redesign is complete only when:
 - Light and dark themes remain visually consistent
 - Privacy, translation, content, accessibility, link, and build tests pass
 - The user approves the local preview before publication
-
