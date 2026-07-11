@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
-const sitePages = ["index.html", "about.html", "projects.html", "blog.html", "favorites.html", "contact.html"];
+const sitePages = ["index.html", "about.html", "blog.html", "favorites.html", "contact.html"];
 const readJson = (path) => JSON.parse(read(path));
 
 test("home page keeps the existing avatar asset", () => {
@@ -17,17 +17,8 @@ test("home page replaces generic welcome copy with a specific builder positionin
   assert.doesNotMatch(html, /这里是展示个人作品、分享想法和记录成长的地方/);
   assert.match(html, /AI Agent/);
   assert.doesNotMatch(html, /看项目|读文章/);
-  assert.doesNotMatch(html, /Featured work|Hermes|ModelBase|AI Habitat/);
+  assert.doesNotMatch(html, /Featured work|Selected projects|项目展示/);
   assert.doesNotMatch(html, /href="\/projects"/);
-});
-
-test("projects page contains real project entries instead of placeholders", () => {
-  const html = read("projects.html");
-  assert.doesNotMatch(html, /项目一|项目二|项目三/);
-  assert.doesNotMatch(html, /href="#"/);
-  assert.match(html, /Hermes/);
-  assert.match(html, /ModelBase/);
-  assert.match(html, /AI Habitat/);
 });
 
 test("blog page preserves JavaScript integration hooks", () => {
