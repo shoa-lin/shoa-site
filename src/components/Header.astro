@@ -8,9 +8,10 @@ import ThemeToggle from "./ThemeToggle.astro";
 interface Props {
   locale: Locale;
   path: string;
+  availableLocales?: Locale[];
 }
 
-const { locale, path } = Astro.props;
+const { locale, path, availableLocales } = Astro.props;
 const dictionary = getDictionary(locale);
 const items = [
   ["home", "/"],
@@ -35,7 +36,7 @@ const isCurrent = (target: string) => target === "/" ? path === "/" : path === t
       }
     </nav>
     <div class="site-header__tools">
-      <LanguageMenu locale={locale} path={path} />
+      <LanguageMenu locale={locale} path={path} availableLocales={availableLocales} />
       <ThemeToggle locale={locale} />
       <MobileNav locale={locale} path={path} />
     </div>

@@ -14,9 +14,22 @@ interface Props {
   description?: string;
   image?: string;
   article?: boolean;
+  jsonLd?: Record<string, unknown>;
+  navigationPath?: string;
+  availableLocales?: Locale[];
 }
 
-const { locale, path, title, description, image = "/assets/avatar/profile.jpg", article = false } = Astro.props;
+const {
+  locale,
+  path,
+  title,
+  description,
+  image = "/assets/avatar/profile.jpg",
+  article = false,
+  jsonLd,
+  navigationPath = path,
+  availableLocales,
+} = Astro.props;
 const dictionary = getDictionary(locale);
 const resolvedTitle = title ? `${title} | Shoa Lin` : dictionary.meta.siteTitle;
 const resolvedDescription = description ?? dictionary.meta.siteDescription;
@@ -39,6 +52,7 @@ const seo = buildSeo(locale, path, resolvedTitle, resolvedDescription);
     <meta property="og:image" content={new URL(image, Astro.site)} />
     <meta property="og:locale" content={seo.openGraphLocale} />
     <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <title>{seo.title}</title>
     <script is:inline>
       (() => {
@@ -53,7 +67,7 @@ const seo = buildSeo(locale, path, resolvedTitle, resolvedDescription);
   </head>
   <body>
     <a class="skip-link" href="#main-content">{dictionary.a11y.skip}</a>
-    <Header locale={locale} path={path} />
+    <Header locale={locale} path={navigationPath} availableLocales={availableLocales} />
     <main id="main-content" tabindex="-1">
       <slot />
     </main>

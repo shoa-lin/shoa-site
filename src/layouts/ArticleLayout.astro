@@ -8,12 +8,14 @@ interface Props {
   path: string;
   title: string;
   description: string;
+  jsonLd?: Record<string, unknown>;
+  availableLocales?: Locale[];
 }
 
 const props = Astro.props;
 ---
 
-<BaseLayout {...props} article>
+<BaseLayout {...props} article jsonLd={props.jsonLd} availableLocales={props.availableLocales}>
   <div class="article-shell">
     <slot />
   </div>

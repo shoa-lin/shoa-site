@@ -8,7 +8,7 @@ const { locale } = Astro.props;
 const dictionary = getDictionary(locale);
 ---
 
-<PageLayout locale={locale} path="/404" title={dictionary.errors.notFoundTitle} description={dictionary.errors.notFoundBody}>
+<PageLayout locale={locale} path="/404" navigationPath="/" title={dictionary.errors.notFoundTitle} description={dictionary.errors.notFoundBody}>
   <section class="not-found">
     <p aria-hidden="true">404</p>
     <h1>{dictionary.errors.notFoundTitle}</h1>

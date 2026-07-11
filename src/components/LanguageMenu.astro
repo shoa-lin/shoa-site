@@ -5,9 +5,10 @@ import { localizedPath } from "../lib/routes";
 interface Props {
   locale: Locale;
   path: string;
+  availableLocales?: Locale[];
 }
 
-const { locale, path } = Astro.props;
+const { locale, path, availableLocales = locales } = Astro.props;
 const dictionary = getDictionary(locale);
 ---
 
@@ -18,7 +19,7 @@ const dictionary = getDictionary(locale);
   </summary>
   <div class="language-menu__popover" role="list" aria-label={dictionary.a11y.languageMenu}>
     {
-      locales.map((option) => (
+      availableLocales.map((option) => (
         <a
           href={localizedPath(option, path)}
           lang={localeMeta[option].htmlLang}

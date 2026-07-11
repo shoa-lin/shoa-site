@@ -12,6 +12,10 @@ const categories = Object.entries(dictionary.blog.categories);
 const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
 const entries = (await getCollection("blog", ({ data }) => data.locale === locale && data.translationStatus !== "draft"))
   .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf());
+const legacyRoutes = Object.fromEntries(entries.map((entry) => [
+  entry.data.translationKey,
+  localizedPath(locale, `/blog/${entry.data.translationKey}`),
+]));
 ---
 
 <BlogIndexLayout locale={locale} path="/blog" title={dictionary.blog.title} description={dictionary.blog.description}>
@@ -35,4 +39,8 @@ const entries = (await getCollection("blog", ({ data }) => data.locale === local
     ))}
     {entries.length === 0 && <p class="collection-empty">{dictionary.blog.empty}</p>}
   </div>
+  <script is:inline define:vars={{ legacyRoutes }}>
+    const legacyId = new URLSearchParams(window.location.search).get("id");
+    if (legacyId && legacyRoutes[legacyId]) window.location.replace(legacyRoutes[legacyId]);
+  </script>
 </BlogIndexLayout>
