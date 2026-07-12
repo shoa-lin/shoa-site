@@ -197,6 +197,27 @@ test("home portrait remains circular at every responsive width", async ({ page }
   }
 });
 
+for (const width of [320, 390] as const) {
+  test(`${width}px home hero centers its portrait, copy, and contact links`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await gotoSuccessful(page, "/");
+
+    await expect(page.locator(".home-hero__portrait")).toHaveCSS("justify-self", "center");
+    await expect(page.locator(".home-hero__copy")).toHaveCSS("text-align", "center");
+    await expect(page.locator(".inline-links")).toHaveCSS("justify-content", "center");
+
+    const linkGroup = await page.locator(".inline-links").evaluate((element) => {
+      const links = [...element.querySelectorAll("a")].map((link) => link.getBoundingClientRect());
+      return {
+        left: Math.min(...links.map((rect) => rect.left)),
+        right: Math.max(...links.map((rect) => rect.right)),
+        viewport: window.innerWidth,
+      };
+    });
+    expect((linkGroup.left + linkGroup.right) / 2).toBeCloseTo(linkGroup.viewport / 2, 0);
+  });
+}
+
 for (const locale of locales) {
   for (const theme of themes) {
     test(`${locale} published articles fit every width in ${theme} theme`, async ({ page }) => {

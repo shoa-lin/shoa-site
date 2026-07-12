@@ -302,12 +302,24 @@
   .home-hero {
     min-height: auto;
     grid-template-columns: 1fr;
+    justify-items: center;
     padding-top: 4rem;
   }
 
   .home-hero__portrait {
-    justify-self: start;
+    justify-self: center;
     grid-row: 1;
+  }
+
+  .home-hero__copy {
+    width: min(100%, 42rem);
+    text-align: center;
+  }
+
+  .home-hero__copy h1,
+  .home-hero__intro,
+  .home-hero__supporting {
+    margin-inline: auto;
   }
 
   .home-hero__portrait img {
@@ -315,6 +327,10 @@
     height: 148px;
     min-width: 148px;
     min-height: 148px;
+  }
+
+  .inline-links {
+    justify-content: center;
   }
 
   .editorial-split,
