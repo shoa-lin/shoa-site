@@ -182,6 +182,21 @@ for (const theme of themes) {
   });
 }
 
+test("home portrait remains circular at every responsive width", async ({ page }) => {
+  for (const width of widths) {
+    await page.setViewportSize({ width, height: width <= 390 ? 844 : 900 });
+    await gotoSuccessful(page, "/");
+    const portrait = page.locator(".home-hero__portrait img");
+    const dimensions = await portrait.evaluate((image) => {
+      const rect = image.getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    });
+
+    expect(dimensions.width, `${width}px portrait width`).toBeCloseTo(dimensions.height, 0);
+    await expect(portrait).toHaveCSS("border-radius", "50%");
+  }
+});
+
 for (const locale of locales) {
   for (const theme of themes) {
     test(`${locale} published articles fit every width in ${theme} theme`, async ({ page }) => {

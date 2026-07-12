@@ -76,7 +76,9 @@
 .home-hero__portrait img {
   display: block;
   width: min(26vw, 290px);
+  height: min(26vw, 290px);
   min-width: 210px;
+  min-height: 210px;
   aspect-ratio: 1;
   object-fit: cover;
   border: 1px solid var(--border);
@@ -310,7 +312,9 @@
 
   .home-hero__portrait img {
     width: 148px;
+    height: 148px;
     min-width: 148px;
+    min-height: 148px;
   }
 
   .editorial-split,
