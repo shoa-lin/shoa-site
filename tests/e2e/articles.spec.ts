@@ -147,14 +147,16 @@ for (const theme of ["light", "dark"] as const) {
         ?? style.backgroundColor.match(/rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)/)?.[1];
       return {
         alpha: alpha ? Number(alpha) : 1,
+        backgroundImage: style.backgroundImage,
         backdropFilter: style.backdropFilter !== "none"
           ? style.backdropFilter
           : style.getPropertyValue("-webkit-backdrop-filter"),
       };
     });
-    expect(triggerMaterial.alpha).toBeGreaterThanOrEqual(0.44);
-    expect(triggerMaterial.alpha).toBeLessThanOrEqual(0.54);
-    expect(triggerMaterial.backdropFilter).toContain("blur(28px)");
+    expect(triggerMaterial.alpha).toBeGreaterThanOrEqual(0.18);
+    expect(triggerMaterial.alpha).toBeLessThanOrEqual(0.26);
+    expect(triggerMaterial.backgroundImage).toContain("linear-gradient");
+    expect(triggerMaterial.backdropFilter).toContain("blur(32px)");
 
     await trigger.click();
     await expect(dialog).toBeVisible();

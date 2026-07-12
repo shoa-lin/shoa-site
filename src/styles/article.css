@@ -227,12 +227,16 @@
     display: grid;
     place-items: center;
     padding: 0;
-    border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
     border-radius: 50%;
-    background: color-mix(in srgb, var(--surface) 48%, transparent);
-    box-shadow: 0 8px 24px color-mix(in srgb, #000 14%, transparent), inset 0 1px 0 color-mix(in srgb, #fff 38%, transparent);
+    background-color: color-mix(in srgb, var(--surface) 22%, transparent);
+    background-image: linear-gradient(145deg, color-mix(in srgb, #fff 24%, transparent), transparent 48%);
+    box-shadow:
+      0 8px 24px color-mix(in srgb, #000 12%, transparent),
+      inset 0 1px 0 color-mix(in srgb, #fff 56%, transparent),
+      inset 0 -1px 0 color-mix(in srgb, #fff 12%, transparent);
     color: var(--text);
-    backdrop-filter: blur(28px) saturate(145%);
+    backdrop-filter: blur(32px) saturate(160%) contrast(105%);
     font: inherit;
     font-size: 1.3rem;
     line-height: 1;
