@@ -58,7 +58,7 @@
     "xNote": "Best for short exchanges and public discussion."
   },
   "article": {
-    "source": "Source", "author": "Author", "published": "Published", "updated": "Updated", "languages": "Article languages", "toc": "Contents", "previous": "Previous", "next": "Next", "back": "Back to writing", "adaptationNotice": "This is a structured adaptation. Please refer to the original source."
+    "source": "Source", "author": "Author", "published": "Published", "updated": "Updated", "languages": "Article languages", "toc": "Contents", "tocOpen": "Open article contents", "tocClose": "Close article contents", "previous": "Previous", "next": "Next", "back": "Back to writing", "adaptationNotice": "This is a structured adaptation. Please refer to the original source."
   },
   "errors": { "notFoundTitle": "Page not found", "notFoundBody": "The address may have changed, or the page has not been published.", "home": "Back home" },
   "a11y": { "skip": "Skip to main content", "menuOpen": "Open navigation", "menuClose": "Close navigation", "mainNavigation": "Main navigation", "mobileNavigation": "Mobile navigation", "languageMenu": "Language menu", "themeToggle": "Theme control" },

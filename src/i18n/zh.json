@@ -58,7 +58,7 @@
     "xNote": "适合简短交流和公开讨论。"
   },
   "article": {
-    "source": "来源", "author": "作者", "published": "发布于", "updated": "更新于", "languages": "文章语言", "toc": "目录", "previous": "上一篇", "next": "下一篇", "back": "返回文章列表", "adaptationNotice": "本文为结构化译介，请以原文为准。"
+    "source": "来源", "author": "作者", "published": "发布于", "updated": "更新于", "languages": "文章语言", "toc": "目录", "tocOpen": "打开文章目录", "tocClose": "关闭文章目录", "previous": "上一篇", "next": "下一篇", "back": "返回文章列表", "adaptationNotice": "本文为结构化译介，请以原文为准。"
   },
   "errors": { "notFoundTitle": "页面不存在", "notFoundBody": "这个地址可能已经变化，或者页面尚未发布。", "home": "返回首页" },
   "a11y": { "skip": "跳到主要内容", "menuOpen": "打开导航", "menuClose": "关闭导航", "mainNavigation": "主要导航", "mobileNavigation": "移动端导航", "languageMenu": "语言菜单", "themeToggle": "主题切换" },

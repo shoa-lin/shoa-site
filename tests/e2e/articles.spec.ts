@@ -124,3 +124,58 @@ test("category filters remain horizontally usable on mobile", async ({ page }) =
   await expect(filter).toHaveCSS("overflow-x", "auto");
   await expect(filter.getByRole("link").first()).toHaveCSS("min-height", "44px");
 });
+
+for (const theme of ["light", "dark"] as const) {
+  test(`mobile floating contents stay compact and navigate in ${theme} theme`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript((value) => localStorage.setItem("shoa-theme", value), theme);
+    await page.goto("/blog/loop-engineering");
+
+    const desktopContents = page.locator(".article-toc--desktop");
+    const trigger = page.locator("[data-mobile-toc-open]");
+    const dialog = page.locator("[data-mobile-toc-dialog]");
+
+    await expect(desktopContents).toBeHidden();
+    await expect(trigger).toBeVisible();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(trigger).toHaveCSS("border-radius", "50%");
+    await expect(trigger).toHaveCSS("width", "48px");
+    await expect(trigger).toHaveCSS("height", "48px");
+
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toBeFocused();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(page.locator("body")).toHaveCSS("overflow", "hidden");
+    await expect(dialog.locator("[aria-current='location']")).toHaveCount(1);
+    const material = await dialog.evaluate((element) => {
+      const background = getComputedStyle(element).backgroundColor;
+      const alpha = background.match(/\/\s*([\d.]+)\)/)?.[1]
+        ?? background.match(/rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)/)?.[1];
+      return { background, alpha: alpha ? Number(alpha) : 1 };
+    });
+    expect(material.alpha).toBeGreaterThanOrEqual(0.9);
+    await expect(dialog.getByRole("link", { name: /Automations/ })).toHaveCSS(
+      "color",
+      theme === "dark" ? "rgb(212, 216, 223)" : "rgb(63, 68, 77)",
+    );
+
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
+
+    await trigger.click();
+
+    const target = dialog.getByRole("link", { name: /Skills/ });
+    await expect(target).toBeVisible();
+    const targetHash = await target.getAttribute("href");
+    await target.click();
+
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(trigger).toHaveCSS("outline-style", "none");
+    expect(targetHash).toMatch(/^#.+/);
+    await expect.poll(() => decodeURIComponent(new URL(page.url()).hash)).toBe(targetHash);
+  });
+}

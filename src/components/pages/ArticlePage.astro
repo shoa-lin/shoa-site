@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { localizedPath } from "../../lib/routes";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import MobileArticleToc from "../MobileArticleToc.astro";
 
 interface Props {
   locale: Locale;
@@ -54,7 +55,7 @@ const availableLocales = (await getCollection("blog", ({ data }) => (
     <div class:list={["article-reading-grid", { "article-reading-grid--single": visibleHeadings.length < 3 }]}>
       {
         visibleHeadings.length >= 3 && (
-          <aside class="article-toc" aria-label={dictionary.article.toc}>
+          <aside class="article-toc article-toc--desktop" aria-label={dictionary.article.toc}>
             <strong>{dictionary.article.toc}</strong>
             <nav>
               {visibleHeadings.map((heading) => (
@@ -68,5 +69,15 @@ const availableLocales = (await getCollection("blog", ({ data }) => (
         <Content />
       </div>
     </div>
+    {
+      visibleHeadings.length >= 3 && (
+        <MobileArticleToc
+          headings={visibleHeadings}
+          tocLabel={dictionary.article.toc}
+          tocOpen={dictionary.article.tocOpen}
+          tocClose={dictionary.article.tocClose}
+        />
+      )
+    }
   </article>
 </ArticleLayout>

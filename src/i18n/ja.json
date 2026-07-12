@@ -58,7 +58,7 @@
     "xNote": "短いやり取りや公開の議論に向いています。"
   },
   "article": {
-    "source": "出典", "author": "著者", "published": "公開日", "updated": "更新日", "languages": "記事の言語", "toc": "目次", "previous": "前の記事", "next": "次の記事", "back": "記事一覧へ", "adaptationNotice": "この記事は構成を保った紹介です。内容は原文をご確認ください。"
+    "source": "出典", "author": "著者", "published": "公開日", "updated": "更新日", "languages": "記事の言語", "toc": "目次", "tocOpen": "記事の目次を開く", "tocClose": "記事の目次を閉じる", "previous": "前の記事", "next": "次の記事", "back": "記事一覧へ", "adaptationNotice": "この記事は構成を保った紹介です。内容は原文をご確認ください。"
   },
   "errors": { "notFoundTitle": "ページが見つかりません", "notFoundBody": "URLが変更されたか、まだ公開されていない可能性があります。", "home": "ホームへ戻る" },
   "a11y": { "skip": "本文へ移動", "menuOpen": "ナビゲーションを開く", "menuClose": "ナビゲーションを閉じる", "mainNavigation": "メインナビゲーション", "mobileNavigation": "モバイルナビゲーション", "languageMenu": "言語メニュー", "themeToggle": "テーマ切り替え" },

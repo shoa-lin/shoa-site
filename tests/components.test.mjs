@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -52,4 +52,22 @@ test("the public avatar keeps the approved byte-for-byte asset", () => {
 
   assert.match(profile, /avatar:\s*"\/assets\/avatar\/profile\.jpg"/);
   assert.equal(hash(readBuffer("public/assets/avatar/profile.jpg")), "d5f166ae85da5cc22599c2427e9fd461b17f4883c05a8ff53030d72cd09781b2");
+});
+
+test("mobile article contents use an accessible floating dialog", () => {
+  const componentPath = "src/components/MobileArticleToc.astro";
+  assert.equal(existsSync(new URL(`../${componentPath}`, import.meta.url)), true);
+
+  const articlePage = read("src/components/pages/ArticlePage.astro");
+  const component = read(componentPath);
+
+  assert.match(articlePage, /MobileArticleToc/);
+  assert.match(component, /<dialog/);
+  assert.match(component, /aria-expanded="false"/);
+  assert.match(component, /aria-haspopup="dialog"/);
+  assert.match(component, /IntersectionObserver/);
+  assert.match(component, /cancel/);
+  assert.match(component, /tocOpen/);
+  assert.match(component, /tocClose/);
+  assert.doesNotMatch(component, /font-awesome|cdnjs|cdn\.jsdelivr/i);
 });

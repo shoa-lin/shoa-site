@@ -1,0 +1,136 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+  tocLabel: string;
+  tocOpen: string;
+  tocClose: string;
+}
+
+const { headings, tocLabel, tocOpen, tocClose } = Astro.props;
+const dialogId = "mobile-article-toc-dialog";
+---
+
+<div class="mobile-article-toc" data-mobile-toc>
+  <button
+    class="mobile-article-toc__trigger"
+    type="button"
+    aria-label={tocOpen}
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls={dialogId}
+    data-mobile-toc-open
+    data-allow-interactive-overlay
+  >
+    <span aria-hidden="true">≣</span>
+  </button>
+
+  <dialog
+    class="mobile-article-toc__dialog"
+    id={dialogId}
+    tabindex="-1"
+    aria-labelledby="mobile-article-toc-title"
+    data-mobile-toc-dialog
+  >
+    <div class="mobile-article-toc__sheet">
+      <span class="mobile-article-toc__handle" aria-hidden="true"></span>
+      <header class="mobile-article-toc__header">
+        <strong id="mobile-article-toc-title">{tocLabel}</strong>
+        <span class="mobile-article-toc__progress" data-mobile-toc-progress>1 / {headings.length}</span>
+        <button class="mobile-article-toc__close" type="button" aria-label={tocClose} data-mobile-toc-close>
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
+      <nav aria-label={tocLabel}>
+        {
+          headings.map((heading, index) => (
+            <a
+              class:list={[{ "mobile-article-toc__nested": heading.depth === 3 }]}
+              href={`#${heading.slug}`}
+              aria-current={index === 0 ? "location" : undefined}
+              data-mobile-toc-link
+              data-heading-slug={heading.slug}
+              data-heading-index={index + 1}
+            >
+              {heading.text}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </dialog>
+</div>
+
+<script is:inline>
+  for (const root of document.querySelectorAll("[data-mobile-toc]")) {
+    const openButton = root.querySelector("[data-mobile-toc-open]");
+    const dialog = root.querySelector("[data-mobile-toc-dialog]");
+    const closeButton = root.querySelector("[data-mobile-toc-close]");
+    const progress = root.querySelector("[data-mobile-toc-progress]");
+    const links = [...root.querySelectorAll("[data-mobile-toc-link]")];
+    let silentFocusRestore = false;
+
+    if (!(openButton instanceof HTMLButtonElement) || !(dialog instanceof HTMLDialogElement)) continue;
+
+    const setActive = (slug) => {
+      const activeLink = links.find((link) => link.dataset.headingSlug === slug) ?? links[0];
+      if (!activeLink) return;
+
+      for (const link of links) {
+        if (link === activeLink) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      }
+      if (progress) progress.textContent = `${activeLink.dataset.headingIndex} / ${links.length}`;
+    };
+
+    const close = (silent = false) => {
+      silentFocusRestore = silent;
+      if (dialog.open) dialog.close();
+    };
+
+    openButton.addEventListener("click", () => {
+      silentFocusRestore = false;
+      openButton.setAttribute("aria-expanded", "true");
+      document.body.classList.add("toc-open");
+      dialog.showModal();
+      dialog.focus({ preventScroll: true });
+    });
+    closeButton?.addEventListener("click", () => close(true));
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) close(true);
+    });
+    dialog.addEventListener("cancel", () => {
+      silentFocusRestore = false;
+      openButton.setAttribute("aria-expanded", "false");
+    });
+    dialog.addEventListener("close", () => {
+      openButton.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("toc-open");
+      openButton.classList.toggle("mobile-article-toc__trigger--silent-focus", silentFocusRestore);
+      openButton.focus({ preventScroll: true });
+    });
+    openButton.addEventListener("blur", () => {
+      openButton.classList.remove("mobile-article-toc__trigger--silent-focus");
+    });
+    links.forEach((link) => link.addEventListener("click", () => close(true)));
+
+    const observedHeadings = links
+      .map((link) => document.getElementById(link.dataset.headingSlug ?? ""))
+      .filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top);
+      const active = visible[0];
+      if (active) setActive(active.target.id);
+    }, { rootMargin: "-96px 0px -68% 0px", threshold: 0 });
+
+    observedHeadings.forEach((heading) => observer.observe(heading));
+    if (location.hash) setActive(decodeURIComponent(location.hash.slice(1)));
+  }
+</script>

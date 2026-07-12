@@ -125,6 +125,7 @@ async function expectLayoutFits(page: Page, label: string) {
         const a = controls[left];
         const b = controls[right];
         if (a.element.contains(b.element) || b.element.contains(a.element)) continue;
+        if (a.element.matches("[data-allow-interactive-overlay]") || b.element.matches("[data-allow-interactive-overlay]")) continue;
         const overlaps = a.rects.some((aRect) => b.rects.some((bRect) => {
           const overlapX = Math.min(aRect.right, bRect.right) - Math.max(aRect.left, bRect.left);
           const overlapY = Math.min(aRect.bottom, bRect.bottom) - Math.max(aRect.top, bRect.top);

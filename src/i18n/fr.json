@@ -58,7 +58,7 @@
     "xNote": "Adapté aux échanges courts et aux discussions publiques."
   },
   "article": {
-    "source": "Source", "author": "Auteur", "published": "Publié le", "updated": "Mis à jour le", "languages": "Langues de l'article", "toc": "Sommaire", "previous": "Article précédent", "next": "Article suivant", "back": "Retour aux articles", "adaptationNotice": "Cet article est une adaptation structurée. Veuillez vous référer à la source originale."
+    "source": "Source", "author": "Auteur", "published": "Publié le", "updated": "Mis à jour le", "languages": "Langues de l'article", "toc": "Sommaire", "tocOpen": "Ouvrir le sommaire", "tocClose": "Fermer le sommaire", "previous": "Article précédent", "next": "Article suivant", "back": "Retour aux articles", "adaptationNotice": "Cet article est une adaptation structurée. Veuillez vous référer à la source originale."
   },
   "errors": { "notFoundTitle": "Page introuvable", "notFoundBody": "L'adresse a peut-être changé ou la page n'est pas encore publiée.", "home": "Retour à l'accueil" },
   "a11y": { "skip": "Aller au contenu principal", "menuOpen": "Ouvrir la navigation", "menuClose": "Fermer la navigation", "mainNavigation": "Navigation principale", "mobileNavigation": "Navigation mobile", "languageMenu": "Menu des langues", "themeToggle": "Contrôle du thème" },
