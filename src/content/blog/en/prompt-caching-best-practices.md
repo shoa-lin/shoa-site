@@ -1,187 +1,181 @@
 ---
 translationKey: "prompt-caching-best-practices"
 locale: "en"
-title: "Prompt Caching best practices: Claude Code’s large-scale optimization experience"
-description: "Summarize the engineering practices of Prompt Caching around cache boundaries, prompt word stability, and contextual organization."
-publishedAt: "2026-02-26"
-updatedAt: "2026-02-26"
+title: "Lessons from Claude Code: Prompt Caching Is Everything"
+description: "A structured adaptation of the Claude Code team's production lessons on stable prefixes, tools, model changes, and cache-safe compaction."
+publishedAt: "2026-02-20"
+updatedAt: "2026-02-20"
 category: "architecture"
 sourceLocale: "en"
 sourceUrl: "https://x.com/trq212/status/2024574133011673516"
 sourceAuthor: "Claude Code Team"
-contentType: "translation"
-translationStatus: "draft"
+contentType: "adaptation"
+translationStatus: "reviewed"
 ---
 
 <div class="blog-article-body">
 
 ## Introduction
 
-In the engineering field, people often say "Cache Rules Everything Around Me", and this rule also applies to AI Agents.
+Engineers sometimes say that cache rules everything around them. The same is true for long-running agents.
 
-Long-running Agent products like Claude Code are only possible thanks to Prompt Caching technology. It allows us to reuse calculation results from previous rounds, significantly reducing latency and cost.
+Products such as Claude Code are economically viable because prompt caching lets later requests reuse computation from earlier turns. That reuse lowers latency and cost, especially as conversations grow.
 
-So, what is Prompt Caching? How does it work? How to implement it technically?
+## Claude Code's caching architecture
 
-## Claude Code’s caching architecture
+Claude Code is designed around Prompt Caching. A high prompt cache hit rate lowers operating costs and supports more generous subscription rate limits. The team monitors that rate closely enough that a serious drop can be treated as an incident.
 
-At Claude Code, our entire framework is built around Prompt Caching. High hint cache hit rates reduce costs and help us provide more generous rate limits for subscription plans. Therefore, we set up monitoring alerts on the prompt cache hit rate and declare an SEV (Severe Event) when the hit rate gets too low.
-
-Here are the (often counter-intuitive) lessons we learned from optimizing prompt caching at scale.
+The sections below capture the production lessons they learned while optimizing prompt caching at scale.
 
 ![Prompt Caching architecture diagram](https://pbs.twimg.com/media/HBipHa1boAAXD_A?format=jpg&name=large)
 
 ## How Prompt Caching works
 
-### Prefix matching mechanism
+### Prefix matching
 
-Prompt Caching works via **prefix matching** — the API caches everything from the start of the request to each `cache_control` breakpoint.
+Prompt Caching works through **prefix matching**. The API can reuse content from the beginning of a request through its cache breakpoints when that prefix is unchanged.
 
-This means: **The order in which you put things is important**, you want as many requests as possible to share the prefix.
+Order therefore matters: the more requests share the same beginning, the more cached work they can reuse.
 
-### Best practice: static first, dynamic last
+### Claude Code's cache-friendly order
 
-The best way is: **Static content is placed in the front and dynamic content is placed in the back**.
+Claude Code uses a cache-friendly layout: **put stable content first and dynamic content last**.
 
-For Claude Code, this sequence is:
+Its request is organized roughly as follows:
 
-1. **Static System Tips and Tools** (Global Cache)
-2. **Project context** (in-project cache)
-3. **Session context** (in-session cache)
-4. **Conversation Message**
+1. **Stable system prompts and tools** (shared broadly)
+2. **Project context** (shared within a project)
+3. **Session context** (shared within a session)
+4. **Conversation messages**
 
-This way we maximize the chance of shared cache hits between sessions.
+This arrangement increases the chance that requests and sessions share a reusable prefix.
 
-### Fragile cache order
+### Why the order is fragile
 
-But this order can be surprisingly fragile! Reasons why we broke this order before include:
+The prefix can be broken by changes that look harmless. Examples include:
 
-- Put detailed timestamps in static system prompts
-- Non-deterministically shuffle tool definition order
-- Update tool parameters (such as Agents that AgentTool can call)
+- putting a precise timestamp in a stable system prompt
+- emitting tool definitions in a non-deterministic order
+- changing tool parameters, such as which agents an agent tool can call
 
-## Keep cache valid
+## Keeping the cache valid
 
-### Handling of outdated information
+### Updating stale information
 
-Sometimes the information you put in the prompt becomes outdated, such as the time or the user changing the file.
+Some prompt information naturally becomes stale: the date changes, a file is edited, or another piece of runtime state moves on.
 
-You may want to update the prompt, but this will cause cache misses, which will ultimately cost the user expensively.
+Editing an earlier system prompt may look tidy, but it changes the prefix and causes a cache miss over everything that follows.
 
-**Better approach**: Consider whether this information can be delivered via message in the next round.
+The Claude Code pattern is to send the update in a later message. For example, the next user message or tool result can include a `<system-reminder>` saying that it is now Wednesday. The old prefix remains reusable while the model still receives current information.
 
-In Claude Code, we add a `<system-reminder>` tag with updated information (e.g. "It's Wednesday") on the next user message or tool result, which helps keep cache cached.
+## The model-switching trap
 
-## Traps of model switching
+### Caches are model-specific
 
-### Caching is model specific
+Prompt caches are model-specific, which makes cost calculations less intuitive than they first appear.
 
-Prompt caching is model-specific, which makes costing Prompt Caching rather counter-intuitive.
+If a conversation already contains 100k tokens cached for Opus, asking Opus one more simple question may cost less than switching to Haiku, because Haiku would need a new prompt cache for that history.
 
-**Scenario**: If you're already 100k tokens into a conversation with Opus and want to ask a relatively simple question, it's actually cheaper to have Opus answer it than to switch to Haiku — since we'd need to rebuild the prompt cache for Haiku.
+### Use a subagent for model handoffs
 
-### Sub-agent solution
+When another model is appropriate, Claude Code prefers a **subagent** handoff instead of changing the model for the existing conversation. Opus can prepare a compact task description for the other model.
 
-If you need to switch models, the best way is to use a **subagent**, Opus will prepare a "handover" message to the other model describing the tasks that need to be completed.
+The Explore agents are a common example: they can use Haiku without discarding the parent conversation's model-specific cache.
 
-We do this a lot in Claude Code’s Explore Agent, which uses Haiku.
+## Why tool changes are expensive
 
-## Impact of Toolset Changes
+Changing the tool set in the middle of a conversation is another common way to destroy prompt cache reuse.
 
-Changing toolsets in the middle of a conversation is one of the most common ways people break Prompt Caching.
+It can seem efficient to expose only the tools needed right now. In practice, tool definitions are part of the cached prefix, so adding or removing a tool invalidates the conversation prefix that follows them.
 
-This seems intuitive—you should only give the model the tools it needs right now. But because tools are part of the cache prefix, adding or removing tools invalidates the cache for the entire conversation.
+### Plan Mode: represent state without changing tools
 
-### Plan Mode — Design around caching
+Plan Mode shows how Claude Code designs features around this constraint.
 
-Plan pattern is a great example of designing functionality around caching constraints.
+The obvious implementation would replace the normal tool set with read-only tools when a user enters Plan Mode. That tool-schema change would break the cache.
 
-The intuitive approach is this: when the user enters planning mode, the toggle toolset contains only read-only tools. But this will destroy the cache.
+Instead, Claude Code keeps the tools stable and includes `EnterPlanMode` and `ExitPlanMode` as regular tools. A later system message tells the agent that it is in Plan Mode: inspect the codebase, do not edit files, and call `ExitPlanMode` when the plan is complete. The tool definitions do not change.
 
-**Our approach**: We always keep all tools in the request and pass `EnterPlanMode` and `ExitPlanMode` as the tools themselves. When the user switches planning mode, the Agent receives a system message stating that it is in planning mode and what the instructions are — explore the code base, do not edit files, and call `ExitPlanMode` when the plan is complete. Tool definitions never change.
+Because `EnterPlanMode` is itself a tool, the model can also enter Plan Mode when it recognizes that a problem needs deeper planning, without invalidating the cached prefix.
 
-This has an added benefit: because `EnterPlanMode` is a tool that the model can call itself, it can enter planning mode autonomously when it detects a problem, without corrupting the cache.
+### Tool Search: defer loading instead of removing tools
 
-### Tool Search — Delay rather than remove
+The same principle applies to Tool Search. Claude Code may have dozens of MCP tools available, but sending every full tool schema on every request would be expensive. Removing tools mid-conversation would still break the cache.
 
-The same principle applies to our tool search functionality. Claude Code can load dozens of MCP tools, and including them all in every request would be expensive. But removing them in the middle of a conversation breaks the cache.
+The solution is `defer_loading`. Claude Code sends stable, lightweight tool stubs marked with `defer_loading: true`. When needed, the model uses `ToolSearch` to load the full tool schema. The same stubs remain in the same order, preserving the prefix.
 
-**Our solution**: `defer_loading`. Instead of removing tools, we send lightweight stubs — just the tool names, with `defer_loading: true` – so that the model can "discover" them via the `ToolSearch` tool when needed. The complete tool architecture is only loaded on model selection. This keeps cache prefixes stable: the same stubs always exist in the same order.
+The API exposes `ToolSearch` so applications can use the same pattern.
 
-Fortunately, you can simplify this process using the `ToolSearch` tool through our API.
+## Compaction and caching
 
-## Compressed caching challenge
+![Compaction and caching diagram](https://pbs.twimg.com/media/HBitEdRbUAMVSnM?format=jpg&name=large)
 
-![Compression and caching diagram](https://pbs.twimg.com/media/HBitEdRbUAMVSnM?format=jpg&name=large)
+Compaction is what happens when a conversation approaches the context-window limit. The system produces a summary and continues with that smaller representation.
 
-Compaction is what happens when you run out of context windows. We summarize the conversation so far and use that summary to continue a new conversation.
-
-Surprisingly, compression has many counter-intuitive edge cases when it comes to prompt caching.
+This creates several prompt-caching edge cases.
 
 ### The problem
 
-In particular, when we compress, we need to send the entire conversation to the model to generate a summary. If this were a separate API call, using a different system prompt and without tools (which is the simple way to do it), the cache prefix of the main conversation would not match at all. You need to pay full price for all these input tokens, dramatically increasing the cost to the user.
+To produce the summary, the model needs the conversation history. A naive implementation makes a separate request with different system prompts and no tools. That request no longer matches the main conversation's prefix, so all of those input tokens must be processed at full price.
 
-### Solution — Cache Safe Branches
+### The solution: a cache-safe fork
 
-When we run compression, we use the exact same system prompt, user context, system context, and tool definitions as the parent conversation. We add the parent conversation's message at the front and then append the compression prompt as a new user message at the end.
+Claude Code treats compaction as a cache-safe fork. The compaction request uses the same system prompts, user and system context, tool definitions, and conversation history as the parent request. It appends the compaction instruction as a new user message at the end.
 
-From an API perspective, this request looks almost identical to the last request of the parent conversation — same prefix, same tools, same history — so the cached prefix is ​​reused. The only new token is the compression hint itself.
+From an input-prefix accounting perspective, the request shares the parent's prefix, tools, and history. The cached prefix can therefore be reused, so mainly only the input tokens for the newly appended compaction instruction need fresh processing. The model must still generate the summary, so that computation and its output tokens are still billed.
 
-But it does mean that we need to save a "compression buffer" so that we have enough space in the context window to contain the compressed message and digest output token.
+This also requires a compaction buffer: enough context-window capacity must remain for the appended compaction instruction and the summary the model will generate.
 
-## Five Core Principles
+## Five lessons learned
 
-Minification is tricky, but luckily you don't need to learn these lessons yourself — based on our experience at Claude Code, we've built these capabilities directly into the API, so you can apply these patterns in your own applications.
+Compaction is subtle, but the broader lessons apply to any agent built on Prompt Caching.
 
 <div class="info-box">
 
 **1. Prompt Caching is prefix matching**
 
-Any change anywhere in the prefix invalidates everything after it. Design the entire system around this constraint. Get the order right and most of the caching work is done automatically.
+Any change inside the prefix invalidates everything after it. Design the request around stable ordering from the start.
 
 </div>
 
 <div class="tip-box">
 
-**2. Use messages instead of system prompts for changes**
+**2. Send updates as messages**
 
-You might want to edit the system prompts to do things like enter planning mode, change dates, etc., but it's actually better to insert these into messages within the conversation.
+For changing dates, runtime state, or modes, append a message instead of rewriting earlier system prompts.
 
 </div>
 
 <div class="warning-box">
 
-**3. Don’t change tools or models in the middle of a conversation**
+**3. Do not change models or tools mid-conversation**
 
-Use tools to simulate state transitions (such as planning mode) rather than changing the toolset. Delay tool loading instead of tool removal.
+Use handoffs for model changes, tools for state transitions, and deferred loading for large tool catalogs.
 
 </div>
 
 <div class="info-box">
 
-**4. Monitor cache hit rate as well as uptime**
+**4. Monitor the prompt cache hit rate like uptime**
 
-We set alerts on cache outages and treat them as events. A few percentage points of cache hit rate can significantly impact cost and latency.
+A few percentage points can materially affect cost and latency, so cache regressions deserve operational alerts.
 
 </div>
 
 <div class="tip-box">
 
-**5. Branch operations need to share the parent prefix**
+**5. Forked work should preserve the parent prefix**
 
-If you need to run side calculations (compression, digest, skill execution), use the same cache-safe parameters to get cache hits on the parent prefix.
+Compaction, summaries, and other side computations should reuse the parent's cache-safe request shape whenever possible.
 
 </div>
 
 ## Conclusion
 
-Claude Code has been built around Prompt Caching from day one. If you are building an Agent, you should do the same.
+Claude Code was built around Prompt Caching from the beginning. The practical lesson is not that every agent must copy one exact layout, but that cache stability should be treated as a first-class architectural constraint.
 
 ---
 
->Original post on X (Twitter) @trq212
-> Translation: Shoa Lin
-> If there are any translation errors, please correct me
+> Adapted from the Claude Code team's X Article shared by @trq212.
 
 </div>

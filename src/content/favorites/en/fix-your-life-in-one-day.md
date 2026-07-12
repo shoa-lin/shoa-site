@@ -1,8 +1,8 @@
 ---
 translationKey: "fix-your-life-in-one-day"
 locale: "en"
-title: "How to rethink change"
-description: "A long article about identity, goals and behavior change, suitable for reading slowly and taking notes."
+title: "Editorial summary: How to rethink change"
+description: "A short editorial summary about identity, goals, and behavior change."
 publishedAt: "2025-12-23"
 updatedAt: "2025-12-23"
 sourceLocale: "en"
@@ -10,9 +10,9 @@ sourceUrl: "https://letters.thedankoe.com/p/how-to-fix-your-entire-life-in-1"
 sourceAuthor: "Dan Koe"
 tags: ["personal growth","behavior change"]
 visibility: "public"
-publicationStatus: "draft"
+publicationStatus: "reviewed"
 ---
 
-This article breaks down change into three levels: identity, goals, and daily behaviors. It’s not the short-term self-discipline skills that deserve attention, but how one’s goals affect focus, choices, and long-term lifestyle.
+This article approaches change through identity, goals, and daily behavior. The useful idea is not the literal promise of fixing a life in one day, but the way goals shape attention, choices, and long-term patterns.
 
-I collected it because the article provides a framework for thinking that is suitable for repeated review. When reading, it is better to take notes based on your own specific questions, rather than treating it as a list to be followed.
+I bookmarked it because the framework is useful for revisiting a specific problem, not as a checklist that must be followed exactly.
