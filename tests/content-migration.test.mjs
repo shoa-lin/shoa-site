@@ -19,7 +19,7 @@ const approvedGroups = [
 const expectedStructure = {
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
   "blog:loop-engineering": { headings: 9, images: 0, codeFences: 0, tables: 1, links: 19 },
-  "blog:state-of-ai-agent-memory-2026": { headings: 23, images: 3, codeFences: 0, tables: 3, links: 23 },
+  "blog:state-of-ai-agent-memory-2026": { headings: 23, images: 3, codeFences: 0, tables: 3, links: 22 },
   "blog:dynamic-workflows-in-claude-code": { headings: 29, images: 9, codeFences: 0, tables: 0, links: 15 },
   "blog:harness-engineering": { headings: 14, images: 6, codeFences: 0, tables: 1, links: 12 },
   "blog:lessons-from-building-claude-code-skills": { headings: 26, images: 11, codeFences: 0, tables: 0, links: 7 },

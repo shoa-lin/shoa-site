@@ -219,7 +219,7 @@ AI agent memory in 2026 is a production engineering discipline with real benchma
 
 The infrastructure for deploying memory now covers 21 frameworks and platforms, 20 vector stores, and three distinct hosting models: managed cloud, open-source self-hosting, and local MCP. The remaining open problems are real, but they are specific and bounded rather than fundamental.
 
-- **Engineers** can now add persistent memory in an afternoon. The [Mem0 Docker self-hosting guide](https://mem0.ai/blog/self-host-mem0-docker) uses Qdrant as the vector backend and produces a working local API in under 20 minutes. For local open-weight models, the [Hermes agent tutorial](https://mem0.ai/blog/how-to-add-memory-to-your-hermes-agent) shows how to add cross-session persistent memory without relying on cloud services.
+- **Engineers** can now add persistent memory in an afternoon. The [Mem0 Docker self-hosting guide](https://mem0.ai/blog/self-host-mem0-docker) uses Qdrant as the vector backend and produces a working local API in under 20 minutes.
 - **Founders and architects** evaluating a memory layer should treat token-efficiency numbers as metrics to stress-test. LoCoMo uses 6,956 tokens per retrieval call, while full-context uses roughly 26,000 tokens per conversation. The units are different, but the difference still needs to be measured against your inference bill at scale. The [benchmark evaluation framework](https://github.com/mem0ai/memory-benchmarks) is open source, so run it on your own workload before committing to an architecture.
 
 | Option | Best for | Setup time |
