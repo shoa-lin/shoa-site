@@ -5,12 +5,13 @@ interface Props {
   description: string;
   date: string;
   category: string;
+  categoryKey?: string;
 }
 
-const { href, title, description, date, category } = Astro.props;
+const { href, title, description, date, category, categoryKey } = Astro.props;
 ---
 
-<article class="article-card">
+<article class="article-card" data-category={categoryKey}>
   <div class="article-card__meta">
     <time datetime={date}>{date}</time>
     <span>{category}</span>

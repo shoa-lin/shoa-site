@@ -126,6 +126,7 @@
 .article-content :where(p, li) {
   color: var(--text-secondary);
   line-height: 1.82;
+  overflow-wrap: anywhere;
 }
 
 .article-content :where(h2, h3, h4) {
@@ -158,7 +159,10 @@
 }
 
 .article-content table {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   margin: 1.5rem 0;
   font-size: 0.9rem;
@@ -190,7 +194,7 @@
 
 @media (max-width: 900px) {
   .article-reading-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .article-toc {

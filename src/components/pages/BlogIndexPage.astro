@@ -8,10 +8,12 @@ import BlogIndexLayout from "../../layouts/BlogIndexLayout.astro";
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dictionary = getDictionary(locale);
-const categories = Object.entries(dictionary.blog.categories);
 const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
 const entries = (await getCollection("blog", ({ data }) => data.locale === locale && data.translationStatus !== "draft"))
   .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf());
+const categoryKeys = new Set(entries.map((entry) => entry.data.category));
+const categories = Object.entries(dictionary.blog.categories)
+  .filter(([key]) => categoryKeys.has(key as keyof typeof dictionary.blog.categories));
 const legacyRoutes = Object.fromEntries(entries.map((entry) => [
   entry.data.translationKey,
   localizedPath(locale, `/blog/${entry.data.translationKey}`),
@@ -35,12 +37,28 @@ const legacyRoutes = Object.fromEntries(entries.map((entry) => [
         description={entry.data.description}
         date={dateFormatter.format(entry.data.publishedAt)}
         category={dictionary.blog.categories[entry.data.category]}
+        categoryKey={entry.data.category}
       />
     ))}
     {entries.length === 0 && <p class="collection-empty">{dictionary.blog.empty}</p>}
   </div>
   <script is:inline define:vars={{ legacyRoutes }}>
-    const legacyId = new URLSearchParams(window.location.search).get("id");
+    const params = new URLSearchParams(window.location.search);
+    const legacyId = params.get("id");
     if (legacyId && legacyRoutes[legacyId]) window.location.replace(legacyRoutes[legacyId]);
+
+    const selectedCategory = params.get("category");
+    const filterLinks = [...document.querySelectorAll(".filter-row a")];
+    const activeCategory = selectedCategory && filterLinks.some((link) => (
+      new URL(link.href).searchParams.get("category") === selectedCategory
+    )) ? selectedCategory : null;
+    filterLinks.forEach((link) => {
+      const linkCategory = new URL(link.href).searchParams.get("category");
+      if (linkCategory === activeCategory) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+    document.querySelectorAll(".article-card").forEach((card) => {
+      card.hidden = Boolean(activeCategory && card.dataset.category !== activeCategory);
+    });
   </script>
 </BlogIndexLayout>

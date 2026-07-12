@@ -1,0 +1,126 @@
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+import { expect, test } from "@playwright/test";
+
+const locales = ["zh", "en", "ja", "ko", "th", "fr"] as const;
+const htmlLanguages = { zh: "zh-CN", en: "en", ja: "ja", ko: "ko", th: "th", fr: "fr" } as const;
+const articleSlug = "getting-started-with-loops";
+
+function staticTranslationLocales(slug: string) {
+  return locales.filter((locale) => {
+    const path = join(process.cwd(), "src", "content", "blog", locale, `${slug}.md`);
+    if (!existsSync(path)) return false;
+    const source = readFileSync(path, "utf8");
+    return /^translationStatus:\s*"(?:reviewed|published)"\s*$/m.test(source);
+  });
+}
+
+function articlePath(locale: (typeof locales)[number], slug: string) {
+  return locale === "zh" ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
+}
+
+function staticPublishedSources(collection: "blog" | "favorites", locale = "zh") {
+  const directory = join(process.cwd(), "src", "content", collection, locale);
+  const statusField = collection === "blog" ? "translationStatus" : "publicationStatus";
+  return readdirSync(directory)
+    .filter((name) => name.endsWith(".md"))
+    .map((name) => readFileSync(join(directory, name), "utf8"))
+    .filter((source) => new RegExp(`^${statusField}:\\s*"(?:reviewed|published)"\\s*$`, "m").test(source));
+}
+
+function staticPublishedCount(collection: "blog" | "favorites", locale = "zh") {
+  return staticPublishedSources(collection, locale).length;
+}
+
+function staticPublishedCategories(locale = "zh") {
+  return new Set(staticPublishedSources("blog", locale).map((source) => (
+    source.match(/^category:\s*"([^"]+)"\s*$/m)?.[1]
+  )).filter((category): category is string => Boolean(category)));
+}
+
+test("Blog index opens a static article with source and contents", async ({ page }) => {
+  await page.goto("/blog");
+  const expectedArticles = staticPublishedCount("blog");
+  expect(expectedArticles).toBeGreaterThan(0);
+  await expect(page.locator(".article-card")).toHaveCount(expectedArticles);
+  const first = page.locator(".article-card h2 a").first();
+  await first.click();
+  await expect(page).toHaveURL(/\/blog\/[^/?#]+\/?$/);
+  await expect(page.locator("article h1")).toHaveCount(1);
+  await expect(page.locator(".article-content")).toBeVisible();
+  await expect(page.locator(".article-meta a[href^='http']")).toHaveCount(1);
+});
+
+test("Blog category controls are localized, keyboard reachable, and preserve locale", async ({ page }) => {
+  await page.goto("/blog");
+  const filters = page.locator(".filter-row");
+  const development = filters.getByRole("link", { name: "开发" });
+  const developmentCards = page.locator('.article-card[data-category="development"]');
+  const expectedCategories = staticPublishedCategories();
+
+  expect(expectedCategories.size).toBeGreaterThan(0);
+  await expect(filters.getByRole("link")).toHaveCount(expectedCategories.size + 1);
+  const linkedCategories = await filters.getByRole("link").evaluateAll((links) => links
+    .map((link) => new URL((link as HTMLAnchorElement).href).searchParams.get("category"))
+    .filter((category): category is string => Boolean(category)));
+  expect(new Set(linkedCategories)).toEqual(expectedCategories);
+  for (const category of expectedCategories) {
+    expect(await page.locator(`.article-card[data-category="${category}"]`).count()).toBeGreaterThan(0);
+  }
+  expect(await developmentCards.count()).toBeGreaterThan(0);
+  await expect(development).toHaveAttribute("href", "/blog?category=development");
+  await development.focus();
+  await expect(development).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/blog\?category=development$/);
+  await expect(development).toHaveAttribute("aria-current", "page");
+  const visibleCategories = await page.locator(".article-card:visible").evaluateAll((cards) => (
+    cards.map((card) => card.getAttribute("data-category"))
+  ));
+  expect(visibleCategories.length).toBeGreaterThan(0);
+  expect(new Set(visibleCategories)).toEqual(new Set(["development"]));
+});
+
+test("article language menu only offers published translations", async ({ page }) => {
+  const expectedLocales = staticTranslationLocales(articleSlug);
+  expect(expectedLocales.length).toBeGreaterThan(0);
+  await page.goto(articlePath(expectedLocales[0], articleSlug));
+  await page.locator(".language-menu summary").click();
+  const translations = page.locator(".language-menu__popover a");
+
+  await expect(translations).toHaveCount(expectedLocales.length);
+  const actualLanguages = await translations.evaluateAll((links) => links.map((link) => link.getAttribute("lang")));
+  expect(new Set(actualLanguages)).toEqual(new Set(expectedLocales.map((locale) => htmlLanguages[locale])));
+  for (const locale of expectedLocales) {
+    const link = page.locator(`.language-menu__popover a[lang="${htmlLanguages[locale]}"]`);
+    await expect(link).toHaveAttribute("href", articlePath(locale, articleSlug));
+  }
+  await expect(page.locator('.language-menu__popover a[aria-current="page"]')).toHaveCount(1);
+});
+
+test("Favorites entries link to their original sources", async ({ page }) => {
+  await page.goto("/favorites");
+  const items = page.locator(".favorite-item");
+  const expectedFavorites = staticPublishedCount("favorites");
+  expect(expectedFavorites).toBeGreaterThan(0);
+  await expect(items).toHaveCount(expectedFavorites);
+
+  for (const item of await items.all()) {
+    const source = item.locator('a[href^="http"]');
+    await expect(source).toHaveCount(1);
+    await expect(source).toHaveAttribute("rel", /noopener/);
+    await expect(source).toHaveAttribute("rel", /noreferrer/);
+  }
+});
+
+test("category filters remain horizontally usable on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+  await page.goto("/blog");
+  const filter = page.locator(".filter-row");
+  await expect(filter).toBeVisible();
+  const metrics = await filter.evaluate((element) => ({ scrollWidth: element.scrollWidth, clientWidth: element.clientWidth }));
+  expect(metrics.scrollWidth).toBeGreaterThanOrEqual(metrics.clientWidth);
+  await expect(filter).toHaveCSS("display", "flex");
+  await expect(filter).toHaveCSS("overflow-x", "auto");
+  await expect(filter.getByRole("link").first()).toHaveCSS("min-height", "44px");
+});
