@@ -8,7 +8,7 @@ updatedAt: "2026-02-20"
 category: "architecture"
 sourceLocale: "en"
 sourceUrl: "https://x.com/trq212/status/2024574133011673516"
-sourceAuthor: "Claude Code Team"
+sourceAuthor: "Thariq Shihipar"
 contentType: "adaptation"
 translationStatus: "reviewed"
 ---
@@ -176,6 +176,6 @@ Claude Code a été conçu dès l'origine autour du Prompt Caching. La leçon pr
 
 ---
 
-> Adapté de l'article X de l'équipe Claude Code partagé par @trq212.
+> Adaptation structurée d'un article X de Thariq Shihipar, fondé sur les pratiques de production de l'équipe Claude Code.
 
 </div>

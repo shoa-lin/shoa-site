@@ -8,7 +8,7 @@ updatedAt: "2026-02-20"
 category: "architecture"
 sourceLocale: "en"
 sourceUrl: "https://x.com/trq212/status/2024574133011673516"
-sourceAuthor: "Claude Code Team"
+sourceAuthor: "Thariq Shihipar"
 contentType: "adaptation"
 translationStatus: "reviewed"
 ---
@@ -176,6 +176,6 @@ Claude Code was built around Prompt Caching from the beginning. The practical le
 
 ---
 
-> Adapted from the Claude Code team's X Article shared by @trq212.
+> Structured adaptation of an X Article by Thariq Shihipar, drawing on the Claude Code team's production practices.
 
 </div>
