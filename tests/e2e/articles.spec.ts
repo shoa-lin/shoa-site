@@ -141,6 +141,20 @@ for (const theme of ["light", "dark"] as const) {
     await expect(trigger).toHaveCSS("border-radius", "50%");
     await expect(trigger).toHaveCSS("width", "48px");
     await expect(trigger).toHaveCSS("height", "48px");
+    const triggerMaterial = await trigger.evaluate((element) => {
+      const style = getComputedStyle(element);
+      const alpha = style.backgroundColor.match(/\/\s*([\d.]+)\)/)?.[1]
+        ?? style.backgroundColor.match(/rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)/)?.[1];
+      return {
+        alpha: alpha ? Number(alpha) : 1,
+        backdropFilter: style.backdropFilter !== "none"
+          ? style.backdropFilter
+          : style.getPropertyValue("-webkit-backdrop-filter"),
+      };
+    });
+    expect(triggerMaterial.alpha).toBeGreaterThanOrEqual(0.44);
+    expect(triggerMaterial.alpha).toBeLessThanOrEqual(0.54);
+    expect(triggerMaterial.backdropFilter).toContain("blur(28px)");
 
     await trigger.click();
     await expect(dialog).toBeVisible();
