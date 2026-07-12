@@ -1,31 +1,84 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { spawnSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
+import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 
-const root = new URL("../", import.meta.url);
-const publicPages = ["index.html", "about.html", "blog.html", "favorites.html", "contact.html"];
+const root = fileURLToPath(new URL("../", import.meta.url));
+const legacyPaths = [
+  "index.html", "about.html", "blog.html", "favorites.html", "contact.html", "style.css", "script.js",
+  "css", "js", "blogs", "favorites/articles", "assets", "CNAME", ".nojekyll",
+  "tests/site-content.test.mjs", "scripts/migrate-legacy-content.mjs",
+];
+let buildResult;
 
-const read = (path) => readFileSync(new URL(path, root), "utf8");
+function ensureBuild() {
+  buildResult ??= spawnSync("npm", ["run", "build"], { cwd: root, encoding: "utf8" });
+  assert.equal(buildResult.status, 0, `${buildResult.stdout}\n${buildResult.stderr}`);
+}
 
-test("legacy public output has no projects page or project entry point", () => {
-  assert.equal(existsSync(new URL("projects.html", root)), false);
+function trackedSourcePaths() {
+  return execFileSync("git", ["ls-files", "-z", "--", "src", "public"], { cwd: root })
+    .toString("utf8")
+    .split("\0")
+    .filter(Boolean);
+}
 
-  for (const page of publicPages) {
-    const html = read(page);
-    assert.doesNotMatch(html, /href=["'][^"']*\/projects(?:["'/?#])/i, page);
+function walk(directory, output = []) {
+  for (const name of readdirSync(directory)) {
+    const path = join(directory, name);
+    if (statSync(path).isDirectory()) walk(path, output);
+    else output.push(path);
+  }
+  return output;
+}
+
+function readText(path) {
+  const value = readFileSync(path);
+  return value.includes(0) ? "" : value.toString("utf8");
+}
+
+test("legacy static runtime is absent from the checkout", () => {
+  const remaining = legacyPaths.filter((path) => existsSync(resolve(root, path)));
+  assert.deepEqual(remaining, []);
+});
+
+test("tracked Astro source and built output expose no projects route, entry point, or promotion", () => {
+  ensureBuild();
+  const sourcePaths = trackedSourcePaths();
+  const distPaths = walk(resolve(root, "dist"));
+  const relativePaths = [...sourcePaths, ...distPaths.map((path) => relative(root, path))];
+  const combined = [
+    ...sourcePaths.map((path) => readText(resolve(root, path))),
+    ...distPaths.map(readText),
+  ].join("\n");
+
+  assert.ok(sourcePaths.length > 0);
+  assert.ok(distPaths.length > 0);
+  assert.ok(relativePaths.every((path) => !/(^|\/)projects(?:\/|\.|$)/i.test(path)));
+  assert.doesNotMatch(combined, /(?:href|action)=["'][^"']*\/projects(?:["'/?#])/i);
+  assert.doesNotMatch(combined, /我的项目|看项目|项目是系统实验|公开工作台|Featured work|Selected projects|项目展示/);
+});
+
+test("tracked source and every built HTML page use the public Outlook address", () => {
+  ensureBuild();
+  const source = trackedSourcePaths().map((path) => readText(resolve(root, path))).join("\n");
+  const htmlFiles = walk(resolve(root, "dist")).filter((path) => path.endsWith(".html"));
+
+  assert.match(source, /email:\s*"shoa_lin@outlook\.com"/);
+  assert.doesNotMatch(source, /contact@shoa\.lin/);
+  assert.ok(htmlFiles.length > 0);
+  for (const path of htmlFiles) {
+    const html = readText(path);
+    assert.match(html, /mailto:shoa_lin@outlook\.com/, relative(root, path));
+    assert.doesNotMatch(html, /contact@shoa\.lin/, relative(root, path));
   }
 });
 
-test("visitor-facing copy does not advertise private project work", () => {
-  const combined = publicPages.map(read).join("\n");
-
-  assert.doesNotMatch(combined, /我的项目|看项目|项目是系统实验|公开工作台/);
-});
-
-test("public content checker accepts the current repository output", () => {
+test("public content checker accepts the built repository output", () => {
+  ensureBuild();
   const result = spawnSync(process.execPath, ["scripts/check-public-content.mjs"], {
     cwd: root,
     encoding: "utf8",

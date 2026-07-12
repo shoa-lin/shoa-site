@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
 
 const root = new URL("../", import.meta.url);
 const locales = ["zh", "en", "ja", "ko", "th", "fr"];
@@ -56,6 +57,81 @@ test("content config declares the complete Blog and Favorites metadata contracts
   }
   assert.match(source, /favorites/);
   assert.match(source, /visibility/);
+});
+
+test("content inventory fails closed when the configured private terms file is missing", () => {
+  const directory = mkdtempSync(join(tmpdir(), "shoa-inventory-terms-"));
+  try {
+    const output = join(directory, "audit.json");
+    const result = spawnSync(process.execPath, ["scripts/inventory-public-content.mjs"], {
+      cwd: root,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        CONTENT_AUDIT: output,
+        SHOA_PRIVATE_TERMS_FILE: join(directory, "missing-private-terms.txt"),
+      },
+    });
+
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /SHOA_PRIVATE_TERMS_FILE/);
+    assert.equal(existsSync(output), false);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("content inventory rejects an external symlink that resolves inside the repository", () => {
+  const directory = mkdtempSync(join(tmpdir(), "shoa-inventory-link-"));
+  const targetDirectory = fileURLToPath(new URL("../artifacts/inventory-path-guard/", import.meta.url));
+  try {
+    mkdirSync(targetDirectory, { recursive: true });
+    const target = join(targetDirectory, "audit.json");
+    const link = join(directory, "audit.json");
+    writeFileSync(target, "sentinel\n");
+    symlinkSync(target, link);
+    const env = { ...process.env, CONTENT_AUDIT: link };
+    delete env.SHOA_PRIVATE_TERMS_FILE;
+
+    const result = spawnSync(process.execPath, ["scripts/inventory-public-content.mjs"], {
+      cwd: root,
+      encoding: "utf8",
+      env,
+    });
+
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /outside the repository/);
+    assert.equal(readFileSync(target, "utf8"), "sentinel\n");
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+    rmSync(targetDirectory, { recursive: true, force: true });
+  }
+});
+
+test("content inventory rejects a dangling external symlink targeting the repository", () => {
+  const directory = mkdtempSync(join(tmpdir(), "shoa-inventory-dangling-link-"));
+  const targetDirectory = fileURLToPath(new URL("../artifacts/inventory-dangling-path-guard/", import.meta.url));
+  try {
+    mkdirSync(targetDirectory, { recursive: true });
+    const target = join(targetDirectory, "audit.json");
+    const link = join(directory, "audit.json");
+    symlinkSync(target, link);
+    const env = { ...process.env, CONTENT_AUDIT: link };
+    delete env.SHOA_PRIVATE_TERMS_FILE;
+
+    const result = spawnSync(process.execPath, ["scripts/inventory-public-content.mjs"], {
+      cwd: root,
+      encoding: "utf8",
+      env,
+    });
+
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /outside the repository/);
+    assert.equal(existsSync(target), false);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+    rmSync(targetDirectory, { recursive: true, force: true });
+  }
 });
 
 test("content completeness requires exactly six reviewed locale files", () => {

@@ -558,7 +558,7 @@ Expected: 每个获准公开的 Blog 和 Favorite translationKey 恰好有六个
 
 - [ ] **Step 7: 删除已被 Astro 完整替代的旧运行时**
 
-After migration and parity tests pass, delete the legacy root HTML、`style.css`、`script.js`、`css/`、`js/`、old `blogs/`、old `favorites/articles/`、old content READMEs、root `assets/`、root `CNAME` and `.nojekyll`. Migrate every still-valid assertion from `tests/site-content.test.mjs` into the new test suite before deleting that legacy test.
+After migration and parity tests pass, delete the legacy root HTML、`style.css`、`script.js`、`css/`、`js/`、old `blogs/`、old `favorites/articles/`、old content READMEs、root `assets/`、root `CNAME`、`.nojekyll` and the one-time `scripts/migrate-legacy-content.mjs` migration helper. Keep `scripts/inventory-public-content.mjs` functional against `src/content`. Migrate every still-valid assertion from `tests/site-content.test.mjs` into the new test suite before deleting that legacy test.
 
 Run:
 

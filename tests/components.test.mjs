@@ -46,11 +46,10 @@ test("global styles cover keyboard focus, reduced motion, and stable touch targe
   assert.match(css, /border-radius:\s*var\(--radius\)/);
 });
 
-test("the copied avatar is byte-for-byte unchanged", () => {
+test("the public avatar keeps the approved byte-for-byte asset", () => {
   const hash = (value) => createHash("sha256").update(value).digest("hex");
+  const profile = read("src/data/profile.ts");
 
-  assert.equal(
-    hash(readBuffer("assets/images/avatar/profile.jpg")),
-    hash(readBuffer("public/assets/avatar/profile.jpg")),
-  );
+  assert.match(profile, /avatar:\s*"\/assets\/avatar\/profile\.jpg"/);
+  assert.equal(hash(readBuffer("public/assets/avatar/profile.jpg")), "d5f166ae85da5cc22599c2427e9fd461b17f4883c05a8ff53030d72cd09781b2");
 });

@@ -1,12 +1,11 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { loadContentEntries, parseFrontmatter } from "../scripts/lib/content-files.mjs";
+import { loadContentEntries, locales } from "../scripts/lib/content-files.mjs";
+import { structureSignature } from "../scripts/lib/translate-markdown.mjs";
 
-const manifest = JSON.parse(readFileSync(new URL("../blogs/manifest.json", import.meta.url), "utf8"));
 const entries = loadContentEntries(fileURLToPath(new URL("../src/content", import.meta.url)));
-const approvedGroups = new Set([
+const approvedGroups = [
   "blog:getting-started-with-loops",
   "blog:loop-engineering",
   "blog:state-of-ai-agent-memory-2026",
@@ -16,108 +15,114 @@ const approvedGroups = new Set([
   "blog:prompt-caching-best-practices",
   "blog:pi-minimal-agent",
   "favorites:fix-your-life-in-one-day",
-]);
-const publicBlogIds = [...approvedGroups]
-  .filter((key) => key.startsWith("blog:"))
-  .map((key) => key.slice("blog:".length));
-const publicFavoriteIds = [...approvedGroups]
-  .filter((key) => key.startsWith("favorites:"))
-  .map((key) => key.slice("favorites:".length));
+];
+const expectedStructure = {
+  "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
+  "blog:loop-engineering": { headings: 9, images: 0, codeFences: 0, tables: 1, links: 19 },
+  "blog:state-of-ai-agent-memory-2026": { headings: 23, images: 3, codeFences: 0, tables: 3, links: 23 },
+  "blog:dynamic-workflows-in-claude-code": { headings: 29, images: 9, codeFences: 0, tables: 0, links: 15 },
+  "blog:harness-engineering": { headings: 14, images: 6, codeFences: 0, tables: 1, links: 12 },
+  "blog:lessons-from-building-claude-code-skills": { headings: 26, images: 11, codeFences: 0, tables: 0, links: 7 },
+  "blog:prompt-caching-best-practices": { headings: 19, images: 2, codeFences: 0, tables: 0, links: 0 },
+  "blog:pi-minimal-agent": { headings: 10, images: 2, codeFences: 0, tables: 0, links: 0 },
+  "favorites:fix-your-life-in-one-day": { headings: 0, images: 0, codeFences: 0, tables: 0, links: 0 },
+};
+const loopsImages = [
+  { headingIndex: -1, target: "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6903d229e73ca2d0d73d78f7_682ac293884c9d4ee4ebe2355a2f6c4ecfdd9c1b-1000x1000.svg" },
+  { headingIndex: 1, target: "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a43eb603762e725a739d98c_8ace2295.png" },
+  { headingIndex: 2, target: "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a43eb603762e725a739d98f_c6fa9ae5.png" },
+  { headingIndex: 4, target: "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a43eb603762e725a739d989_eb9e496a.png" },
+];
 
-function read(path) {
-  return readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+function groupKey(entry) {
+  return `${entry.collection}:${entry.data.translationKey}`;
 }
 
-function structure(content) {
+function publicationStatus(entry) {
+  return entry.collection === "blog" ? entry.data.translationStatus : entry.data.publicationStatus;
+}
+
+function structureCounts(signature) {
   return {
-    images: (content.match(/!\[[^\]]*\]\([^)]+\)/g) ?? []).length,
-    codeFences: (content.match(/^```/gm) ?? []).length,
-    tables: (content.match(/^\|(?:\s*:?-{3,}:?\s*\|)+$/gm) ?? []).length,
+    headings: signature.headings.length,
+    images: signature.images.length,
+    codeFences: signature.codeLanguages.length,
+    tables: signature.tableCount,
+    links: signature.externalLinks.length,
   };
 }
 
-function headingLevels(content) {
-  const levels = [];
-  let inFence = false;
-  for (const line of content.split(/\r?\n/)) {
-    if (/^```/.test(line)) {
-      inFence = !inFence;
-      continue;
-    }
-    if (inFence) continue;
-    const match = line.match(/^(#{1,6})\s+/);
-    if (match) levels.push(match[1].length);
-  }
-  return levels;
-}
+test("content root contains exactly nine approved groups with six reviewed locales", () => {
+  const groups = Map.groupBy(entries, groupKey);
 
-function legacyBody(content) {
-  let body = content;
-  if (body.startsWith("---\n")) body = parseFrontmatter(body).body;
-  body = body.replace(/<style>[\s\S]*?<\/style>/gi, "").trim();
-  body = body.replaceAll("\\`\\`\\`", "```");
-  return body;
-}
-
-test("content root contains only approved public groups", () => {
-  const actualGroups = new Set(entries.map((entry) => `${entry.collection}:${entry.data.translationKey}`));
-  const chineseGroups = new Set(entries
-    .filter((entry) => entry.data.locale === "zh")
-    .map((entry) => `${entry.collection}:${entry.data.translationKey}`));
-
-  assert.equal(approvedGroups.size, 9);
-  assert.deepEqual([...actualGroups].sort(), [...approvedGroups].sort());
-  assert.deepEqual([...chineseGroups].sort(), [...approvedGroups].sort());
-  assert.ok(entries.every((entry) => approvedGroups.has(`${entry.collection}:${entry.data.translationKey}`)));
+  assert.equal(approvedGroups.length, 9);
+  assert.equal(entries.length, approvedGroups.length * locales.length);
+  assert.deepEqual([...groups.keys()].sort(), [...approvedGroups].sort());
 
   for (const key of approvedGroups) {
-    const group = entries.filter((entry) => `${entry.collection}:${entry.data.translationKey}` === key);
-    const chineseEntry = group.find((entry) => entry.data.locale === "zh");
-    const sourceLocales = new Set(group.map((entry) => entry.data.sourceLocale));
-    assert.ok(chineseEntry, `${key}: missing zh entry`);
-    assert.equal(sourceLocales.size, 1, `${key}: inconsistent source locale metadata`);
-    const [sourceLocale] = sourceLocales;
-    assert.ok(group.some((entry) => entry.data.locale === sourceLocale), `${key}: missing source locale entry`);
+    const group = groups.get(key);
+    assert.ok(group, `${key}: missing group`);
+    assert.equal(group.length, locales.length, `${key}: expected six files`);
+    assert.deepEqual(
+      group.map((entry) => entry.data.locale).sort(),
+      [...locales].sort(),
+      `${key}: locale set`,
+    );
+    assert.ok(group.every((entry) => entry.pathLocale === entry.data.locale), `${key}: path locale mismatch`);
+    assert.ok(group.every((entry) => publicationStatus(entry) === "reviewed"), `${key}: all locales must be reviewed`);
   }
 });
 
-test("every approved legacy manifest entry has a normalized Chinese content file", () => {
-  const publicManifest = manifest.filter((item) => publicBlogIds.includes(item.id));
-  assert.deepEqual(publicManifest.map((item) => item.id), publicBlogIds);
+test("approved locale groups preserve canonical metadata and full markdown structure", () => {
+  const groups = Map.groupBy(entries, groupKey);
 
-  for (const item of publicManifest) {
-    const target = `src/content/blog/zh/${item.id}.md`;
-    assert.equal(existsSync(new URL(`../${target}`, import.meta.url)), true, target);
+  for (const key of approvedGroups) {
+    const group = groups.get(key);
+    const sourceLocales = new Set(group.map((entry) => entry.data.sourceLocale));
+    const sourceUrls = new Set(group.map((entry) => entry.data.sourceUrl));
+    assert.deepEqual([...sourceLocales], ["en"], `${key}: source locale`);
+    assert.equal(sourceUrls.size, 1, `${key}: source URL parity`);
+    assert.match([...sourceUrls][0], /^https:\/\//, `${key}: public source URL`);
 
-    const migrated = parseFrontmatter(read(target), target);
-    const legacy = legacyBody(read(item.filename));
+    const source = group.find((entry) => entry.data.locale === "en");
+    const chinese = group.find((entry) => entry.data.locale === "zh");
+    assert.ok(source, `${key}: missing source entry`);
+    assert.ok(chinese, `${key}: missing Chinese entry`);
 
-    assert.equal(migrated.data.translationKey, item.id);
-    assert.equal(migrated.data.locale, "zh");
-    assert.match(migrated.data.sourceUrl, /^https:\/\//);
-    assert.doesNotMatch(migrated.body, /<style>/i);
-    assert.equal(headingLevels(migrated.body).includes(1), false, `${item.id} must not contain a body h1`);
-    const expectedStructure = structure(legacy);
-    if (item.id === "harness-engineering") expectedStructure.images = 6;
-    assert.deepEqual(structure(migrated.body), expectedStructure, `${item.id} structure`);
-  }
+    const sourceSignature = structureSignature(source.body);
+    assert.deepEqual(structureCounts(sourceSignature), expectedStructure[key], `${key}: approved structure counts`);
+    assert.equal(structureSignature(chinese.body).headings.includes(1), false, `${key}: Chinese body must not contain h1`);
 
-  for (const id of publicBlogIds) {
-    for (const locale of ["zh", "en"]) {
-      const target = `src/content/blog/${locale}/${id}.md`;
-      assert.equal(existsSync(new URL(`../${target}`, import.meta.url)), true, target);
+    for (const entry of group) {
+      assert.equal(groupKey(entry), key, `${entry.relativePath}: translation key`);
+      assert.deepEqual(structureSignature(entry.body), sourceSignature, `${entry.relativePath}: structure parity`);
     }
   }
 });
 
-test("Chinese favorites are summaries with canonical public source links", () => {
-  for (const slug of publicFavoriteIds) {
-    const path = `src/content/favorites/zh/${slug}.md`;
-    const entry = parseFrontmatter(read(path), path);
-    assert.equal(entry.data.locale, "zh");
-    assert.equal(entry.data.visibility, "public");
-    assert.equal(entry.data.publicationStatus, "reviewed");
-    assert.match(entry.data.sourceUrl, /^https:\/\//);
-    assert.ok(entry.body.length < 1200, `${slug} must remain a concise summary`);
+test("the Loops guide keeps its approved metadata, loop markers, and image placement", () => {
+  const loops = entries.find((entry) => (
+    groupKey(entry) === "blog:getting-started-with-loops" && entry.data.locale === "zh"
+  ));
+
+  assert.ok(loops);
+  assert.equal(loops.data.title, "Claude Code Loops 入门：从手动回合到主动循环");
+  assert.equal(loops.data.category, "development");
+  assert.equal(loops.data.sourceUrl, "https://claude.com/blog/getting-started-with-loops");
+  assert.deepEqual(structureSignature(loops.body).images, loopsImages);
+  for (const marker of ["Turn-based loop", "Goal-based loop", "Time-based loop", "Proactive loop"]) {
+    assert.match(loops.body, new RegExp(marker));
   }
+  assert.match(loops.body, /### Turn-based loop[\s\S]*6a43eb603762e725a739d98c_8ace2295\.png/);
+  assert.match(loops.body, /### Goal-based loop[\s\S]*6a43eb603762e725a739d98f_c6fa9ae5\.png/);
+  assert.match(loops.body, /### Proactive loop[\s\S]*6a43eb603762e725a739d989_eb9e496a\.png/);
+});
+
+test("the approved Favorite remains a concise public editorial summary", () => {
+  const favorite = entries.find((entry) => groupKey(entry) === "favorites:fix-your-life-in-one-day" && entry.data.locale === "zh");
+
+  assert.ok(favorite);
+  assert.equal(favorite.data.visibility, "public");
+  assert.equal(favorite.data.publicationStatus, "reviewed");
+  assert.ok(favorite.body.length < 1200);
 });

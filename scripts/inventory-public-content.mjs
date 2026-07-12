@@ -1,19 +1,33 @@
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, lstatSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
+import { basename, dirname, isAbsolute, relative, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+import { loadContentEntries } from "./lib/content-files.mjs";
 
-const outputPath = process.env.CONTENT_AUDIT;
-if (!outputPath) throw new Error("CONTENT_AUDIT must point to a file outside the repository");
-
-const manifest = JSON.parse(readFileSync(new URL("../blogs/manifest.json", import.meta.url), "utf8"));
-const privateTerms = process.env.SHOA_PRIVATE_TERMS_FILE && existsSync(process.env.SHOA_PRIVATE_TERMS_FILE)
-  ? readFileSync(process.env.SHOA_PRIVATE_TERMS_FILE, "utf8").split(/\r?\n/).map((term) => term.trim().toLowerCase()).filter(Boolean)
-  : [];
-
-function sourceUrl(content) {
-  const preferred = content.match(/(?:原文|来源|Source|Original)[^\n]*?\((https?:\/\/[^)]+)\)/i);
-  if (preferred) return preferred[1];
-  return content.match(/(?<!!)\[[^\]]+\]\((https?:\/\/[^)]+)\)/)?.[1] ?? null;
+const root = fileURLToPath(new URL("../", import.meta.url));
+const requestedOutput = process.env.CONTENT_AUDIT && resolve(process.env.CONTENT_AUDIT);
+if (!requestedOutput) throw new Error("CONTENT_AUDIT must point to a file outside the repository");
+const outputEntry = lstatSync(requestedOutput, { throwIfNoEntry: false });
+let outputPath;
+try {
+  outputPath = outputEntry
+    ? realpathSync(requestedOutput)
+    : resolve(realpathSync(dirname(requestedOutput)), basename(requestedOutput));
+} catch {
+  throw new Error("CONTENT_AUDIT must point to a file outside the repository");
 }
+const outputRelative = relative(realpathSync(root), outputPath);
+if (outputRelative === "" || (outputRelative !== ".." && !outputRelative.startsWith(`..${sep}`) && !isAbsolute(outputRelative))) {
+  throw new Error("CONTENT_AUDIT must point to a file outside the repository");
+}
+
+const privateTermsPath = process.env.SHOA_PRIVATE_TERMS_FILE;
+if (privateTermsPath && !existsSync(privateTermsPath)) {
+  throw new Error("SHOA_PRIVATE_TERMS_FILE does not exist");
+}
+const privateTerms = privateTermsPath
+  ? readFileSync(privateTermsPath, "utf8").split(/\r?\n/).map((term) => term.trim().toLowerCase()).filter(Boolean)
+  : [];
 
 async function reachable(url) {
   if (!url) return "missing";
@@ -25,27 +39,33 @@ async function reachable(url) {
   }
 }
 
-const items = [];
-for (const item of manifest) {
-  const content = readFileSync(new URL(`../${item.filename}`, import.meta.url), "utf8");
-  const normalized = `${item.filename}\n${content}`.toLowerCase();
+const groups = Map.groupBy(
+  loadContentEntries(resolve(root, "src/content")),
+  (entry) => `${entry.collection}:${entry.data.translationKey}`,
+);
+const items = await Promise.all([...groups.entries()].map(async ([key, entries]) => {
+  const source = entries.find((entry) => entry.data.locale === entry.data.sourceLocale) ?? entries[0];
+  const normalized = entries
+    .map((entry) => `${entry.relativePath}\n${JSON.stringify(entry.data)}\n${entry.body}`)
+    .join("\n")
+    .toLowerCase();
   const isPrivate = privateTerms.some((term) => normalized.includes(term));
   if (isPrivate) {
-    items.push({ id: createHash("sha256").update(item.id).digest("hex").slice(0, 12), decision: "quarantine" });
-    continue;
+    return { id: createHash("sha256").update(key).digest("hex").slice(0, 12), decision: "quarantine" };
   }
-  const canonical = sourceUrl(content);
-  items.push({
-    id: item.id,
-    file: item.filename,
-    sourceUrl: canonical,
-    sourceLocale: "zh",
-    contentType: canonical ? "adaptation" : "original",
-    imageCount: (content.match(/!\[[^\]]*\]\([^)]+\)/g) ?? []).length,
-    reachability: await reachable(canonical),
-    decision: canonical ? "adapt" : "publish",
-  });
-}
+  const contentType = source.data.contentType ?? "adaptation";
+  return {
+    id: source.data.translationKey,
+    collection: source.collection,
+    file: source.relativePath,
+    sourceUrl: source.data.sourceUrl,
+    sourceLocale: source.data.sourceLocale,
+    contentType,
+    imageCount: (source.body.match(/!\[[^\]]*\]\([^)]+\)/g) ?? []).length,
+    reachability: await reachable(source.data.sourceUrl),
+    decision: contentType === "original" ? "publish" : "adapt",
+  };
+}));
 
 const report = {
   generatedAt: new Date().toISOString(),
