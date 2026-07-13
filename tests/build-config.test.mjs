@@ -29,6 +29,7 @@ test("Pages workflow verifies and deploys only main to the configured site", () 
   assert.match(workflow, /workflow_dispatch:/);
   assert.match(workflow, /push:\s*\n\s*branches:\s*\[main\]/);
   assert.match(workflow, /npm ci/);
+  assert.match(workflow, /npx playwright install --with-deps chromium/);
   assert.match(workflow, /npm run verify/);
   assert.match(workflow, /actions\/upload-pages-artifact/);
   assert.match(workflow, /actions\/deploy-pages/);
