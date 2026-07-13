@@ -25,7 +25,7 @@
 .article-header h1 {
   margin: 0;
   font-size: clamp(2.35rem, 6vw, 4.8rem);
-  line-height: 1.06;
+  line-height: var(--line-display);
   letter-spacing: 0;
   overflow-wrap: anywhere;
 }
@@ -35,7 +35,7 @@
   margin: 1.25rem 0 0;
   color: var(--text-secondary);
   font-size: 1.08rem;
-  line-height: 1.75;
+  line-height: var(--line-prose);
 }
 
 .article-meta {
@@ -127,20 +127,20 @@
 }
 
 .article-content {
-  width: min(100%, 720px);
+  width: min(100%, var(--article-measure));
   margin: 0 auto;
 }
 
 .article-content :where(p, li) {
   color: var(--text-secondary);
-  line-height: 1.82;
+  line-height: var(--line-prose);
   overflow-wrap: anywhere;
 }
 
 .article-content :where(h2, h3, h4) {
   scroll-margin-top: 96px;
   color: var(--text);
-  line-height: 1.28;
+  line-height: var(--line-section-heading);
   letter-spacing: 0;
 }
 
@@ -198,6 +198,10 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--code-bg);
+}
+
+.article-content :where(pre, code, kbd, samp) {
+  font-family: var(--font-mono), var(--font-sans);
 }
 
 @media (max-width: 900px) {

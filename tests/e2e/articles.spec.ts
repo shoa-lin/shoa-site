@@ -98,6 +98,58 @@ test("article language menu only offers published translations", async ({ page }
   await expect(page.locator('.language-menu__popover a[aria-current="page"]')).toHaveCount(1);
 });
 
+test("split Agent pattern articles offer all locales and keep structural diagrams readable on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto("/blog/ai-agent-patterns");
+  await page.locator(".language-menu summary").click();
+
+  const translations = page.locator(".language-menu__popover a");
+  await expect(translations).toHaveCount(locales.length);
+  for (const locale of locales) {
+    await expect(page.locator(`.language-menu__popover a[lang="${htmlLanguages[locale]}"]`))
+      .toHaveAttribute("href", articlePath(locale, "ai-agent-patterns"));
+  }
+
+  const labels = [
+    "协调 Agent",
+    "共享黑板",
+    "输入护栏",
+    "搜索请求",
+    "执行任务",
+    "生产级工程层",
+  ];
+
+  for (const label of labels) {
+    const diagram = page.locator(".article-content pre").filter({ hasText: label });
+    await expect(diagram, label).toHaveCount(1);
+    await expect(diagram, label).toHaveCSS("overflow-x", "auto");
+  }
+
+  const blackboard = page.locator(".article-content pre").filter({ hasText: "共享黑板" });
+  const width = await blackboard.evaluate((element) => ({ clientWidth: element.clientWidth, scrollWidth: element.scrollWidth }));
+  expect(width.scrollWidth).toBeGreaterThan(width.clientWidth);
+
+  for (const locale of locales) {
+    await page.goto(articlePath(locale, "ai-agent-patterns"));
+    const overview = page.locator(".article-content pre").nth(5);
+    await expect(overview, locale).toHaveCount(1);
+    const metrics = await overview.evaluate((element) => ({
+      clientWidth: element.clientWidth,
+      scrollWidth: element.scrollWidth,
+    }));
+    expect(metrics.scrollWidth, `${locale}: pattern overview must not require horizontal scrolling`).toBeLessThanOrEqual(metrics.clientWidth);
+  }
+
+  await page.goto("/blog/ai-agent-engineering-patterns");
+  const stateFlow = page.locator(".article-content pre").filter({ hasText: "[PLANNING]" });
+  await expect(stateFlow).toHaveCount(1);
+  const stateMetrics = await stateFlow.evaluate((element) => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth,
+  }));
+  expect(stateMetrics.scrollWidth).toBeLessThanOrEqual(stateMetrics.clientWidth);
+});
+
 test("Favorites entries link to their original sources", async ({ page }) => {
   await page.goto("/favorites");
   const items = page.locator(".favorite-item");

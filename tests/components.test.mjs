@@ -46,6 +46,44 @@ test("global styles cover keyboard focus, reduced motion, and stable touch targe
   assert.match(css, /border-radius:\s*var\(--radius\)/);
 });
 
+test("global typography uses self-hosted locale font families", () => {
+  const fontPath = new URL("../src/styles/fonts.css", import.meta.url);
+  assert.equal(existsSync(fontPath), true, "font stylesheet exists");
+
+  const fonts = read("src/styles/fonts.css");
+  const global = read("src/styles/global.css");
+  const pages = read("src/styles/pages.css");
+  const article = read("src/styles/article.css");
+
+  for (const family of [
+    "noto-sans",
+    "noto-sans-sc",
+    "noto-sans-jp",
+    "noto-sans-kr",
+    "noto-sans-thai-looped",
+    "jetbrains-mono",
+  ]) {
+    assert.match(fonts, new RegExp(`@fontsource-variable/${family}/wght\\.css`));
+  }
+
+  assert.match(global, /@import "\.\/fonts\.css"/);
+  assert.match(global, /html:lang\(zh-CN\).*Noto Sans SC Variable/s);
+  assert.match(global, /html:lang\(ja\).*Noto Sans JP Variable/s);
+  assert.match(global, /html:lang\(ko\).*Noto Sans KR Variable/s);
+  assert.match(global, /html:lang\(th\).*Noto Sans Thai Looped Variable/s);
+  assert.match(global, /font-synthesis:\s*none/);
+  assert.doesNotMatch(fonts, /https?:\/\//);
+  assert.match(pages, /line-height:\s*var\(--line-display\)/);
+  assert.match(pages, /line-height:\s*var\(--line-prose\)/);
+  assert.match(article, /line-height:\s*var\(--line-display\)/);
+  assert.match(article, /line-height:\s*var\(--line-prose\)/);
+
+  const typographyCss = ["src/styles/components.css", "src/styles/pages.css"]
+    .map(read)
+    .join("\n");
+  assert.doesNotMatch(typographyCss, /font-weight:\s*(?:620|650|760)/);
+});
+
 test("the public avatar keeps the approved byte-for-byte asset", () => {
   const hash = (value) => createHash("sha256").update(value).digest("hex");
   const profile = read("src/data/profile.ts");
@@ -70,4 +108,11 @@ test("mobile article contents use an accessible floating dialog", () => {
   assert.match(component, /tocOpen/);
   assert.match(component, /tocClose/);
   assert.doesNotMatch(component, /font-awesome|cdnjs|cdn\.jsdelivr/i);
+});
+
+test("visual capture waits for fonts and images before taking review screenshots", () => {
+  const capture = read("scripts/capture-review-screenshots.mjs");
+
+  assert.match(capture, /document\.fonts\.ready/);
+  assert.match(capture, /image\.decode\(\)/);
 });

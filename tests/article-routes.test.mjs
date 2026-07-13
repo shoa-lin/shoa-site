@@ -16,6 +16,8 @@ const approvedGroups = new Set([
   "blog:lessons-from-building-claude-code-skills",
   "blog:prompt-caching-best-practices",
   "blog:pi-minimal-agent",
+  "blog:ai-agent-patterns",
+  "blog:ai-agent-engineering-patterns",
   "favorites:fix-your-life-in-one-day",
 ]);
 const approvedBlogIds = new Set([...approvedGroups]
@@ -25,6 +27,9 @@ const publicChineseArticles = entries
   .filter((entry) => entry.collection === "blog" && entry.data.locale === "zh" && entry.data.translationStatus !== "draft");
 const publicChineseFavorites = entries
   .filter((entry) => entry.collection === "favorites" && entry.data.locale === "zh" && entry.data.publicationStatus !== "draft");
+const publishedEntries = entries.filter((entry) => (
+  entry.collection === "blog" ? entry.data.translationStatus !== "draft" : entry.data.publicationStatus !== "draft"
+));
 
 function builtBlogSlugs(locale) {
   const directory = new URL(locale === "zh" ? "../dist/blog/" : `../dist/${locale}/blog/`, import.meta.url);
@@ -51,7 +56,7 @@ test("approved Chinese articles build as static canonical pages", () => {
   }
 
   assert.deepEqual(
-    [...new Set(entries.map((entry) => `${entry.collection}:${entry.data.translationKey}`))].sort(),
+    [...new Set(publishedEntries.map((entry) => `${entry.collection}:${entry.data.translationKey}`))].sort(),
     [...approvedGroups].sort(),
   );
 

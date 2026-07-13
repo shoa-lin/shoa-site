@@ -10,7 +10,13 @@
   --border: #dfe2e8;
   --accent: #175cd3;
   --radius: 8px;
-  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --line-ui: 1.45;
+  --line-prose: 1.72;
+  --line-display: 1.1;
+  --line-section-heading: 1.24;
+  --article-measure: 68ch;
   --shadow: 0 14px 36px rgba(24, 26, 31, 0.1);
   --shadow-strong: -18px 0 50px rgba(24, 26, 31, 0.18);
   --code-bg: #eef1f5;

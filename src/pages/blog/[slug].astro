@@ -3,7 +3,9 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import ArticlePage from "../../components/pages/ArticlePage.astro";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("blog", ({ data }) => data.locale === "zh" && data.translationStatus !== "draft");
+  const entries = await getCollection("blog", ({ data }) => (
+    data.locale === "zh" && (data.translationStatus !== "draft" || import.meta.env.DEV)
+  ));
   return entries.map((entry) => ({ params: { slug: entry.data.translationKey }, props: { entry } }));
 }
 

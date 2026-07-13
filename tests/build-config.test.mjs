@@ -23,11 +23,14 @@ test("Astro config uses static output and the existing public domain", () => {
   assert.match(config, /sitemap\(\)/);
 });
 
-test("Pages workflow builds safely without automatic production deployment", () => {
+test("Pages workflow verifies and deploys only main to the configured site", () => {
   const workflow = read(".github/workflows/deploy-pages.yml");
 
   assert.match(workflow, /workflow_dispatch:/);
+  assert.match(workflow, /push:\s*\n\s*branches:\s*\[main\]/);
   assert.match(workflow, /npm ci/);
   assert.match(workflow, /npm run verify/);
-  assert.doesNotMatch(workflow, /actions\/deploy-pages/);
+  assert.match(workflow, /actions\/upload-pages-artifact/);
+  assert.match(workflow, /actions\/deploy-pages/);
+  assert.match(workflow, /needs:\s*build/);
 });

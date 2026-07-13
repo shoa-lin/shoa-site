@@ -43,7 +43,7 @@
   justify-self: start;
   color: var(--text);
   font-size: 1rem;
-  font-weight: 760;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -61,7 +61,7 @@
   align-items: center;
   color: var(--muted);
   font-size: 0.9rem;
-  font-weight: 620;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -131,7 +131,7 @@ html[data-theme="dark"] .theme-toggle__light {
   border-radius: var(--radius);
   color: var(--muted);
   font-size: 0.82rem;
-  font-weight: 650;
+  font-weight: 600;
   cursor: pointer;
   list-style: none;
 }
@@ -212,7 +212,7 @@ html[data-theme="dark"] .theme-toggle__light {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 760;
+  font-weight: 700;
 }
 
 .mobile-nav__links {
@@ -228,7 +228,7 @@ html[data-theme="dark"] .theme-toggle__light {
   border-bottom: 1px solid var(--border);
   color: var(--muted);
   font-size: 1rem;
-  font-weight: 650;
+  font-weight: 600;
   text-decoration: none;
 }
 

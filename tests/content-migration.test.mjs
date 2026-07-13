@@ -14,6 +14,8 @@ const approvedGroups = [
   "blog:lessons-from-building-claude-code-skills",
   "blog:prompt-caching-best-practices",
   "blog:pi-minimal-agent",
+  "blog:ai-agent-patterns",
+  "blog:ai-agent-engineering-patterns",
   "favorites:fix-your-life-in-one-day",
 ];
 const expectedStructure = {
@@ -25,6 +27,8 @@ const expectedStructure = {
   "blog:lessons-from-building-claude-code-skills": { headings: 26, images: 11, codeFences: 0, tables: 0, links: 7 },
   "blog:prompt-caching-best-practices": { headings: 19, images: 2, codeFences: 0, tables: 0, links: 0 },
   "blog:pi-minimal-agent": { headings: 10, images: 2, codeFences: 0, tables: 0, links: 0 },
+  "blog:ai-agent-patterns": { headings: 25, images: 0, codeFences: 12, tables: 5, links: 0 },
+  "blog:ai-agent-engineering-patterns": { headings: 21, images: 0, codeFences: 24, tables: 2, links: 4 },
   "favorites:fix-your-life-in-one-day": { headings: 0, images: 0, codeFences: 0, tables: 0, links: 0 },
 };
 const loopsImages = [
@@ -42,6 +46,8 @@ function publicationStatus(entry) {
   return entry.collection === "blog" ? entry.data.translationStatus : entry.data.publicationStatus;
 }
 
+const publishedEntries = entries.filter((entry) => publicationStatus(entry) !== "draft");
+
 function structureCounts(signature) {
   return {
     headings: signature.headings.length,
@@ -52,11 +58,11 @@ function structureCounts(signature) {
   };
 }
 
-test("content root contains exactly nine approved groups with six reviewed locales", () => {
-  const groups = Map.groupBy(entries, groupKey);
+test("content root contains exactly eleven approved groups with six reviewed locales", () => {
+  const groups = Map.groupBy(publishedEntries, groupKey);
 
-  assert.equal(approvedGroups.length, 9);
-  assert.equal(entries.length, approvedGroups.length * locales.length);
+  assert.equal(approvedGroups.length, 11);
+  assert.equal(publishedEntries.length, approvedGroups.length * locales.length);
   assert.deepEqual([...groups.keys()].sort(), [...approvedGroups].sort());
 
   for (const key of approvedGroups) {
@@ -74,17 +80,18 @@ test("content root contains exactly nine approved groups with six reviewed local
 });
 
 test("approved locale groups preserve canonical metadata and full markdown structure", () => {
-  const groups = Map.groupBy(entries, groupKey);
+  const groups = Map.groupBy(publishedEntries, groupKey);
 
   for (const key of approvedGroups) {
     const group = groups.get(key);
     const sourceLocales = new Set(group.map((entry) => entry.data.sourceLocale));
     const sourceUrls = new Set(group.map((entry) => entry.data.sourceUrl));
-    assert.deepEqual([...sourceLocales], ["en"], `${key}: source locale`);
+    assert.equal(sourceLocales.size, 1, `${key}: source locale consistency`);
+    const [sourceLocale] = sourceLocales;
     assert.equal(sourceUrls.size, 1, `${key}: source URL parity`);
     assert.match([...sourceUrls][0], /^https:\/\//, `${key}: public source URL`);
 
-    const source = group.find((entry) => entry.data.locale === "en");
+    const source = group.find((entry) => entry.data.locale === sourceLocale);
     const chinese = group.find((entry) => entry.data.locale === "zh");
     assert.ok(source, `${key}: missing source entry`);
     assert.ok(chinese, `${key}: missing Chinese entry`);

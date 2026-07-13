@@ -39,6 +39,9 @@ const longestPages = Object.fromEntries(locales.map((locale) => [locale, longest
 async function gotoSuccessful(page: Page, path: string) {
   const response = await page.goto(path, { waitUntil: "domcontentloaded" });
   expect(response?.ok(), `${path} returned HTTP ${response?.status() ?? "no response"}`).toBe(true);
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
 }
 
 async function collectPublishedArticlePaths(page: Page, locale: Locale) {
@@ -149,6 +152,32 @@ async function expectLayoutFits(page: Page, label: string) {
   expect(layout.interactiveOverlaps, `${label}: overlapping interactive controls`).toEqual([]);
 }
 
+async function expectTypographyFits(page: Page, label: string) {
+  const clippedText = await page.evaluate(() => {
+    const selectors = [
+      ".home-hero__copy h1", ".page-intro h1", ".article-header h1", ".article-card h2",
+      ".article-content h2", ".article-content h3", ".article-content p",
+    ].join(",");
+    const describe = (element: Element) => `${element.tagName.toLowerCase()}.${[...element.classList].join(".")}`;
+
+    return [...document.querySelectorAll(selectors)]
+      .filter((element) => {
+        const style = getComputedStyle(element);
+        const rect = element.getBoundingClientRect();
+        return style.display !== "none"
+          && style.visibility !== "hidden"
+          && ["hidden", "clip"].includes(style.overflowY)
+          && rect.width > 0
+          && rect.height > 0;
+      })
+      .flatMap((element) => element.scrollHeight > element.clientHeight + 2
+        ? [`${describe(element)}: ${element.clientHeight}/${element.scrollHeight}`]
+        : []);
+  });
+
+  expect(clippedText, `${label}: vertically clipped typography`).toEqual([]);
+}
+
 for (const width of widths) {
   for (const theme of themes) {
     test(`${width}px ${theme} core page matrix fits all locales`, async ({ page }) => {
@@ -161,6 +190,7 @@ for (const width of widths) {
           await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
           await expect(page.locator("h1")).toHaveCount(1);
           await expectLayoutFits(page, `${locale}/${corePage.name}/${theme}/${width}`);
+          await expectTypographyFits(page, `${locale}/${corePage.name}/${theme}/${width}`);
         }
       }
     });
@@ -177,6 +207,7 @@ for (const theme of themes) {
         await gotoSuccessful(page, longest.path);
         await expect(page.locator("h1")).toHaveText(longest.title);
         await expectLayoutFits(page, `${locale}/${longest.name}/longest-page/${theme}/${width}`);
+        await expectTypographyFits(page, `${locale}/${longest.name}/longest-page/${theme}/${width}`);
       }
     }
   });
@@ -256,6 +287,7 @@ for (const locale of locales) {
           await gotoSuccessful(page, articlePath);
           await expect(page.locator(".article-header h1")).toHaveCount(1);
           await expectLayoutFits(page, `${locale}/${articlePath}/${theme}/${width}`);
+          await expectTypographyFits(page, `${locale}/${articlePath}/${theme}/${width}`);
         }
       }
     });

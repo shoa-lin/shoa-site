@@ -29,6 +29,7 @@ const jsonLd = {
 const availableLocales = (await getCollection("blog", ({ data }) => (
   data.translationKey === entry.data.translationKey && data.translationStatus !== "draft"
 ))).map((translation) => translation.data.locale);
+if (entry.data.translationStatus === "draft") availableLocales.push(locale);
 ---
 
 <ArticleLayout

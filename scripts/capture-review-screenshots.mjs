@@ -32,6 +32,10 @@ async function gotoSuccessful(page, path) {
   if (!response?.ok()) {
     throw new Error(`${path} returned HTTP ${response?.status() ?? "no response"}`);
   }
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await Promise.all([...document.images].map((image) => image.decode().catch(() => undefined)));
+  });
 }
 
 async function discoverArticlePath(page, locale, paths) {
