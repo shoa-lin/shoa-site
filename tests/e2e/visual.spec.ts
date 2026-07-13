@@ -218,6 +218,30 @@ for (const width of [320, 390] as const) {
   });
 }
 
+for (const theme of themes) {
+  test(`mobile header tool hovers share the same surface treatment in ${theme} theme`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript((value) => localStorage.setItem("shoa-theme", value), theme);
+    await gotoSuccessful(page, "/about");
+
+    const controls = [
+      page.locator(".language-menu summary"),
+      page.locator("[data-theme-toggle]"),
+      page.locator("[data-mobile-nav-open]"),
+    ];
+    const hoverStyles = [];
+    for (const control of controls) {
+      await control.hover();
+      hoverStyles.push(await control.evaluate((element) => {
+        const style = getComputedStyle(element);
+        return { backgroundColor: style.backgroundColor, borderColor: style.borderColor };
+      }));
+    }
+
+    expect(hoverStyles).toEqual([hoverStyles[0], hoverStyles[0], hoverStyles[0]]);
+  });
+}
+
 for (const locale of locales) {
   for (const theme of themes) {
     test(`${locale} published articles fit every width in ${theme} theme`, async ({ page }) => {
