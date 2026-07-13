@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
@@ -21,6 +21,10 @@ test("Astro config uses static output and the existing public domain", () => {
   assert.match(config, /output:\s*["']static["']/);
   assert.match(config, /site:\s*["']https:\/\/www\.bydziwen\.top["']/);
   assert.match(config, /sitemap\(\)/);
+});
+
+test("Pages artifact disables Jekyll processing for Astro routes", () => {
+  assert.equal(existsSync(new URL("../public/.nojekyll", import.meta.url)), true);
 });
 
 test("Pages workflow verifies and deploys only main to the configured site", () => {
