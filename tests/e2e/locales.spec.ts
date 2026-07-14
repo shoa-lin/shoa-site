@@ -39,4 +39,31 @@ test("language menu switches locale while preserving the current page", async ({
   await expect(page).toHaveURL(/\/en\/about\/?$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator('.language-menu__popover a[lang="en"]')).toHaveAttribute("aria-current", "page");
+  await expect.poll(() => page.evaluate(() => localStorage.getItem("shoa-locale"))).toBe("en");
+});
+
+test("home uses a supported browser language when no manual preference exists", async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.removeItem("shoa-locale");
+    Object.defineProperty(navigator, "languages", { configurable: true, value: ["th-TH", "en-US"] });
+  });
+
+  await page.goto("/");
+
+  await expect(page).toHaveURL(/\/th\/?$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "th");
+});
+
+test("saved language preference wins on home without redirecting a direct localized URL", async ({ page }) => {
+  await page.goto("/about");
+  await page.locator(".language-menu summary").click();
+  await page.locator('.language-menu__popover a[lang="fr"]').click();
+  await expect(page).toHaveURL(/\/fr\/about\/?$/);
+
+  await page.goto("/");
+  await expect(page).toHaveURL(/\/fr\/?$/);
+
+  await page.goto("/ja/");
+  await expect(page).toHaveURL(/\/ja\/?$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
 });

@@ -63,6 +63,25 @@ const seo = buildSeo(locale, path, resolvedTitle, resolvedDescription);
           : systemDark ? "dark" : "light";
       })();
     </script>
+    <script>
+      import { isPreferredLocale, localePreferenceKey, resolvePreferredLocale } from "../lib/locale-preference";
+
+      if (window.location.pathname === "/") {
+        try {
+          const saved = localStorage.getItem(localePreferenceKey);
+          const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+          const preferredLocale = isPreferredLocale(saved)
+            ? saved
+            : resolvePreferredLocale(browserLanguages);
+
+          if (preferredLocale && preferredLocale !== "zh") {
+            window.location.replace(`/${preferredLocale}/${window.location.search}${window.location.hash}`);
+          }
+        } catch {
+          // Keep the Chinese homepage when browser storage is unavailable.
+        }
+      }
+    </script>
     <slot name="head" />
   </head>
   <body>

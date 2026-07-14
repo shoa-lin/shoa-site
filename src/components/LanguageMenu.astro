@@ -23,6 +23,7 @@ const dictionary = getDictionary(locale);
         <a
           href={localizedPath(option, path)}
           lang={localeMeta[option].htmlLang}
+          data-locale={option}
           role="listitem"
           aria-current={option === locale ? "page" : undefined}
         >
@@ -33,3 +34,21 @@ const dictionary = getDictionary(locale);
     }
   </div>
 </details>
+
+<script>
+  import { isPreferredLocale, localePreferenceKey } from "../lib/locale-preference";
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const link = event.target.closest<HTMLAnchorElement>(".language-menu__popover a[data-locale]");
+    const locale = link?.dataset.locale;
+    if (!isPreferredLocale(locale)) return;
+
+    try {
+      localStorage.setItem(localePreferenceKey, locale);
+    } catch {
+      // Navigation remains available when browser storage is unavailable.
+    }
+  });
+</script>
