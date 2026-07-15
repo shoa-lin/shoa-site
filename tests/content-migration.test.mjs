@@ -16,10 +16,8 @@ const multilingualApprovedGroups = [
   "blog:pi-minimal-agent",
   "blog:ai-agent-patterns",
   "blog:ai-agent-engineering-patterns",
-  "favorites:fix-your-life-in-one-day",
-];
-const chineseFirstGroups = [
   "blog:ai-agent-retry-state",
+  "favorites:fix-your-life-in-one-day",
 ];
 const expectedStructure = {
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
@@ -32,6 +30,7 @@ const expectedStructure = {
   "blog:pi-minimal-agent": { headings: 10, images: 2, codeFences: 0, tables: 0, links: 0 },
   "blog:ai-agent-patterns": { headings: 25, images: 0, codeFences: 12, tables: 5, links: 0 },
   "blog:ai-agent-engineering-patterns": { headings: 21, images: 0, codeFences: 24, tables: 2, links: 4 },
+  "blog:ai-agent-retry-state": { headings: 14, images: 2, codeFences: 6, tables: 0, links: 4 },
   "favorites:fix-your-life-in-one-day": { headings: 0, images: 0, codeFences: 0, tables: 0, links: 0 },
 };
 const loopsImages = [
@@ -61,14 +60,12 @@ function structureCounts(signature) {
   };
 }
 
-test("content root preserves complete multilingual groups and explicit Chinese-first releases", () => {
+test("content root contains twelve approved groups with six reviewed locales", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
-  assert.equal(multilingualApprovedGroups.length, 11);
-  assert.deepEqual(
-    [...groups.keys()].sort(),
-    [...multilingualApprovedGroups, ...chineseFirstGroups].sort(),
-  );
+  assert.equal(multilingualApprovedGroups.length, 12);
+  assert.equal(publishedEntries.length, multilingualApprovedGroups.length * locales.length);
+  assert.deepEqual([...groups.keys()].sort(), [...multilingualApprovedGroups].sort());
 
   for (const key of multilingualApprovedGroups) {
     const group = groups.get(key);
@@ -83,14 +80,6 @@ test("content root preserves complete multilingual groups and explicit Chinese-f
     assert.ok(group.every((entry) => publicationStatus(entry) === "reviewed"), `${key}: all locales must be reviewed`);
   }
 
-  for (const key of chineseFirstGroups) {
-    const group = groups.get(key);
-    assert.ok(group, `${key}: missing group`);
-    assert.equal(group.length, 1, `${key}: expected Chinese-first release`);
-    assert.equal(group[0].data.locale, "zh", `${key}: first release must be Chinese`);
-    assert.equal(group[0].pathLocale, "zh", `${key}: path locale mismatch`);
-    assert.equal(publicationStatus(group[0]), "reviewed", `${key}: Chinese release must be reviewed`);
-  }
 });
 
 test("approved locale groups preserve canonical metadata and full markdown structure", () => {
@@ -122,7 +111,9 @@ test("approved locale groups preserve canonical metadata and full markdown struc
 });
 
 test("the Retry article is a reviewed Chinese original with two local illustrations", () => {
-  const article = entries.find((entry) => groupKey(entry) === "blog:ai-agent-retry-state");
+  const article = entries.find((entry) => (
+    groupKey(entry) === "blog:ai-agent-retry-state" && entry.data.locale === "zh"
+  ));
 
   assert.ok(article);
   assert.equal(article.data.locale, "zh");
