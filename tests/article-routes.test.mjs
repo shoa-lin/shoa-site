@@ -18,6 +18,7 @@ const approvedGroups = new Set([
   "blog:pi-minimal-agent",
   "blog:ai-agent-patterns",
   "blog:ai-agent-engineering-patterns",
+  "blog:ai-agent-retry-state",
   "favorites:fix-your-life-in-one-day",
 ]);
 const approvedBlogIds = new Set([...approvedGroups]

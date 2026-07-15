@@ -5,7 +5,7 @@ import { loadContentEntries, locales } from "../scripts/lib/content-files.mjs";
 import { structureSignature } from "../scripts/lib/translate-markdown.mjs";
 
 const entries = loadContentEntries(fileURLToPath(new URL("../src/content", import.meta.url)));
-const approvedGroups = [
+const multilingualApprovedGroups = [
   "blog:getting-started-with-loops",
   "blog:loop-engineering",
   "blog:state-of-ai-agent-memory-2026",
@@ -17,6 +17,9 @@ const approvedGroups = [
   "blog:ai-agent-patterns",
   "blog:ai-agent-engineering-patterns",
   "favorites:fix-your-life-in-one-day",
+];
+const chineseFirstGroups = [
+  "blog:ai-agent-retry-state",
 ];
 const expectedStructure = {
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
@@ -58,14 +61,16 @@ function structureCounts(signature) {
   };
 }
 
-test("content root contains exactly eleven approved groups with six reviewed locales", () => {
+test("content root preserves complete multilingual groups and explicit Chinese-first releases", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
-  assert.equal(approvedGroups.length, 11);
-  assert.equal(publishedEntries.length, approvedGroups.length * locales.length);
-  assert.deepEqual([...groups.keys()].sort(), [...approvedGroups].sort());
+  assert.equal(multilingualApprovedGroups.length, 11);
+  assert.deepEqual(
+    [...groups.keys()].sort(),
+    [...multilingualApprovedGroups, ...chineseFirstGroups].sort(),
+  );
 
-  for (const key of approvedGroups) {
+  for (const key of multilingualApprovedGroups) {
     const group = groups.get(key);
     assert.ok(group, `${key}: missing group`);
     assert.equal(group.length, locales.length, `${key}: expected six files`);
@@ -77,12 +82,21 @@ test("content root contains exactly eleven approved groups with six reviewed loc
     assert.ok(group.every((entry) => entry.pathLocale === entry.data.locale), `${key}: path locale mismatch`);
     assert.ok(group.every((entry) => publicationStatus(entry) === "reviewed"), `${key}: all locales must be reviewed`);
   }
+
+  for (const key of chineseFirstGroups) {
+    const group = groups.get(key);
+    assert.ok(group, `${key}: missing group`);
+    assert.equal(group.length, 1, `${key}: expected Chinese-first release`);
+    assert.equal(group[0].data.locale, "zh", `${key}: first release must be Chinese`);
+    assert.equal(group[0].pathLocale, "zh", `${key}: path locale mismatch`);
+    assert.equal(publicationStatus(group[0]), "reviewed", `${key}: Chinese release must be reviewed`);
+  }
 });
 
 test("approved locale groups preserve canonical metadata and full markdown structure", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
-  for (const key of approvedGroups) {
+  for (const key of multilingualApprovedGroups) {
     const group = groups.get(key);
     const sourceLocales = new Set(group.map((entry) => entry.data.sourceLocale));
     const sourceUrls = new Set(group.map((entry) => entry.data.sourceUrl));
@@ -105,6 +119,29 @@ test("approved locale groups preserve canonical metadata and full markdown struc
       assert.deepEqual(structureSignature(entry.body), sourceSignature, `${entry.relativePath}: structure parity`);
     }
   }
+});
+
+test("the Retry article is a reviewed Chinese original with two local illustrations", () => {
+  const article = entries.find((entry) => groupKey(entry) === "blog:ai-agent-retry-state");
+
+  assert.ok(article);
+  assert.equal(article.data.locale, "zh");
+  assert.equal(article.data.sourceLocale, "zh");
+  assert.equal(article.data.sourceAuthor, "Shoa Lin");
+  assert.equal(article.data.contentType, "original");
+  assert.equal(article.data.translationStatus, "reviewed");
+  assert.equal(article.data.category, "architecture");
+  assert.equal(article.data.sourceUrl, "https://www.bydziwen.top/blog/ai-agent-retry-state/");
+
+  const signature = structureSignature(article.body);
+  assert.equal(signature.headings.includes(1), false);
+  assert.deepEqual(
+    signature.images.map((image) => image.target),
+    [
+      "/assets/blog/ai-agent-retry-state/retry-becomes-fork.png",
+      "/assets/blog/ai-agent-retry-state/text-vs-world-state.png",
+    ],
+  );
 });
 
 test("the Loops guide keeps its approved metadata, loop markers, and image placement", () => {
