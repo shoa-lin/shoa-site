@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "siteTitle": "Shoa Lin",
+    "siteDescription": "Shoa Lins persönliche Website über KI-Agenten, Wissenssysteme, Entwicklerwerkzeuge und technisches Schreiben."
+  },
+  "nav": { "home": "Startseite", "about": "Über mich", "blog": "Artikel", "favorites": "Favoriten", "contact": "Kontakt" },
+  "theme": { "label": "Darstellung", "toggle": "Zwischen hellem und dunklem Design wechseln", "light": "Hell", "dark": "Dunkel", "system": "System" },
+  "language": { "label": "Sprache", "menu": "Sprache auswählen", "current": "Aktuelle Sprache" },
+  "home": {
+    "greeting": "Hallo, ich bin Shoa Lin.",
+    "intro": "Ich beschäftige mich mit KI-Agenten, Wissenssystemen und Entwicklerwerkzeugen – insbesondere damit, wie Werkzeugnutzung, Gedächtnis, Evaluation und Workflows in realen Aufgaben zusammenspielen.",
+    "supporting": "Diese Website sammelt meine Artikel, Forschungsnotizen und langfristige Leseliste.",
+    "interestsTitle": "Interessengebiete",
+    "interestsBody": "Ich untersuche, wie Agenten Werkzeuge zuverlässig nutzen, Kontext bewahren, sich von Fehlern erholen und überprüfbare Ergebnisse hinterlassen können.",
+    "backgroundTitle": "Öffentlicher Hintergrund",
+    "backgroundBody": "Meine Arbeit umfasste Wissensgraphen, Daten und Unternehmensarchitektur. Heute verbringe ich den Großteil meiner Zeit mit KI-Agentensystemen und Entwickler-Workflows.",
+    "approachTitle": "Wie ich arbeite",
+    "approachBody": "Ich prüfe zuerst den tatsächlichen Zustand, zerlege das Problem, teste Annahmen und überführe das Ergebnis in wiederverwendbaren Code oder verständliche Texte.",
+    "latestTitle": "Neueste Artikel",
+    "contactTitle": "In Kontakt bleiben",
+    "contactBody": "Schreib mir eine E-Mail oder kontaktiere mich auf X, um über KI-Agenten, Wissenssysteme, Entwicklerwerkzeuge und technisches Schreiben zu sprechen."
+  },
+  "about": {
+    "title": "Über mich",
+    "paragraphOne": "Meine Arbeit umfasste Wissensgraphen, Daten und Unternehmensarchitektur. Heute verbringe ich den Großteil meiner Zeit mit KI-Agentensystemen und Entwickler-Workflows.",
+    "paragraphTwo": "Mich interessiert nicht nur, was ein Modell beantworten kann, sondern auch, wie es Werkzeuge nutzt, Kontext bewahrt, mit Fehlern umgeht und überprüfbare Arbeit hinterlässt.",
+    "backgroundTitle": "Hintergrund",
+    "backgroundBody": "Diese Erfahrung hat mein Interesse an Systemgrenzen, Informationsstrukturen und der Überführung komplexer Arbeit in überprüfbare Schritte geprägt.",
+    "interestsTitle": "Aktuelle Interessen",
+    "interestsBody": "Werkzeugnutzung, Gedächtnis, Evaluation, Workflows, Wissensorganisation und ihr Zusammenspiel in realen Aufgaben.",
+    "principlesTitle": "Arbeitsprinzipien",
+    "principleEvidenceTitle": "Mit Belegen beginnen",
+    "principleEvidenceBody": "Bei Laufzeitstatus, Codeverhalten oder Produktentscheidungen gehe ich zu den tatsächlichen Dateien, Protokollen und Testergebnissen zurück.",
+    "principleClarityTitle": "Grenzen klar benennen",
+    "principleClarityBody": "Verifizierte Fakten, begründete Schlussfolgerungen und offene Fragen werden voneinander getrennt.",
+    "principleUsefulTitle": "Nützliche Ergebnisse hinterlassen",
+    "principleUsefulBody": "Recherche sollte in etwas Ausführbarem, Überprüfbarem oder für die nächste Iteration Nutzbarem enden."
+  },
+  "blog": {
+    "title": "Artikel",
+    "description": "Ausführliche Notizen zu KI-Agenten, Wissenssystemen, Entwicklerwerkzeugen und Engineering-Praxis.",
+    "all": "Alle",
+    "empty": "In dieser Kategorie gibt es noch keine Artikel.",
+    "categories": { "architecture": "Architektur", "development": "Entwicklung", "evaluation": "Evaluation", "application": "Anwendungen", "algorithm": "Algorithmen", "general": "Allgemein" }
+  },
+  "favorites": {
+    "title": "Favoriten",
+    "description": "Artikel, Papers und Werkzeuge, zu denen sich eine Rückkehr lohnt – jeweils mit einer kurzen Notiz, warum ich sie gespeichert habe.",
+    "visitSource": "Quelle ansehen",
+    "empty": "Keine gespeicherten Einträge entsprechen diesem Filter."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "description": "Kontaktiere mich per E-Mail oder auf X, um über KI-Agenten, Wissenssysteme, Entwicklerwerkzeuge oder technisches Schreiben zu sprechen.",
+    "emailTitle": "E-Mail",
+    "emailNote": "Am besten für Gespräche, die mehr Kontext benötigen.",
+    "xTitle": "X",
+    "xNote": "Am besten für kurze Nachrichten und öffentliche Diskussionen."
+  },
+  "article": {
+    "source": "Quelle", "author": "Autor", "published": "Veröffentlicht", "updated": "Aktualisiert", "languages": "Artikelsprachen", "toc": "Inhalt", "tocOpen": "Inhaltsverzeichnis öffnen", "tocClose": "Inhaltsverzeichnis schließen", "previous": "Zurück", "next": "Weiter", "back": "Zurück zu den Artikeln", "adaptationNotice": "Dies ist eine strukturierte Adaption. Bitte beachte die Originalquelle."
+  },
+  "errors": { "notFoundTitle": "Seite nicht gefunden", "notFoundBody": "Die Adresse wurde möglicherweise geändert oder die Seite wurde noch nicht veröffentlicht.", "home": "Zur Startseite" },
+  "a11y": { "skip": "Zum Hauptinhalt springen", "menuOpen": "Navigation öffnen", "menuClose": "Navigation schließen", "mainNavigation": "Hauptnavigation", "mobileNavigation": "Mobile Navigation", "languageMenu": "Sprachauswahl", "themeToggle": "Darstellungssteuerung" },
+  "footer": { "rights": "Alle Rechte vorbehalten." }
+}

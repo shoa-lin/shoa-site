@@ -4,7 +4,7 @@ import { expect, type Page, test } from "@playwright/test";
 
 const widths = [320, 390, 768, 1024, 1440] as const;
 const themes = ["light", "dark"] as const;
-const locales = ["zh", "en", "ja", "ko", "th", "fr"] as const;
+const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"] as const;
 type Locale = (typeof locales)[number];
 
 const corePages = [

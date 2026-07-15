@@ -2,14 +2,14 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { test } from "node:test";
 
-test("i18n exposes the exact six supported locales", async () => {
+test("i18n exposes the exact eight supported locales", async () => {
   const { defaultLocale, localeMeta, locales } = await import("../src/lib/i18n.ts");
 
-  assert.deepEqual(locales, ["zh", "en", "ja", "ko", "th", "fr"]);
+  assert.deepEqual(locales, ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"]);
   assert.equal(defaultLocale, "zh");
   assert.deepEqual(
     locales.map((locale) => localeMeta[locale].label),
-    ["简体中文", "English", "日本語", "한국어", "ไทย", "Français"],
+    ["简体中文", "English", "日本語", "한국어", "ไทย", "Français", "Deutsch", "Tiếng Việt"],
   );
 });
 
@@ -25,5 +25,5 @@ test("all locale dictionaries have the same non-empty keys", () => {
 test("dictionary lookup rejects unsupported locale input", async () => {
   const { getDictionary } = await import("../src/lib/i18n.ts");
 
-  assert.throws(() => getDictionary("de"), /Unsupported locale/);
+  assert.throws(() => getDictionary("es"), /Unsupported locale/);
 });

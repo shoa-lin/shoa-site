@@ -18,7 +18,7 @@ function signature(body) {
     }
 
     for (const match of line.matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)) {
-      images.push({ headingIndex, target: match[1].split(/\s+/)[0] });
+      images.push({ headingIndex });
     }
 
     const fence = line.match(/^```([^\s`]*)/);

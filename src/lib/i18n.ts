@@ -4,8 +4,10 @@ import ja from "../i18n/ja.json" with { type: "json" };
 import ko from "../i18n/ko.json" with { type: "json" };
 import th from "../i18n/th.json" with { type: "json" };
 import fr from "../i18n/fr.json" with { type: "json" };
+import de from "../i18n/de.json" with { type: "json" };
+import vi from "../i18n/vi.json" with { type: "json" };
 
-export const locales = ["zh", "en", "ja", "ko", "th", "fr"] as const;
+export const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "zh";
 
@@ -16,6 +18,8 @@ export const localeMeta: Record<Locale, { label: string; htmlLang: string; prefi
   ko: { label: "한국어", htmlLang: "ko", prefix: "ko" },
   th: { label: "ไทย", htmlLang: "th", prefix: "th" },
   fr: { label: "Français", htmlLang: "fr", prefix: "fr" },
+  de: { label: "Deutsch", htmlLang: "de", prefix: "de" },
+  vi: { label: "Tiếng Việt", htmlLang: "vi", prefix: "vi" },
 };
 
 export type Dictionary = typeof zh;
@@ -27,6 +31,8 @@ const dictionaries: Record<Locale, Dictionary> = {
   ko: ko as Dictionary,
   th: th as Dictionary,
   fr: fr as Dictionary,
+  de: de as Dictionary,
+  vi: vi as Dictionary,
 };
 
 export function isLocale(value: string): value is Locale {

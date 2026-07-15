@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { extname, join, relative, resolve, sep } from "node:path";
 
-export const locales = ["zh", "en", "ja", "ko", "th", "fr"];
+export const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 
 function scalar(value) {
   const trimmed = value.trim();

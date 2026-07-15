@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 
-const locales = ["zh", "en", "ja", "ko", "th", "fr"];
+const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 
 function flatten(value, prefix = "", output = new Map()) {
   for (const [key, child] of Object.entries(value)) {

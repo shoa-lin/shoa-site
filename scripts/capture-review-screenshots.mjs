@@ -15,6 +15,8 @@ const coreRoutes = {
   ko: [["home", "/ko/"], ["about", "/ko/about"], ["blog", "/ko/blog"], ["favorites", "/ko/favorites"], ["contact", "/ko/contact"]],
   th: [["home", "/th/"], ["about", "/th/about"], ["blog", "/th/blog"], ["favorites", "/th/favorites"], ["contact", "/th/contact"]],
   fr: [["home", "/fr/"], ["about", "/fr/about"], ["blog", "/fr/blog"], ["favorites", "/fr/favorites"], ["contact", "/fr/contact"]],
+  de: [["home", "/de/"], ["about", "/de/about"], ["blog", "/de/blog"], ["favorites", "/de/favorites"], ["contact", "/de/contact"]],
+  vi: [["home", "/vi/"], ["about", "/vi/about"], ["blog", "/vi/blog"], ["favorites", "/vi/favorites"], ["contact", "/vi/contact"]],
 };
 const viewports = [
   { name: "320", width: 320, height: 844 },

@@ -7,7 +7,7 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = new URL("../", import.meta.url);
-const locales = ["zh", "en", "ja", "ko", "th", "fr"];
+const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 
 function article(locale, options = {}) {
   const heading = options.heading ?? "Shared heading";
@@ -134,7 +134,7 @@ test("content inventory rejects a dangling external symlink targeting the reposi
   }
 });
 
-test("content completeness requires exactly six reviewed locale files", () => {
+test("content completeness requires exactly eight reviewed locale files", () => {
   const directory = mkdtempSync(join(tmpdir(), "shoa-content-complete-"));
   try {
     for (const locale of locales) {
@@ -146,10 +146,10 @@ test("content completeness requires exactly six reviewed locale files", () => {
     const complete = run("scripts/check-content-completeness.mjs", ["--content-root", directory]);
     assert.equal(complete.status, 0, `${complete.stdout}\n${complete.stderr}`);
 
-    rmSync(join(directory, "blog", "fr", "example.md"));
+    rmSync(join(directory, "blog", "vi", "example.md"));
     const incomplete = run("scripts/check-content-completeness.mjs", ["--content-root", directory]);
     assert.equal(incomplete.status, 1);
-    assert.match(incomplete.stderr, /example: expected 6 locales, found 5/);
+    assert.match(incomplete.stderr, /example: expected 8 locales, found 7/);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
@@ -188,6 +188,23 @@ test("translation parity detects changed headings and image positions", () => {
     const changed = run("scripts/check-translation-parity.mjs", ["--content-root", directory]);
     assert.equal(changed.status, 1);
     assert.match(changed.stderr, /example\/en: structure differs/);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("translation parity allows localized image files at matching positions", () => {
+  const directory = mkdtempSync(join(tmpdir(), "shoa-content-localized-images-"));
+  try {
+    for (const locale of ["zh", "en"]) {
+      const localeDir = join(directory, "blog", locale);
+      mkdirSync(localeDir, { recursive: true });
+      const image = `![Diagram](/assets/blog/example/diagram-${locale}.png)`;
+      writeFileSync(join(localeDir, "example.md"), article(locale, { image }));
+    }
+
+    const result = run("scripts/check-translation-parity.mjs", ["--content-root", directory]);
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }

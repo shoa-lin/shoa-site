@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "siteTitle": "Shoa Lin",
+    "siteDescription": "Trang cá nhân của Shoa Lin về AI agent, hệ thống tri thức, công cụ dành cho lập trình viên và viết kỹ thuật."
+  },
+  "nav": { "home": "Trang chủ", "about": "Giới thiệu", "blog": "Bài viết", "favorites": "Yêu thích", "contact": "Liên hệ" },
+  "theme": { "label": "Giao diện", "toggle": "Chuyển đổi giữa giao diện sáng và tối", "light": "Sáng", "dark": "Tối", "system": "Hệ thống" },
+  "language": { "label": "Ngôn ngữ", "menu": "Chọn ngôn ngữ", "current": "Ngôn ngữ hiện tại" },
+  "home": {
+    "greeting": "Xin chào, tôi là Shoa Lin.",
+    "intro": "Tôi tập trung vào AI agent, hệ thống tri thức và công cụ dành cho lập trình viên, đặc biệt là cách sử dụng công cụ, bộ nhớ, đánh giá và quy trình phối hợp với nhau trong các nhiệm vụ thực tế.",
+    "supporting": "Trang này tập hợp các bài viết, ghi chú nghiên cứu và danh sách đọc dài hạn của tôi.",
+    "interestsTitle": "Lĩnh vực quan tâm",
+    "interestsBody": "Tôi nghiên cứu cách agent sử dụng công cụ một cách đáng tin cậy, duy trì ngữ cảnh, phục hồi sau lỗi và để lại kết quả mà con người có thể kiểm tra.",
+    "backgroundTitle": "Kinh nghiệm công khai",
+    "backgroundBody": "Công việc của tôi từng liên quan đến đồ thị tri thức, dữ liệu và kiến trúc doanh nghiệp. Hiện nay tôi dành phần lớn thời gian cho hệ thống AI agent và quy trình phát triển phần mềm.",
+    "approachTitle": "Cách tôi làm việc",
+    "approachBody": "Tôi kiểm tra trạng thái thực tế trước, chia nhỏ vấn đề, kiểm chứng giả định và chuyển kết quả thành mã hoặc bài viết có thể tái sử dụng.",
+    "latestTitle": "Bài viết mới nhất",
+    "contactTitle": "Giữ liên lạc",
+    "contactBody": "Hãy gửi email hoặc tìm tôi trên X để trao đổi về AI agent, hệ thống tri thức, công cụ dành cho lập trình viên và viết kỹ thuật."
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "paragraphOne": "Công việc của tôi từng liên quan đến đồ thị tri thức, dữ liệu và kiến trúc doanh nghiệp. Hiện nay tôi dành phần lớn thời gian cho hệ thống AI agent và quy trình phát triển phần mềm.",
+    "paragraphTwo": "Tôi không chỉ quan tâm một mô hình có thể trả lời điều gì, mà còn quan tâm cách nó sử dụng công cụ, duy trì ngữ cảnh, xử lý thất bại và để lại công việc có thể kiểm tra.",
+    "backgroundTitle": "Kinh nghiệm",
+    "backgroundBody": "Những trải nghiệm đó định hình sự quan tâm của tôi đối với ranh giới hệ thống, cấu trúc thông tin và cách chuyển công việc phức tạp thành các bước có thể xác minh.",
+    "interestsTitle": "Mối quan tâm hiện tại",
+    "interestsBody": "Sử dụng công cụ, bộ nhớ, đánh giá, quy trình, tổ chức tri thức và cách chúng kết hợp trong các nhiệm vụ thực tế.",
+    "principlesTitle": "Nguyên tắc làm việc",
+    "principleEvidenceTitle": "Bắt đầu từ bằng chứng",
+    "principleEvidenceBody": "Với trạng thái chạy, hành vi mã hoặc quyết định sản phẩm, tôi quay lại kiểm tra tệp, nhật ký và kết quả kiểm thử thực tế.",
+    "principleClarityTitle": "Nêu rõ ranh giới",
+    "principleClarityBody": "Phân biệt dữ kiện đã xác minh, suy luận hợp lý và những điều vẫn chưa biết.",
+    "principleUsefulTitle": "Để lại kết quả hữu ích",
+    "principleUsefulBody": "Nghiên cứu nên kết thúc bằng một kết quả có thể thực thi, kiểm tra hoặc sẵn sàng cho vòng lặp tiếp theo."
+  },
+  "blog": {
+    "title": "Bài viết",
+    "description": "Các ghi chú chuyên sâu về AI agent, hệ thống tri thức, công cụ dành cho lập trình viên và thực hành kỹ thuật.",
+    "all": "Tất cả",
+    "empty": "Chưa có bài viết nào trong danh mục này.",
+    "categories": { "architecture": "Kiến trúc", "development": "Phát triển", "evaluation": "Đánh giá", "application": "Ứng dụng", "algorithm": "Thuật toán", "general": "Tổng quát" }
+  },
+  "favorites": {
+    "title": "Yêu thích",
+    "description": "Những bài viết, nghiên cứu và công cụ đáng đọc lại, kèm một ghi chú ngắn về lý do tôi lưu chúng.",
+    "visitSource": "Xem nguồn",
+    "empty": "Không có mục đã lưu nào phù hợp với bộ lọc này."
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "description": "Liên hệ qua email hoặc X để trao đổi về AI agent, hệ thống tri thức, công cụ dành cho lập trình viên hoặc viết kỹ thuật.",
+    "emailTitle": "Email",
+    "emailNote": "Phù hợp nhất cho những cuộc trao đổi cần nhiều ngữ cảnh.",
+    "xTitle": "X",
+    "xNote": "Phù hợp nhất cho trao đổi ngắn và thảo luận công khai."
+  },
+  "article": {
+    "source": "Nguồn", "author": "Tác giả", "published": "Đăng ngày", "updated": "Cập nhật", "languages": "Ngôn ngữ bài viết", "toc": "Mục lục", "tocOpen": "Mở mục lục bài viết", "tocClose": "Đóng mục lục bài viết", "previous": "Trước", "next": "Sau", "back": "Quay lại bài viết", "adaptationNotice": "Đây là bản chuyển thể có cấu trúc. Vui lòng tham khảo nguồn gốc."
+  },
+  "errors": { "notFoundTitle": "Không tìm thấy trang", "notFoundBody": "Địa chỉ có thể đã thay đổi hoặc trang này chưa được xuất bản.", "home": "Về trang chủ" },
+  "a11y": { "skip": "Chuyển đến nội dung chính", "menuOpen": "Mở điều hướng", "menuClose": "Đóng điều hướng", "mainNavigation": "Điều hướng chính", "mobileNavigation": "Điều hướng di động", "languageMenu": "Trình đơn ngôn ngữ", "themeToggle": "Điều khiển giao diện" },
+  "footer": { "rights": "Bảo lưu mọi quyền." }
+}

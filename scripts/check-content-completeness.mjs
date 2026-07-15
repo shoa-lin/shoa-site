@@ -28,8 +28,8 @@ for (const [key, group] of groups) {
     if (active.length !== found.length) failures.push(`${key}: duplicate locale files`);
     continue;
   }
-  if (active.length !== 6 || found.length !== 6) {
-    failures.push(`${key.split(":")[1]}: expected 6 locales, found ${found.length}`);
+  if (active.length !== locales.length || found.length !== locales.length) {
+    failures.push(`${key.split(":")[1]}: expected ${locales.length} locales, found ${found.length}`);
   }
   for (const locale of locales) {
     if (!found.includes(locale)) failures.push(`${key}: missing ${locale}`);

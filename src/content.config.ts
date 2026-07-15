@@ -2,7 +2,7 @@ import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-const locale = z.enum(["zh", "en", "ja", "ko", "th", "fr"]);
+const locale = z.enum(["zh", "en", "ja", "ko", "th", "fr", "de", "vi"]);
 const category = z.enum(["architecture", "development", "evaluation", "application", "algorithm", "general"]);
 
 const blog = defineCollection({

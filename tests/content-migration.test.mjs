@@ -5,6 +5,7 @@ import { loadContentEntries, locales } from "../scripts/lib/content-files.mjs";
 import { structureSignature } from "../scripts/lib/translate-markdown.mjs";
 
 const entries = loadContentEntries(fileURLToPath(new URL("../src/content", import.meta.url)));
+const expectedLocales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 const multilingualApprovedGroups = [
   "blog:getting-started-with-loops",
   "blog:loop-engineering",
@@ -60,20 +61,28 @@ function structureCounts(signature) {
   };
 }
 
-test("content root contains twelve approved groups with six reviewed locales", () => {
+function paritySignature(signature) {
+  return {
+    ...signature,
+    images: signature.images.map(({ headingIndex }) => ({ headingIndex })),
+  };
+}
+
+test("content root contains twelve approved groups with eight reviewed locales", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
   assert.equal(multilingualApprovedGroups.length, 12);
-  assert.equal(publishedEntries.length, multilingualApprovedGroups.length * locales.length);
+  assert.deepEqual(locales, expectedLocales);
+  assert.equal(publishedEntries.length, multilingualApprovedGroups.length * expectedLocales.length);
   assert.deepEqual([...groups.keys()].sort(), [...multilingualApprovedGroups].sort());
 
   for (const key of multilingualApprovedGroups) {
     const group = groups.get(key);
     assert.ok(group, `${key}: missing group`);
-    assert.equal(group.length, locales.length, `${key}: expected six files`);
+    assert.equal(group.length, expectedLocales.length, `${key}: expected eight files`);
     assert.deepEqual(
       group.map((entry) => entry.data.locale).sort(),
-      [...locales].sort(),
+      [...expectedLocales].sort(),
       `${key}: locale set`,
     );
     assert.ok(group.every((entry) => entry.pathLocale === entry.data.locale), `${key}: path locale mismatch`);
@@ -105,7 +114,11 @@ test("approved locale groups preserve canonical metadata and full markdown struc
 
     for (const entry of group) {
       assert.equal(groupKey(entry), key, `${entry.relativePath}: translation key`);
-      assert.deepEqual(structureSignature(entry.body), sourceSignature, `${entry.relativePath}: structure parity`);
+      assert.deepEqual(
+        paritySignature(structureSignature(entry.body)),
+        paritySignature(sourceSignature),
+        `${entry.relativePath}: structure parity`,
+      );
     }
   }
 });

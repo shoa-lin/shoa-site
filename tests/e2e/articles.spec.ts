@@ -2,8 +2,8 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { expect, test } from "@playwright/test";
 
-const locales = ["zh", "en", "ja", "ko", "th", "fr"] as const;
-const htmlLanguages = { zh: "zh-CN", en: "en", ja: "ja", ko: "ko", th: "th", fr: "fr" } as const;
+const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"] as const;
+const htmlLanguages = { zh: "zh-CN", en: "en", ja: "ja", ko: "ko", th: "th", fr: "fr", de: "de", vi: "vi" } as const;
 const articleSlug = "getting-started-with-loops";
 
 function staticTranslationLocales(slug: string) {

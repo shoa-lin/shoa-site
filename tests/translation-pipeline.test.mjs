@@ -49,13 +49,13 @@ test("Markdown chunking keeps paragraphs intact and under the request limit", as
   assert.equal(chunks.join("\n\n"), source);
 });
 
-test("project translation skill describes the Astro six-language workflow", async () => {
+test("project translation skill describes the Astro eight-language workflow", async () => {
   const { readFile } = await import("node:fs/promises");
   const skill = await readFile(new URL("../.codex/skills/translate-blog-publish/SKILL.md", import.meta.url), "utf8");
 
   assert.match(skill, /^name: translate-blog-publish/m);
   assert.match(skill, /src\/content\/blog\/<locale>/);
-  assert.match(skill, /zh.*en.*ja.*ko.*th.*fr/s);
+  assert.match(skill, /zh.*en.*ja.*ko.*th.*fr.*de.*vi/s);
   assert.match(skill, /check-content-completeness\.mjs/);
   assert.match(skill, /check-translation-parity\.mjs/);
   assert.match(skill, /图片|image/i);
@@ -80,4 +80,7 @@ test("translation CLI preserves the canonical source locale", async () => {
 
   assert.match(source, /sourceLocale:\s*entry\.data\.sourceLocale/);
   assert.doesNotMatch(source, /sourceLocale:\s*"zh"/);
+  assert.match(source, /entry\.data\.locale === entry\.data\.sourceLocale/);
+  assert.match(source, /sl:\s*sourceLocale === "zh" \? "zh-CN" : sourceLocale/);
+  assert.match(source, /supportedTargets = \["en", "ja", "ko", "th", "fr", "de", "vi"\]/);
 });

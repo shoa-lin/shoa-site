@@ -13,5 +13,6 @@ test("browser language preferences resolve to supported site locales", async () 
   assert.equal(resolvePreferredLocale(["th-TH", "en-US"]), "th");
   assert.equal(resolvePreferredLocale(["ja-JP", "zh-CN"]), "ja");
   assert.equal(resolvePreferredLocale(["fr-CA", "en-US"]), "fr");
-  assert.equal(resolvePreferredLocale(["de-DE"]), undefined);
+  assert.equal(resolvePreferredLocale(["de-DE", "en-US"]), "de");
+  assert.equal(resolvePreferredLocale(["vi-VN", "en-US"]), "vi");
 });

@@ -1,6 +1,6 @@
 ---
 name: translate-blog-publish
-description: Use for translating, reviewing, migrating, or preparing public Blog and Favorites content in this Astro personal site across Chinese, English, Japanese, Korean, Thai, and French.
+description: Use for translating, reviewing, migrating, or preparing public Blog and Favorites content in this Astro personal site across Chinese, English, Japanese, Korean, Thai, French, German, and Vietnamese.
 ---
 
 # Translate Blog Publish
@@ -17,7 +17,7 @@ description: Use for translating, reviewing, migrating, or preparing public Blog
 - Favorites: `src/content/favorites/<locale>/<slug>.md`
 - Shared images: `public/assets/blog/<slug>/`
 - Schema: `src/content.config.ts`
-- Supported locales, in required order: `zh`, `en`, `ja`, `ko`, `th`, `fr`
+- Supported locales, in required order: `zh`, `en`, `ja`, `ko`, `th`, `fr`, `de`, `vi`
 
 当前没有 Projects 页面或内容集合。不要从仓库、浏览器历史或旧对话推断公开项目。
 
@@ -39,9 +39,9 @@ description: Use for translating, reviewing, migrating, or preparing public Blog
 - Translate technical prose naturally. Keep API names, commands, identifiers, and product names unchanged.
 - Use `docs/content/translation-glossary.md` for recurring terminology.
 
-## Six-Language Gate
+## Eight-Language Gate
 
-Every item that remains public must have exactly six locale files. Partial-language content must not be marked `published`.
+Every item that remains public must have exactly eight locale files. Partial-language content must not be marked `published`.
 
 Run after each batch of no more than three items:
 

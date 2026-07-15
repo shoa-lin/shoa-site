@@ -5,15 +5,17 @@ import { loadContentEntries, locales } from "../scripts/lib/content-files.mjs";
 
 const contentRoot = fileURLToPath(new URL("../src/content", import.meta.url));
 const splitKeys = ["ai-agent-patterns", "ai-agent-engineering-patterns"];
+const expectedLocales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 
-test("split Agent pattern articles each have six reviewed architecture editions", () => {
+test("split Agent pattern articles each have eight reviewed architecture editions", () => {
   const entries = loadContentEntries(contentRoot).filter((entry) => entry.collection === "blog");
 
   assert.equal(entries.filter((entry) => entry.data.translationKey === "ai-agent-design-patterns").length, 0);
+  assert.deepEqual(locales, expectedLocales);
   for (const translationKey of splitKeys) {
     const editions = entries.filter((entry) => entry.data.translationKey === translationKey);
-    assert.equal(editions.length, locales.length, translationKey);
-    assert.deepEqual(editions.map((entry) => entry.data.locale).sort(), [...locales].sort(), translationKey);
+    assert.equal(editions.length, expectedLocales.length, translationKey);
+    assert.deepEqual(editions.map((entry) => entry.data.locale).sort(), [...expectedLocales].sort(), translationKey);
     assert.ok(editions.every((entry) => entry.data.category === "architecture"), translationKey);
     assert.ok(editions.every((entry) => entry.data.sourceLocale === "zh"), translationKey);
     assert.ok(editions.every((entry) => entry.data.contentType === "original"), translationKey);

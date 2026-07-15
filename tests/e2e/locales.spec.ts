@@ -7,6 +7,8 @@ const locales = [
   ["/ko/", "ko", "Noto Sans KR Variable"],
   ["/th/", "th", "Noto Sans Thai Looped Variable"],
   ["/fr/", "fr", "Noto Sans Variable"],
+  ["/de/", "de", "Noto Sans Variable"],
+  ["/vi/", "vi", "Noto Sans Variable"],
 ] as const;
 
 for (const [path, lang, fontFamily] of locales) {
@@ -20,7 +22,7 @@ for (const [path, lang, fontFamily] of locales) {
     await expect(page.locator("html")).toHaveCSS("font-family", new RegExp(fontFamily));
     await expect(page.locator("h1")).toHaveCount(1);
     await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
-    await expect(page.locator('link[rel="alternate"]')).toHaveCount(7);
+    await expect(page.locator('link[rel="alternate"]')).toHaveCount(9);
     await expect(page.locator(".language-menu")).toBeVisible();
     await expect(page.locator("[data-theme-toggle]")).toBeVisible();
 

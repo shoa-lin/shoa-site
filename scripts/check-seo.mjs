@@ -30,7 +30,7 @@ for (const file of htmlFiles) {
     ["twitter card", /<meta name="twitter:card" content="summary_large_image"/],
   ];
   for (const [label, pattern] of required) if (!pattern.test(html)) failures.push(`${path}: missing ${label}`);
-  if ((html.match(/hreflang=/g) ?? []).length !== 7) failures.push(`${path}: expected 7 alternate links`);
+  if ((html.match(/hreflang=/g) ?? []).length !== 9) failures.push(`${path}: expected 9 alternate links`);
   const isArticle = /(?:^|\/)blog\/[^/]+\/index\.html$/.test(path) && !/(?:^|\/)blog\/index\.html$/.test(path);
   if (isArticle && !/<script type="application\/ld\+json">[^<]*"@type":"Article"/.test(html)) {
     failures.push(`${path}: missing Article JSON-LD`);
