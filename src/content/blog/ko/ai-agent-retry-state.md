@@ -4,7 +4,7 @@ locale: "ko"
 title: "AI가 ‘행동’하기 시작하면 Retry는 단순한 재응답이 아니다"
 description: "Chatbot의 재생성부터 Codex의 Fork까지, Agent의 Retry가 대화·실행·외부·감사 상태와 연결되는 이유를 살펴본다."
 publishedAt: "2026-07-15"
-updatedAt: "2026-07-15"
+updatedAt: "2026-07-16"
 category: "architecture"
 sourceLocale: "zh"
 sourceUrl: "https://www.bydziwen.top/blog/ai-agent-retry-state/"
@@ -26,7 +26,7 @@ translationStatus: "reviewed"
 
 다만 Codex가 “상태가 복잡해져서 Retry를 없앴다”고 공식적으로 밝힌 적은 없습니다. 이 글은 공개된 Thread, Turn, Item, Fork 모델을 바탕으로 한 아키텍처적 해석입니다.
 
-![다른 답변을 만드는 Retry에서 이력을 보존하는 분기로](/assets/blog/ai-agent-retry-state/retry-becomes-fork.png)
+![다른 답변을 만드는 Retry에서 이력을 보존하는 분기로](/assets/blog/ai-agent-retry-state/retry-becomes-fork-ko.png)
 
 예전 Chatbot을 사용할 때 저는 **Retry**, 즉 재시도나 재생성 기능에 익숙했습니다.
 
@@ -120,7 +120,7 @@ Codex에 다음과 같이 요청했다고 가정해 보겠습니다.
 
 > 한 번의 Agent 실행은 현실의 인과관계를 만듭니다. 두 번째 실행은 첫 번째 실행 이전의 세계에서 시작하지 않습니다.
 
-![텍스트는 다시 쓸 수 있지만 Agent가 바꾼 현실의 상태는 사라지지 않는다](/assets/blog/ai-agent-retry-state/text-vs-world-state.png)
+![텍스트는 다시 쓸 수 있지만 Agent가 바꾼 현실의 상태는 사라지지 않는다](/assets/blog/ai-agent-retry-state/text-vs-world-state-ko.png)
 
 ## Agent의 Retry는 최소 네 가지 상태와 연결된다
 

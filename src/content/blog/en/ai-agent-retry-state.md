@@ -4,7 +4,7 @@ locale: "en"
 title: "When AI Starts Acting, Retry No Longer Means “Answer Again”"
 description: "From chatbot regeneration to Codex’s Fork mechanism, a look at why retrying an agent involves conversation, execution, external, and audit state."
 publishedAt: "2026-07-15"
-updatedAt: "2026-07-15"
+updatedAt: "2026-07-16"
 category: "architecture"
 sourceLocale: "zh"
 sourceUrl: "https://www.bydziwen.top/blog/ai-agent-retry-state/"
@@ -26,7 +26,7 @@ That distinction helps explain why agent products such as Codex do not emphasize
 
 One qualification matters: no official source says that Codex “removed Retry because state became too complex.” This article is an architectural interpretation based on the publicly documented Thread, Turn, Item, and Fork model.
 
-![Retry changes from generating another answer to creating a branch that preserves history](/assets/blog/ai-agent-retry-state/retry-becomes-fork.png)
+![Retry changes from generating another answer to creating a branch that preserves history](/assets/blog/ai-agent-retry-state/retry-becomes-fork-en.png)
 
 In earlier chatbots, I became used to a small feature: **Retry**, often labeled **Regenerate**.
 
@@ -120,7 +120,7 @@ The real issue is therefore not merely that “intermediate information is compl
 
 > An agent run creates a real chain of cause and effect. The second run no longer begins in the world that existed before the first.
 
-![Text can be rewritten, but the agent has already changed the state of the world](/assets/blog/ai-agent-retry-state/text-vs-world-state.png)
+![Text can be rewritten, but the agent has already changed the state of the world](/assets/blog/ai-agent-retry-state/text-vs-world-state-en.png)
 
 ## Agent Retry involves at least four kinds of state
 

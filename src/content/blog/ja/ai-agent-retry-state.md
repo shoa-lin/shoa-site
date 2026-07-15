@@ -4,7 +4,7 @@ locale: "ja"
 title: "AIが「行動」し始めると、Retryは単なる再回答ではなくなる"
 description: "Chatbotの再生成からCodexのForkまで、AgentのRetryが会話・実行・外部・監査という4種類の状態に関わる理由を考える。"
 publishedAt: "2026-07-15"
-updatedAt: "2026-07-15"
+updatedAt: "2026-07-16"
 category: "architecture"
 sourceLocale: "zh"
 sourceUrl: "https://www.bydziwen.top/blog/ai-agent-retry-state/"
@@ -26,7 +26,7 @@ translationStatus: "reviewed"
 
 ただし、Codexが「状態が複雑になったためRetryを廃止した」と公式に説明しているわけではありません。本稿は、公開されているThread、Turn、Item、Forkの仕組みに基づくアーキテクチャ上の考察です。
 
-![別の回答を生成するRetryから、履歴を残した分岐へ](/assets/blog/ai-agent-retry-state/retry-becomes-fork.png)
+![別の回答を生成するRetryから、履歴を残した分岐へ](/assets/blog/ai-agent-retry-state/retry-becomes-fork-ja.png)
 
 以前のChatbotでは、**Retry（再試行、再生成）**という小さな機能にすっかり慣れていました。
 
@@ -120,7 +120,7 @@ Codexに次のように頼んだとします。
 
 > 一回のAgent実行が、現実の因果関係を作ります。二回目の実行は、一回目より前の世界から始まるわけではありません。
 
-![文章は書き直せても、Agentが変更した現実の状態は消えない](/assets/blog/ai-agent-retry-state/text-vs-world-state.png)
+![文章は書き直せても、Agentが変更した現実の状態は消えない](/assets/blog/ai-agent-retry-state/text-vs-world-state-ja.png)
 
 ## AgentのRetryは少なくとも4種類の状態に関わる
 
