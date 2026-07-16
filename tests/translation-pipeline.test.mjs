@@ -84,3 +84,31 @@ test("translation CLI preserves the canonical source locale", async () => {
   assert.match(source, /sl:\s*sourceLocale === "zh" \? "zh-CN" : sourceLocale/);
   assert.match(source, /supportedTargets = \["en", "ja", "ko", "th", "fr", "de", "vi"\]/);
 });
+
+test("Retry article localizes explanatory text diagrams for every target locale", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const expectedLabels = {
+    en: ["User question", "User task", "Rewrite"],
+    ja: ["ユーザーの質問", "ユーザーのタスク", "書き直す"],
+    ko: ["사용자 질문", "사용자 작업", "다시 작성"],
+    th: ["คำถามของผู้ใช้", "งานของผู้ใช้", "เขียนใหม่"],
+    fr: ["Question de l’utilisateur", "Tâche de l’utilisateur", "Réécrire"],
+    de: ["Nutzerfrage", "Nutzeraufgabe", "Neu formulieren"],
+    vi: ["Câu hỏi người dùng", "Nhiệm vụ người dùng", "Viết lại"],
+  };
+  const untranslatedChinese = /用户问题|模型生成|用户任务|理解仓库与上下文|读取文件|运行命令|调用工具|修改代码|执行测试|最终回复|再写一次|保留已完成的工作|重新规划|重新执行|回到分叉点/;
+
+  for (const [locale, labels] of Object.entries(expectedLabels)) {
+    const article = await readFile(
+      new URL(`../src/content/blog/${locale}/ai-agent-retry-state.md`, import.meta.url),
+      "utf8",
+    );
+    const textDiagrams = [...article.matchAll(/```text\n([\s\S]*?)\n```/g)].map((match) => match[1]);
+
+    assert.equal(textDiagrams.length, 3, `${locale} should contain three text diagrams`);
+    assert.doesNotMatch(textDiagrams.join("\n"), untranslatedChinese, `${locale} contains untranslated Chinese diagram text`);
+    labels.forEach((label, index) => {
+      assert.match(textDiagrams[index], new RegExp(label), `${locale} diagram ${index + 1} should contain ${label}`);
+    });
+  }
+});

@@ -47,8 +47,8 @@ La différence semble tenir à un bouton, mais elle sépare deux systèmes fonda
 L’interaction d’un Chatbot traditionnel ressemble à ceci :
 
 ```text
-用户问题 → 模型生成 → 回答 A
-                   └→ Retry → 回答 B
+Question de l’utilisateur → Génération du modèle → Réponse A
+                                               └→ Retry → Réponse B
 ```
 
 Si la première réponse n’est pas satisfaisante, le système peut conserver le même contexte et demander au modèle d’en générer une autre. Abandonner la première réponse entraîne rarement une conséquence sérieuse.
@@ -74,16 +74,16 @@ Dans le modèle du Codex App Server, un Thread contient plusieurs Turns, et chaq
 Le dernier texte affiché dans l’interface n’est parfois qu’un résumé du travail effectué :
 
 ```text
-用户任务
+Tâche de l’utilisateur
    │
    ▼
-理解仓库与上下文
+Comprendre le dépôt et le contexte
    │
    ▼
-读取文件 → 运行命令 → 调用工具 → 修改代码 → 执行测试
+Lire les fichiers → Exécuter des commandes → Appeler des outils → Modifier le code → Exécuter les tests
    │
    ▼
-最终回复：“已经修改了这些内容……”
+Réponse finale : « Les éléments suivants ont été modifiés… »
 ```
 
 Si l’utilisateur n’aime pas ce message final, que doit réellement répéter Retry ?
@@ -157,10 +157,10 @@ Lorsque ces quatre états se superposent, Retry n’est plus un bouton : il devi
 Dans un produit Agent, « réessayer » peut désigner au moins quatre opérations différentes :
 
 ```text
-再写一次    → 保留已完成的工作，只重写最终回答
-重新规划    → 保留当前环境，但换一条推理和执行路线
-重新执行    → 再运行一次失败的命令或工具
-回到分叉点  → 保留原始历史，从某个状态创建一条新分支
+Réécrire        → Conserver le travail terminé et réécrire uniquement la réponse finale
+Replanifier     → Conserver l’environnement actuel, mais changer de trajectoire de raisonnement et d’exécution
+Réexécuter      → Relancer la commande ou l’appel d’outil ayant échoué
+Revenir au Fork → Conserver l’historique original et créer une nouvelle branche depuis un état donné
 ```
 
 Les risques de ces opérations sont très différents, mais un seul bouton Retry masque cette distinction.
