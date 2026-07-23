@@ -19,6 +19,7 @@ const approvedGroups = new Set([
   "blog:ai-agent-patterns",
   "blog:ai-agent-engineering-patterns",
   "blog:ai-agent-retry-state",
+  "blog:github-events-to-feishu",
   "favorites:fix-your-life-in-one-day",
 ]);
 const approvedBlogIds = new Set([...approvedGroups]
@@ -80,4 +81,33 @@ test("Blog and Favorites indexes are generated from content collections", () => 
   const favorites = readFileSync(new URL("../dist/favorites/index.html", import.meta.url), "utf8");
   assert.equal((blog.match(/class="article-card"/g) ?? []).length, publicChineseArticles.length);
   assert.equal((favorites.match(/class="favorite-item"/g) ?? []).length, publicChineseFavorites.length);
+});
+
+test("the GitHub event article has eight reviewed editions with translated text diagrams", () => {
+  const editions = entries.filter((entry) => (
+    entry.collection === "blog" && entry.data.translationKey === "github-events-to-feishu"
+  ));
+
+  assert.equal(editions.length, locales.length);
+  assert.deepEqual(editions.map((entry) => entry.data.locale).sort(), [...locales].sort());
+  assert.ok(editions.every((entry) => entry.data.translationStatus === "reviewed"));
+  assert.ok(editions.every((entry) => entry.data.contentType === "original"));
+  assert.ok(editions.every((entry) => entry.data.sourceAuthor === "Shoa Lin"));
+  assert.ok(editions.every((entry) => /\/assets\/blog\/github-events-to-feishu\/01-event-to-update\.png/.test(entry.body)));
+  assert.ok(editions.every((entry) => /> /.test(entry.body)));
+
+  for (const edition of editions.filter((entry) => entry.data.locale !== "zh")) {
+    const diagrams = [...edition.body.matchAll(/```text\n([\s\S]*?)\n```/g)].map((match) => match[1]);
+    assert.equal(diagrams.length, 3, edition.data.locale);
+    assert.doesNotMatch(diagrams.join("\n"), /研发动态|事实：|关注：|链接：|本地 Agent/);
+  }
+});
+
+test("Chinese drafts appear in local review lists but remain excluded from production lists", () => {
+  const blogIndex = readFileSync(new URL("../src/components/pages/BlogIndexPage.astro", import.meta.url), "utf8");
+  const home = readFileSync(new URL("../src/components/pages/HomePage.astro", import.meta.url), "utf8");
+
+  for (const source of [blogIndex, home]) {
+    assert.match(source, /data\.translationStatus !== "draft" \|\| \(locale === "zh" && import\.meta\.env\.DEV\)/);
+  }
 });

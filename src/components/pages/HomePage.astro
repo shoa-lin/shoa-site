@@ -10,7 +10,10 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dictionary = getDictionary(locale);
 const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
-const latestPublications = (await getCollection("blog", ({ data }) => data.locale === locale && data.translationStatus !== "draft"))
+const latestPublications = (await getCollection("blog", ({ data }) => (
+  data.locale === locale
+  && (data.translationStatus !== "draft" || (locale === "zh" && import.meta.env.DEV))
+)))
   .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf())
   .slice(0, 3);
 ---

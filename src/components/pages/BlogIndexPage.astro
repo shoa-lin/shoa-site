@@ -9,7 +9,10 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const dictionary = getDictionary(locale);
 const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
-const entries = (await getCollection("blog", ({ data }) => data.locale === locale && data.translationStatus !== "draft"))
+const entries = (await getCollection("blog", ({ data }) => (
+  data.locale === locale
+  && (data.translationStatus !== "draft" || (locale === "zh" && import.meta.env.DEV))
+)))
   .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf());
 const categoryKeys = new Set(entries.map((entry) => entry.data.category));
 const categories = Object.entries(dictionary.blog.categories)
