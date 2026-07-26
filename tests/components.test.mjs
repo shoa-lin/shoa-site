@@ -35,6 +35,14 @@ test("shared shell has localized navigation, language, theme, and mobile control
   assert.doesNotMatch(source, /font-awesome|cdnjs|cdn\.jsdelivr/i);
 });
 
+test("theme toggle icons do not depend on localized text fonts", () => {
+  const toggle = read("src/components/ThemeToggle.astro");
+
+  assert.match(toggle, /<svg\b/);
+  assert.match(toggle, /class="theme-toggle__icon"/);
+  assert.doesNotMatch(toggle, /☀|☾/);
+});
+
 test("global styles cover keyboard focus, reduced motion, and stable touch targets", () => {
   const css = ["src/styles/global.css", "src/styles/components.css", "src/styles/article.css"]
     .map(read)

@@ -18,6 +18,7 @@ const multilingualApprovedGroups = [
   "blog:ai-agent-patterns",
   "blog:ai-agent-engineering-patterns",
   "blog:ai-agent-retry-state",
+  "blog:context-engineering-karpathy-cherny",
   "blog:github-events-to-feishu",
   "favorites:fix-your-life-in-one-day",
 ];
@@ -33,6 +34,7 @@ const expectedStructure = {
   "blog:ai-agent-patterns": { headings: 25, images: 0, codeFences: 12, tables: 5, links: 0 },
   "blog:ai-agent-engineering-patterns": { headings: 21, images: 0, codeFences: 24, tables: 2, links: 4 },
   "blog:ai-agent-retry-state": { headings: 14, images: 2, codeFences: 6, tables: 0, links: 4 },
+  "blog:context-engineering-karpathy-cherny": { headings: 8, images: 8, codeFences: 0, tables: 0, links: 1 },
   "blog:github-events-to-feishu": { headings: 5, images: 1, codeFences: 6, tables: 0, links: 0 },
   "favorites:fix-your-life-in-one-day": { headings: 0, images: 0, codeFences: 0, tables: 0, links: 0 },
 };
@@ -70,10 +72,10 @@ function paritySignature(signature) {
   };
 }
 
-test("content root contains thirteen approved groups with eight reviewed locales", () => {
+test("content root contains fourteen approved groups with eight reviewed locales", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
-  assert.equal(multilingualApprovedGroups.length, 13);
+  assert.equal(multilingualApprovedGroups.length, 14);
   assert.deepEqual(locales, expectedLocales);
   assert.equal(publishedEntries.length, multilingualApprovedGroups.length * expectedLocales.length);
   assert.deepEqual([...groups.keys()].sort(), [...multilingualApprovedGroups].sort());

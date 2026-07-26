@@ -185,8 +185,10 @@
 }
 
 .article-content img {
+  display: block;
   max-width: 100%;
   height: auto;
+  margin-inline: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }

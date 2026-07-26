@@ -19,6 +19,7 @@ const approvedGroups = new Set([
   "blog:ai-agent-patterns",
   "blog:ai-agent-engineering-patterns",
   "blog:ai-agent-retry-state",
+  "blog:context-engineering-karpathy-cherny",
   "blog:github-events-to-feishu",
   "favorites:fix-your-life-in-one-day",
 ]);
