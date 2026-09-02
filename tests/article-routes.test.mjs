@@ -8,6 +8,7 @@ import { loadContentEntries, locales } from "../scripts/lib/content-files.mjs";
 const root = new URL("../", import.meta.url);
 const entries = loadContentEntries(fileURLToPath(new URL("../src/content", import.meta.url)));
 const approvedGroups = new Set([
+  "blog:fable-5-1-prompt-harness-evolution",
   "blog:getting-started-with-loops",
   "blog:loop-engineering",
   "blog:state-of-ai-agent-memory-2026",

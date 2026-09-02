@@ -7,6 +7,7 @@ import { structureSignature } from "../scripts/lib/translate-markdown.mjs";
 const entries = loadContentEntries(fileURLToPath(new URL("../src/content", import.meta.url)));
 const expectedLocales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 const multilingualApprovedGroups = [
+  "blog:fable-5-1-prompt-harness-evolution",
   "blog:getting-started-with-loops",
   "blog:loop-engineering",
   "blog:state-of-ai-agent-memory-2026",
@@ -23,6 +24,7 @@ const multilingualApprovedGroups = [
   "favorites:fix-your-life-in-one-day",
 ];
 const expectedStructure = {
+  "blog:fable-5-1-prompt-harness-evolution": { headings: 19, images: 0, codeFences: 6, tables: 1, links: 6 },
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
   "blog:loop-engineering": { headings: 9, images: 0, codeFences: 0, tables: 1, links: 19 },
   "blog:state-of-ai-agent-memory-2026": { headings: 23, images: 3, codeFences: 0, tables: 3, links: 22 },
@@ -72,10 +74,10 @@ function paritySignature(signature) {
   };
 }
 
-test("content root contains fourteen approved groups with eight reviewed locales", () => {
+test("content root contains fifteen approved groups with eight reviewed locales", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
-  assert.equal(multilingualApprovedGroups.length, 14);
+  assert.equal(multilingualApprovedGroups.length, 15);
   assert.deepEqual(locales, expectedLocales);
   assert.equal(publishedEntries.length, multilingualApprovedGroups.length * expectedLocales.length);
   assert.deepEqual([...groups.keys()].sort(), [...multilingualApprovedGroups].sort());
