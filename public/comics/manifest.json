@@ -1,0 +1,9 @@
+[
+  {
+    "id": "gpt-6-astra",
+    "date": "2026-09-09",
+    "series": "model-guides",
+    "defaultLocale": "zh-CN",
+    "locales": {"zh-CN":"gpt-6-astra/", "en":"gpt-6-astra/en/", "ja":"gpt-6-astra/ja/", "ko":"gpt-6-astra/ko/"}
+  }
+]
