@@ -1,6 +1,6 @@
 ---
 import { getDictionary, type Locale } from "../lib/i18n";
-import { localizedPath } from "../lib/routes";
+import { navigationItems } from "../lib/navigation";
 
 interface Props {
   locale: Locale;
@@ -9,13 +9,7 @@ interface Props {
 
 const { locale, path } = Astro.props;
 const dictionary = getDictionary(locale);
-const items = [
-  ["home", "/"],
-  ["about", "/about"],
-  ["blog", "/blog"],
-  ["favorites", "/favorites"],
-  ["contact", "/contact"],
-] as const;
+const items = navigationItems(locale);
 
 const isCurrent = (target: string) => target === "/" ? path === "/" : path === target || path.startsWith(`${target}/`);
 ---
@@ -48,9 +42,9 @@ const isCurrent = (target: string) => target === "/" ? path === "/" : path === t
     </div>
     <div class="mobile-nav__links">
       {
-        items.map(([key, target]) => (
-          <a href={localizedPath(locale, target)} aria-current={isCurrent(target) ? "page" : undefined}>
-            {dictionary.nav[key]}
+        items.map(({ path: target, href, label }) => (
+          <a href={href} aria-current={isCurrent(target) ? "page" : undefined}>
+            {label}
           </a>
         ))
       }

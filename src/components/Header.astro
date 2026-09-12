@@ -1,6 +1,7 @@
 ---
 import { getDictionary, type Locale } from "../lib/i18n";
 import { localizedPath } from "../lib/routes";
+import { navigationItems } from "../lib/navigation";
 import LanguageMenu from "./LanguageMenu.astro";
 import MobileNav from "./MobileNav.astro";
 import ThemeToggle from "./ThemeToggle.astro";
@@ -13,15 +14,7 @@ interface Props {
 
 const { locale, path, availableLocales } = Astro.props;
 const dictionary = getDictionary(locale);
-const items = [
-  ["home", "/"],
-  ["about", "/about"],
-  ["blog", "/blog"],
-  ["comics", "/comics"],
-  ["favorites", "/favorites"],
-  ["contact", "/contact"],
-] as const;
-const comicLabel: Record<string, string> = { zh: "漫画", en: "Comics", ja: "漫画", ko: "만화", th: "การ์ตูน", fr: "Bandes dessinées", de: "Comics", vi: "Truyện tranh" };
+const items = navigationItems(locale);
 const isCurrent = (target: string) => target === "/" ? path === "/" : path === target || path.startsWith(`${target}/`);
 ---
 
@@ -30,9 +23,9 @@ const isCurrent = (target: string) => target === "/" ? path === "/" : path === t
     <a class="site-brand" href={localizedPath(locale, "/")}>Shoa Lin</a>
     <nav class="desktop-nav" aria-label={dictionary.a11y.mainNavigation}>
       {
-        items.map(([key, target]) => (
-          <a href={target === "/comics" ? "/comics/" : localizedPath(locale, target)} aria-current={isCurrent(target) ? "page" : undefined}>
-            {key === "comics" ? (comicLabel[locale] ?? "Comics") : dictionary.nav[key]}
+        items.map(({ path: target, href, label }) => (
+          <a href={href} aria-current={isCurrent(target) ? "page" : undefined}>
+            {label}
           </a>
         ))
       }

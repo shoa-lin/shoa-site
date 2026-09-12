@@ -1,4 +1,5 @@
 ---
+import { comicCopy } from "../../lib/navigation";
 import ArticleCard from "../ArticleCard.astro";
 import { getCollection } from "astro:content";
 import { profile } from "../../data/profile";
@@ -67,6 +68,14 @@ const latestPublications = (await getCollection("blog", ({ data }) => (
         />
       ))}
     </div>
+  </section>
+
+  <section class="editorial-section contact-strip" aria-labelledby="home-comics-title">
+    <div>
+      <h2 id="home-comics-title">{comicCopy[locale].title}</h2>
+      <p>{comicCopy[locale].description}</p>
+    </div>
+    <a class="text-command" href="/comics/">{comicCopy[locale].title} →</a>
   </section>
 
   <section class="editorial-section contact-strip">
