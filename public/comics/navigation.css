@@ -1,0 +1,101 @@
+/* Shared comic shell: match the main site's 68px header and 860px breakpoint. */
+.comic-shell,
+.comic-shell * {
+  box-sizing: border-box;
+}
+.comic-shell {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 68px;
+  border-bottom: 1px solid #dfe2e8;
+  background: #f7f8fa;
+  color: #181a1f;
+  color-scheme: light;
+  font: 600 16px/1.45 system-ui, -apple-system, sans-serif;
+  text-align: start;
+}
+.comic-shell__inner {
+  position: relative;
+  width: min(1180px, calc(100% - 32px));
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.comic-shell a { color: inherit; text-decoration: none; }
+.comic-shell__brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.comic-shell__desktop { display: flex; gap: 20px; margin: 0; }
+.comic-shell__desktop a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14px;
+  color: #626773;
+}
+.comic-shell a[aria-current="page"] { color: #175cd3; }
+.comic-shell__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+}
+.comic-shell__toggle span { font: 20px/1 system-ui, sans-serif; }
+.comic-shell__toggle[aria-expanded="true"],
+.comic-shell__toggle:hover { background: #eef1f5; }
+.comic-shell :is(a, button):focus-visible {
+  outline: 3px solid #175cd3;
+  outline-offset: 2px;
+}
+.comic-shell__menu { display: none; }
+@media (max-width: 860px) {
+  .comic-shell__desktop { display: none; }
+  .comic-shell__toggle { display: inline-flex; }
+  .comic-shell__menu:not([hidden]) {
+    position: absolute;
+    inset-block-start: calc(100% + 8px);
+    inset-inline-end: 0;
+    display: grid;
+    width: min(224px, calc(100vw - 32px));
+    max-height: calc(100dvh - 92px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin: 0;
+    padding: 8px;
+    gap: 0;
+    border: 1px solid #dfe2e8;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgb(24 26 31 / 14%);
+  }
+  .comic-shell__menu a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 15px;
+  }
+  .comic-shell__menu a:hover,
+  .comic-shell__menu a[aria-current="page"] { background: #eef1f5; }
+}
+@media print { .comic-shell { display: none; } }
