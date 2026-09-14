@@ -191,30 +191,35 @@ html[data-theme="dark"] .theme-toggle__light {
 
 .mobile-nav {
   display: none;
+  position: relative;
 }
 
 .mobile-nav__backdrop {
   position: fixed;
   inset: 0;
   z-index: 190;
-  background: color-mix(in srgb, #000 36%, transparent);
+  background: transparent;
 }
 
 .mobile-nav__panel {
-  position: fixed;
-  top: 0;
+  position: absolute;
+  top: calc(100% + 0.5rem);
   right: 0;
   z-index: 200;
-  width: min(88vw, 360px);
-  height: 100dvh;
-  padding: 0.8rem 1rem 1.5rem;
+  width: min(224px, calc(100vw - 2rem));
+  max-height: calc(100dvh - 92px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.5rem;
   border-left: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow-strong);
+  box-shadow: var(--shadow);
 }
 
 .mobile-nav__head {
-  min-height: 52px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -223,27 +228,29 @@ html[data-theme="dark"] .theme-toggle__light {
 
 .mobile-nav__links {
   display: grid;
-  margin-top: 1rem;
+  margin-top: 0.25rem;
   border-top: 1px solid var(--border);
 }
 
 .mobile-nav__links a {
-  min-height: 56px;
+  min-height: 44px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border);
+  padding: 0 0.65rem;
+  border-radius: calc(var(--radius) - 2px);
   color: var(--muted);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
 }
 
 .mobile-nav__links a[aria-current="page"] {
   color: var(--accent);
+  background: var(--surface-muted);
 }
 
 .nav-open {
-  overflow: hidden;
+  /* Kept as a state hook for existing focus and integration tests. */
 }
 
 .site-footer {
