@@ -10,7 +10,7 @@ sourceLocale: "zh"
 sourceUrl: "https://developers.openai.com/api/docs/guides/latest-model"
 sourceAuthor: "OpenAI Developers 与社区资料"
 contentType: "adaptation"
-translationStatus: "published"
+translationStatus: "draft"
 ---
 
 ## 结论先说
