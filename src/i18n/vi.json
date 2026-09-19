@@ -56,6 +56,8 @@
     "visited": "Đã đến",
     "published": "Ghi lúc",
     "address": "Địa chỉ",
+    "openInMaps": "Mở trong bản đồ",
+    "maps": { "google": "Google Maps", "apple": "Apple Maps", "baidu": "Bản đồ Baidu", "amap": "Bản đồ Amap" },
     "aliases": "Còn gọi là",
     "cuisine": "Hương vị",
     "signatureDishes": "Món đặc trưng",

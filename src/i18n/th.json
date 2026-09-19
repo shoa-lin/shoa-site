@@ -56,6 +56,8 @@
     "visited": "ไปเมื่อ",
     "published": "บันทึกเมื่อ",
     "address": "ที่อยู่",
+    "openInMaps": "เปิดในแผนที่",
+    "maps": { "google": "Google Maps", "apple": "Apple Maps", "baidu": "แผนที่ไป่ตู้", "amap": "แผนที่อามาป" },
     "aliases": "หรือเรียกว่า",
     "cuisine": "รสชาติ",
     "signatureDishes": "เมนูเด่น",

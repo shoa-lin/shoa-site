@@ -56,6 +56,8 @@
     "visited": "방문",
     "published": "기록",
     "address": "주소",
+    "openInMaps": "지도에서 열기",
+    "maps": { "google": "Google 지도", "apple": "Apple 지도", "baidu": "바이두 지도", "amap": "가오더 지도" },
     "aliases": "다른 이름",
     "cuisine": "맛",
     "signatureDishes": "대표 메뉴",

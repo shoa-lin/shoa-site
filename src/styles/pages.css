@@ -305,6 +305,67 @@
   letter-spacing: 0;
 }
 
+.map-links {
+  position: relative;
+  display: inline-block;
+}
+
+.map-links summary {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.map-links summary::-webkit-details-marker {
+  display: none;
+}
+
+.map-links summary:hover,
+.map-links[open] summary {
+  color: var(--accent);
+}
+
+.map-links__hint {
+  color: var(--muted-soft);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.map-links__popover {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  display: grid;
+  min-width: 170px;
+  padding: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.map-links__popover a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 0.65rem;
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--muted);
+  font-size: 0.86rem;
+  text-decoration: none;
+}
+
+.map-links__popover a:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
 .food-entry__aliases {
   margin: 0.6rem 0 0;
   color: var(--muted);

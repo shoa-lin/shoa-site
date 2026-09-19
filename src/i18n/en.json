@@ -56,6 +56,8 @@
     "visited": "Visited",
     "published": "Recorded",
     "address": "Address",
+    "openInMaps": "Open in maps",
+    "maps": { "google": "Google Maps", "apple": "Apple Maps", "baidu": "Baidu Maps", "amap": "Amap" },
     "aliases": "Also known as",
     "cuisine": "Flavor",
     "signatureDishes": "Signature dishes",

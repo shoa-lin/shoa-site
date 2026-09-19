@@ -54,6 +54,10 @@ const food = defineCollection({
     city: z.string().min(1).optional(),
     area: z.string().min(1).optional(),
     address: z.string().min(1).optional(),
+    // Search string for map links, e.g. "<name> <address>". Falls back to title + address when omitted.
+    mapQuery: z.string().min(1).optional(),
+    lat: z.number().min(-90).max(90).optional(),
+    lng: z.number().min(-180).max(180).optional(),
     aliases: z.array(z.string().min(1)).default([]),
     cuisine: z.array(z.string().min(1)).default([]),
     signatureDishes: z.array(z.string().min(1)).default([]),

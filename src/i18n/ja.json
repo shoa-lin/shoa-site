@@ -56,6 +56,8 @@
     "visited": "訪問",
     "published": "記録",
     "address": "所在地",
+    "openInMaps": "地図で開く",
+    "maps": { "google": "Google マップ", "apple": "Apple マップ", "baidu": "百度地図", "amap": "高德地図" },
     "aliases": "別名",
     "cuisine": "味",
     "signatureDishes": "看板メニュー",

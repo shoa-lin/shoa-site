@@ -56,6 +56,8 @@
     "visited": "Visité le",
     "published": "Publié le",
     "address": "Adresse",
+    "openInMaps": "Ouvrir dans les cartes",
+    "maps": { "google": "Google Maps", "apple": "Apple Maps", "baidu": "Baidu Maps", "amap": "Amap" },
     "aliases": "Aussi appelé",
     "cuisine": "Saveur",
     "signatureDishes": "Plats signature",

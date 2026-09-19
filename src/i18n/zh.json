@@ -56,6 +56,8 @@
     "visited": "到访",
     "published": "记录于",
     "address": "地址",
+    "openInMaps": "在地图中打开",
+    "maps": { "google": "Google 地图", "apple": "苹果地图", "baidu": "百度地图", "amap": "高德地图" },
     "aliases": "又名",
     "cuisine": "口味",
     "signatureDishes": "招牌菜",
