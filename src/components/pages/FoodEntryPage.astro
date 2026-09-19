@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { localizedPath } from "../../lib/routes";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import MapLinks from "../MapLinks.astro";
 
 interface Props {
   locale: Locale;
@@ -14,6 +15,9 @@ const dictionary = getDictionary(locale);
 const { Content } = await render(entry);
 const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
 const location = [entry.data.city, entry.data.area].filter((part): part is string => Boolean(part)).join(" · ");
+const mapQuery = entry.data.address
+  ? entry.data.mapQuery || [entry.data.title, entry.data.address].filter(Boolean).join(" ")
+  : undefined;
 const availableLocales = (await getCollection("food", ({ data }) => (
   data.translationKey === entry.data.translationKey && data.publicationStatus !== "draft"
 ))).map((translation) => translation.data.locale);
@@ -40,8 +44,19 @@ const availableLocales = (await getCollection("food", ({ data }) => (
           <div><dt>{dictionary.food.visited}</dt><dd>{dateFormatter.format(entry.data.visitedAt)}</dd></div>
         )}
         <div><dt>{dictionary.food.published}</dt><dd>{dateFormatter.format(entry.data.publishedAt)}</dd></div>
-        {entry.data.address && (
-          <div><dt>{dictionary.food.address}</dt><dd>{entry.data.address}</dd></div>
+        {entry.data.address && mapQuery && (
+          <div>
+            <dt>{dictionary.food.address}</dt>
+            <dd>
+              <MapLinks
+                query={mapQuery}
+                city={entry.data.city}
+                label={entry.data.address}
+                openLabel={dictionary.food.openInMaps}
+                providerLabels={dictionary.food.maps}
+              />
+            </dd>
+          </div>
         )}
         {entry.data.cuisine.length > 0 && (
           <div><dt>{dictionary.food.cuisine}</dt><dd>{entry.data.cuisine.join("、")}</dd></div>
