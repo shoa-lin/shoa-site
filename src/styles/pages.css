@@ -387,23 +387,150 @@
   font-size: 0.8rem;
 }
 
+/*
+ * Count-aware photo mosaic. `[data-count]` on .food-gallery carries
+ * images.length; layouts below give 1-10 photos a distinct, orphan-free
+ * composition (a "lead" cover shot plus a supporting grid). Counts above 10
+ * fall back to the unqualified rules just below the container defaults:
+ * a full-width lead followed by a wrapping 3-column grid, with the
+ * `:nth-child(3n+2):last-child` rule below preventing a lone trailing tile.
+ */
 .food-gallery {
   width: min(100%, 820px);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
   margin: 2.5rem auto;
 }
 
-.food-gallery img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+.food-gallery__item {
+  position: relative;
+  overflow: hidden;
+  min-height: 96px;
+  margin: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
 }
+
+.food-gallery__item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.food-gallery__item:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 2.4 / 1;
+}
+
+.food-gallery__item:not(:first-child) {
+  aspect-ratio: 1 / 1;
+}
+
+/*
+ * Only the >10 fallback should ever get this fix: a lone trailing tile after
+ * the lead's 3-column wrap goes full-width instead of sitting half-empty.
+ * Explicitly excluding every named count keeps it from leaking into the
+ * n=2 and n=8 recipes below, which also end on a `3n+2` position.
+ */
+.food-gallery:not([data-count="1"]):not([data-count="2"]):not([data-count="3"]):not([data-count="4"]):not([data-count="5"]):not([data-count="6"]):not([data-count="7"]):not([data-count="8"]):not([data-count="9"]):not([data-count="10"])
+  .food-gallery__item:nth-child(3n+2):last-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 2.4 / 1;
+}
+
+/* n=1: a single full-width lead shot. */
+.food-gallery[data-count="1"] {
+  grid-template-columns: 1fr;
+}
+
+.food-gallery[data-count="1"] .food-gallery__item:first-child {
+  aspect-ratio: 16 / 10;
+}
+
+/* n=2: an equal side-by-side pair. */
+.food-gallery[data-count="2"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.food-gallery[data-count="2"] .food-gallery__item {
+  grid-column: auto;
+  aspect-ratio: 4 / 3;
+}
+
+/* n=3: lead spans two rows on the left, two shots stack on the right. */
+.food-gallery[data-count="3"] {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.food-gallery[data-count="3"] .food-gallery__item:first-child {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  aspect-ratio: auto;
+}
+
+.food-gallery[data-count="3"] .food-gallery__item:nth-child(2),
+.food-gallery[data-count="3"] .food-gallery__item:nth-child(3) {
+  grid-column: 2;
+  aspect-ratio: 4 / 3;
+}
+
+/* n=4: lead full-width on top, three equal shots below. */
+.food-gallery[data-count="4"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* n=5: lead full-width on top, four shots below in a 2x2 grid. */
+.food-gallery[data-count="5"] {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.food-gallery[data-count="5"] .food-gallery__item:not(:first-child) {
+  grid-column: span 2;
+}
+
+/* n=6: a calm, balanced 3x2 grid (no lead emphasis). */
+.food-gallery[data-count="6"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.food-gallery[data-count="6"] .food-gallery__item:first-child {
+  grid-column: auto;
+  aspect-ratio: 4 / 3;
+}
+
+.food-gallery[data-count="6"] .food-gallery__item:not(:first-child) {
+  aspect-ratio: 4 / 3;
+}
+
+/* n=7: lead full-width on top, six shots below in a 3x2 grid. */
+.food-gallery[data-count="7"] .food-gallery__item:not(:first-child) {
+  aspect-ratio: 4 / 3;
+}
+
+/* n=8: a calm, balanced 4x2 grid (no lead emphasis). */
+.food-gallery[data-count="8"] {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.food-gallery[data-count="8"] .food-gallery__item:first-child {
+  grid-column: auto;
+  aspect-ratio: 1 / 1;
+}
+
+/* n=9: a calm, balanced 3x3 grid (no lead emphasis). */
+.food-gallery[data-count="9"] .food-gallery__item:first-child {
+  grid-column: auto;
+  aspect-ratio: 1 / 1;
+}
+
+/*
+ * n=10 and n>10 both use the unqualified container defaults above: a
+ * full-width lead plus a wrapping 3-column grid of square tiles, with the
+ * trailing-orphan fix. For n=10 that resolves to lead + a clean 3x3 grid.
+ */
 
 .food-notes {
   max-width: 68ch;
@@ -537,6 +664,40 @@
     align-content: center;
     gap: 0.75rem;
     padding: 4rem 0;
+  }
+
+  /*
+   * Every gallery collapses to the same safe mobile pattern regardless of
+   * `data-count`: a full-width lead followed by a simple 2-column stack.
+   * `:nth-child(2n):last-child` spans a lone trailing tile full-width so a
+   * single photo is never left half-width and orphaned in its own row.
+   */
+  .food-gallery[data-count] {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
+  }
+
+  .food-gallery[data-count] .food-gallery__item {
+    grid-column: auto;
+    grid-row: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Matches the specificity of every desktop `:not(:first-child)` /
+     `:nth-child()` span rule above so the 2-column stack always wins. */
+  .food-gallery[data-count] .food-gallery__item:not(:first-child) {
+    grid-column: auto;
+  }
+
+  .food-gallery[data-count] .food-gallery__item:first-child {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .food-gallery[data-count] .food-gallery__item:nth-child(2n):last-child {
+    grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 

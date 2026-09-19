@@ -4,6 +4,7 @@ import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { localizedPath } from "../../lib/routes";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
 import MapLinks from "../MapLinks.astro";
+import { deriveImageAlt } from "../../lib/food";
 
 interface Props {
   locale: Locale;
@@ -78,9 +79,17 @@ const availableLocales = (await getCollection("food", ({ data }) => (
         )}
       </dl>
     </header>
-    <div class="food-gallery" aria-label={dictionary.food.gallery}>
-      {entry.data.images.map((image) => (
-        <img src={image} alt="" loading="lazy" width="960" height="720" />
+    <div class="food-gallery" data-count={entry.data.images.length} aria-label={dictionary.food.gallery}>
+      {entry.data.images.map((image, index) => (
+        <figure class="food-gallery__item">
+          <img
+            src={image}
+            alt={deriveImageAlt(image)}
+            loading="lazy"
+            width={index === 0 ? 1600 : 960}
+            height={index === 0 ? 667 : 960}
+          />
+        </figure>
       ))}
     </div>
     <div class="food-notes">
