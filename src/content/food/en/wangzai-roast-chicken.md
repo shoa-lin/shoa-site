@@ -2,7 +2,7 @@
 translationKey: "wangzai-roast-chicken"
 locale: "en"
 title: "Wangzai Roast Chicken"
-description: "A glowing red sign at night, and a quick note on a roast chicken dinner."
+description: "A red sign lighting up at night — a quick note on this roast chicken meal."
 publishedAt: "2026-09-19"
 updatedAt: "2026-09-19"
 city: "Guangzhou"
@@ -25,6 +25,6 @@ contentType: "translation"
 publicationStatus: "published"
 ---
 
-Walked past at night in Tangqiangang, Hengsha Village, Jinshazhou, Baiyun District, Guangzhou — the red neon sign for Wangzai Roast Chicken (旺仔烧鸡) was hard to miss, and the place was busy. Grabbed a quick shot of the storefront.
+Walked past at night in Tangqiangang, Hengsha Village, Jinshazhou, Baiyun District, Guangzhou — the red neon sign for Wangzai Roast Chicken (旺仔烧鸡) lit up from a distance, and the entrance was lively. Grabbed a quick shot of the storefront.
 
-The whole signature roast chicken (招牌烧鸡) came out glossy-skinned, and the black pepper pork knuckle (黑椒圆蹄) arrived sizzling on a hot plate. The other dish on the table was stir-fried pork intestine with pickled greens (酸菜炒大肠) — pickled greens with onion and chili. About ¥60 per person, and a solid 4.5/5.
+The whole signature roast chicken (招牌烧鸡) came out glossy-skinned, and the black pepper pork knuckle (黑椒圆蹄) arrived sizzling on a hot iron plate. The other dish was stir-fried pork intestine with pickled greens (酸菜炒大肠) — a bit of onion and chili, flavorful enough to go with rice. About ¥60 per person, a solid 4.5/5.
