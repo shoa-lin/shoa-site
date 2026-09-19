@@ -1,0 +1,16 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import FoodEntryPage from "../../components/pages/FoodEntryPage.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("food", ({ data }) => (
+    data.locale === "zh" && (data.publicationStatus !== "draft" || import.meta.env.DEV)
+  ));
+  return entries.map((entry) => ({ params: { slug: entry.data.translationKey }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<"food"> }
+const { entry } = Astro.props;
+---
+
+<FoodEntryPage locale="zh" entry={entry} />

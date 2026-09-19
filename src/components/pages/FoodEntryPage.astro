@@ -1,0 +1,63 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
+import { localizedPath } from "../../lib/routes";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<"food">;
+}
+
+const { locale, entry } = Astro.props;
+const dictionary = getDictionary(locale);
+const { Content } = await render(entry);
+const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
+const location = [entry.data.city, entry.data.area].filter((part): part is string => Boolean(part)).join(" · ");
+const availableLocales = (await getCollection("food", ({ data }) => (
+  data.translationKey === entry.data.translationKey && data.publicationStatus !== "draft"
+))).map((translation) => translation.data.locale);
+---
+
+<ArticleLayout
+  locale={locale}
+  path={`/food/${entry.data.translationKey}`}
+  title={entry.data.title}
+  description={entry.data.description}
+  availableLocales={availableLocales}
+>
+  <article>
+    <header class="food-entry__header">
+      <a class="article-back" href={localizedPath(locale, "/food")}>{dictionary.food.backToList}</a>
+      <h1>{entry.data.title}</h1>
+      <p class="food-entry__description">{entry.data.description}</p>
+      {location && <p class="food-entry__location">{location}</p>}
+      <dl class="article-meta">
+        {entry.data.visitedAt && (
+          <div><dt>{dictionary.food.visited}</dt><dd>{dateFormatter.format(entry.data.visitedAt)}</dd></div>
+        )}
+        <div><dt>{dictionary.food.published}</dt><dd>{dateFormatter.format(entry.data.publishedAt)}</dd></div>
+        {entry.data.cuisine.length > 0 && (
+          <div><dt>{dictionary.food.cuisine}</dt><dd>{entry.data.cuisine.join("、")}</dd></div>
+        )}
+        {entry.data.priceLevel && (
+          <div><dt>{dictionary.food.priceLevel}</dt><dd>{entry.data.priceLevel}</dd></div>
+        )}
+        {entry.data.rating && (
+          <div><dt>{dictionary.food.rating}</dt><dd>{entry.data.rating}</dd></div>
+        )}
+        {entry.data.recommendAgain && (
+          <div><dt>{dictionary.food.recommendAgain}</dt><dd>✓</dd></div>
+        )}
+      </dl>
+    </header>
+    <div class="food-gallery" aria-label={dictionary.food.gallery}>
+      {entry.data.images.map((image) => (
+        <img src={image} alt="" loading="lazy" width="960" height="720" />
+      ))}
+    </div>
+    <div class="food-notes">
+      <Content />
+    </div>
+  </article>
+</ArticleLayout>

@@ -1,0 +1,35 @@
+---
+import FoodCard from "../FoodCard.astro";
+import { getCollection } from "astro:content";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
+import { localizedPath } from "../../lib/routes";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
+const entries = (await getCollection("food", ({ data }) => data.locale === locale && data.publicationStatus !== "draft"))
+  .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf());
+---
+
+<PageLayout locale={locale} path="/food" title={dictionary.food.title} description={dictionary.food.description}>
+  <header class="page-intro page-intro--compact">
+    <h1>{dictionary.food.title}</h1>
+    <p>{dictionary.food.description}</p>
+  </header>
+  <div class="food-list">
+    {entries.map((entry) => (
+      <FoodCard
+        href={localizedPath(locale, `/food/${entry.data.translationKey}`)}
+        title={entry.data.title}
+        description={entry.data.description}
+        date={dateFormatter.format(entry.data.publishedAt)}
+        coverImage={entry.data.coverImage}
+        city={entry.data.city}
+        cuisine={entry.data.cuisine}
+      />
+    ))}
+    {entries.length === 0 && <p class="collection-empty">{dictionary.food.empty}</p>}
+  </div>
+</PageLayout>
