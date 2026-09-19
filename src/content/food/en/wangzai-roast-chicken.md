@@ -2,7 +2,7 @@
 translationKey: "wangzai-roast-chicken"
 locale: "en"
 title: "Wangzai Roast Chicken"
-description: "A red sign lighting up at night — a quick note on this roast chicken meal."
+description: "Signature roast chicken, and genuinely great value at ¥60 a head."
 publishedAt: "2026-09-19"
 updatedAt: "2026-09-19"
 city: "Guangzhou"
@@ -25,6 +25,6 @@ contentType: "translation"
 publicationStatus: "published"
 ---
 
-Walked past at night in Tangqiangang, Hengsha Village, Jinshazhou, Baiyun District, Guangzhou — the red neon sign for Wangzai Roast Chicken (旺仔烧鸡) lit up from a distance, and the entrance was lively. Grabbed a quick shot of the storefront.
+This visit was to Wangzai Roast Chicken (旺仔烧鸡) in Tangqiangang, Hengsha Village, Jinshazhou, Baiyun District, Guangzhou — the red neon sign lit up from a distance at night, and the entrance was lively. The signature here is the roast chicken, with the black pepper pork knuckle and the stir-fried pork intestine with pickled greens as the other favorites.
 
-The whole signature roast chicken (招牌烧鸡) came out glossy-skinned, and the black pepper pork knuckle (黑椒圆蹄) arrived sizzling on a hot iron plate. The other dish was stir-fried pork intestine with pickled greens (酸菜炒大肠) — a bit of onion and chili, flavorful enough to go with rice. About ¥60 per person, a solid 4.5/5.
+The whole roast chicken (招牌烧鸡) came out glossy-skinned; the black pepper pork knuckle (黑椒圆蹄) arrived sizzling on a hot iron plate; the other dish (酸菜炒大肠) was stir-fried pork intestine with pickled greens, onion, and chili. About ¥60 per person — genuinely great value.
