@@ -10,6 +10,8 @@ area: "白云金沙洲"
 address: "广州市白云区金沙洲"
 aliases: ["旺仔天记", "旺仔添记"]
 cuisine: ["烧鸡", "家常"]
+rating: 4.5
+pricePerPerson: 60
 coverImage: "/assets/food/wangzai-roast-chicken/01-storefront.jpg"
 images:
   - "/assets/food/wangzai-roast-chicken/01-storefront.jpg"
@@ -21,4 +23,4 @@ publicationStatus: "published"
 
 夜里路过广州白云金沙洲，「旺仔烧鸡」几个字的红招牌亮得老远就能看到，门口也挺热闹，随手拍了张店面。
 
-桌上这盘其实是配的小炒——腌菜配洋葱丝，点缀了红绿小米辣，咸香下饭；这次没顾上拍烧鸡成品，留个遗憾。评分和人均还没定，以后再补。
+桌上这盘其实是配的小炒——腌菜配洋葱丝，点缀了红绿小米辣，咸香下饭；这次没顾上拍烧鸡成品，留个遗憾。人均六十左右，给个 4.5 分；招牌菜还没定，以后再补。
