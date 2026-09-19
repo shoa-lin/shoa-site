@@ -6,7 +6,7 @@ import { test } from "node:test";
 const root = new URL("../", import.meta.url);
 const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 const htmlLang = { zh: "zh-CN", en: "en", ja: "ja", ko: "ko", th: "th", fr: "fr", de: "de", vi: "vi" };
-const pages = ["home", "about", "blog", "favorites", "contact", "404"];
+const pages = ["home", "about", "blog", "food", "favorites", "contact", "404"];
 
 function builtPath(locale, page) {
   if (locale === "zh") {

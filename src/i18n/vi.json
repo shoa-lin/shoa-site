@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Trang cá nhân của Shoa Lin về AI agent, hệ thống tri thức, công cụ dành cho lập trình viên và viết kỹ thuật."
   },
-  "nav": { "home": "Trang chủ", "about": "Giới thiệu", "blog": "Bài viết", "favorites": "Yêu thích", "contact": "Liên hệ" },
+  "nav": { "home": "Trang chủ", "about": "Giới thiệu", "blog": "Bài viết", "food": "Ẩm thực", "favorites": "Yêu thích", "contact": "Liên hệ" },
   "theme": { "label": "Giao diện", "toggle": "Chuyển đổi giữa giao diện sáng và tối", "light": "Sáng", "dark": "Tối", "system": "Hệ thống" },
   "language": { "label": "Ngôn ngữ", "menu": "Chọn ngôn ngữ", "current": "Ngôn ngữ hiện tại" },
   "home": {
@@ -48,6 +48,25 @@
     "description": "Những bài viết, nghiên cứu và công cụ đáng đọc lại, kèm một ghi chú ngắn về lý do tôi lưu chúng.",
     "visitSource": "Xem nguồn",
     "empty": "Không có mục đã lưu nào phù hợp với bộ lọc này."
+  },
+  "food": {
+    "title": "Ẩm thực",
+    "description": "Ghi chú ngắn về những nơi mình đã ăn, chủ yếu là ảnh và vài dòng cảm nhận.",
+    "empty": "Chưa có ghi chú ẩm thực nào.",
+    "visited": "Đã đến",
+    "published": "Ghi lúc",
+    "address": "Địa chỉ",
+    "openInMaps": "Mở trong bản đồ",
+    "maps": { "google": "Google Maps", "apple": "Apple Maps", "baidu": "Bản đồ Baidu", "amap": "Bản đồ Amap" },
+    "aliases": "Còn gọi là",
+    "cuisine": "Hương vị",
+    "signatureDishes": "Món đặc trưng",
+    "priceLevel": "Mức giá",
+    "pricePerPerson": "Mỗi người",
+    "rating": "Đánh giá",
+    "recommendAgain": "Sẽ quay lại",
+    "gallery": "Hình ảnh",
+    "backToList": "Quay lại danh sách"
   },
   "contact": {
     "title": "Liên hệ",

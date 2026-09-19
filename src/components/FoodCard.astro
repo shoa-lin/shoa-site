@@ -1,0 +1,35 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  date: string;
+  coverImage: string;
+  city?: string;
+  cuisine?: string[];
+  rating?: number;
+  pricePerPerson?: number;
+}
+
+const { href, title, description, date, coverImage, city, cuisine = [], rating, pricePerPerson } = Astro.props;
+const metaParts = [
+  city,
+  cuisine.join("、"),
+  rating ? `★ ${rating}/5` : undefined,
+  pricePerPerson ? `¥${pricePerPerson}` : undefined,
+].filter((part): part is string => Boolean(part));
+---
+
+<article class="food-card">
+  <a class="food-card__cover" href={href} tabindex="-1" aria-hidden="true">
+    <img src={coverImage} alt="" loading="lazy" width="640" height="480" />
+  </a>
+  <div class="food-card__body">
+    <div class="food-card__meta">
+      <time datetime={date}>{date}</time>
+      {metaParts.map((part) => <span>{part}</span>)}
+    </div>
+    <h2><a href={href}>{title}</a></h2>
+    <p>{description}</p>
+  </div>
+</article>

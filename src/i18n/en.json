@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Shoa Lin's personal site about AI agents, knowledge systems, developer tools, and technical writing."
   },
-  "nav": { "home": "Home", "about": "About", "blog": "Writing", "favorites": "Favorites", "contact": "Contact" },
+  "nav": { "home": "Home", "about": "About", "blog": "Writing", "food": "Food", "favorites": "Favorites", "contact": "Contact" },
   "theme": { "label": "Theme", "toggle": "Switch between light and dark themes", "light": "Light", "dark": "Dark", "system": "System" },
   "language": { "label": "Language", "menu": "Choose a language", "current": "Current language" },
   "home": {
@@ -48,6 +48,25 @@
     "description": "Articles, papers, and tools worth returning to, each with a short note on why I saved it.",
     "visitSource": "View source",
     "empty": "No saved items match this filter yet."
+  },
+  "food": {
+    "title": "Food",
+    "description": "Casual notes on places I've eaten, mostly photos with a few short thoughts.",
+    "empty": "No food notes yet.",
+    "visited": "Visited",
+    "published": "Recorded",
+    "address": "Address",
+    "openInMaps": "Open in maps",
+    "maps": { "google": "Google Maps", "apple": "Apple Maps", "baidu": "Baidu Maps", "amap": "Amap" },
+    "aliases": "Also known as",
+    "cuisine": "Flavor",
+    "signatureDishes": "Signature dishes",
+    "priceLevel": "Price",
+    "pricePerPerson": "Per person",
+    "rating": "Rating",
+    "recommendAgain": "Would go again",
+    "gallery": "Photos",
+    "backToList": "Back to food list"
   },
   "contact": {
     "title": "Contact",

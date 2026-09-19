@@ -1,0 +1,26 @@
+---
+import { buildMapLinks } from "../lib/maps";
+
+interface Props {
+  query: string;
+  city?: string;
+  label: string;
+  openLabel: string;
+  providerLabels: Record<"google" | "apple" | "baidu" | "amap", string>;
+}
+
+const { query, city, label, openLabel, providerLabels } = Astro.props;
+const links = buildMapLinks(query, city);
+---
+
+<details class="map-links">
+  <summary>
+    <span>{label}</span>
+    <span class="map-links__hint">{openLabel}</span>
+  </summary>
+  <div class="map-links__popover" role="list">
+    {links.map((link) => (
+      <a href={link.href} role="listitem" target="_blank" rel="noopener noreferrer">{providerLabels[link.provider]}</a>
+    ))}
+  </div>
+</details>

@@ -30,7 +30,7 @@ for (const route of routes) {
     await expect(panel).toBeVisible();
     const menuBox = await panel.boundingBox();
     expect(menuBox!.width).toBeLessThanOrEqual(260);
-    expect(menuBox!.height).toBeLessThanOrEqual(320);
+    expect(menuBox!.height).toBeLessThanOrEqual(330);
     expect(menuBox!.y).toBeGreaterThanOrEqual(68);
     expect(menuBox!.x + menuBox!.width).toBeLessThanOrEqual(390);
     await expect(panel.getByRole('link', { name: '漫画', exact: true })).toHaveAttribute('aria-current', 'page');
@@ -81,12 +81,12 @@ test.describe('touch navigation', () => {
   test.use({ hasTouch: true });
   test('every compact menu item can be tapped without covering the whole page', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    for (const [label, path] of [['首页', '/'], ['关于', '/about'], ['文章', '/blog'], ['漫画', '/comics'], ['收藏', '/favorites'], ['联系', '/contact']]) {
+    for (const [label, path] of [['首页', '/'], ['关于', '/about'], ['文章', '/blog'], ['漫画', '/comics'], ['美食', '/food'], ['收藏', '/favorites'], ['联系', '/contact']]) {
       await page.goto('/comics/');
       const toggle = page.getByRole('button', { name: '打开导航' });
       await toggle.tap();
       const menu = page.getByRole('navigation', { name: '移动端导航' });
-      await expect(menu.getByRole('link')).toHaveCount(6);
+      await expect(menu.getByRole('link')).toHaveCount(7);
       await expect(page.locator('body')).not.toHaveClass(/nav-open/);
       await menu.getByRole('link', { name: label, exact: true }).tap();
       await expect(page).toHaveURL(new RegExp(`${path === '/' ? '/' : path + '/?'}$`));

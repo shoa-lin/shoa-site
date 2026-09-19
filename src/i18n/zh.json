@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Shoa Lin 的个人主页，记录 AI Agent、知识系统、开发者工具与技术写作。"
   },
-  "nav": { "home": "首页", "about": "关于", "blog": "文章", "favorites": "收藏", "contact": "联系" },
+  "nav": { "home": "首页", "about": "关于", "blog": "文章", "food": "美食", "favorites": "收藏", "contact": "联系" },
   "theme": { "label": "主题", "toggle": "切换浅色与暗色主题", "light": "浅色", "dark": "暗色", "system": "跟随系统" },
   "language": { "label": "语言", "menu": "选择语言", "current": "当前语言" },
   "home": {
@@ -48,6 +48,25 @@
     "description": "我会把值得再次阅读的文章、论文和工具放在这里，并附上简短的整理说明。",
     "visitSource": "查看原文",
     "empty": "暂时没有符合条件的收藏。"
+  },
+  "food": {
+    "title": "美食",
+    "description": "随手记录去过的餐馆和小吃，照片为主，感受不多。",
+    "empty": "暂时没有美食记录。",
+    "visited": "到访",
+    "published": "记录于",
+    "address": "地址",
+    "openInMaps": "在地图中打开",
+    "maps": { "google": "Google 地图", "apple": "苹果地图", "baidu": "百度地图", "amap": "高德地图" },
+    "aliases": "又名",
+    "cuisine": "口味",
+    "signatureDishes": "招牌菜",
+    "priceLevel": "价位",
+    "pricePerPerson": "人均",
+    "rating": "评分",
+    "recommendAgain": "还会再去",
+    "gallery": "图集",
+    "backToList": "返回美食列表"
   },
   "contact": {
     "title": "联系我",
