@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Shoa Lins persönliche Website über KI-Agenten, Wissenssysteme, Entwicklerwerkzeuge und technisches Schreiben."
   },
-  "nav": { "home": "Startseite", "about": "Über mich", "blog": "Artikel", "favorites": "Favoriten", "contact": "Kontakt" },
+  "nav": { "home": "Startseite", "about": "Über mich", "blog": "Artikel", "food": "Essen", "favorites": "Favoriten", "contact": "Kontakt" },
   "theme": { "label": "Darstellung", "toggle": "Zwischen hellem und dunklem Design wechseln", "light": "Hell", "dark": "Dunkel", "system": "System" },
   "language": { "label": "Sprache", "menu": "Sprache auswählen", "current": "Aktuelle Sprache" },
   "home": {
@@ -48,6 +48,19 @@
     "description": "Artikel, Papers und Werkzeuge, zu denen sich eine Rückkehr lohnt – jeweils mit einer kurzen Notiz, warum ich sie gespeichert habe.",
     "visitSource": "Quelle ansehen",
     "empty": "Keine gespeicherten Einträge entsprechen diesem Filter."
+  },
+  "food": {
+    "title": "Essen",
+    "description": "Kurze Notizen zu Orten, an denen ich gegessen habe – vor allem Fotos, wenig Text.",
+    "empty": "Noch keine Food-Notizen.",
+    "visited": "Besucht",
+    "published": "Veröffentlicht",
+    "cuisine": "Geschmack",
+    "priceLevel": "Preis",
+    "rating": "Bewertung",
+    "recommendAgain": "Nochmal gehen",
+    "gallery": "Fotos",
+    "backToList": "Zurück zur Liste"
   },
   "contact": {
     "title": "Kontakt",

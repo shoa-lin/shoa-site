@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Le site personnel de Shoa Lin consacré aux agents IA, aux systèmes de connaissance, aux outils de développement et à l'écriture technique."
   },
-  "nav": { "home": "Accueil", "about": "À propos", "blog": "Articles", "favorites": "Sélection", "contact": "Contact" },
+  "nav": { "home": "Accueil", "about": "À propos", "blog": "Articles", "food": "Cuisine", "favorites": "Sélection", "contact": "Contact" },
   "theme": { "label": "Thème", "toggle": "Basculer entre les thèmes clair et sombre", "light": "Clair", "dark": "Sombre", "system": "Système" },
   "language": { "label": "Langue", "menu": "Choisir une langue", "current": "Langue actuelle" },
   "home": {
@@ -48,6 +48,19 @@
     "description": "Des articles, travaux de recherche et outils qui méritent d'être relus, accompagnés d'une courte note.",
     "visitSource": "Voir la source",
     "empty": "Aucun élément ne correspond encore à ce filtre."
+  },
+  "food": {
+    "title": "Cuisine",
+    "description": "Notes rapides sur les endroits où j'ai mangé, surtout des photos et quelques mots.",
+    "empty": "Aucune note culinaire pour le moment.",
+    "visited": "Visité le",
+    "published": "Publié le",
+    "cuisine": "Saveur",
+    "priceLevel": "Prix",
+    "rating": "Note",
+    "recommendAgain": "À revisiter",
+    "gallery": "Photos",
+    "backToList": "Retour à la liste"
   },
   "contact": {
     "title": "Contact",

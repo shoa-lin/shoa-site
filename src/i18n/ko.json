@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "AI 에이전트, 지식 시스템, 개발자 도구와 기술 글쓰기를 다루는 Shoa Lin의 개인 사이트입니다."
   },
-  "nav": { "home": "홈", "about": "소개", "blog": "글", "favorites": "보관함", "contact": "연락" },
+  "nav": { "home": "홈", "about": "소개", "blog": "글", "food": "맛집", "favorites": "보관함", "contact": "연락" },
   "theme": { "label": "테마", "toggle": "밝은 테마와 어두운 테마 전환", "light": "밝게", "dark": "어둡게", "system": "시스템 설정" },
   "language": { "label": "언어", "menu": "언어 선택", "current": "현재 언어" },
   "home": {
@@ -48,6 +48,19 @@
     "description": "다시 읽을 만한 글, 논문, 도구를 저장한 이유와 함께 정리합니다.",
     "visitSource": "원문 보기",
     "empty": "조건에 맞는 항목이 아직 없습니다."
+  },
+  "food": {
+    "title": "맛집",
+    "description": "다녀온 식당을 가볍게 기록합니다. 사진이 중심이고, 감상은 짧게 남깁니다.",
+    "empty": "아직 맛집 기록이 없습니다.",
+    "visited": "방문",
+    "published": "기록",
+    "cuisine": "맛",
+    "priceLevel": "가격대",
+    "rating": "평점",
+    "recommendAgain": "또 갈 예정",
+    "gallery": "사진",
+    "backToList": "맛집 목록으로"
   },
   "contact": {
     "title": "연락",

@@ -19,6 +19,7 @@ export function navigationItems(locale: Locale): Array<{ path: string; href: str
     { path: '/about', href: localizedPath(locale, '/about'), label: dictionary.nav.about },
     { path: '/blog', href: localizedPath(locale, '/blog'), label: dictionary.nav.blog },
     { path: '/comics', href: '/comics/', label: comicCopy[locale].title },
+    { path: '/food', href: localizedPath(locale, '/food'), label: dictionary.nav.food },
     { path: '/favorites', href: localizedPath(locale, '/favorites'), label: dictionary.nav.favorites },
     { path: '/contact', href: localizedPath(locale, '/contact'), label: dictionary.nav.contact },
   ];

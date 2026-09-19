@@ -78,6 +78,14 @@ const latestPublications = (await getCollection("blog", ({ data }) => (
     <a class="text-command" href="/comics/">{comicCopy[locale].title} →</a>
   </section>
 
+  <section class="editorial-section contact-strip" aria-labelledby="home-food-title">
+    <div>
+      <h2 id="home-food-title">{dictionary.food.title}</h2>
+      <p>{dictionary.food.description}</p>
+    </div>
+    <a class="text-command" href={localizedPath(locale, "/food")}>{dictionary.nav.food} →</a>
+  </section>
+
   <section class="editorial-section contact-strip">
     <div>
       <h2>{dictionary.home.contactTitle}</h2>

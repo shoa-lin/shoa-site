@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "AIエージェント、知識システム、開発者ツール、技術文書について発信するShoa Linの個人サイトです。"
   },
-  "nav": { "home": "ホーム", "about": "プロフィール", "blog": "記事", "favorites": "コレクション", "contact": "連絡先" },
+  "nav": { "home": "ホーム", "about": "プロフィール", "blog": "記事", "food": "グルメ", "favorites": "コレクション", "contact": "連絡先" },
   "theme": { "label": "テーマ", "toggle": "ライトとダークを切り替える", "light": "ライト", "dark": "ダーク", "system": "システム設定" },
   "language": { "label": "言語", "menu": "言語を選択", "current": "現在の言語" },
   "home": {
@@ -48,6 +48,19 @@
     "description": "もう一度読みたい記事、論文、ツールを、保存した理由とともにまとめています。",
     "visitSource": "原文を見る",
     "empty": "条件に合う項目はまだありません。"
+  },
+  "food": {
+    "title": "グルメ",
+    "description": "行った店の記録。写真中心で、感想は少しだけ。",
+    "empty": "グルメの記録はまだありません。",
+    "visited": "訪問",
+    "published": "記録",
+    "cuisine": "味",
+    "priceLevel": "価格帯",
+    "rating": "評価",
+    "recommendAgain": "また行きたい",
+    "gallery": "写真",
+    "backToList": "グルメ一覧に戻る"
   },
   "contact": {
     "title": "連絡先",
