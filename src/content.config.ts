@@ -53,9 +53,15 @@ const food = defineCollection({
     visitedAt: z.coerce.date().optional(),
     city: z.string().min(1).optional(),
     area: z.string().min(1).optional(),
+    address: z.string().min(1).optional(),
+    aliases: z.array(z.string().min(1)).default([]),
     cuisine: z.array(z.string().min(1)).default([]),
+    signatureDishes: z.array(z.string().min(1)).default([]),
     priceLevel: z.enum(["¥", "¥¥", "¥¥¥"]).optional(),
+    // 1-5 stars, decimals allowed (e.g. 4.5).
     rating: z.number().min(1).max(5).optional(),
+    // Average spend per person in CNY.
+    pricePerPerson: z.number().positive().optional(),
     coverImage: z.string().min(1),
     images: z.array(z.string().min(1)).min(1),
     recommendAgain: z.boolean().optional(),
