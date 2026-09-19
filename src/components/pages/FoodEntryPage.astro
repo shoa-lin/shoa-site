@@ -30,6 +30,9 @@ const availableLocales = (await getCollection("food", ({ data }) => (
     <header class="food-entry__header">
       <a class="article-back" href={localizedPath(locale, "/food")}>{dictionary.food.backToList}</a>
       <h1>{entry.data.title}</h1>
+      {entry.data.aliases.length > 0 && (
+        <p class="food-entry__aliases">{dictionary.food.aliases}：{entry.data.aliases.join("、")}</p>
+      )}
       <p class="food-entry__description">{entry.data.description}</p>
       {location && <p class="food-entry__location">{location}</p>}
       <dl class="article-meta">
@@ -37,14 +40,23 @@ const availableLocales = (await getCollection("food", ({ data }) => (
           <div><dt>{dictionary.food.visited}</dt><dd>{dateFormatter.format(entry.data.visitedAt)}</dd></div>
         )}
         <div><dt>{dictionary.food.published}</dt><dd>{dateFormatter.format(entry.data.publishedAt)}</dd></div>
+        {entry.data.address && (
+          <div><dt>{dictionary.food.address}</dt><dd>{entry.data.address}</dd></div>
+        )}
         {entry.data.cuisine.length > 0 && (
           <div><dt>{dictionary.food.cuisine}</dt><dd>{entry.data.cuisine.join("、")}</dd></div>
+        )}
+        {entry.data.signatureDishes.length > 0 && (
+          <div><dt>{dictionary.food.signatureDishes}</dt><dd>{entry.data.signatureDishes.join("、")}</dd></div>
         )}
         {entry.data.priceLevel && (
           <div><dt>{dictionary.food.priceLevel}</dt><dd>{entry.data.priceLevel}</dd></div>
         )}
+        {entry.data.pricePerPerson && (
+          <div><dt>{dictionary.food.pricePerPerson}</dt><dd>¥{entry.data.pricePerPerson}</dd></div>
+        )}
         {entry.data.rating && (
-          <div><dt>{dictionary.food.rating}</dt><dd>{entry.data.rating}</dd></div>
+          <div><dt>{dictionary.food.rating}</dt><dd>★ {entry.data.rating} / 5</dd></div>
         )}
         {entry.data.recommendAgain && (
           <div><dt>{dictionary.food.recommendAgain}</dt><dd>✓</dd></div>

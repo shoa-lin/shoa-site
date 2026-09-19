@@ -305,6 +305,12 @@
   letter-spacing: 0;
 }
 
+.food-entry__aliases {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 .food-entry__description {
   max-width: 60ch;
   margin: 1.25rem 0 0;
