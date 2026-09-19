@@ -41,4 +41,28 @@ const favorites = defineCollection({
   }),
 });
 
-export const collections = { blog, favorites };
+const food = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/food" }),
+  schema: z.object({
+    translationKey: z.string().min(1),
+    locale: locale,
+    title: z.string().min(1),
+    description: z.string().min(1),
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
+    visitedAt: z.coerce.date().optional(),
+    city: z.string().min(1).optional(),
+    area: z.string().min(1).optional(),
+    cuisine: z.array(z.string().min(1)).default([]),
+    priceLevel: z.enum(["¥", "¥¥", "¥¥¥"]).optional(),
+    rating: z.number().min(1).max(5).optional(),
+    coverImage: z.string().min(1),
+    images: z.array(z.string().min(1)).min(1),
+    recommendAgain: z.boolean().optional(),
+    sourceLocale: locale,
+    contentType: z.enum(["original", "translation"]),
+    publicationStatus: z.enum(["draft", "reviewed", "published"]),
+  }),
+});
+
+export const collections = { blog, favorites, food };
