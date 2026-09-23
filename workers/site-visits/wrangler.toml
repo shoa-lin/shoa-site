@@ -1,0 +1,13 @@
+name = "shoa-site-visits"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Replace `id` with the value printed by:
+#   wrangler kv namespace create VISITS
+[[kv_namespaces]]
+binding = "VISITS"
+id = "8e83536b23cc4bdcb75e72cc5946cbab"
+
+[vars]
+# Comma-separated exact origins. http://localhost:* and http://127.0.0.1:* are always allowed for local preview.
+ALLOWED_ORIGINS = "https://www.bydziwen.top,https://bydziwen.top"

@@ -6,3 +6,5 @@ playwright-report/
 test-results/
 lighthouse-reports/
 *.log
+.env
+.wrangler/

@@ -1,4 +1,5 @@
 ---
+import { visitApiUrl } from "../data/visit-api";
 import { getDictionary, type Locale } from "../lib/i18n";
 
 interface Props {
@@ -11,7 +12,14 @@ const dictionary = getDictionary(locale);
 
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <p>© {new Date().getFullYear()} Shoa Lin. {dictionary.footer.rights}</p>
+    <p>
+      © {new Date().getFullYear()} Shoa Lin. {dictionary.footer.rights}
+      {visitApiUrl && (
+        <span class="site-footer__views" data-visit-counter data-visit-api={visitApiUrl} hidden>
+          {dictionary.footer.viewsLabel} <span data-visit-total></span>
+        </span>
+      )}
+    </p>
     <div class="site-footer__links">
       <a href="mailto:shoa_lin@outlook.com">Email</a>
       <a href="https://x.com/pand_lin" rel="me noopener noreferrer">X</a>
@@ -19,3 +27,9 @@ const dictionary = getDictionary(locale);
     </div>
   </div>
 </footer>
+
+<script>
+  import { initVisitCounter } from "../scripts/visit-counter";
+
+  initVisitCounter();
+</script>
