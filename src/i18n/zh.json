@@ -81,5 +81,5 @@
   },
   "errors": { "notFoundTitle": "页面不存在", "notFoundBody": "这个地址可能已经变化，或者页面尚未发布。", "home": "返回首页" },
   "a11y": { "skip": "跳到主要内容", "menuOpen": "打开导航", "menuClose": "关闭导航", "mainNavigation": "主要导航", "mobileNavigation": "移动端导航", "languageMenu": "语言菜单", "themeToggle": "主题切换" },
-  "footer": { "rights": "保留所有权利。" }
+  "footer": { "rights": "保留所有权利。", "viewsLabel": "累计浏览" }
 }

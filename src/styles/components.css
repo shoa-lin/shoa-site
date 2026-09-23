@@ -276,6 +276,16 @@ html[data-theme="dark"] .theme-toggle__light {
   color: inherit;
 }
 
+.site-footer__views {
+  color: var(--muted-soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.site-footer__views::before {
+  content: " · ";
+}
+
 .page-shell,
 .blog-index-shell,
 .article-shell {

@@ -81,5 +81,5 @@
   },
   "errors": { "notFoundTitle": "ページが見つかりません", "notFoundBody": "URLが変更されたか、まだ公開されていない可能性があります。", "home": "ホームへ戻る" },
   "a11y": { "skip": "本文へ移動", "menuOpen": "ナビゲーションを開く", "menuClose": "ナビゲーションを閉じる", "mainNavigation": "メインナビゲーション", "mobileNavigation": "モバイルナビゲーション", "languageMenu": "言語メニュー", "themeToggle": "テーマ切り替え" },
-  "footer": { "rights": "無断転載を禁じます。" }
+  "footer": { "rights": "無断転載を禁じます。", "viewsLabel": "累計閲覧数" }
 }

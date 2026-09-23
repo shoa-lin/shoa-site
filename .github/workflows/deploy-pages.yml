@@ -26,6 +26,9 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run verify
+        env:
+          # Public Worker URL for the footer view counter; set as a repository variable.
+          PUBLIC_VISIT_API_URL: ${{ vars.PUBLIC_VISIT_API_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

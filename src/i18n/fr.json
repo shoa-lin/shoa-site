@@ -81,5 +81,5 @@
   },
   "errors": { "notFoundTitle": "Page introuvable", "notFoundBody": "L'adresse a peut-être changé ou la page n'est pas encore publiée.", "home": "Retour à l'accueil" },
   "a11y": { "skip": "Aller au contenu principal", "menuOpen": "Ouvrir la navigation", "menuClose": "Fermer la navigation", "mainNavigation": "Navigation principale", "mobileNavigation": "Navigation mobile", "languageMenu": "Menu des langues", "themeToggle": "Contrôle du thème" },
-  "footer": { "rights": "Tous droits réservés." }
+  "footer": { "rights": "Tous droits réservés.", "viewsLabel": "Vues au total" }
 }
