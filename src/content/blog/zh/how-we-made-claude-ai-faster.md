@@ -4,7 +4,7 @@ locale: "zh"
 title: "两周让 claude.ai 提速 3 倍：我们是怎么做到的"
 description: "在一个 Slack 频道里跑完的两周性能冲刺中，Claude 负责找瓶颈、搭基准、提交改动，最终合入 3000 多个变更，让 claude.ai 和桌面端整体快了约 3 倍。核心经验是：只要 Claude 能测量一件事，它就能把这件事做快。"
 publishedAt: "2026-09-23"
-updatedAt: "2026-09-23"
+updatedAt: "2026-09-27"
 category: "development"
 sourceLocale: "en"
 sourceUrl: "https://claude.dev/blog/how-we-made-claude-ai-faster/"
@@ -13,7 +13,11 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-> 本文改编自 Raymond Wang、Sam Attard 和 Issac G. 于 2026 年 9 月 23 日发布的 [How we made claude.ai 3x faster in two weeks](https://claude.dev/blog/how-we-made-claude-ai-faster/)。原文中的图表和视频在这里以文字概述呈现；Slack 对话与原文一样，是根据真实对话整理的重现版本。
+![《我们如何在两周内让 claude.ai 提速 3 倍》封面图](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+
+---
+
+> 本文改编自 Raymond Wang、Sam Attard 和 Issac G. 于 2026 年 9 月 23 日发布的 [How we made claude.ai 3x faster in two weeks](https://claude.dev/blog/how-we-made-claude-ai-faster/)。原文中的图表和视频已收录在本文中；Slack 对话与原文一样，是根据真实对话整理的重现版本。
 
 只要 Claude 能测量一件事，它就能把这件事做快。所以团队一直在做的，就是不断找出更多可以测量的东西。这是一次为期两周的性能冲刺，也是一个工作循环的故事：几位工程师和 Claude 一起，合入了三千多个变更，全程没有出现一次影响用户的事故。
 
@@ -29,14 +33,9 @@ translationStatus: "reviewed"
 
 合计下来，团队估算每天能为用户省下数万小时的等待时间。
 
-> **图表概述：真实用户 p75 下的 13 项前后对比（8 月 13 日 vs. 8 月 27 日）。**
->
-> - **启动应用：** claude.ai 网页全新加载 3,085 → 550 ms（5.6 倍，−82%）；桌面端冷启动 6,310 → 3,328 ms（1.9 倍，−47%）。
-> - **开始对话：** Chat 网页 416 → 273 ms（1.5 倍）；Chat 桌面 460 → 224 ms（2.1 倍）；Claude Code 桌面 837 → 347 ms（2.4 倍）。
-> - **加载对话：** Chat 网页 1,557 → 646 ms（2.4 倍）；Chat 桌面 1,353 → 488 ms（2.8 倍）；Claude Cowork 桌面/云端 2,566 → 728 ms（3.5 倍）；Claude Code 桌面 545 → 262 ms（2.1 倍）。
-> - **发送消息：** Chat 网页 180 → 59 ms（3.1 倍）；Chat 桌面 140 → 64 ms（2.2 倍）；Claude Cowork 桌面/云端 928 → 48 ms（19 倍，−95%）；Claude Code 桌面 250 → 52 ms（4.8 倍）。
->
-> 四条路径、13 项测量，平均提速 3.1 倍（几何平均）。
+![四条核心用户路径上 13 项 p75 耗时的前后对比图（8 月 13 日 vs. 8 月 27 日）](/assets/blog/how-we-made-claude-ai-faster/perf-journeys.svg)
+
+*核心用户路径 p75 耗时（真实用户，8 月 13 日 vs. 8 月 27 日）：13 项测量，平均提速 3.1 倍（几何平均）。*
 
 这次工作使用的是 [Claude Tag](https://claude.com/product/tag)（beta），背后是一个能力大致相当于 Opus 5.5 的内部研究模型。Claude 负责定位瓶颈、构建基准测试、提交优化，并盯着每一次部署；人类负责掌舵：设定目标、权衡取舍、审批每一个改动。就这样，团队合入了三千多个变更，没有出现任何影响用户的事故，也没有一次回滚。
 
@@ -89,12 +88,9 @@ Sam 找到了第一条线索：
 
 一小时后，它把两条路径的指令数分别削减了 48% 和 31%，挂钟时间则分别下降了 78% 和 44%。团队随即提交了两道新的 ratchet：从此以后，任何让这两条路径指令数上升的 PR 都会在 CI 上失败；每天还有一个任务，在指令数下降时自动把上限往下调。
 
-> **图表概述：两条热点路径的前后对比。**
->
-> - **消息树拼装：** 每个消息 ID 只解析一次而非三次；CPU 指令 −48%，挂钟时间 −78%，快 4.6 倍。
-> - **状态行扫描器：** 在正则之前先做一次廉价的首字符检查；CPU 指令 −31%，挂钟时间 −44%，快 1.8 倍。
->
-> 指令数在 Valgrind 下配合 `node --predictable` 统计；耗时则在同一基准上、以普通 node 且 JIT 已预热的条件下测得。
+![两条热点路径上 CPU 指令数与挂钟时间的前后对比图](/assets/blog/how-we-made-claude-ai-faster/perf-count.svg)
+
+*消息树拼装：指令 −48%，挂钟时间 −78%（4.6 倍）；状态行扫描器：指令 −31%，挂钟时间 −44%（1.8 倍）。指令数在 Valgrind 下配合 `node --predictable` 统计。*
 
 这引出了整个冲刺最核心的一条经验：**有了 Claude，一件事只要能被测量，就能被攻克。**
 
@@ -111,13 +107,19 @@ Sam 找到了第一条线索：
 5. 如果确实变快了，Claude 就收紧基准的 ratchet，把成果锁定；如果没有，就关掉 flag 继续迭代。
 6. 然后去找同一条路径上的下一个慢点。
 
+![示意图：循环中的一个讨论串](/assets/blog/how-we-made-claude-ai-faster/perf-loop.svg)
+
+*循环中的一个讨论串：有人开一个讨论串，剩下的交给 Claude。*
+
 举个例子：有人分享了一段录屏，页面加载后侧边栏的条目一个个“蹦”出来。Chat 和 Cowork 的条目在不同时间就位，页面显得一卡一卡的。现有的监控没有一个能捕捉到它。最接近的是 [Cumulative Layout Shift](https://web.dev/articles/cls)（CLS），但每次偏移只有约 0.008 分——远在 0.1 的“良好”阈值之内。
 
 Issac 想到直接去用更底层的 [Layout Instability API](https://wicg.github.io/layout-instability/)。Claude 新建了一个遥测事件，把每个 `layout-shift` 条目的 `sources` 映射到具名区域（如侧边栏、对话记录）和阶段（如首次绘制前、可输入之后）。它还加了一个集成测试：打开一个侧边栏有内容的页面，把侧边栏数据扣到首次绘制之后才放出，只要任何具名区域发生偏移就判定失败。这个测试成了证明修复有效的基准：在 main 分支上 20 次全红，在 PR 上 20 次全绿。
 
 事件上线后，Claude 读取线上数据，发现 **31% 的网页加载会在页面已经可用之后发生元素移动**，而且没有任何用户交互。接下来它按名字逐个排查原因：一行迟到的表头；用户名加载后向侧面滑动的光标；滚动条出现时整体挪动的列表。它把排名靠前的问题打包修掉，修完之后再去找下一批。
 
-> **视频概述：侧边栏抖动的前后对比（限速 4G）。** 修复前，条目姗姗来迟、互相挤位：十行跳动、九行冒出来、四行消失。修复后，条目直接出现在最终位置，什么都不动。
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="限速 4G 下 claude.ai 侧边栏加载的修复前后录屏"></video>
+
+*侧边栏抖动的前后对比（限速 4G）：修复前，条目姗姗来迟、互相挤位；修复后，条目直接出现在最终位置。*
 
 这只是其中一个讨论串。冲刺期间，同时在跑的有一百五十多个。
 
@@ -134,7 +136,9 @@ Issac 想到直接去用更底层的 [Layout Instability API](https://wicg.githu
 
 谁也不知道一个讨论串最终会通向哪里。在一次排查 CPU 卡顿的扫描中，Claude 注意到：高亮一个已完成的代码块，可能让页面冻结约一秒。它在实验室里深挖，找到了元凶：破折号（em dash）。如果回复的 markdown 里含有任何非 Latin-1 字符，比如 em dash 或弯引号，V8 就会把整个字符串存成 UTF-16，导致所有语法高亮正则都走上较慢的双字节路径。修复只用了二十行：在高亮前把每个代码块复制成单字节字符串。
 
-> **图表概述：在含 em dash 的回复中高亮已完成代码块（实验室测量）。** 页面上第一个 TypeScript 代码块的主线程耗时从 1.0 秒降到 0.35 秒（减少 65%），此后对该块的每次处理从 100 ms 降到 40 ms。条件：4 vCPU 容器、headless Chrome、无 CPU 限速，每个数值跑 2–3 次，2026 年 8 月。
+![在含 em dash 的回复中高亮已完成代码块的主线程耗时前后对比图](/assets/blog/how-we-made-claude-ai-faster/perf-emdash.svg)
+
+*第一个 TypeScript 代码块：1.0 秒 → 0.35 秒（−65%）；此后每次处理：100 ms → 40 ms。实验室测量。*
 
 到了第二周，产出多到几乎没法写进每日总结。最忙的几天，一天合入两百多个变更。Claude 不断提出新基准；约三分之一的 PR 附带了额外的遥测或护栏，而每一个新的“仪表”又会催生更多讨论串和更多机会。
 
@@ -152,7 +156,9 @@ flag 越积越多时，团队专门开了一个讨论串来协调它们的放量
 
 团队也清楚，在快速演进的代码库里，性能成果会慢慢流失，而 [Anthropic 的代码交付速度很快](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic)。所以一个项目一旦证明有效，就要投入资源去保护它。以静态输入框为例，它天生就很脆弱：用户几乎立刻就能看到页面的一份 HTML 副本，随后 React 直接在它上面绘制。
 
-> **视频概述：静态输入框的前后对比（限速 4G）。** 修复前，全新加载 claude.ai 时页面一直是空白，输入框到 2.93 秒才能接收输入。修复后，静态的问候语和输入框在 0.36 秒就能输入；用户打下一条消息，约 3 秒时真正的输入框淡入，文字完整保留。
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="限速 4G 下全新加载 claude.ai 时有无静态输入框的前后录屏"></video>
+
+*静态输入框的前后对比（限速 4G）：0.36 秒即可输入，而不是 2.93 秒；切换到真正输入框时，已输入的文字完整保留。*
 
 只要 React 渲染结果差了哪怕一个像素，这个“魔术”就穿帮了。所以 Claude 搭建了几十道护栏：
 
@@ -213,7 +219,7 @@ flag 越积越多时，团队专门开了一个讨论串来协调它们的放量
 
 光这一个讨论串就合入了近六十个 PR。长回复对主线程的阻塞总计从约 750 毫秒降到约 200 毫秒，CPU 占用约为原来的三分之一，在 120 Hz 的 MacBook 上从头到尾稳定保持 120 fps。这个 120 Hz 测试台本身也成了一个夜间任务，由 Claude 盯着有没有回退。
 
-> **嵌入的 X 帖子（概述）：** “在网页端和桌面端的 Claude 上，长回答的流式输出现在流畅了约 4 倍。我们重写了流式渲染器，只处理仍在变化的部分：在较慢的笔记本上，长回复的卡顿减少 9 倍，最严重的一次冻结缩短 4.5 倍；在 120Hz 的 MacBook 上，从头到尾保持 120fps。”——ClaudeDevs，2026 年 8 月 25 日。[在 X 上查看这条帖子](https://x.com/ClaudeDevs/status/2092006814804214163)。
+> **@ClaudeDevs 在 X 上的帖子：** “在网页端和桌面端的 Claude 上，长回答的流式输出现在流畅了约 4 倍。我们重写了流式渲染器，只处理仍在变化的部分：在较慢的笔记本上，长回复的卡顿减少 9 倍，最严重的一次冻结缩短 4.5 倍；在 120Hz 的 MacBook 上，从头到尾保持 120fps。”——ClaudeDevs，2026 年 8 月 25 日。[在 X 上查看这条帖子](https://x.com/ClaudeDevs/status/2092006814804214163)。
 
 冲刺开始时，没有人计划去优化流式输出时帧与帧之间的那几毫秒。但事实证明，它们*可以*被计数——而任何能被计数的东西，Claude 都能往上爬。
 

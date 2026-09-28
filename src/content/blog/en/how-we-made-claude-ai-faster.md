@@ -4,7 +4,7 @@ locale: "en"
 title: "How We Made claude.ai 3x Faster in Two Weeks"
 description: "In a two-week sprint run from one Slack channel, Claude found bottlenecks, built benchmarks, and shipped more than 3,000 changes that made claude.ai and the desktop app about 3x faster. The key lesson: once Claude can measure something, it can make it faster."
 publishedAt: "2026-09-23"
-updatedAt: "2026-09-23"
+updatedAt: "2026-09-27"
 category: "development"
 sourceLocale: "en"
 sourceUrl: "https://claude.dev/blog/how-we-made-claude-ai-faster/"
@@ -13,7 +13,11 @@ contentType: "adaptation"
 translationStatus: "reviewed"
 ---
 
-> Adapted from [How we made claude.ai 3x faster in two weeks](https://claude.dev/blog/how-we-made-claude-ai-faster/) by Raymond Wang, Sam Attard, and Issac G., published on September 23, 2026. Charts and videos from the original are summarized in text here; the Slack threads are recreations of real conversations, as in the source.
+![How we made claude.ai 3x faster in two weeks, cover image](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+
+---
+
+> Adapted from [How we made claude.ai 3x faster in two weeks](https://claude.dev/blog/how-we-made-claude-ai-faster/) by Raymond Wang, Sam Attard, and Issac G., published on September 23, 2026. The charts and videos from the original are included here; the Slack threads are recreations of real conversations, as in the source.
 
 Once Claude can measure something, it can make it faster. So the team kept finding more things to measure. This is the story of a two-week performance sprint, and of the working loop that let a handful of engineers and Claude ship more than three thousand changes without a single customer-facing incident.
 
@@ -29,14 +33,9 @@ They focused on four journeys that make up 95% of user activity. At the 75th per
 
 In aggregate, the team estimates this saves tens of thousands of user-hours of waiting every day.
 
-> **Figure summary: thirteen before-and-after timings at p75 for real users (August 13 vs. August 27).**
->
-> - **Launching the app:** claude.ai web fresh load 3,085 → 550 ms (5.6x, −82%); desktop cold start 6,310 → 3,328 ms (1.9x, −47%).
-> - **Starting a conversation:** Chat web 416 → 273 ms (1.5x); Chat desktop 460 → 224 ms (2.1x); Claude Code desktop 837 → 347 ms (2.4x).
-> - **Loading a conversation:** Chat web 1,557 → 646 ms (2.4x); Chat desktop 1,353 → 488 ms (2.8x); Claude Cowork desktop/cloud 2,566 → 728 ms (3.5x); Claude Code desktop 545 → 262 ms (2.1x).
-> - **Sending a message:** Chat web 180 → 59 ms (3.1x); Chat desktop 140 → 64 ms (2.2x); Claude Cowork desktop/cloud 928 → 48 ms (19x, −95%); Claude Code desktop 250 → 52 ms (4.8x).
->
-> Across the thirteen measurements and four journeys, the average speedup was 3.1x (geometric mean).
+![Chart of thirteen before-and-after p75 timings across four core user journeys, August 13 vs. August 27](/assets/blog/how-we-made-claude-ai-faster/perf-journeys.svg)
+
+*Core user journeys at p75 (real users, August 13 vs. August 27): 13 measurements, 3.1x faster on average (geometric mean).*
 
 The work ran on [Claude Tag](https://claude.com/product/tag) (beta), backed by an internal research model roughly comparable to Opus 5.5. Claude found bottlenecks, built benchmarks, shipped improvements, and watched every deploy. The humans steered: they set goals, made tradeoffs, and approved every change. That way they merged more than three thousand changes without a single customer-facing incident or rollback.
 
@@ -89,12 +88,9 @@ So Claude was asked to drive the count down on two hot paths: the routine that a
 
 An hour later, it had cut instructions on the two paths by 48% and 31%, and wall-clock time had fallen by 78% and 44%. Two new ratchets were checked in: from then on, any PR that raised the instruction count of those paths failed CI, and a daily job lowered each ceiling whenever the count went down.
 
-> **Figure summary: two hot paths, before and after.**
->
-> - **Message-tree assembly:** each message ID resolved once instead of three times; CPU instructions −48%, wall-clock −78%, 4.6x faster.
-> - **Status-line scanner:** a cheap first-character check before the regex; CPU instructions −31%, wall-clock −44%, 1.8x faster.
->
-> Counts were taken under Valgrind with `node --predictable`; timings on the same benchmark under plain node with the JIT warm.
+![Chart comparing CPU instruction counts and wall-clock time on two hot paths, before and after](/assets/blog/how-we-made-claude-ai-faster/perf-count.svg)
+
+*Message-tree assembly: instructions −48%, wall-clock −78% (4.6x). Status-line scanner: instructions −31%, wall-clock −44% (1.8x). Counts taken under Valgrind with `node --predictable`.*
 
 That led to the central lesson of the sprint: **with Claude, measuring something makes it tractable.**
 
@@ -111,13 +107,19 @@ Everything ran in the same Slack channel, with several engineers and Claude jamm
 5. If it got faster, Claude locks in the win by ratcheting the benchmark down; if not, it turns the flag off and iterates.
 6. Then it goes looking for the next slow spot in the same journey.
 
+![Diagram: One thread in the loop](/assets/blog/how-we-made-claude-ai-faster/perf-loop.svg)
+
+*One thread in the loop: someone opens a thread; Claude takes it from there.*
+
 One example: someone shared a screen recording of sidebar rows popping in after the page loaded. Chat and Cowork rows resolved at different times, so the page felt janky. None of the existing monitors caught it. The closest was [Cumulative Layout Shift](https://web.dev/articles/cls), but each shift scored only about 0.008 — well inside the "good" threshold of 0.1.
 
 Issac had the idea of going straight to the underlying [Layout Instability API](https://wicg.github.io/layout-instability/). Claude created a telemetry event that mapped the `sources` of each `layout-shift` entry to a named region (sidebar, transcript, and so on) and a phase (before first paint, after typeable, and so on). It added an integration test that opened the page with a populated sidebar, held the sidebar data until after first paint, and failed on any shift in any named region. That test became the benchmark that proved the fix: red 20 out of 20 runs on main, green 20 out of 20 on the PR.
 
 Once the event was deployed, Claude read the field data and found that **31% of web page loads moved something after the page was already usable**, with no user interaction. From there it worked through the causes one by one: a header row that arrived late, a caret that slid sideways once the user's name loaded, a list that moved when the scrollbar popped in. It fixed the top offenders as a batch, and when those were gone, it found the next batch.
 
-> **Video summary: sidebar jank, before and after (throttled 4G).** Before, rows arrive late and rearrange themselves: ten rows jump, nine appear, and four vanish. After, rows fill in where they will stay, and nothing moves.
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Screen recording of the claude.ai sidebar loading before and after the fix, on throttled 4G"></video>
+
+*Sidebar jank, before and after (throttled 4G): before, rows arrive late and rearrange; after, they fill in where they stay.*
 
 That was one thread. During the sprint, more than a hundred and fifty ran at the same time.
 
@@ -134,7 +136,9 @@ Every measurement turned something up:
 
 Nobody knew in advance where a thread would lead. During a sweep for CPU hitches, Claude noticed that highlighting a finished code block could freeze the page for about a second. Digging in the lab, it found the culprit: em dashes. If a reply's markdown contained any non-Latin-1 character, such as an em dash or a curly quote, V8 stored the whole string as UTF-16, which pushed every syntax-highlighting regex onto its slower two-byte path. The fix was a twenty-line change that copies each code block into a one-byte string before highlighting.
 
-> **Figure summary: highlighting a finished code block in a reply containing an em dash (lab measurement).** The first TypeScript block on a page dropped from 1.0 s to 0.35 s of main-thread time (65% less), and each later pass on that block from 100 ms to 40 ms. Conditions: 4-vCPU container, headless Chrome, no CPU throttling, 2–3 runs per value, August 2026.
+![Chart of main-thread time for highlighting a finished code block in a reply containing an em dash, before and after](/assets/blog/how-we-made-claude-ai-faster/perf-emdash.svg)
+
+*First TypeScript block: 1.0 s → 0.35 s (−65%); later passes: 100 ms → 40 ms. Lab measurement.*
 
 By the second week, the output was almost too much to summarize in daily updates. On the busiest days, more than two hundred changes landed. Claude kept proposing new benchmarks; about a third of PRs added telemetry or guardrails, and each new instrument spawned more threads with more opportunities.
 
@@ -152,7 +156,9 @@ When the flags started piling up, a dedicated thread coordinated their rollout a
 
 Performance wins also decay in a fast-moving codebase, and [code ships fast at Anthropic](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic). So once a project proved a win, the team invested in protecting it. The static composer, for example, is brittle by design: users see an HTML copy of the page almost immediately, and React paints directly on top of it.
 
-> **Video summary: static composer, before and after (throttled 4G).** Before, a fresh load of claude.ai stays blank and the composer accepts input at 2.93 seconds. After, a static greeting and composer accept input at 0.36 seconds; the user types a message, and the text is preserved when the real composer fades in at about 3 seconds.
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Screen recording of a fresh claude.ai load with and without the static composer, on throttled 4G"></video>
+
+*Static composer, before and after (throttled 4G): input ready at 0.36 s instead of 2.93 s; typed text survives the handoff.*
 
 If the React render is off by even a pixel, the magic is gone. So Claude built dozens of guardrails:
 
@@ -213,7 +219,7 @@ With the mechanism and the ambition in place, Claude got to work. Each painted f
 
 That one thread landed nearly sixty PRs. Long replies now block the main thread for about 200 milliseconds in total instead of about 750, use roughly a third of the CPU, and hold 120 fps from start to finish on a 120 Hz MacBook. The 120 Hz rig itself became a nightly job, with Claude watching for regressions.
 
-> **Embedded X post (summary):** "Long answers on Claude on web and desktop now stream ~4x smoother. We rebuilt the streaming renderer to only touch what's still changing, so a long reply stalls 9x less on a slower laptop, its worst freeze is 4.5x shorter, and on a 120Hz MacBook it holds 120fps start to finish." — ClaudeDevs, August 25, 2026. [View the post on X](https://x.com/ClaudeDevs/status/2092006814804214163).
+> **Post by @ClaudeDevs on X:** "Long answers on Claude on web and desktop now stream ~4x smoother. We rebuilt the streaming renderer to only touch what's still changing, so a long reply stalls 9x less on a slower laptop, its worst freeze is 4.5x shorter, and on a 120Hz MacBook it holds 120fps start to finish." — ClaudeDevs, August 25, 2026. [View the post on X](https://x.com/ClaudeDevs/status/2092006814804214163).
 
 When the sprint began, nobody had planned to hill climb on the milliseconds between frames while streaming. But it turned out they *could* be counted — and anything that can be counted, Claude can climb.
 

@@ -193,6 +193,25 @@
   border-radius: var(--radius);
 }
 
+.article-content video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+
+/* Short italic caption paragraph directly after a figure image or video. */
+.article-content :is(p:has(> img:only-child), video) + p:has(> em:only-child) {
+  margin-top: 0.6rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
 .article-content pre {
   max-width: 100%;
   overflow: auto;
