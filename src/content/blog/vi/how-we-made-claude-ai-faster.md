@@ -4,7 +4,7 @@ locale: "vi"
 title: "Cách chúng tôi làm claude.ai nhanh gấp 3 lần trong hai tuần"
 description: "Một đợt sprint hiệu năng kéo dài hai tuần, điều phối từ một kênh Slack duy nhất: Claude tìm điểm nghẽn, dựng benchmark và đưa ra hơn 3.000 thay đổi, giúp claude.ai và ứng dụng desktop nhanh hơn khoảng 3 lần. Bài học cốt lõi: hễ Claude đo được thứ gì, nó có thể làm thứ đó nhanh hơn."
 publishedAt: "2026-09-23"
-updatedAt: "2026-09-23"
+updatedAt: "2026-09-27"
 category: "development"
 sourceLocale: "en"
 sourceUrl: "https://claude.dev/blog/how-we-made-claude-ai-faster/"
@@ -13,7 +13,11 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-> Bài viết này được biên soạn lại từ [How we made claude.ai 3x faster in two weeks](https://claude.dev/blog/how-we-made-claude-ai-faster/) của Raymond Wang, Sam Attard và Issac G., đăng ngày 23 tháng 9 năm 2026. Biểu đồ và video trong bản gốc được tóm tắt bằng lời; các đoạn hội thoại Slack, cũng như trong bản gốc, là bản tái hiện từ các cuộc trò chuyện thật.
+![Ảnh bìa bài “Chúng tôi đã làm claude.ai nhanh gấp 3 lần trong hai tuần như thế nào”](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+
+---
+
+> Bài viết này được biên soạn lại từ [How we made claude.ai 3x faster in two weeks](https://claude.dev/blog/how-we-made-claude-ai-faster/) của Raymond Wang, Sam Attard và Issac G., đăng ngày 23 tháng 9 năm 2026. Biểu đồ và video trong bản gốc được đưa vào bài này; các đoạn hội thoại Slack, cũng như trong bản gốc, là bản tái hiện từ các cuộc trò chuyện thật.
 
 Hễ Claude đo được thứ gì, nó có thể làm thứ đó nhanh hơn. Vì vậy, nhóm liên tục đi tìm thêm những thứ để đo. Đây là câu chuyện về một đợt sprint hiệu năng kéo dài hai tuần, và về vòng lặp làm việc đã giúp vài kỹ sư cùng Claude đưa ra hơn ba nghìn thay đổi mà không gây ra một sự cố nào ảnh hưởng đến người dùng.
 
@@ -29,14 +33,9 @@ Nhóm tập trung vào bốn hành trình chiếm 95% hoạt động của ngư�
 
 Tính tổng lại, nhóm ước tính mỗi ngày tiết kiệm được hàng chục nghìn giờ chờ đợi cho người dùng.
 
-> **Tóm tắt biểu đồ: 13 phép đo trước–sau tại p75 của người dùng thật (ngày 13/8 so với ngày 27/8).**
->
-> - **Mở ứng dụng:** tải mới claude.ai trên web 3.085 → 550 ms (5,6 lần, −82%); khởi động nguội ứng dụng desktop 6.310 → 3.328 ms (1,9 lần, −47%).
-> - **Bắt đầu cuộc trò chuyện:** Chat web 416 → 273 ms (1,5 lần); Chat desktop 460 → 224 ms (2,1 lần); Claude Code desktop 837 → 347 ms (2,4 lần).
-> - **Tải cuộc trò chuyện:** Chat web 1.557 → 646 ms (2,4 lần); Chat desktop 1.353 → 488 ms (2,8 lần); Claude Cowork desktop/đám mây 2.566 → 728 ms (3,5 lần); Claude Code desktop 545 → 262 ms (2,1 lần).
-> - **Gửi tin nhắn:** Chat web 180 → 59 ms (3,1 lần); Chat desktop 140 → 64 ms (2,2 lần); Claude Cowork desktop/đám mây 928 → 48 ms (19 lần, −95%); Claude Code desktop 250 → 52 ms (4,8 lần).
->
-> Trên 13 phép đo thuộc bốn hành trình, tốc độ tăng trung bình 3,1 lần (trung bình nhân).
+![Biểu đồ 13 phép đo p75 trước–sau trên bốn hành trình người dùng cốt lõi, ngày 13/8 so với ngày 27/8](/assets/blog/how-we-made-claude-ai-faster/perf-journeys.svg)
+
+*Các hành trình người dùng cốt lõi tại p75 (người dùng thật, 13/8 so với 27/8): 13 phép đo, nhanh hơn trung bình 3,1 lần (trung bình nhân).*
 
 Công việc chạy trên [Claude Tag](https://claude.com/product/tag) (beta), phía sau là một mô hình nghiên cứu nội bộ có năng lực gần tương đương Opus 5.5. Claude tìm điểm nghẽn, dựng benchmark, đưa ra các cải tiến và theo dõi mọi lần deploy. Con người cầm lái: đặt mục tiêu, cân nhắc đánh đổi và phê duyệt mọi thay đổi. Nhờ cách làm đó, hơn ba nghìn thay đổi đã được merge mà không có một sự cố nào ảnh hưởng đến khách hàng, cũng không phải rollback lần nào.
 
@@ -89,12 +88,9 @@ Vì thế nhóm yêu cầu Claude kéo số lệnh xuống trên hai đường n
 
 Một giờ sau, nó đã giảm số lệnh trên hai đường lần lượt 48% và 31%, còn thời gian thực giảm 78% và 44%. Nhóm đưa vào hai ratchet mới: từ đó trở đi, PR nào làm tăng số lệnh của hai đường này sẽ fail CI, và một job hằng ngày hạ trần xuống mỗi khi số lệnh giảm.
 
-> **Tóm tắt biểu đồ: hai đường nóng, trước và sau.**
->
-> - **Lắp ráp cây tin nhắn:** mỗi ID tin nhắn chỉ phân giải một lần thay vì ba; lệnh CPU −48%, thời gian thực −78%, nhanh hơn 4,6 lần.
-> - **Bộ quét dòng trạng thái:** thêm một bước kiểm tra ký tự đầu rẻ tiền trước regex; lệnh CPU −31%, thời gian thực −44%, nhanh hơn 1,8 lần.
->
-> Số lệnh được đếm dưới Valgrind với `node --predictable`; thời gian đo trên cùng benchmark bằng node thường với JIT đã được làm nóng.
+![Biểu đồ so sánh số lệnh CPU và thời gian thực trên hai đường nóng, trước và sau](/assets/blog/how-we-made-claude-ai-faster/perf-count.svg)
+
+*Lắp ráp cây tin nhắn: lệnh −48%, thời gian thực −78% (4,6 lần). Bộ quét dòng trạng thái: lệnh −31%, thời gian thực −44% (1,8 lần). Số lệnh đếm dưới Valgrind với `node --predictable`.*
 
 Từ đây rút ra bài học trung tâm của đợt sprint: **có Claude, thứ gì đo được thì giải quyết được.**
 
@@ -111,13 +107,19 @@ Mọi thứ diễn ra trong cùng một kênh Slack, với nhiều kỹ sư và 
 5. Nếu nhanh hơn, Claude chốt thành quả bằng cách siết ratchet của benchmark xuống; nếu không, nó tắt flag và lặp lại.
 6. Rồi nó đi tìm điểm chậm tiếp theo trong cùng hành trình.
 
+![Sơ đồ: Một thread trong vòng lặp](/assets/blog/how-we-made-claude-ai-faster/perf-loop.svg)
+
+*Một thread trong vòng lặp: ai đó mở thread, phần còn lại Claude lo.*
+
 Một ví dụ: ai đó chia sẻ video quay màn hình cho thấy các hàng ở thanh bên lần lượt “bật” ra sau khi trang đã tải. Các hàng của Chat và Cowork hiện ra vào những thời điểm khác nhau, khiến trang có cảm giác giật cục. Không công cụ giám sát hiện có nào bắt được chuyện này. Gần nhất là [Cumulative Layout Shift](https://web.dev/articles/cls) (CLS), nhưng mỗi lần dịch chuyển chỉ được chấm khoảng 0,008 — thấp hơn nhiều so với ngưỡng “tốt” là 0,1.
 
 Issac nảy ra ý tưởng dùng trực tiếp [Layout Instability API](https://wicg.github.io/layout-instability/) ở tầng bên dưới. Claude tạo một sự kiện telemetry ánh xạ `sources` của mỗi mục `layout-shift` tới một vùng có tên (như thanh bên, khung hội thoại) và một giai đoạn (như trước lần vẽ đầu tiên, sau khi gõ được). Nó thêm một bài kiểm thử tích hợp: mở trang với thanh bên đã có dữ liệu, giữ dữ liệu thanh bên lại cho đến sau lần vẽ đầu tiên, và báo fail nếu có bất kỳ dịch chuyển nào ở bất kỳ vùng có tên nào. Bài kiểm thử đó trở thành benchmark chứng minh bản sửa: đỏ 20/20 lần trên main, xanh 20/20 lần trên PR.
 
 Sau khi sự kiện được deploy, Claude đọc dữ liệu thực tế và phát hiện **31% lượt tải trang web có thứ gì đó dịch chuyển sau khi trang đã dùng được**, dù người dùng không hề tương tác. Từ đó, Claude xử lý từng nguyên nhân một: một hàng tiêu đề đến muộn, một con trỏ soạn thảo trượt sang ngang khi tên người dùng tải xong, một danh sách xê dịch khi thanh cuộn xuất hiện. Nó sửa gộp một lượt những thủ phạm hàng đầu, và khi chúng biến mất, lại tìm ra lượt tiếp theo.
 
-> **Tóm tắt video: thanh bên giật cục, trước và sau (mạng 4G bị bóp).** Trước khi sửa, các hàng đến muộn và tự sắp xếp lại: mười hàng nhảy, chín hàng xuất hiện và bốn hàng biến mất. Sau khi sửa, các hàng lấp vào đúng vị trí cuối cùng, và không có gì xê dịch.
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Bản ghi màn hình thanh bên của claude.ai khi tải, trước và sau khi sửa, trên mạng 4G bị bóp"></video>
+
+*Thanh bên giật cục, trước và sau (mạng 4G bị bóp): trước khi sửa, các hàng đến muộn và tự sắp xếp lại; sau khi sửa, chúng lấp vào đúng vị trí cuối cùng.*
 
 Đó mới chỉ là một thread. Trong suốt đợt sprint, có hơn một trăm năm mươi thread chạy cùng lúc.
 
@@ -134,7 +136,9 @@ Phép đo nào cũng tìm ra thứ để cải thiện:
 
 Hiếm khi ai biết trước một thread sẽ dẫn tới đâu. Trong một lượt rà soát các cú khựng CPU, Claude nhận thấy việc tô sáng cú pháp cho một khối mã đã hoàn tất có thể làm trang đứng hình khoảng một giây. Đào sâu trong lab, nó tìm ra thủ phạm: dấu gạch ngang dài (em dash). Nếu markdown của câu trả lời chứa bất kỳ ký tự nào nằm ngoài Latin-1, như em dash hay dấu ngoặc kép cong, V8 sẽ lưu toàn bộ chuỗi dưới dạng UTF-16, đẩy mọi regex tô sáng cú pháp sang đường xử lý hai byte chậm hơn. Claude sửa bằng một thay đổi hai mươi dòng: sao chép mỗi khối mã thành chuỗi một byte trước khi tô sáng.
 
-> **Tóm tắt biểu đồ: tô sáng khối mã đã hoàn tất trong câu trả lời có em dash (đo trong lab).** Với khối TypeScript đầu tiên trên trang, thời gian chiếm main thread giảm từ 1,0 giây xuống 0,35 giây (ít hơn 65%), và mỗi lượt xử lý sau đó trên khối ấy giảm từ 100 ms xuống 40 ms. Điều kiện: container 4 vCPU, Chrome headless, không giới hạn CPU, mỗi giá trị chạy 2–3 lần, tháng 8/2026.
+![Biểu đồ thời gian chiếm main thread khi tô sáng khối mã đã hoàn tất trong câu trả lời có em dash, trước và sau](/assets/blog/how-we-made-claude-ai-faster/perf-emdash.svg)
+
+*Khối TypeScript đầu tiên: 1,0 giây → 0,35 giây (−65%); các lượt sau: 100 ms → 40 ms. Đo trong lab.*
 
 Sang tuần thứ hai, khối lượng đầu ra nhiều đến mức khó tóm gọn vào bản cập nhật hằng ngày. Những ngày bận nhất, hơn hai trăm thay đổi được merge. Claude liên tục đề xuất benchmark mới; khoảng một phần ba số PR có thêm telemetry hoặc lan can, và mỗi công cụ đo mới lại sinh ra thêm thread cùng thêm cơ hội.
 
@@ -152,7 +156,9 @@ Khi flag bắt đầu chồng chất, nhóm mở một thread riêng để đi�
 
 Nhóm cũng biết thành quả hiệu năng sẽ bị bào mòn trong một codebase thay đổi nhanh, mà [ở Anthropic, mã được phát hành rất nhanh](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic). Vì vậy, khi một dự án đã chứng minh hiệu quả, nhóm đầu tư để bảo vệ nó. Chẳng hạn, composer tĩnh vốn mong manh theo thiết kế: người dùng thấy gần như ngay lập tức một bản sao HTML của trang, rồi React vẽ thẳng lên trên đó.
 
-> **Tóm tắt video: composer tĩnh, trước và sau (mạng 4G bị bóp).** Trước khi sửa, khi tải mới claude.ai trang cứ trống trơn, và composer chỉ nhận nhập liệu ở giây 2,93. Sau khi sửa, lời chào và composer tĩnh nhận nhập liệu ngay ở giây 0,36; người dùng gõ tin nhắn, và văn bản vẫn được giữ nguyên khi composer thật hiện dần lên vào khoảng giây thứ 3.
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Bản ghi màn hình khi tải mới claude.ai có và không có composer tĩnh, trên mạng 4G bị bóp"></video>
+
+*Composer tĩnh, trước và sau (mạng 4G bị bóp): nhập được ở giây 0,36 thay vì 2,93; văn bản đã gõ vẫn còn sau khi chuyển sang composer thật.*
 
 Chỉ cần bản render của React lệch dù một pixel, phép màu sẽ tan biến. Vì thế Claude đã dựng hàng chục lan can:
 
@@ -213,7 +219,7 @@ Khi cơ chế và tham vọng đã sẵn sàng, Claude bắt tay vào việc. M�
 
 Chỉ riêng thread đó đã merge gần sáu mươi PR. Các câu trả lời dài giờ chỉ chặn main thread tổng cộng khoảng 200 mili giây thay vì khoảng 750, dùng chừng một phần ba CPU, và giữ vững 120 fps từ đầu đến cuối trên MacBook 120 Hz. Bản thân bộ chạy thử 120 Hz cũng trở thành một job chạy đêm, với Claude canh chừng các lần suy giảm.
 
-> **Bài đăng X được nhúng (tóm tắt):** “Các câu trả lời dài của Claude trên web và desktop giờ stream mượt hơn khoảng 4 lần. Chúng tôi đã xây lại bộ render streaming để chỉ động vào những gì vẫn đang thay đổi, nên trên laptop chậm hơn, một câu trả lời dài khựng ít hơn 9 lần, lần đứng hình tệ nhất ngắn hơn 4,5 lần, và trên MacBook 120Hz nó giữ 120fps từ đầu đến cuối.” — ClaudeDevs, ngày 25/8/2026. [Xem bài đăng trên X](https://x.com/ClaudeDevs/status/2092006814804214163).
+> **Bài đăng của @ClaudeDevs trên X:** “Các câu trả lời dài của Claude trên web và desktop giờ stream mượt hơn khoảng 4 lần. Chúng tôi đã xây lại bộ render streaming để chỉ động vào những gì vẫn đang thay đổi, nên trên laptop chậm hơn, một câu trả lời dài khựng ít hơn 9 lần, lần đứng hình tệ nhất ngắn hơn 4,5 lần, và trên MacBook 120Hz nó giữ 120fps từ đầu đến cuối.” — ClaudeDevs, ngày 25/8/2026. [Xem bài đăng trên X](https://x.com/ClaudeDevs/status/2092006814804214163).
 
 Khi bắt đầu sprint, không ai định leo đồi trên vài mili giây giữa các khung hình lúc stream. Nhưng hóa ra chúng *đếm được* — và thứ gì đếm được, Claude đều leo được.
 

@@ -41,7 +41,7 @@ const expectedStructure = {
   "blog:context-engineering-karpathy-cherny": { headings: 8, images: 8, codeFences: 0, tables: 0, links: 1 },
   "blog:github-events-to-feishu": { headings: 5, images: 1, codeFences: 6, tables: 0, links: 0 },
   "blog:jev-system-one-decision-layer": { headings: 15, images: 0, codeFences: 2, tables: 1, links: 0 },
-  "blog:how-we-made-claude-ai-faster": { headings: 9, images: 0, codeFences: 0, tables: 0, links: 10 },
+  "blog:how-we-made-claude-ai-faster": { headings: 9, images: 5, codeFences: 0, tables: 0, links: 10 },
   "favorites:fix-your-life-in-one-day": { headings: 0, images: 0, codeFences: 0, tables: 0, links: 0 },
 };
 const loopsImages = [
