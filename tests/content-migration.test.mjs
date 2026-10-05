@@ -25,6 +25,10 @@ const multilingualApprovedGroups = [
   "blog:how-we-made-claude-ai-faster",
   "favorites:fix-your-life-in-one-day",
 ];
+// Published in Chinese first; other locales are added after the author reviews the zh version.
+const chineseOnlyApprovedGroups = [
+  "blog:agent-permission-context",
+];
 const expectedStructure = {
   "blog:fable-5-1-prompt-harness-evolution": { headings: 19, images: 0, codeFences: 6, tables: 1, links: 6 },
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
@@ -59,7 +63,9 @@ function publicationStatus(entry) {
   return entry.collection === "blog" ? entry.data.translationStatus : entry.data.publicationStatus;
 }
 
-const publishedEntries = entries.filter((entry) => publicationStatus(entry) !== "draft");
+const chineseOnlyKeys = new Set(chineseOnlyApprovedGroups);
+const allPublishedEntries = entries.filter((entry) => publicationStatus(entry) !== "draft");
+const publishedEntries = allPublishedEntries.filter((entry) => !chineseOnlyKeys.has(groupKey(entry)));
 
 function structureCounts(signature) {
   return {
@@ -183,4 +189,14 @@ test("the approved Favorite remains a concise public editorial summary", () => {
   assert.equal(favorite.data.visibility, "public");
   assert.equal(favorite.data.publicationStatus, "reviewed");
   assert.ok(favorite.body.length < 1200);
+});
+
+test("Chinese-only approved groups publish exactly one reviewed zh original", () => {
+  for (const key of chineseOnlyApprovedGroups) {
+    const group = allPublishedEntries.filter((entry) => groupKey(entry) === key);
+    assert.equal(group.length, 1, `${key}: expected only the zh file`);
+    assert.equal(group[0].data.locale, "zh", `${key}: locale`);
+    assert.equal(group[0].pathLocale, "zh", `${key}: path locale`);
+    assert.equal(publicationStatus(group[0]), "reviewed", `${key}: status`);
+  }
 });
