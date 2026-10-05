@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="聊天框里上下文和权限几乎不重合；仓库里两者大面积重合，而且 git 能撤销、测试能验收" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">仓库：两条轴第一次重合</text>
+
+  <!-- 聊天框 -->
+  <rect x="16" y="62" width="388" height="206" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="92" font-size="19" font-weight="700" fill="#1f2328">聊天框里</text>
+  <circle cx="140" cy="166" r="56" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="140" y="172" font-size="17" fill="#1a7f4b" text-anchor="middle">上下文</text>
+  <circle cx="292" cy="166" r="26" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="292" y="172" font-size="17" fill="#c2570c" text-anchor="middle">权限</text>
+  <text x="210" y="250" font-size="17" fill="#1f2328" text-anchor="middle">知道你说了什么，但只能回答</text>
+
+  <!-- 仓库 -->
+  <rect x="16" y="284" width="388" height="296" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="314" font-size="19" font-weight="700" fill="#1f2328">仓库里</text>
+  <circle cx="180" cy="402" r="66" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <circle cx="240" cy="402" r="66" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="145" y="408" font-size="17" fill="#1a7f4b" text-anchor="middle">上下文</text>
+  <text x="210" y="408" font-size="17" font-weight="700" fill="#1f2328" text-anchor="middle">重合</text>
+  <text x="277" y="408" font-size="17" fill="#c2570c" text-anchor="middle">权限</text>
+  <g font-size="17" fill="#1f2328">
+    <text x="32" y="500"><tspan fill="#1a7f4b" font-weight="700">上下文</tspan>：代码、历史、测试</text>
+    <text x="32" y="528"><tspan fill="#c2570c" font-weight="700">权限</tspan>：改文件、跑命令</text>
+    <text x="32" y="556" font-weight="700">git 能撤销，测试能验收</text>
+  </g>
+</svg>

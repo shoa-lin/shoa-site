@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="离开仓库后路线分叉：一条先把上下文做厚，一条先把权限做宽，最后都要补另一条轴" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="fork-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8c959f"/>
+    </marker>
+  </defs>
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">离开仓库，路分两条</text>
+
+  <!-- 起点 -->
+  <rect x="60" y="62" width="300" height="104" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="210" y="92" font-weight="700">离开仓库以后</text>
+    <text x="210" y="122">上下文散在聊天和账号里</text>
+    <text x="210" y="150">权限散在各种网站和应用里</text>
+  </g>
+
+  <!-- 分叉 -->
+  <path d="M210 166 V188 L109 222" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <path d="M210 188 L311 222" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+
+  <!-- 左：先厚上下文 -->
+  <rect x="16" y="228" width="186" height="252" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="109" y="260" font-weight="700" fill="#1a7f4b">先把上下文做厚</text>
+    <text x="109" y="294">进你常用的聊天软件</text>
+    <text x="109" y="320">记忆和会话留你这边</text>
+    <text x="109" y="354" fill="#57606a">OpenClaw</text>
+    <text x="109" y="378" fill="#57606a">Hermes</text>
+    <text x="109" y="430" font-weight="700">欠账</text>
+    <text x="109" y="456">能动的手不多</text>
+  </g>
+  <line x1="36" y1="400" x2="182" y2="400" stroke="#eaeef2" stroke-width="2"/>
+
+  <!-- 右：先宽权限 -->
+  <rect x="218" y="228" width="186" height="252" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="311" y="260" font-weight="700" fill="#c2570c">先把权限做宽</text>
+    <text x="311" y="294">给 agent 一台电脑</text>
+    <text x="311" y="320">登录你的网站和账号</text>
+    <text x="311" y="354" fill="#57606a">Grok Bot</text>
+    <text x="311" y="378" fill="#57606a">Muse</text>
+    <text x="311" y="430" font-weight="700">欠账</text>
+    <text x="311" y="456">不知道你的规矩</text>
+  </g>
+  <line x1="238" y1="400" x2="384" y2="400" stroke="#eaeef2" stroke-width="2"/>
+
+  <!-- 汇合 -->
+  <path d="M109 480 L190 512" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <path d="M311 480 L230 512" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <rect x="70" y="518" width="280" height="56" rx="12" fill="#1f2328"/>
+  <text x="210" y="552" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">下一步：都去补另一条轴</text>
+</svg>

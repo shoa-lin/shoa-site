@@ -24,6 +24,7 @@ const approvedGroups = new Set([
   "blog:github-events-to-feishu",
   "blog:jev-system-one-decision-layer",
   "blog:how-we-made-claude-ai-faster",
+  "blog:agent-permission-context",
   "favorites:fix-your-life-in-one-day",
 ]);
 const approvedBlogIds = new Set([...approvedGroups]
