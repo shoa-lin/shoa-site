@@ -36,6 +36,7 @@
   color: var(--text-secondary);
   font-size: 1.08rem;
   line-height: var(--line-prose);
+  overflow-wrap: anywhere;
 }
 
 .article-meta {
@@ -142,6 +143,7 @@
   color: var(--text);
   line-height: var(--line-section-heading);
   letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .article-content h2 {

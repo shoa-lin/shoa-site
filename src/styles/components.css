@@ -309,6 +309,7 @@ html[data-theme="dark"] .theme-toggle__light {
 .article-card h2 {
   margin: 0.6rem 0 0;
   font-size: clamp(1.2rem, 2vw, 1.7rem);
+  overflow-wrap: anywhere;
 }
 
 .article-card h2 a {
