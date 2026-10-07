@@ -24,7 +24,7 @@ test("build includes robots, localized RSS, sitemap, and no project URLs", () =>
 
   for (const path of [
     "dist/robots.txt", "dist/rss.xml", "dist/en/rss.xml", "dist/ja/rss.xml",
-    "dist/ko/rss.xml", "dist/th/rss.xml", "dist/fr/rss.xml", "dist/sitemap-index.xml",
+    "dist/ko/rss.xml", "dist/th/rss.xml", "dist/fr/rss.xml", "dist/de/rss.xml", "dist/vi/rss.xml", "dist/sitemap-index.xml",
   ]) {
     assert.equal(existsSync(new URL(`../${path}`, import.meta.url)), true, path);
   }

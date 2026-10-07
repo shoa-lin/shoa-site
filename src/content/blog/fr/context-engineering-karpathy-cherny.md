@@ -26,7 +26,7 @@ Karpathy traite la fenêtre de contexte comme une nouvelle interface de programm
 - Les **vérificateurs** distinguent le progrès réel d'une simple hausse de production.
 - L'**état persistant** transmet l'expérience validée à l'exécution suivante.
 
-![Règles de projet, mémoire, Skills, Hooks et apprentissages composant une fenêtre de contexte](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![Règles de projet, mémoire, Skills, Hooks et apprentissages composant une fenêtre de contexte](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *Figure : architecture du context engineering (vartekx, image en anglais).*
 
@@ -38,7 +38,7 @@ Les bonnes questions sont donc : quels faits, fichiers et contraintes sont néce
 
 L'article distingue trois couches : **prompt engineering** pour l'instruction ponctuelle, **context engineering** pour l'environnement vu par le modèle, et **loop engineering** pour son intégration à un cycle automatique et répétable.
 
-![Progression du prompt engineering au context engineering puis au loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![Progression du prompt engineering au context engineering puis au loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *Figure : les trois couches se complètent (vartekx, image en anglais).*
 
@@ -46,11 +46,11 @@ L'article distingue trois couches : **prompt engineering** pour l'instruction po
 
 L'analogie de Karpathy est simple : le modèle est le processeur, la fenêtre de contexte sa mémoire de travail. Il ne faut pas tout y verser, mais y placer la bonne information au bon moment.
 
-![Plusieurs tours consommant une fenêtre de contexte finie](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![Plusieurs tours consommant une fenêtre de contexte finie](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *Figure : entrées et sorties partagent une fenêtre limitée (vartekx, image en anglais).*
 
-![Instructions système, règles, mémoire, outils, historique et exemples composant le contexte](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![Instructions système, règles, mémoire, outils, historique et exemples composant le contexte](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *Figure : le prompt de l'utilisateur ne forme souvent qu'une petite partie du contexte (vartekx, image en anglais).*
 
@@ -64,7 +64,7 @@ Plus de contexte n'est pas forcément un meilleur contexte. Pour corriger une in
 
 La perspective attribuée à Boris Cherny déplace le travail humain : au lieu de relancer sans cesse l'Agent, on conçoit une boucle qui lit l'état, exécute, contrôle, consigne le résultat et repart mieux informée.
 
-![Prompt manuel comparé à un système automatisant contexte et vérification](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![Prompt manuel comparé à un système automatisant contexte et vérification](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *Figure : « vous êtes le moteur » face à « le système est le moteur » (vartekx, image en anglais).*
 
@@ -74,7 +74,7 @@ Une bonne boucle écrit l'état important, sélectionne l'état pertinent, résu
 
 Elle comporte cinq éléments : cadence et conditions d'arrêt ; connaissance de projet courte et validée ; isolation entre implémentation, revue et décision ; connecteurs réels avec permissions adaptées ; vérificateurs indépendants tels que tests, contrôle de types, build, contrat ou approbation humaine.
 
-![Boucle automatisant écriture, sélection, compression, isolation et vérification](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![Boucle automatisant écriture, sélection, compression, isolation et vérification](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *Figure : le loop engineering automatise le context engineering (vartekx, image en anglais).*
 
@@ -82,7 +82,7 @@ Elle comporte cinq éléments : cadence et conditions d'arrêt ; connaissance de
 
 « Refactoriser l'authentification » est un souhait. Une spécification exécutable précise objectif, périmètre, livrables, traitement des conflits et critères d'arrêt : répertoires concernés, zones intouchables, tests à modifier, moment d'escalader et contrôles obligatoires.
 
-![Contexte avant et après édition afin de libérer de la place](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![Contexte avant et après édition afin de libérer de la place](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *Figure : sélection et compression libèrent de l'espace utile (vartekx, image en anglais).*
 
@@ -90,7 +90,7 @@ Elle comporte cinq éléments : cadence et conditions d'arrêt ; connaissance de
 
 Après une tâche, conservez quelques leçons actionnables : ce qui a marché, échoué et ce qu'il faudra vérifier plus tôt. Les échecs répétés peuvent devenir des règles ou contrôles automatiques. L'exécution produit des preuves, les preuves deviennent état, l'exécution suivante les lit sélectivement, et les vérificateurs filtrent encore les erreurs.
 
-![Allégations de temps et de qualité pour spécifications, contexte accumulé et vérification](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![Allégations de temps et de qualité pour spécifications, contexte accumulé et vérification](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *Figure : ces chiffres sont des affirmations de l'auteur, non vérifiées indépendamment ici (vartekx, image en anglais).*
 

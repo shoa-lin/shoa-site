@@ -26,7 +26,7 @@ That distinction helps explain why agent products such as Codex do not emphasize
 
 One qualification matters: no official source says that Codex “removed Retry because state became too complex.” This article is an architectural interpretation based on the publicly documented Thread, Turn, Item, and Fork model.
 
-![Retry changes from generating another answer to creating a branch that preserves history](/assets/blog/ai-agent-retry-state/retry-becomes-fork-en.png)
+![Retry changes from generating another answer to creating a branch that preserves history](/assets/blog/ai-agent-retry-state/retry-becomes-fork-en.webp)
 
 In earlier chatbots, I became used to a small feature: **Retry**, often labeled **Regenerate**.
 
@@ -120,7 +120,7 @@ The real issue is therefore not merely that “intermediate information is compl
 
 > An agent run creates a real chain of cause and effect. The second run no longer begins in the world that existed before the first.
 
-![Text can be rewritten, but the agent has already changed the state of the world](/assets/blog/ai-agent-retry-state/text-vs-world-state-en.png)
+![Text can be rewritten, but the agent has already changed the state of the world](/assets/blog/ai-agent-retry-state/text-vs-world-state-en.webp)
 
 ## Agent Retry involves at least four kinds of state
 

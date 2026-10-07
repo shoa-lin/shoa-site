@@ -27,13 +27,13 @@ translationStatus: "reviewed"
 
 코딩 에이전트 하네스의 일부는 제작자가 만듭니다. 시스템 프롬프트와 코드 검색, 때로는 [정교한 오케스트레이션 시스템](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)이 여기에 해당합니다. 동시에 코딩 에이전트는 사용자가 자신의 시스템과 사용 사례에 맞는 외부 하네스를 구축할 수 있는 도구도 제공합니다.
 
-![중앙의 모델, 그 주위를 감싸는 코딩 에이전트 제작자 하네스, 가장 바깥쪽의 사용자 하네스를 보여 주는 세 개의 동심원](/assets/blog/harness-engineering/harness-bounded-contexts.png)
+![중앙의 모델, 그 주위를 감싸는 코딩 에이전트 제작자 하네스, 가장 바깥쪽의 사용자 하네스를 보여 주는 세 개의 동심원](/assets/blog/harness-engineering/harness-bounded-contexts.webp)
 
 그림 1: "하네스"라는 용어는 한정된 맥락에 따라 서로 다른 범위를 뜻합니다.
 
 잘 설계된 외부 하네스에는 두 가지 목표가 있습니다. 에이전트가 첫 시도에 작업을 올바르게 완료할 확률을 높이고, 문제가 사람에게 도달하기 전에 피드백 루프로 최대한 많이 바로잡는 것입니다. 그 결과 리뷰 부담은 줄고 시스템 품질은 높아집니다. 그 과정에서 불필요한 토큰 소비까지 줄어드는 것은 부가적인 이점입니다.
 
-![가이드가 코딩 에이전트에 입력되고 센서가 결과를 자기 수정 루프로 되돌리며 사람이 양쪽을 조향하는 개요](/assets/blog/harness-engineering/harness-overview.png)
+![가이드가 코딩 에이전트에 입력되고 센서가 결과를 자기 수정 루프로 되돌리며 사람이 양쪽을 조향하는 개요](/assets/blog/harness-engineering/harness-overview.webp)
 
 ## 피드포워드와 피드백
 
@@ -84,14 +84,14 @@ AI는 하네스 자체를 개선하는 데도 도움을 줄 수 있습니다. �
 - 어떤 제어가 통합 전, 더 나아가 커밋 생성 전에도 실행할 만큼 빠른가요? 린터, 빠른 테스트 스위트, 기본 코드 리뷰 에이전트가 여기에 해당합니다.
 - 어떤 제어는 비용이 높아 빠른 검사를 다시 실행하는 것과 함께 통합 후 파이프라인에서만 실행해야 하나요? 변이 테스트와 전체 맥락이 필요한 광범위한 코드 리뷰가 그 예입니다.
 
-![변경 수명 주기에서 통합 전후에 배치된 피드포워드 가이드와 피드백 센서의 예시](/assets/blog/harness-engineering/harness-change-lifecycle-examples.png)
+![변경 수명 주기에서 통합 전후에 배치된 피드포워드 가이드와 피드백 센서의 예시](/assets/blog/harness-engineering/harness-change-lifecycle-examples.webp)
 
 **지속적인 드리프트 및 상태 센서**
 
 - **코드베이스 드리프트 센서**는 변경 수명 주기 밖에서 실행되며, 사용되지 않는 코드, 낮은 테스트 커버리지, 의존성 문제처럼 서서히 누적되는 품질 저하를 감지합니다.
 - **런타임 상태 센서**는 에이전트가 악화되는 SLO, 표본 응답 품질, 이상 로그 같은 프로덕션 신호를 모니터링하고 개선안을 제시할 수 있게 합니다.
 
-![통합 이후 지속적으로 실행되는 코드베이스 드리프트 감지와 런타임 피드백 센서의 예시](/assets/blog/harness-engineering/harness-continuous-feedback-examples.png)
+![통합 이후 지속적으로 실행되는 코드베이스 드리프트 감지와 런타임 피드백 센서의 예시](/assets/blog/harness-engineering/harness-continuous-feedback-examples.webp)
 
 ## 제어 대상의 범주
 
@@ -129,7 +129,7 @@ AI는 하네스 자체를 개선하는 데도 도움을 줄 수 있습니다. �
 
 팀이 안심하고 감독과 수동 테스트를 줄이려면 더 나은 동작 하네스가 필요합니다.
 
-![유지보수성, 아키텍처 적합성, 동작 차원에 걸쳐 가이드와 센서를 배치한 단순화된 하네스 모델](/assets/blog/harness-engineering/harness-types.png)
+![유지보수성, 아키텍처 적합성, 동작 차원에 걸쳐 가이드와 센서를 배치한 단순화된 하네스 모델](/assets/blog/harness-engineering/harness-types.webp)
 
 ## 하네스화 가능성
 
@@ -146,7 +146,7 @@ AI는 하네스 자체를 개선하는 데도 도움을 줄 수 있습니다. �
 
 이 템플릿은 앞으로 **하네스 템플릿**으로 발전할 수 있습니다. 하네스 템플릿은 가이드와 센서를 하나로 묶어 코딩 에이전트가 특정 토폴로지의 구조, 규칙, 기술 스택 안에서 작업하도록 제한합니다. 팀은 언젠가 사용 가능한 하네스를 기준으로 기술을 선택하게 될 수도 있습니다.
 
-![각 서비스 토폴로지에 가이드와 센서가 포함된 하네스 템플릿을 배치한 예시](/assets/blog/harness-engineering/harness-templates.png)
+![각 서비스 토폴로지에 가이드와 센서가 포함된 하네스 템플릿을 배치한 예시](/assets/blog/harness-engineering/harness-templates.webp)
 
 ### 애슈비의 법칙
 

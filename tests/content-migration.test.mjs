@@ -23,12 +23,12 @@ const multilingualApprovedGroups = [
   "blog:github-events-to-feishu",
   "blog:jev-system-one-decision-layer",
   "blog:how-we-made-claude-ai-faster",
+  "blog:agent-permission-context",
+  "blog:gpt-6-astra-codex-harness",
   "favorites:fix-your-life-in-one-day",
 ];
 // Published in Chinese first; other locales are added after the author reviews the zh version.
-const chineseOnlyApprovedGroups = [
-  "blog:agent-permission-context",
-];
+const chineseOnlyApprovedGroups = [];
 const expectedStructure = {
   "blog:fable-5-1-prompt-harness-evolution": { headings: 19, images: 0, codeFences: 6, tables: 1, links: 6 },
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
@@ -46,6 +46,8 @@ const expectedStructure = {
   "blog:github-events-to-feishu": { headings: 5, images: 1, codeFences: 6, tables: 0, links: 0 },
   "blog:jev-system-one-decision-layer": { headings: 15, images: 0, codeFences: 2, tables: 1, links: 0 },
   "blog:how-we-made-claude-ai-faster": { headings: 9, images: 5, codeFences: 0, tables: 0, links: 10 },
+  "blog:agent-permission-context": { headings: 8, images: 5, codeFences: 0, tables: 0, links: 0 },
+  "blog:gpt-6-astra-codex-harness": { headings: 10, images: 0, codeFences: 6, tables: 1, links: 12 },
   "favorites:fix-your-life-in-one-day": { headings: 0, images: 0, codeFences: 0, tables: 0, links: 0 },
 };
 const loopsImages = [
@@ -84,10 +86,10 @@ function paritySignature(signature) {
   };
 }
 
-test("content root contains seventeen approved groups with eight reviewed locales", () => {
+test("content root contains nineteen approved groups with eight reviewed locales", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
-  assert.equal(multilingualApprovedGroups.length, 17);
+  assert.equal(multilingualApprovedGroups.length, 19);
   assert.deepEqual(locales, expectedLocales);
   assert.equal(publishedEntries.length, multilingualApprovedGroups.length * expectedLocales.length);
   assert.deepEqual([...groups.keys()].sort(), [...multilingualApprovedGroups].sort());
@@ -158,8 +160,8 @@ test("the Retry article is a reviewed Chinese original with two local illustrati
   assert.deepEqual(
     signature.images.map((image) => image.target),
     [
-      "/assets/blog/ai-agent-retry-state/retry-becomes-fork.png",
-      "/assets/blog/ai-agent-retry-state/text-vs-world-state.png",
+      "/assets/blog/ai-agent-retry-state/retry-becomes-fork.webp",
+      "/assets/blog/ai-agent-retry-state/text-vs-world-state.webp",
     ],
   );
 });

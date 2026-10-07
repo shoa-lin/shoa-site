@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="저장소를 떠난 뒤 길이 갈린다: 한 길은 맥락부터 두껍게, 한 길은 권한부터 넓게 가지만, 결국 둘 다 다른 축을 메워야 한다" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <defs>
+    <marker id="fork-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8c959f"/>
+    </marker>
+  </defs>
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">저장소를 떠나면 길이 둘로 갈린다</text>
+
+  <!-- 起点 -->
+  <rect x="60" y="62" width="300" height="104" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="210" y="92" font-weight="700">저장소를 떠난 뒤</text>
+    <text x="210" y="122" font-size="16">맥락은 채팅과 계정에 흩어지고</text>
+    <text x="210" y="150" font-size="16">권한은 여러 사이트와 앱에 흩어진다</text>
+  </g>
+
+  <!-- 分叉 -->
+  <path d="M210 166 V188 L109 222" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <path d="M210 188 L311 222" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+
+  <!-- 左：先厚上下文 -->
+  <rect x="16" y="228" width="186" height="252" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="109" y="260" font-weight="700" fill="#1a7f4b">맥락부터 두껍게</text>
+    <text x="109" y="294">쓰던 메신저 안으로</text>
+    <text x="109" y="320" font-size="15">메모리와 세션은 내 쪽에</text>
+    <text x="109" y="354" fill="#57606a">OpenClaw</text>
+    <text x="109" y="378" fill="#57606a">Hermes</text>
+    <text x="109" y="430" font-weight="700">남은 빚</text>
+    <text x="109" y="456">손댈 수 있는 게 적다</text>
+  </g>
+  <line x1="36" y1="400" x2="182" y2="400" stroke="#eaeef2" stroke-width="2"/>
+
+  <!-- 右：先宽权限 -->
+  <rect x="218" y="228" width="186" height="252" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="311" y="260" font-weight="700" fill="#c2570c">권한부터 넓게</text>
+    <text x="311" y="294">에이전트에게 컴퓨터를</text>
+    <text x="311" y="320">사이트와 계정에 로그인</text>
+    <text x="311" y="354" fill="#57606a">Grok Bot</text>
+    <text x="311" y="378" fill="#57606a">Muse</text>
+    <text x="311" y="430" font-weight="700">남은 빚</text>
+    <text x="311" y="456">내 규칙은 모른다</text>
+  </g>
+  <line x1="238" y1="400" x2="384" y2="400" stroke="#eaeef2" stroke-width="2"/>
+
+  <!-- 汇合 -->
+  <path d="M109 480 L190 512" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <path d="M311 480 L230 512" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <rect x="70" y="518" width="280" height="56" rx="12" fill="#1f2328"/>
+  <text x="210" y="552" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">다음 단계: 둘 다 다른 축을 메운다</text>
+</svg>

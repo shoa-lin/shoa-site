@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="After leaving the repository the road forks: one route thickens context first, the other widens permission first, and both end up having to fill in the other axis" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="fork-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8c959f"/>
+    </marker>
+  </defs>
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="20" font-weight="700" fill="#1f2328">Leaving the repo, the road forks</text>
+
+  <!-- 起点 -->
+  <rect x="60" y="62" width="300" height="104" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="210" y="92" font-weight="700">After leaving the repo</text>
+    <text x="210" y="122" font-size="14">Context: scattered in chats, accounts</text>
+    <text x="210" y="150" font-size="14">Permission: scattered in sites, apps</text>
+  </g>
+
+  <!-- 分叉 -->
+  <path d="M210 166 V188 L109 222" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <path d="M210 188 L311 222" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+
+  <!-- 左：先厚上下文 -->
+  <rect x="16" y="228" width="186" height="252" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="109" y="260" font-size="14" font-weight="700" fill="#1a7f4b">Thicken context first</text>
+    <text x="109" y="294" font-size="14">Inside your chat apps</text>
+    <text x="109" y="320" font-size="14">Memory stays with you</text>
+    <text x="109" y="354" fill="#57606a">OpenClaw</text>
+    <text x="109" y="378" fill="#57606a">Hermes</text>
+    <text x="109" y="430" font-weight="700">The debt</text>
+    <text x="109" y="456" font-size="14">Not much it can do</text>
+  </g>
+  <line x1="36" y1="400" x2="182" y2="400" stroke="#eaeef2" stroke-width="2"/>
+
+  <!-- 右：先宽权限 -->
+  <rect x="218" y="228" width="186" height="252" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="311" y="260" font-size="14" font-weight="700" fill="#c2570c">Widen permission first</text>
+    <text x="311" y="294" font-size="14">Give the agent a computer</text>
+    <text x="311" y="320" font-size="14">Logged in to your sites</text>
+    <text x="311" y="354" fill="#57606a">Grok Bot</text>
+    <text x="311" y="378" fill="#57606a">Muse</text>
+    <text x="311" y="430" font-weight="700">The debt</text>
+    <text x="311" y="456" font-size="14">Doesn't know your rules</text>
+  </g>
+  <line x1="238" y1="400" x2="384" y2="400" stroke="#eaeef2" stroke-width="2"/>
+
+  <!-- 汇合 -->
+  <path d="M109 480 L190 512" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <path d="M311 480 L230 512" fill="none" stroke="#8c959f" stroke-width="2" marker-end="url(#fork-arrow)"/>
+  <rect x="70" y="518" width="280" height="56" rx="12" fill="#1f2328"/>
+  <text x="210" y="552" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Next: fill in the other axis</text>
+</svg>

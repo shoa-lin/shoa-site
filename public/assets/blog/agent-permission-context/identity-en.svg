@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="Top half: Grok Bot's several Bots each have their own conversations and learned context, but share files and browser login state; bottom half: each agent has its own identity, and both context and permission are sliced per agent" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="19" font-weight="700" fill="#1f2328">Context sliced, permission not</text>
+  <text x="24" y="74" font-size="15" fill="#57606a">Today: Grok Bot's Bots share one account</text>
+
+  <!-- 三个 Bot：上下文各自一份 -->
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <rect x="16" y="90" width="116" height="100" rx="10" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="74" y="118" font-weight="700">Bot A</text>
+    <text x="74" y="146" font-size="15" fill="#1a7f4b">Own chats</text>
+    <text x="74" y="172" font-size="15" fill="#1a7f4b">Own learning</text>
+
+    <rect x="152" y="90" width="116" height="100" rx="10" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="210" y="118" font-weight="700">Bot B</text>
+    <text x="210" y="146" font-size="15" fill="#1a7f4b">Own chats</text>
+    <text x="210" y="172" font-size="15" fill="#1a7f4b">Own learning</text>
+
+    <rect x="288" y="90" width="116" height="100" rx="10" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="346" y="118" font-weight="700">Bot C</text>
+    <text x="346" y="146" font-size="15" fill="#1a7f4b">Own chats</text>
+    <text x="346" y="172" font-size="15" fill="#1a7f4b">Own learning</text>
+  </g>
+  <g stroke="#c2570c" stroke-width="2">
+    <line x1="74" y1="190" x2="74" y2="230"/>
+    <line x1="210" y1="190" x2="210" y2="230"/>
+    <line x1="346" y1="190" x2="346" y2="230"/>
+  </g>
+
+  <!-- 共用的权限 -->
+  <rect x="16" y="230" width="388" height="84" rx="10" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="210" y="264" font-weight="700">Shared: files, browser logins</text>
+    <text x="210" y="294">Equals your whole account's permissions</text>
+  </g>
+
+  <g font-size="17" fill="#1f2328">
+    <text x="24" y="346">Every Bot holds all the permissions,</text>
+    <text x="24" y="372">but knows only part of the picture.</text>
+  </g>
+
+  <line x1="24" y1="396" x2="396" y2="396" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 6"/>
+
+  <!-- 身份：一个 agent 一份 -->
+  <text x="24" y="428" font-size="15" fill="#57606a">Another cut: give each agent its own identity</text>
+  <g font-size="17" text-anchor="middle">
+    <rect x="16" y="442" width="116" height="104" rx="10" fill="#ffffff" stroke="#8c959f"/>
+    <rect x="22" y="478" width="104" height="28" rx="6" fill="#1a7f4b" fill-opacity="0.14"/>
+    <rect x="22" y="510" width="104" height="28" rx="6" fill="#c2570c" fill-opacity="0.14"/>
+    <text x="74" y="468" font-weight="700" fill="#1f2328">Agent A</text>
+    <text x="74" y="498" font-size="15" fill="#1a7f4b">Context</text>
+    <text x="74" y="530" font-size="15" fill="#c2570c">Permission</text>
+
+    <rect x="152" y="442" width="116" height="104" rx="10" fill="#ffffff" stroke="#8c959f"/>
+    <rect x="158" y="478" width="104" height="28" rx="6" fill="#1a7f4b" fill-opacity="0.14"/>
+    <rect x="158" y="510" width="104" height="28" rx="6" fill="#c2570c" fill-opacity="0.14"/>
+    <text x="210" y="468" font-weight="700" fill="#1f2328">Agent B</text>
+    <text x="210" y="498" font-size="15" fill="#1a7f4b">Context</text>
+    <text x="210" y="530" font-size="15" fill="#c2570c">Permission</text>
+
+    <rect x="288" y="442" width="116" height="104" rx="10" fill="#ffffff" stroke="#8c959f"/>
+    <rect x="294" y="478" width="104" height="28" rx="6" fill="#1a7f4b" fill-opacity="0.14"/>
+    <rect x="294" y="510" width="104" height="28" rx="6" fill="#c2570c" fill-opacity="0.14"/>
+    <text x="346" y="468" font-weight="700" fill="#1f2328">Agent C</text>
+    <text x="346" y="498" font-size="15" fill="#1a7f4b">Context</text>
+    <text x="346" y="530" font-size="15" fill="#c2570c">Permission</text>
+  </g>
+
+  <text x="24" y="578" font-size="17" fill="#1f2328">Both sliced per agent; each permission</text>
+  <text x="24" y="604" font-size="17" fill="#1f2328">can be granted, capped, revoked alone</text>
+  <text x="24" y="632" font-size="14" fill="#57606a">e.g. Cue gives each agent email, phone, wallet</text>
+</svg>

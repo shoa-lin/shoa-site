@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="Quyền hạn dài hơn ngữ cảnh một đoạn, khoảng cách này do con người bù: hộp thoại phê duyệt, quy tắc viết sẵn, bộ nhớ và sở thích tích lũy dần; mật khẩu là mảnh cố ý không bù" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="20" font-weight="700" fill="#1f2328">Phê duyệt là người bù ngữ cảnh</text>
+
+  <!-- 两根条 -->
+  <text x="24" y="84" font-size="17" font-weight="700" fill="#c2570c">Quyền hạn</text>
+  <rect x="24" y="94" width="372" height="32" rx="6" fill="#c2570c" fill-opacity="0.16" stroke="#c2570c"/>
+  <text x="40" y="116" font-size="15" fill="#1f2328">Đăng nhập thành bạn, nút nào cũng bấm được</text>
+
+  <text x="24" y="160" font-size="17" font-weight="700" fill="#1a7f4b">Ngữ cảnh</text>
+  <rect x="24" y="170" width="190" height="32" rx="6" fill="#1a7f4b" fill-opacity="0.16" stroke="#1a7f4b"/>
+  <text x="40" y="192" font-size="17" fill="#1f2328">Những gì nó biết</text>
+  <rect x="218" y="170" width="178" height="32" rx="6" fill="none" stroke="#c2570c" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="307" y="192" font-size="17" font-weight="700" fill="#c2570c" text-anchor="middle">Khoảng cách</text>
+  <text x="307" y="232" font-size="15" fill="#1f2328" text-anchor="middle">Phần này người phải bù</text>
+
+  <!-- 三种补法 -->
+  <g font-size="17" fill="#1f2328">
+    <rect x="24" y="252" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="252" width="6" height="74" rx="3" fill="#c2570c"/>
+    <text x="44" y="282" font-weight="700">Bật một lần phê duyệt</text>
+    <text x="44" y="310">Bù một mảnh nhỏ: lần này được không</text>
+
+    <rect x="24" y="338" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="338" width="6" height="74" rx="3" fill="#2563c9"/>
+    <text x="44" y="368" font-weight="700">Viết sẵn quy tắc từ trước</text>
+    <text x="44" y="396" font-size="16">Giao một lần: cho phép, cần duyệt, cấm</text>
+
+    <rect x="24" y="424" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="424" width="6" height="74" rx="3" fill="#1a7f4b"/>
+    <text x="44" y="454" font-weight="700">Tích lũy bộ nhớ và sở thích</text>
+    <text x="44" y="482" font-size="15">Ngữ cảnh đuổi kịp, hộp thoại mới bớt đi</text>
+  </g>
+
+  <!-- 例外 -->
+  <text x="24" y="538" font-size="17" font-weight="700" fill="#1f2328">Mảnh cố ý không bù: mật khẩu</text>
+  <text x="24" y="566" font-size="17" fill="#57606a">agent dùng được, nhưng không thấy</text>
+</svg>

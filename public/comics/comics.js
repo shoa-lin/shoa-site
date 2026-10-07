@@ -1,6 +1,6 @@
 /* Locale routing for static comic editions. Locale values follow BCP 47. */
 (function () {
-  const supported = ['zh-CN', 'en', 'ja', 'ko'];
+  const supported = ['zh-CN', 'en', 'ja', 'ko', 'th', 'fr', 'de', 'vi'];
   const rtl = ['ar', 'fa', 'he', 'ur'];
   if (rtl.includes((navigator.language || '').split('-')[0])) document.documentElement.dir = 'rtl';
   const params = new URLSearchParams(location.search);

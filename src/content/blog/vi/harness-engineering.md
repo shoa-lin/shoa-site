@@ -27,13 +27,13 @@ translationStatus: "reviewed"
 
 Một phần harness của coding agent được nhà sản xuất xây qua system prompt, truy xuất mã và đôi khi là [hệ thống điều phối tinh vi](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents). Coding agent cũng cung cấp công cụ để người dùng xây lớp harness bên ngoài cho hệ thống và trường hợp sử dụng riêng.
 
-![Ba vòng tròn đồng tâm: mô hình ở giữa, harness của nhà phát triển coding agent bao quanh và harness người dùng ở ngoài cùng](/assets/blog/harness-engineering/harness-bounded-contexts.png)
+![Ba vòng tròn đồng tâm: mô hình ở giữa, harness của nhà phát triển coding agent bao quanh và harness người dùng ở ngoài cùng](/assets/blog/harness-engineering/harness-bounded-contexts.webp)
 
 Hình 1: “Harness” mang nghĩa khác nhau trong các bounded context khác nhau.
 
 Một harness bên ngoài tốt có hai mục tiêu: tăng xác suất agent làm đúng ngay lần đầu và tạo vòng phản hồi sửa càng nhiều vấn đề càng tốt trước khi chúng đến tay con người. Kết quả mong muốn là ít công sức review hơn, chất lượng hệ thống cao hơn và giảm token lãng phí.
 
-![Tổng quan guide đưa tín hiệu vào coding agent và sensor đưa kết quả trở lại vòng tự sửa, trong khi con người điều khiển cả hai](/assets/blog/harness-engineering/harness-overview.png)
+![Tổng quan guide đưa tín hiệu vào coding agent và sensor đưa kết quả trở lại vòng tự sửa, trong khi con người điều khiển cả hai](/assets/blog/harness-engineering/harness-overview.webp)
 
 ## Feedforward và Feedback
 
@@ -84,14 +84,14 @@ Sensor feedback, kể cả inferential, nên được phân bố tương ứng t
 - Điều khiển nào đủ nhanh để chạy trước tích hợp hoặc trước cả khi tạo commit? Ví dụ: linter, test suite nhanh và agent code review cơ bản.
 - Điều khiển nào đủ đắt để chỉ chạy sau tích hợp trong pipeline, cùng một lượt lặp lại kiểm tra nhanh? Ví dụ: mutation testing và code review rộng cần toàn cảnh.
 
-![Ví dụ guide feedforward và sensor feedback trước và sau tích hợp trong vòng đời thay đổi](/assets/blog/harness-engineering/harness-change-lifecycle-examples.png)
+![Ví dụ guide feedforward và sensor feedback trước và sau tích hợp trong vòng đời thay đổi](/assets/blog/harness-engineering/harness-change-lifecycle-examples.webp)
 
 **Sensor drift và sức khỏe liên tục**
 
 - **Sensor drift codebase** chạy ngoài vòng đời thay đổi để phát hiện suy giảm tích lũy như mã chết, coverage yếu và vấn đề dependency.
 - **Sensor sức khỏe runtime** cho phép agent giám sát tín hiệu production như SLO suy giảm, chất lượng phản hồi lấy mẫu hoặc log bất thường, rồi đề xuất cải thiện.
 
-![Ví dụ phát hiện drift codebase liên tục và sensor feedback runtime sau tích hợp](/assets/blog/harness-engineering/harness-continuous-feedback-examples.png)
+![Ví dụ phát hiện drift codebase liên tục và sensor feedback runtime sau tích hợp](/assets/blog/harness-engineering/harness-continuous-feedback-examples.webp)
 
 ## Các nhóm điều tiết
 
@@ -129,7 +129,7 @@ Cách này đặt quá nhiều niềm tin vào test do AI tạo. Một số nhó
 
 Chúng ta vẫn cần harness hành vi tốt hơn trước khi có thể tự tin giảm giám sát và kiểm thử thủ công.
 
-![Mô hình harness đơn giản với guide và sensor trên các chiều bảo trì, fitness kiến trúc và hành vi](/assets/blog/harness-engineering/harness-types.png)
+![Mô hình harness đơn giản với guide và sensor trên các chiều bảo trì, fitness kiến trúc và hành vi](/assets/blog/harness-engineering/harness-types.webp)
 
 ## Khả năng harness hóa
 
@@ -146,7 +146,7 @@ Phần lớn doanh nghiệp dựa vào vài topology dịch vụ phổ biến: d
 
 Các template đó có thể phát triển thành **template harness**: gói guide và sensor ràng buộc coding agent theo cấu trúc, quy ước và stack công nghệ của topology. Nhóm có thể dần chọn công nghệ dựa một phần vào harness sẵn có.
 
-![Ví dụ topology dịch vụ với template harness gồm guide và sensor cho từng topology](/assets/blog/harness-engineering/harness-templates.png)
+![Ví dụ topology dịch vụ với template harness gồm guide và sensor cho từng topology](/assets/blog/harness-engineering/harness-templates.webp)
 
 ### Định luật Ashby
 

@@ -12,13 +12,10 @@
     "supporting": "Trang này tập hợp các bài viết, ghi chú nghiên cứu và danh sách đọc dài hạn của tôi.",
     "interestsTitle": "Lĩnh vực quan tâm",
     "interestsBody": "Tôi nghiên cứu cách agent sử dụng công cụ một cách đáng tin cậy, duy trì ngữ cảnh, phục hồi sau lỗi và để lại kết quả mà con người có thể kiểm tra.",
-    "backgroundTitle": "Kinh nghiệm công khai",
-    "backgroundBody": "Công việc của tôi từng liên quan đến đồ thị tri thức, dữ liệu và kiến trúc doanh nghiệp. Hiện nay tôi dành phần lớn thời gian cho hệ thống AI agent và quy trình phát triển phần mềm.",
     "approachTitle": "Cách tôi làm việc",
     "approachBody": "Tôi kiểm tra trạng thái thực tế trước, chia nhỏ vấn đề, kiểm chứng giả định và chuyển kết quả thành mã hoặc bài viết có thể tái sử dụng.",
     "latestTitle": "Bài viết mới nhất",
-    "contactTitle": "Giữ liên lạc",
-    "contactBody": "Hãy gửi email hoặc tìm tôi trên X để trao đổi về AI agent, hệ thống tri thức, công cụ dành cho lập trình viên và viết kỹ thuật."
+    "moreTitle": "Thêm"
   },
   "about": {
     "title": "Giới thiệu",

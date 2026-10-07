@@ -14,12 +14,12 @@ cuisine: ["poulet rôti", "cuisine maison"]
 signatureDishes: ["Poulet rôti signature", "Jarret au poivre noir", "Intestin sauté aux légumes marinés"]
 rating: 4.5
 pricePerPerson: 60
-coverImage: "/assets/food/wangzai-roast-chicken/01-storefront.jpg"
+coverImage: "/assets/food/wangzai-roast-chicken/01-storefront.webp"
 images:
-  - "/assets/food/wangzai-roast-chicken/01-storefront.jpg"
-  - "/assets/food/wangzai-roast-chicken/04-signature-roast-chicken.jpg"
-  - "/assets/food/wangzai-roast-chicken/03-black-pepper-knuckle.jpg"
-  - "/assets/food/wangzai-roast-chicken/02-dish.jpg"
+  - "/assets/food/wangzai-roast-chicken/01-storefront.webp"
+  - "/assets/food/wangzai-roast-chicken/04-signature-roast-chicken.webp"
+  - "/assets/food/wangzai-roast-chicken/03-black-pepper-knuckle.webp"
+  - "/assets/food/wangzai-roast-chicken/02-dish.webp"
 sourceLocale: "zh"
 contentType: "translation"
 publicationStatus: "published"

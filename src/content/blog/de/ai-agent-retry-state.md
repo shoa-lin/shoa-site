@@ -26,7 +26,7 @@ Das ist ein wichtiger Hintergrund dafür, warum Agentenprodukte wie Codex den tr
 
 Eine Einschränkung ist wichtig: Es gibt keine offizielle Aussage, Codex habe Retry „wegen zu komplexer Zustände abgeschafft“. Dieser Artikel ist eine architektonische Interpretation der öffentlich dokumentierten Modelle Thread, Turn, Item und Fork.
 
-![Retry wird vom erneuten Antworten zu einer Verzweigung, die den Verlauf bewahrt](/assets/blog/ai-agent-retry-state/retry-becomes-fork-de.png)
+![Retry wird vom erneuten Antworten zu einer Verzweigung, die den Verlauf bewahrt](/assets/blog/ai-agent-retry-state/retry-becomes-fork-de.webp)
 
 Bei früheren Chatbots habe ich mich an eine kleine Funktion gewöhnt: **Retry**, häufig auch **Regenerate** genannt.
 
@@ -120,7 +120,7 @@ Das eigentliche Problem lautet deshalb nicht bloß „Zwischeninformationen sind
 
 > Ein Agentenlauf erzeugt eine reale Kette von Ursache und Wirkung. Der zweite Lauf beginnt nicht mehr in der Welt, die vor dem ersten existierte.
 
-![Text kann neu geschrieben werden, doch der Agent hat den realen Zustand bereits verändert](/assets/blog/ai-agent-retry-state/text-vs-world-state-de.png)
+![Text kann neu geschrieben werden, doch der Agent hat den realen Zustand bereits verändert](/assets/blog/ai-agent-retry-state/text-vs-world-state-de.webp)
 
 ## Agenten-Retry betrifft mindestens vier Arten von Zustand
 

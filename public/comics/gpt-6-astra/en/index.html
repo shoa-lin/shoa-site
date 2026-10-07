@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-
-<html dir="ltr" lang="zh-CN">
+<html dir="ltr" lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>GPT-6 Astra 模型指南 · 漫画版摘录</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&amp;family=ZCOOL+KuaiLe&amp;family=Noto+Sans+SC:wght@400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT-6 Astra Model Guide · Comic Excerpt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#fdf3e3;
@@ -35,7 +34,7 @@ body{
 }
 ::selection{background:var(--yellow);color:var(--ink)}
 
-/* ---------- 通用漫画面板 ---------- */
+/* ---------- Generic comic panel ---------- */
 .wrap{max-width:980px;margin:0 auto;padding:0 20px}
 .panel{
   background:var(--panel);
@@ -49,7 +48,7 @@ body{
 .reveal{opacity:0;transform:translateY(46px) scale(.92) rotate(var(--rr,0deg));transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0) scale(1) rotate(var(--rr,0deg))}
 
-/* ---------- 顶部刊头 ---------- */
+/* ---------- Masthead ---------- */
 .masthead{
   overflow:clip;
   text-align:center;
@@ -109,7 +108,7 @@ h1 .cn{
 .sfx-1{top:8%;left:5vw;font-size:clamp(38px,6vw,72px);transform:rotate(-14deg)}
 .sfx-2{bottom:4%;right:10vw;font-size:clamp(30px,5vw,56px);transform:rotate(9deg);color:var(--teal)}
 
-/* 连载编号条 */
+/* Issue number bar */
 .issue-bar{
   display:flex;justify-content:center;gap:0;
   margin:26px auto 0;flex-wrap:wrap;
@@ -125,7 +124,7 @@ h1 .cn{
 .issue-bar span:nth-child(2){background:var(--teal-lt)}
 .issue-bar span:nth-child(3){background:var(--panel)}
 
-/* ---------- 对话框 ---------- */
+/* ---------- Speech bubble ---------- */
 .bubble{
   position:relative;
   background:#fff;
@@ -149,7 +148,7 @@ h1 .cn{
 .bubble.pop{animation:pop .55s var(--ease) both}
 @keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
 
-/* ---------- 章节标题 ---------- */
+/* ---------- Chapter heading ---------- */
 .chapter{
   display:flex;align-items:center;gap:18px;
   margin:76px 0 30px;
@@ -183,7 +182,7 @@ h1 .cn{
   clip-path:polygon(0 50%,100% 0,100% 100%);
 }
 
-/* ---------- 贴纸徽章 ---------- */
+/* ---------- Sticker badge ---------- */
 .sticker{
   display:inline-block;
   font-family:"ZCOOL KuaiLe",cursive;
@@ -199,7 +198,7 @@ h1 .cn{
 .sticker.yellow{background:var(--yellow);color:var(--ink)}
 .sticker.orange{background:var(--orange)}
 
-/* ---------- 特性格子 ---------- */
+/* ---------- Feature grid ---------- */
 .feature-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -240,7 +239,7 @@ code,kbd{
   font-size:.88em;
 }
 
-/* ---------- PROMPT 面板 ---------- */
+/* ---------- PROMPT panel ---------- */
 .prompt-block{
   margin:26px 0 8px;
   border:3.5px solid var(--ink);
@@ -279,7 +278,7 @@ code,kbd{
   position:relative;
 }
 .explain::before{
-  content:"中文解读";
+  content:"English explanation";
   position:absolute;top:-15px;left:20px;
   font-family:"ZCOOL KuaiLe",cursive;
   font-size:14px;
@@ -290,7 +289,7 @@ code,kbd{
 }
 .explain b{color:var(--coral)}
 
-/* ---------- 小节标题 ---------- */
+/* ---------- Sub-heading ---------- */
 h3.sub{
   font-family:"ZCOOL KuaiLe",cursive;
   font-size:24px;
@@ -300,7 +299,7 @@ h3.sub{
 h3.sub .star{color:var(--orange);font-size:28px;transform:rotate(-10deg)}
 h3.sub .en{font-family:"Bangers",cursive;font-size:16px;letter-spacing:.1em;color:var(--gray)}
 
-/* ---------- 行为特点清单 ---------- */
+/* ---------- Behavior trait list ---------- */
 .trait-list{list-style:none;margin-top:18px}
 .trait-list li{
   background:var(--panel);
@@ -325,7 +324,7 @@ h3.sub .en{font-family:"Bangers",cursive;font-size:16px;letter-spacing:.1em;colo
 }
 .trait-list b{font-weight:900}
 
-/* ---------- 迁移清单 ---------- */
+/* ---------- Migration checklist ---------- */
 .migrate li{
   border-left:6px solid var(--orange);
   padding:12px 18px;
@@ -350,7 +349,7 @@ h3.sub .en{font-family:"Bangers",cursive;font-size:16px;letter-spacing:.1em;colo
   overflow-x:auto;
 }
 
-/* ---------- 页脚 ---------- */
+/* ---------- Footer ---------- */
 footer{
   margin-top:90px;
   background:var(--ink);
@@ -375,7 +374,7 @@ footer .fin{
 footer p{font-size:13.5px;color:#bdbdbd;margin-top:14px;max-width:640px;margin-left:auto;margin-right:auto}
 footer a{color:var(--teal-lt)}
 
-/* ---------- 进度条 ---------- */
+/* ---------- Progress bar ---------- */
 .progress{
   position:fixed;top:0;left:0;height:6px;width:0;
   background:repeating-linear-gradient(45deg,var(--orange) 0 14px,var(--coral) 14px 28px);
@@ -390,8 +389,9 @@ footer a{color:var(--teal-lt)}
   .chapter .num{font-size:38px}
 }
 </style>
-<meta name="description" content="GPT-6 Astra 模型指南 · 漫画版摘录 - Shoa Lin visual comic article"><link rel="canonical" href="https://www.bydziwen.top/comics/gpt-6-astra/en/"><meta property="og:title" content="GPT-6 Astra 模型指南 · 漫画版摘录"><meta property="og:description" content="Visual comic article by Shoa Lin"><meta property="og:url" content="https://www.bydziwen.top/comics/gpt-6-astra/en/"><meta property="og:image" content="https://www.bydziwen.top/assets/images/avatar/profile.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="zh-CN" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="en" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="ja" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="ko" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="th" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="fr" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="de" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="vi" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="x-default" href="https://www.bydziwen.top/comics/"><link rel="stylesheet" href="/comics/navigation.css?v=2">
+<meta name="description" content="GPT-6 Astra Model Guide · Comic Excerpt - Shoa Lin visual comic article"><link rel="canonical" href="https://www.bydziwen.top/comics/gpt-6-astra/en/"><meta property="og:title" content="GPT-6 Astra Model Guide · Comic Excerpt"><meta property="og:description" content="Visual comic article by Shoa Lin"><meta property="og:url" content="https://www.bydziwen.top/comics/gpt-6-astra/en/"><meta property="og:image" content="https://www.bydziwen.top/assets/avatar/profile.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="zh-CN" href="https://www.bydziwen.top/comics/gpt-6-astra/"><link rel="alternate" hreflang="en" href="https://www.bydziwen.top/comics/gpt-6-astra/en/"><link rel="alternate" hreflang="ja" href="https://www.bydziwen.top/comics/gpt-6-astra/ja/"><link rel="alternate" hreflang="ko" href="https://www.bydziwen.top/comics/gpt-6-astra/ko/"><link rel="alternate" hreflang="th" href="https://www.bydziwen.top/comics/gpt-6-astra/th/"><link rel="alternate" hreflang="fr" href="https://www.bydziwen.top/comics/gpt-6-astra/fr/"><link rel="alternate" hreflang="de" href="https://www.bydziwen.top/comics/gpt-6-astra/de/"><link rel="alternate" hreflang="vi" href="https://www.bydziwen.top/comics/gpt-6-astra/vi/"><link rel="alternate" hreflang="x-default" href="https://www.bydziwen.top/comics/gpt-6-astra/"><link rel="stylesheet" href="/comics/navigation.css?v=2"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script src="/comics/navigation.js?v=2" type="module"></script>
+<style>.comic-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;max-width:980px;margin:22px auto 0;padding:0 20px;font:600 13px/1.4 system-ui,-apple-system,sans-serif}.comic-langs a{display:inline-flex;align-items:center;min-height:32px;padding:4px 2px;border-bottom:2px solid transparent;color:#5a5a5a;text-decoration:none}.comic-langs a:hover{color:#141414}.comic-langs a[aria-current="page"]{color:#141414;border-bottom-color:#ff6b35}</style>
 </head>
 <body><header class="site-header comic-shell" data-comic-header>
   <div class="comic-shell__inner">
@@ -414,262 +414,291 @@ footer a{color:var(--teal-lt)}
   </div>
 </header>
 <div class="progress" id="progress"></div>
-<!-- ============ 刊头 ============ -->
+<nav class="comic-langs" aria-label="Language"><a href="/comics/gpt-6-astra/" hreflang="zh-CN" lang="zh-CN">简体中文</a><a href="/comics/gpt-6-astra/en/" hreflang="en" lang="en" aria-current="page">English</a><a href="/comics/gpt-6-astra/ja/" hreflang="ja" lang="ja">日本語</a><a href="/comics/gpt-6-astra/ko/" hreflang="ko" lang="ko">한국어</a><a href="/comics/gpt-6-astra/th/" hreflang="th" lang="th">ไทย</a><a href="/comics/gpt-6-astra/fr/" hreflang="fr" lang="fr">Français</a><a href="/comics/gpt-6-astra/de/" hreflang="de" lang="de">Deutsch</a><a href="/comics/gpt-6-astra/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
+
+<!-- ============ Masthead ============ -->
 <header class="masthead">
-<svg aria-hidden="true" class="hero-burst" viewbox="0 0 100 100">
-<polygon fill="#ffd23f" points="50,0 58,18 74,8 74,28 94,24 86,42 100,50 86,58 94,76 74,72 74,92 58,82 50,100 42,82 26,92 26,72 6,76 14,58 0,50 14,42 6,24 26,28 26,8 42,18" stroke="#141414" stroke-width="2.5"></polygon>
-</svg>
-<div class="burst-txt" style="position:absolute;top:36px;right:6vw;width:150px;height:150px;pointer-events:none">
-<span style="font-family:'ZCOOL KuaiLe',cursive;font-size:19px;line-height:1.3;text-align:center">Official documentation<br/>Excerpt from comic version</span>
-</div>
-<div class="sfx sfx-1">BOOM!</div>
-<div class="sfx sfx-2">ZAP!</div>
-<span class="kicker">OPENAI API · MODEL GUIDANCE</span>
-<h1 class="title">GPT-6 ASTRA
-    <span class="cn">Model usage guide · Chinese comic excerpt</span>
-</h1>
-<div class="issue-bar">
-<span>VOL.01</span>
-<span>Original text: developers.openai.com</span>
-<span>Prompt retains the original English text + Chinese interpretation</span>
-</div>
-</header>
-<main class="wrap">
- opening remarks 
-<div class="bubble pop reveal" style="--rr:-.5deg;margin-top:44px;max-width:640px">
-<b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">📖Read instructions:</b>
-    本文摘录翻译自 OpenAI 官方文档《Model guidance — Using GPT-6 Astra》。正文已译为中文；所有 <b>Prompt original text remains in English</b>(It can be used directly by copying it). A "Chinese interpretation" is attached below each Prompt to help you understand its function.
+  <svg class="hero-burst" viewBox="0 0 100 100" aria-hidden="true">
+    <polygon fill="#ffd23f" stroke="#141414" stroke-width="2.5"
+      points="50,0 58,18 74,8 74,28 94,24 86,42 100,50 86,58 94,76 74,72 74,92 58,82 50,100 42,82 26,92 26,72 6,76 14,58 0,50 14,42 6,24 26,28 26,8 42,18"/>
+  </svg>
+  <div class="burst-txt" style="position:absolute;top:36px;right:6vw;width:150px;height:150px;pointer-events:none">
+    <span style="font-family:'ZCOOL KuaiLe',cursive;font-size:19px;line-height:1.3;text-align:center">Official docs<br>comic excerpt</span>
   </div>
-<!-- ============ 第一话：介绍 ============ -->
-<div class="chapter reveal">
-<span class="num">01</span>
-<h2>Meet GPT-6 Astra<small>INTRODUCTION</small></h2>
-<div class="zig"></div>
-</div>
-<section class="panel rot-l reveal" style="--rr:-.6deg">
-<p><b>GPT-6 Astra is OpenAI’s smartest model yet</b>，在计算机操作（computer use）、网页浏览、软件工程、科学研究及专业工作方面拥有最先进水平的表现。它擅长跨代码、浏览器和专业软件执行多步骤工作流。</p>
-<p style="margin-top:12px">In multiple reviews, Astra used<b>Significantly fewer output tokens</b> Achieved stronger results - despite higher per-token pricing, the estimated API cost per task is lower than earlier models.</p>
-<p style="margin-top:12px">Astra is also<b>The strongest alignment</b>model: act cautiously, respect task boundaries, and communicate transparently. When instructions leave room for interpretation, it uses existing context to fill in conventional gaps on its own; and when the answer might change the outcome, it asks focused questions. It can incorporate new requirements, adjust direction as required, and answer side questions without losing the main mission.</p>
-<p style="margin-top:16px">Call it like this in a Responses API request:</p>
-<div class="codex-cmd">model = "gpt-6-astra"</div>
-</section>
- ============ Chapter 2: New Features ============ 
-<div class="chapter reveal">
-<span class="num">02</span>
-<h2>What's new?<small>WHAT'S NEW</small></h2>
-<div class="zig"></div>
-</div>
-<div class="feature-grid">
-<div class="f-card reveal">
-<svg class="burst-mini" viewbox="0 0 100 100"><polygon fill="#ff2d64" points="50,0 60,20 78,10 78,30 98,28 88,46 100,58 82,62 88,82 68,76 62,96 50,80 38,96 32,76 12,82 18,62 0,58 12,46 2,28 22,30 22,10 40,20" stroke="#141414" stroke-width="3"></polygon></svg>
-<span class="sticker orange">new capabilities</span>
-<div class="en-name">ASYNC TOOL CALLING</div>
-<h3>Asynchronous tool calls</h3>
-<p>当你的应用正在执行某个工具时，Astra 可以<b>Continue reasoning, call other tools, or answer independent parts of the request first</b>. Set on function/custom tool <code>async: true</code>，准备好后用原 <code>call_id</code> 返回结果即可。工具执行与挂起工作仍由你的应用管理。</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker teal">新能力</span>
-<div class="en-name">MID-TURN STEERING</div>
-<h3>Turn midway (interjection)</h3>
-<p>While working on the model, you can<b>Add new user instructions</b>——such as correction or change requirements. Over a WebSocket connection, the Responses API retains completed work and incorporates updates into subsequent updates.</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker yellow">新能力</span>
-<div class="en-name">CONFIGURATION UPDATE</div>
-<h3>Change reasoning strength mid-session</h3>
-<p>添加一个 <code>configuration_update</code> Difficult tasks can be solved by entering<b>Improve reasoning effort</b>, reduce the intensity of routine questioning—and<b>Original prompt prefix is ​​not rewritten, cache is preserved</b>. This setting remains in effect until the next <code>configuration_update</code> cover.</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker">Safety</span>
-<div class="en-name">MISALIGNMENT MONITORING</div>
-<h3>Dislocation monitoring</h3>
-<p>As part of Astra’s enhanced security measures, OpenAI’s systems will<b>Asynchronous monitoring of misalignment behavior</b>, and trigger an alarm when necessary.</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker">Notice</span>
-<div class="en-name">LIMITATIONS</div>
-<h3>limit</h3>
-<p>Astra <b>Not supported <code>none</code> Reasoning strength</b>;Under EU data residency<b>不可用 Fast 模式</b>。</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker teal">inherit</span>
-<div class="en-name">GPT-5.6 CAPABILITIES</div>
-<h3>All existing abilities are retained</h3>
-<p>Computer use, Structured Outputs, streaming output, Programmatic Tool Calling, multi-agent orchestration, prompt caching, persistent reasoning, compaction, pro mode - GPT-5.6 has them, and Astra supports them all.</p>
-</div>
-</div>
- ============ Chapter 3: Behavioral Characteristics ============ 
-<div class="chapter reveal">
-<span class="num">03</span>
-<h2>它的「性格」与调教总览<small>PROMPTING BEST PRACTICES</small></h2>
-<div class="zig"></div>
-</div>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<p>Astra 比 GPT-5.6 Sol 等前代更聪明、更能干，同时也展现出一些<b>Targeted optimization can be done through prompt</b>的行为模式：</p>
-<ul class="trait-list">
-<li class="reveal" data-i="1"><b>Initiative and follow-up</b> —— 它被设计为更高效的协作者，因此当额外输入可能实质性改变结果时，<b>More likely to stop and ask questions</b>— and you might expect it to make reasonable assumptions on its own and stick to them.</li>
-<li class="reveal" data-i="2"><b>instructions to follow</b> ——The ability to follow universal instructions is stronger than ever, giving you greater control over your behavior. But it does not apply to skills and <code>AGENTS.md</code> 等文件中的指令也更敏感。<b>强烈建议审计</b>The skills the model has access to and the directives in the file that may affect its behavior.</li>
-<li class="reveal" data-i="3"><b>Personality and style</b> -- Tends to provide detailed, formatted responses and may reuse certain set phrases across sessions. Please clearly specify the writing style and structure required for your application.</li>
-<li class="reveal" data-i="4"><b>subagent delegation</b> — It may be delegated less frequently than your workflow requires. Please specify when and to what extent you use subagents to work in parallel.</li>
-<li class="reveal" data-i="5"><b>测试与验证</b> - When writing code, it tends to test thoroughly before deeming the task complete; for small tasks, this may lead to testing that goes beyond what the task requires.</li>
-</ul>
-</section>
- ============ Chapter 4: Five Training Spells ============ 
-<div class="chapter reveal">
-<span class="num">04</span>
-<h2>五条调教咒语（Prompt 原文 + 解读）<small>PROMPT SPELLS</small></h2>
-<div class="zig"></div>
-</div>
- 4.1 Initiative 
-<h3 class="sub reveal"><span class="star">★</span>咒语一：让它更自主地干活 <span class="en">INITIATIVE &amp; FOLLOW-THROUGH</span></h3>
-<section class="panel rot-l reveal" style="--rr:-.5deg">
-<p>Astra's ability to stay coherent during long missions is better than its predecessor, but it's also easier to ask for clarification where its predecessors would just assume. To make it more autonomous, start with this prompt:</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>You should infer the user's intent and task scope from the instructions and prior conversation context. Your job is to bias towards action and carry the user's intended task to completion.
+  <div class="sfx sfx-1">BOOM!</div>
+  <div class="sfx sfx-2">ZAP!</div>
+  <span class="kicker">OPENAI API · MODEL GUIDANCE</span>
+  <h1 class="title">GPT-6 ASTRA
+    <span class="cn">Model usage guide · comic excerpt in English</span>
+  </h1>
+  <div class="issue-bar">
+    <span>VOL.01</span>
+    <span>Source: developers.openai.com</span>
+    <span>Prompts kept in the original English + English explanation</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Opening note -->
+  <div class="bubble pop reveal" style="--rr:-.5deg;margin-top:44px;max-width:640px">
+    <b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">📖 How to read this:</b>
+    This page is a comic-style excerpt of the OpenAI official docs page "Model guidance — Using GPT-6 Astra". The body text is a plain-English retelling; every <b>prompt is quoted verbatim in its original English</b> (copy it straight into your app), and each one comes with an "English explanation" underneath so you know exactly what it does.
+  </div>
+
+  <!-- ============ Chapter 1: Introduction ============ -->
+  <div class="chapter reveal">
+    <span class="num">01</span>
+    <h2>Meet GPT-6 Astra<small>INTRODUCTION</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-l reveal" style="--rr:-.6deg">
+    <p><b>GPT-6 Astra is OpenAI's most intelligent model to date</b>, with state-of-the-art performance in computer use, web browsing, software engineering, scientific research, and professional work. It shines at running multi-step workflows across code, browsers, and professional software.</p>
+    <p style="margin-top:12px">Across a range of evaluations, Astra scores higher while using <b>noticeably fewer output tokens</b>. Even though each token costs more, the estimated API cost per task comes out lower than on earlier models.</p>
+    <p style="margin-top:12px">Astra is also the <b>best-aligned</b> model so far: it acts carefully, respects task boundaries, and communicates transparently. When instructions leave room for interpretation, it uses the context it already has to fill routine gaps on its own, and asks a focused question only when the answer could change the outcome. It can take in new requirements, change direction when asked, and answer side questions without losing track of the main task.</p>
+    <p style="margin-top:16px">Call it like this in a Responses API request:</p>
+    <div class="codex-cmd">model = "gpt-6-astra"</div>
+  </section>
+
+  <!-- ============ Chapter 2: What's new ============ -->
+  <div class="chapter reveal">
+    <span class="num">02</span>
+    <h2>So what's new?<small>WHAT'S NEW</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="f-card reveal">
+      <svg class="burst-mini" viewBox="0 0 100 100"><polygon fill="#ff2d64" stroke="#141414" stroke-width="3" points="50,0 60,20 78,10 78,30 98,28 88,46 100,58 82,62 88,82 68,76 62,96 50,80 38,96 32,76 12,82 18,62 0,58 12,46 2,28 22,30 22,10 40,20"/></svg>
+      <span class="sticker orange">New</span>
+      <div class="en-name">ASYNC TOOL CALLING</div>
+      <h3>Async tool calling</h3>
+      <p>While your app is still running a tool, Astra can <b>keep reasoning, call other tools, or answer the parts of the request that don't depend on it</b>. Set <code>async: true</code> on a function or custom tool, then return the result under the original <code>call_id</code> once it's ready. Your app still owns tool execution and any pending work.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker teal">New</span>
+      <div class="en-name">MID-TURN STEERING</div>
+      <h3>Mid-turn steering (cutting in)</h3>
+      <p>While the model is working, you can <b>add new user instructions</b>, say a correction or a change of requirements. Over a WebSocket connection, the Responses API keeps the work already done and folds the update into what comes next.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker yellow">New</span>
+      <div class="en-name">CONFIGURATION UPDATE</div>
+      <h3>Change reasoning effort mid-session</h3>
+      <p>Add a <code>configuration_update</code> input item to <b>raise reasoning effort</b> for hard tasks and lower it for routine follow-ups, all <b>without rewriting the original prompt prefix, so your cache stays intact</b>. The setting stays in effect until the next <code>configuration_update</code> overrides it.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker">Safety</span>
+      <div class="en-name">MISALIGNMENT MONITORING</div>
+      <h3>Misalignment monitoring</h3>
+      <p>As part of Astra's strengthened safety measures, OpenAI's systems <b>monitor for misalignment asynchronously</b> and raise alerts when needed.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker">Heads-up</span>
+      <div class="en-name">LIMITATIONS</div>
+      <h3>Limitations</h3>
+      <p>Astra <b>does not support the <code>none</code> reasoning effort</b>, and <b>Fast mode is unavailable</b> under EU data residency.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker teal">Inherited</span>
+      <div class="en-name">GPT-5.6 CAPABILITIES</div>
+      <h3>Everything from before, still here</h3>
+      <p>Computer use, Structured Outputs, streaming, Programmatic Tool Calling, multi-agent orchestration, prompt caching, persistent reasoning, compaction, pro mode: whatever GPT-5.6 could do, Astra supports too.</p>
+    </div>
+  </div>
+
+  <!-- ============ Chapter 3: Behavior traits ============ -->
+  <div class="chapter reveal">
+    <span class="num">03</span>
+    <h2>Its "personality" and how to tune it<small>PROMPTING BEST PRACTICES</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra is smarter and more capable than predecessors like GPT-5.6 Sol, and it also shows a few behavior patterns you <b>can tune with targeted prompting</b>:</p>
+    <ul class="trait-list">
+      <li data-i="1" class="reveal"><b>Initiative and follow-through</b> — It's designed to be a more efficient collaborator, so when extra input could materially change the outcome it <b>leans toward stopping to ask</b>, where you might rather have it make a reasonable assumption and push on.</li>
+      <li data-i="2" class="reveal"><b>Instruction following</b> — General instruction following is stronger than ever, which gives you more control over its behavior. It's also more sensitive to instructions in skills and files like <code>AGENTS.md</code>. <b>Auditing is strongly recommended</b> for any skills and files the model can reach that might steer its behavior.</li>
+      <li data-i="3" class="reveal"><b>Personality and writing style</b> — It tends toward detailed, heavily formatted replies and may reuse certain stock phrases across sessions. Spell out the writing style and structure your app needs.</li>
+      <li data-i="4" class="reveal"><b>Subagent delegation</b> — It may delegate less often than your workflow calls for. Say when, and how much, it should use subagents to work in parallel.</li>
+      <li data-i="5" class="reveal"><b>Testing and verification</b> — When writing code, it likes to test thoroughly before calling a task done; on small tasks that can mean testing well beyond what the task needs.</li>
+    </ul>
+  </section>
+
+  <!-- ============ Chapter 4: Five prompt spells ============ -->
+  <div class="chapter reveal">
+    <span class="num">04</span>
+    <h2>Five prompt spells (original prompts + explanation)<small>PROMPT SPELLS</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <!-- 4.1 Initiative -->
+  <h3 class="sub reveal"><span class="star">★</span>Spell one: get it to work more autonomously <span class="en">INITIATIVE &amp; FOLLOW-THROUGH</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.5deg">
+    <p>Astra holds together over long tasks better than earlier models, but it's also more likely to ask for clarification where a predecessor would simply have assumed. To make it more autonomous, start with this prompt:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>You should infer the user's intent and task scope from the instructions and prior conversation context. Your job is to bias towards action and carry the user's intended task to completion.
 
 When the user expresses intent to perform new work or fix an existing issue, persist until the user's intended goal is complete. Progress autonomously towards the user's goal (e.g. creating isolated worktrees / checkouts if needed, resolving merge conflicts, read-only actions, creating draft PRs etc.) unless they are clearly destructive or irreversible.</pre>
-</div>
-<div class="explain">
-      Let the model learn from the context<b>Infer user intent and task scope</b>, prefer action rather than inquiry, and complete the task along the way. As long as it is not an obviously destructive/irreversible operation (such as building a worktree, resolving conflicts, read-only operations, creating a draft PR), you should proceed independently.
     </div>
-<p style="margin-top:24px">当用户意图不清时，模型更可能要求澄清。若用户的措辞已隐含授权，用这条让它跟进执行：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>When the user's prompt indicates a request for action, such as "can you...", "I want to...", "help me..." and similar expressions, treat these as instructions to do the work and take action. Do not stop at acknowledging capability (e.g. "Yes…"), proposing a plan, or offering to continue. Do not settle for a partial or "helpful enough" solution that does not fully satisfy the user's task to save time, effort or tokens. If a task requires sustained work, complete all the necessary work until the intended outcome is fulfilled.</pre>
-</div>
-<div class="explain">
-      When users say "Can you..." "I want to..." "Help me...",<b>直接当作执行指令</b>——Don’t stop at “Okay,” don’t just give a plan, don’t ask “Do you want me to continue?” Don’t hand over a semi-finished product that is “almost enough” just to save time/tokens. You must work hard until the expected results are achieved.
+    <div class="explain">
+      Have the model <b>infer the user's intent and task scope</b> from context, bias toward action over asking, and carry the task through to the end. Anything that isn't clearly destructive or irreversible (creating worktrees, resolving merge conflicts, read-only actions, opening draft PRs) should go ahead on its own.
     </div>
-<p style="margin-top:24px">Let the model only be in<b>准备好具体、可评审的成果之后</b>Request approval again to avoid being stuck before work starts:</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result. For example, before deploying a change, writing to an external application, merging a PR or publishing a site, do all the required work first so that user approval is the final step. You don't need user permission for reversible tasks, read-only actions, reviews or fixes, or anything for which authorization is provided earlier in the session or strongly implied from the task instruction.
+
+    <p style="margin-top:24px">When the user's intent is unclear, the model is more likely to ask for clarification. If the user's wording already implies authorization, use this one to make it follow through:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>When the user's prompt indicates a request for action, such as "can you...", "I want to...", "help me..." and similar expressions, treat these as instructions to do the work and take action. Do not stop at acknowledging capability (e.g. "Yes…"), proposing a plan, or offering to continue. Do not settle for a partial or "helpful enough" solution that does not fully satisfy the user's task to save time, effort or tokens. If a task requires sustained work, complete all the necessary work until the intended outcome is fulfilled.</pre>
+    </div>
+    <div class="explain">
+      When the user says "can you...", "I want to...", or "help me...", <b>treat it as an instruction to do the work</b>. Don't stop at "Sure, I can", don't just hand over a plan, don't ask "want me to continue?". And don't deliver a "good enough" half-finished result to save time or tokens; keep going until the intended outcome is actually reached.
+    </div>
+
+    <p style="margin-top:24px">Have the model ask for approval only <b>after it has a concrete, reviewable result ready</b>, so it doesn't get stuck before the work even starts:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result. For example, before deploying a change, writing to an external application, merging a PR or publishing a site, do all the required work first so that user approval is the final step. You don't need user permission for reversible tasks, read-only actions, reviews or fixes, or anything for which authorization is provided earlier in the session or strongly implied from the task instruction.
 
 Do not introduce unsolicited warnings, disclaimers, approval flows, or safety/compliance checklists due to hypothetical risk.</pre>
-</div>
-<div class="explain">
-      Before deploying, writing external applications, merging PRs, and publishing the website,<b>先把所有能做的都做完</b>，让用户批准成为最后一步。可逆操作、只读操作、评审修复等无需许可。也不要因假想风险而主动抛出警告、免责声明或审批流程。另外，模型默认喜欢边干活边问「非阻塞式」问题——按你应用需要的自主程度调整这些 prompt。
     </div>
-</section>
-<!-- 4.2 指令遵循 -->
-<h3 class="sub reveal"><span class="star">★</span>Mantra 2: Clarify the priority of instructions <span class="en">INSTRUCTION FOLLOWING</span></h3>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<p>Astra can follow longer instructions, but is also more sensitive to information in the context - for example, ambiguous or conflicting instructions in a skill file can cause it to pause prematurely and block work. please<b>Explicitly declare the priority of user instructions and skills</b>：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>The user's instructions take precedence over guidelines provided in a skill. If explicit user instructions conflict with a skill's instructions, prioritize the user's instructions.</pre>
-</div>
-<div class="explain">
-      一句话定规矩：<b>用户指令 &gt; skill 指引</b>。冲突时以用户为准。
+    <div class="explain">
+      Before deploying, writing to an external app, merging a PR, or publishing a site, <b>finish everything that can be finished first</b>, so user approval is the final step. Reversible actions, read-only actions, reviews and fixes need no permission. Don't volunteer warnings, disclaimers, or approval flows over hypothetical risk either. One more thing: by default the model likes to ask "non-blocking" questions while it works. Tune these prompts to the level of autonomy your app needs.
     </div>
-<p style="margin-top:24px">When an application loads a large number of skills and <code>AGENTS.md</code> This type of instruction file allows the model to "provide" which skill and which instruction caused it to pause or turn, which can effectively improve the transparency of the behavior:</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>If a skill causes you to ask for permission or confirmation, pause, leave requested work unfinished, or diverge from the user's intent, name and link to the exact SKILL.md file you read, quote the relevant instruction, and briefly explain how it applies. Distinguish explicit skill requirements from your interpretation of guidelines.</pre>
-</div>
-<div class="explain">
-      要求模型在因 skill 而暂停/要权限/偏离意图时，<b>点名并链接具体的 SKILL.md 文件、引用相关指令原文</b>、简要说明适用理由，并区分「skill 的明确要求」与「它自己的解读」。这条很适合用来排查隐藏的冲突指引。
+  </section>
+
+  <!-- 4.2 Instruction following -->
+  <h3 class="sub reveal"><span class="star">★</span>Spell two: set the instruction hierarchy <span class="en">INSTRUCTION FOLLOWING</span></h3>
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra can follow longer instructions, but it's also more sensitive to what's in its context. Vague or conflicting guidance in a skill file, for example, can make it pause too early and block the work. <b>State explicitly that user instructions outrank skills</b>:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>The user's instructions take precedence over guidelines provided in a skill. If explicit user instructions conflict with a skill's instructions, prioritize the user's instructions.</pre>
     </div>
-</section>
- 4.3 Style of writing 
-<h3 class="sub reveal"><span class="star">★</span>Mantra 3: Control its writing style <span class="en">PERSONALITY &amp; WRITING STYLE</span></h3>
-<section class="panel rot-l reveal" style="--rr:-.6deg">
-<p>Astra 喜欢用列表、表格和 Markdown 让回复「便于扫读」。如果你的应用需要更少格式的连续段落，明确写出来：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Default to using clear, concise paragraphs, each developing one main idea. Use lists only when the information is genuinely parallel, sequential, or easier to compare, and avoid nested lists unless the hierarchy cannot be expressed clearly in prose. Use plain, simple language: familiar words, concrete examples, and precise verbs. Prefer active voice and direct statements.
+    <div class="explain">
+      One sentence lays down the rule: <b>user instructions &gt; skill guidelines</b>. When they conflict, the user wins.
+    </div>
+
+    <p style="margin-top:24px">When your app loads lots of skills and instruction files like <code>AGENTS.md</code>, asking the model to "name names" (which skill, which line made it pause or change course) is a solid way to make its behavior more transparent:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>If a skill causes you to ask for permission or confirmation, pause, leave requested work unfinished, or diverge from the user's intent, name and link to the exact SKILL.md file you read, quote the relevant instruction, and briefly explain how it applies. Distinguish explicit skill requirements from your interpretation of guidelines.</pre>
+    </div>
+    <div class="explain">
+      Whenever a skill makes the model pause, ask for permission, or drift from the user's intent, require it to <b>name and link the exact SKILL.md file and quote the relevant instruction verbatim</b>, briefly explain why it applies, and separate "what the skill explicitly requires" from "its own reading of the guidelines". Great for flushing out hidden conflicting guidance.
+    </div>
+  </section>
+
+  <!-- 4.3 Writing style -->
+  <h3 class="sub reveal"><span class="star">★</span>Spell three: rein in its writing style <span class="en">PERSONALITY &amp; WRITING STYLE</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.6deg">
+    <p>Astra loves lists, tables, and Markdown that make replies "skimmable". If your app wants flowing paragraphs with less formatting, say so explicitly:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Default to using clear, concise paragraphs, each developing one main idea. Use lists only when the information is genuinely parallel, sequential, or easier to compare, and avoid nested lists unless the hierarchy cannot be expressed clearly in prose. Use plain, simple language: familiar words, concrete examples, and precise verbs. Prefer active voice and direct statements.
 
 Make sure to state the main point clearly and early, then develop it with the explanation and detail the reader needs. Let each sentence build on what came before. Develop the points that matter and provide enough support to be useful.</pre>
-</div>
-<div class="explain">
-      Used by default<b>clear and concise paragraphs</b>（一段一个主旨）；只在信息真正并列/有序/需对比时才用列表；语言平实、主动语态；<b>先亮观点</b>Expand again, and each sentence continues the previous sentence.
     </div>
-<p style="margin-top:24px">技术沟通场景下，这条帮你在「清晰连贯」与「专业得体」之间取得平衡：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Use plain language over jargon, and reference technical details only to the degree that it helps illustrate an idea or your work to the user. Communicate complex concepts in a clear and cohesive manner, and calibrate your writing to the level of background knowledge assumed from the user's prompt and context.</pre>
-</div>
-<div class="explain">
-      少堆术语，技术细节只在有助于说明时引用；并<b>Calibrate based on user knowledge background</b>The depth of writing.
+    <div class="explain">
+      Default to <b>clear, concise paragraphs</b> (one main idea each); use lists only when the information is genuinely parallel, sequential, or easier to compare; keep the language plain and in the active voice; <b>lead with the main point</b>, then develop it, with each sentence building on the last.
     </div>
-<p style="margin-top:24px">想减少套话和「AI 腔」词汇，从这条开始：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Avoid using slop words or phrases like "Bottom Line:" in conclusions, "delve," "foster," "leverage," "it's worth noting," "importantly," "Question? Answer." or "This isn't about X. It's about Y.", "genuinely" or hyphenated compound descriptions and adjectives. Do not use concluding summary statements such as "In short:..", "The simplest mental model is:...".
+
+    <p style="margin-top:24px">For technical communication, this one helps you balance "clear and cohesive" with "appropriately technical":</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Use plain language over jargon, and reference technical details only to the degree that it helps illustrate an idea or your work to the user. Communicate complex concepts in a clear and cohesive manner, and calibrate your writing to the level of background knowledge assumed from the user's prompt and context.</pre>
+    </div>
+    <div class="explain">
+      Go easy on the jargon, bring in technical detail only where it helps make a point, and <b>calibrate the depth</b> of the writing to the user's background knowledge.
+    </div>
+
+    <p style="margin-top:24px">Want fewer stock phrases and less "AI-speak"? Start here:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Avoid using slop words or phrases like "Bottom Line:" in conclusions, "delve," "foster," "leverage," "it's worth noting," "importantly," "Question? Answer." or "This isn't about X. It's about Y.", "genuinely" or hyphenated compound descriptions and adjectives. Do not use concluding summary statements such as "In short:..", "The simplest mental model is:...".
 
 State the intended action directly. Avoid adding what you won't do, what will remain unchanged, or how you'll separate or categorize results. Do not use contrastive framing such as "X, not Y" or "X—not Y" that introduces an unprompted alternative that the user didn't ask about. Avoid invented compound labels like "exact-head checks" and "editorial-row layouts", vague qualifiers, and canned transitions; use plain verbs and prepositions to state the actual relationship directly.</pre>
-</div>
-<div class="explain">
-      An "AI cliché blacklist": disabled <b>"delve""leverage""it's worth noting"</b> Such general words,<b>"In short:"</b> 式总结、<b>"Not X, but Y"</b> 式对比框架、生造的复合标签和空洞过渡语。直接陈述要做的动作，用朴实的动词和介词说明真实关系。
     </div>
-</section>
-<!-- 4.4 子代理 -->
-<h3 class="sub reveal"><span class="star">★</span>咒语四：调节子代理委派 <span class="en">SUBAGENT DELEGATION</span></h3>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<p>Astra 接受过「拆分工作并委派给并行子代理」的训练。如果你的 harness 实现了多智能体系统，用这条调节委派力度：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>If at any point you can parallelize work by delegating tasks to another agent (no matter if you are the root or subagent), you should do so using collaboration tools if it could save time or improve quality.</pre>
-</div>
-<div class="explain">
-      无论模型是主代理还是子代理，只要能通过委派<b>并行化</b>、节省时间或提升质量，就应使用协作工具进行委派。模型对「何时、如何委派」的 prompt 响应良好，可据你的多智能体实现来调校。
+    <div class="explain">
+      An "AI slop blocklist": no overused words like <b>"delve", "leverage", "it's worth noting"</b>, no <b>"In short:"</b> wrap-ups, no <b>"not X, but Y"</b> contrastive framing, no invented compound labels or hollow transitions. State the intended action directly, and use plain verbs and prepositions to say what the real relationship is.
     </div>
-<p style="margin-top:24px">Messages between brokers may contain syntax or spacing errors. This makes the messages between brokers more readable:</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Messages that you send to other agents and your final answer may be read by a human, so ensure they are legible. Always put proper spaces between words and/or numbers.</pre>
-</div>
-<div class="explain">
-      提醒模型：发给其他代理的消息和最终答案<b>可能被人阅读</b>，词与数字之间要正确留白，保证清晰易读。
+  </section>
+
+  <!-- 4.4 Subagents -->
+  <h3 class="sub reveal"><span class="star">★</span>Spell four: dial subagent delegation up or down <span class="en">SUBAGENT DELEGATION</span></h3>
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra is trained to split work up and hand it to parallel subagents. If your harness implements a multi-agent system, use this one to adjust how aggressively it delegates:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>If at any point you can parallelize work by delegating tasks to another agent (no matter if you are the root or subagent), you should do so using collaboration tools if it could save time or improve quality.</pre>
     </div>
-</section>
-<!-- 4.5 测试 -->
-<h3 class="sub reveal"><span class="star">★</span>咒语五：校准测试强度 <span class="en">TESTING &amp; VERIFICATION</span></h3>
-<section class="panel rot-l reveal" style="--rr:-.5deg">
-<p>写代码任务中，校准「一处改动需要多少测试与验证」，可避免为小改动做无谓的测试或重复检查：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Do not write tests for reversible, low-impact changes that mirror the implementation. If you do choose to verify your work with tests, make sure that the tests are meaningful and necessary to verify implementation.
+    <div class="explain">
+      Whether the model is the root agent or a subagent, if delegating would <b>parallelize</b> the work and save time or improve quality, it should use the collaboration tools to delegate. The model responds well to prompts about when and how to delegate, so tune this to your multi-agent setup.
+    </div>
+
+    <p style="margin-top:24px">Messages between agents can come out with grammar or spacing errors. This one keeps agent-to-agent messages readable:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Messages that you send to other agents and your final answer may be read by a human, so ensure they are legible. Always put proper spaces between words and/or numbers.</pre>
+    </div>
+    <div class="explain">
+      A reminder that messages to other agents and the final answer <b>may be read by a human</b>: put proper spaces between words and numbers and keep everything legible.
+    </div>
+  </section>
+
+  <!-- 4.5 Testing -->
+  <h3 class="sub reveal"><span class="star">★</span>Spell five: calibrate testing intensity <span class="en">TESTING &amp; VERIFICATION</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.5deg">
+    <p>On coding tasks, calibrating "how much testing and verification does this change need" avoids pointless tests and repeated checks for small changes:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Do not write tests for reversible, low-impact changes that mirror the implementation. If you do choose to verify your work with tests, make sure that the tests are meaningful and necessary to verify implementation.
 
 Run tests appropriate to the change and complete required checks. Once those pass, broaden or repeat testing only when new changes, failures, or unresolved concerns justify it; otherwise, continue toward completing the task.</pre>
-</div>
-<div class="explain">
-<b>可逆、低影响的改动不要写「复述实现」的测试</b>;If you want to write, write something meaningful. First run the tests and necessary checks commensurate with the changes. After passing them, unless there are new changes, failures or unresolved issues, continue to advance the task and do not expand the scope of the test indefinitely.
     </div>
-</section>
- ============ Chapter 5: Migration ============ 
-<div class="chapter reveal">
-<span class="num">05</span>
-<h2>迁移速查表<small>MIGRATION QUICKSTART</small></h2>
-<div class="zig"></div>
-</div>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<span class="sticker orange">用 Codex 一键迁移</span>
-<p style="margin-top:12px">Codex 可以通过 OpenAI Docs skill 应用本指南中的推荐改动：</p>
-<div class="codex-cmd">$openai-docs migrate this project to GPT-6 Astra</div>
-<p>想在其他编程代理中使用该 skill，可从 OpenAI 的 skills 仓库下载。</p>
-<p style="margin-top:22px">手动迁移：把 <code>model</code> 设为 <code>gpt-6-astra</code>，然后逐项检查：</p>
-<ul class="migrate">
-<li class="reveal"><b>推理强度：</b>如果你现在用 <code>none</code> 或 <code>minimal</code>，先从 <code>low</code> 起步对比效果；否则保持当前有效推理强度。Responses 用 <code>reasoning.effort</code>, for Chat Completions <code>reasoning_effort</code>。</li>
-<li class="reveal"><b>Tool call:</b>使用 Responses API。Astra 虽支持 Chat Completions，但<b>Tool calls must go through Responses</b>。</li>
-<li class="reveal"><b>Unsupported parameters:</b>Remove <code>temperature</code>、<code>top_p</code>、<code>top_logprobs</code>；Chat Completions 还需移除 <code>logprobs</code>;Responses need to be obtained from <code>include</code> removed from <code>message.output_text.logprobs</code>。</li>
-<li class="reveal"><b>Fast 模式：</b>欧盟数据驻留请用 Standard 处理。Astra 在 EU 数据驻留下不支持 <code>service_tier: "fast"</code> or <code>"priority"</code>；且 Astra 的 Fast 模式<b>不含延迟 SLA</b>。</li>
-<li class="reveal"><b>变更推理强度：</b>If the application needs to adjust the strength between replies, use it in a standard single-proxy request <code>configuration_update</code> Input; keep request level <code>reasoning.effort</code> 不变，以保留 prompt 前缀用于缓存。采用前先确认兼容性限制。</li>
-<li class="reveal"><b>Prompt 缓存：</b>从 GPT-5.5 或更早版本迁移时，把 <code>prompt_cache_retention</code> 替换为 <code>prompt_cache_options.ttl</code> and set to <code>"30m"</code>。注意查阅缓存边界与缓存写入计费等变更。</li>
-<li class="reveal"><b>不必要的审批停顿：</b>如果模型总在推进前反复请求批准，用「咒语一」的主动性指引来提升自主执行程度。</li>
-</ul>
-</section>
-<!-- 结尾对话框 -->
-<div class="bubble tail-r reveal" style="--rr:.6deg;margin:64px 0 0 auto;max-width:600px">
-<b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">💡 一句话总结：</b>
-    Astra is smarter and more "cautious" - if you want it to be fully powered, you must use prompt to tell it clearly:<b>How much autonomy, who has the final say, how to write, when to delegate, how much to measure</b>。
+    <div class="explain">
+      <b>Don't write tests for reversible, low-impact changes that just mirror the implementation</b>; if you do test, make it meaningful. Run the tests that fit the change plus the required checks, and once they pass, keep moving on the task unless new changes, failures, or open concerns justify more. Don't let the test scope balloon.
+    </div>
+  </section>
+
+  <!-- ============ Chapter 5: Migration ============ -->
+  <div class="chapter reveal">
+    <span class="num">05</span>
+    <h2>Migration cheat sheet<small>MIGRATION QUICKSTART</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <span class="sticker orange">One-shot migration with Codex</span>
+    <p style="margin-top:12px">Codex can apply the recommended changes from this guide through the OpenAI Docs skill:</p>
+    <div class="codex-cmd">$openai-docs migrate this project to GPT-6 Astra</div>
+    <p>To use the skill in other coding agents, download it from OpenAI's skills repository.</p>
+
+    <p style="margin-top:22px">Manual migration: set <code>model</code> to <code>gpt-6-astra</code>, then work through this checklist:</p>
+    <ul class="migrate">
+      <li class="reveal"><b>Reasoning effort:</b> If you're on <code>none</code> or <code>minimal</code> today, start from <code>low</code> and compare results; otherwise keep whatever reasoning effort already works for you. Responses uses <code>reasoning.effort</code>, Chat Completions uses <code>reasoning_effort</code>.</li>
+      <li class="reveal"><b>Tool calling:</b> Use the Responses API. Astra does support Chat Completions, but <b>tool calling has to go through Responses</b>.</li>
+      <li class="reveal"><b>Unsupported parameters:</b> Remove <code>temperature</code>, <code>top_p</code>, and <code>top_logprobs</code>; on Chat Completions also remove <code>logprobs</code>; on Responses remove <code>message.output_text.logprobs</code> from <code>include</code>.</li>
+      <li class="reveal"><b>Fast mode:</b> Under EU data residency, use Standard processing. Astra doesn't support <code>service_tier: "fast"</code> or <code>"priority"</code> with EU data residency, and Astra's Fast mode <b>comes with no latency SLA</b>.</li>
+      <li class="reveal"><b>Changing reasoning effort:</b> If your app needs to adjust effort between replies, use the <code>configuration_update</code> input item in standard single-agent requests; leave the request-level <code>reasoning.effort</code> alone so the prompt prefix stays cacheable. Check the compatibility limits before adopting it.</li>
+      <li class="reveal"><b>Prompt caching:</b> When migrating from GPT-5.5 or earlier, replace <code>prompt_cache_retention</code> with <code>prompt_cache_options.ttl</code> set to <code>"30m"</code>. Also check the changes to cache boundaries and cache-write billing.</li>
+      <li class="reveal"><b>Unnecessary approval pauses:</b> If the model keeps asking for approval before moving forward, use the initiative guidance from "Spell one" to raise its level of autonomous execution.</li>
+    </ul>
+  </section>
+
+  <!-- Closing bubble -->
+  <div class="bubble tail-r reveal" style="--rr:.6deg;margin:64px 0 0 auto;max-width:600px">
+    <b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">💡 In one sentence:</b>
+    Astra is smarter and also more "cautious". To unleash it fully, use your prompts to tell it plainly: <b>how autonomous to be, who's in charge, how to write, when to delegate, and how much to test</b>.
   </div>
 </main>
+
 <footer>
-<span class="fin">FIN.</span>
-<p>本页为 OpenAI 官方文档《Model guidance — Using GPT-6 Astra》的中文摘录与译注，Prompt 内容为官方原文。原文出处：developers.openai.com/api/docs/guides/latest-model</p>
+  <span class="fin">FIN.</span>
+  <p>This page is an English excerpt of, and commentary on, the OpenAI official docs page "Model guidance — Using GPT-6 Astra"; the prompts are the official text verbatim. Source: developers.openai.com/api/docs/guides/latest-model</p>
 </footer>
+
 <script>
 // 滚动进度条
 var bar = document.getElementById('progress');
@@ -689,7 +718,7 @@ var io = new IntersectionObserver(function(entries){
 }, {threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 </script>
-<script defer="" src="/comics/comics.js"></script>
+<script src="/comics/comics.js" defer></script>
 <a href="mailto:shoa_lin@outlook.com" aria-label="Email">Contact</a></body>
 <style>[dir="rtl"]{direction:rtl;text-align:right}.language-switcher{direction:ltr}</style>
 </html>

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT-6 Astra Modellleitfaden · Comic-Auszug</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdf3e3;
+  --panel:#fffdf7;
+  --ink:#141414;
+  --orange:#ff6b35;
+  --teal:#3fb8c9;
+  --teal-lt:#8dd6e5;
+  --coral:#ff2d64;
+  --yellow:#ffd23f;
+  --dark:#191928;
+  --gray:#5a5a5a;
+  --ease:cubic-bezier(.215,.61,.355,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  background-image:radial-gradient(rgba(20,20,20,.10) 1.2px, transparent 1.3px);
+  background-size:14px 14px;
+  color:var(--ink);
+  font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.75;
+  overflow-x:hidden;
+}
+::selection{background:var(--yellow);color:var(--ink)}
+
+/* ---------- Allgemeine Comic-Panels ---------- */
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.panel{
+  background:var(--panel);
+  border:3.5px solid var(--ink);
+  box-shadow:7px 7px 0 var(--ink);
+  padding:34px 36px;
+  position:relative;
+}
+.rot-l{transform:rotate(-.6deg)}
+.rot-r{transform:rotate(.5deg)}
+.reveal{opacity:0;transform:translateY(46px) scale(.92) rotate(var(--rr,0deg));transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:translateY(0) scale(1) rotate(var(--rr,0deg))}
+
+/* ---------- Masthead ---------- */
+.masthead{
+  overflow:clip;
+  text-align:center;
+  padding:64px 20px 30px;
+  position:relative;
+}
+.kicker{
+  display:inline-block;
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:15px;
+  letter-spacing:.35em;
+  background:var(--ink);color:var(--paper);
+  padding:6px 22px;
+  transform:rotate(-1.5deg);
+  margin-bottom:22px;
+}
+h1.title{
+  font-family:"Bangers","ZCOOL KuaiLe",cursive;
+  font-size:clamp(56px,11vw,124px);
+  line-height:.95;
+  letter-spacing:.02em;
+  color:var(--ink);
+  text-shadow:5px 5px 0 var(--orange), 10px 10px 0 rgba(20,20,20,.12);
+}
+h1 .cn{
+  display:block;
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:clamp(26px,4.5vw,46px);
+  letter-spacing:.12em;
+  margin-top:14px;
+  text-shadow:3px 3px 0 var(--teal-lt);
+}
+.hero-burst{
+  position:absolute;
+  top:36px;right:6vw;
+  width:150px;height:150px;
+  animation:spin-slow 24s linear infinite;
+}
+.hero-burst .burst-txt{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:20px;text-align:center;line-height:1.25;
+  color:var(--ink);
+  animation:spin-rev 24s linear infinite;
+}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+@keyframes spin-rev{to{transform:rotate(-360deg)}}
+.sfx{
+  position:absolute;
+  font-family:"Bangers",cursive;
+  color:var(--coral);
+  -webkit-text-stroke:2px var(--ink);
+  paint-order:stroke fill;
+  pointer-events:none;
+}
+.sfx-1{top:8%;left:5vw;font-size:clamp(38px,6vw,72px);transform:rotate(-14deg)}
+.sfx-2{bottom:4%;right:10vw;font-size:clamp(30px,5vw,56px);transform:rotate(9deg);color:var(--teal)}
+
+/* Ausgabenleiste */
+.issue-bar{
+  display:flex;justify-content:center;gap:0;
+  margin:26px auto 0;flex-wrap:wrap;
+}
+.issue-bar span{
+  font-family:"JetBrains Mono",monospace;
+  font-size:12.5px;font-weight:700;
+  border:2.5px solid var(--ink);
+  background:var(--yellow);
+  padding:5px 16px;
+  margin:-1.5px;
+}
+.issue-bar span:nth-child(2){background:var(--teal-lt)}
+.issue-bar span:nth-child(3){background:var(--panel)}
+
+/* ---------- Sprechblasen ---------- */
+.bubble{
+  position:relative;
+  background:#fff;
+  border:3px solid var(--ink);
+  border-radius:26px;
+  padding:20px 26px;
+  box-shadow:5px 5px 0 var(--ink);
+}
+.bubble::after{
+  content:"";
+  position:absolute;
+  bottom:-26px;left:56px;
+  width:30px;height:30px;
+  background:#fff;
+  border-right:3px solid var(--ink);
+  border-bottom:3px solid var(--ink);
+  transform:rotate(45deg) skew(12deg,12deg);
+  clip-path:polygon(100% 0,100% 100%,0 100%);
+}
+.bubble.tail-r::after{left:auto;right:56px;transform:rotate(45deg) skew(-12deg,-12deg)}
+.bubble.pop{animation:pop .55s var(--ease) both}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+
+/* ---------- Kapitelueberschriften ---------- */
+.chapter{
+  display:flex;align-items:center;gap:18px;
+  margin:76px 0 30px;
+}
+.chapter .num{
+  font-family:"Bangers",cursive;
+  font-size:52px;line-height:1;
+  background:var(--orange);color:#fff;
+  border:3.5px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+  padding:6px 16px 2px;
+  transform:rotate(-4deg);
+  -webkit-text-stroke:1.5px var(--ink);
+  paint-order:stroke fill;
+}
+.chapter h2{
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:clamp(26px,4.6vw,40px);
+  letter-spacing:.06em;
+}
+.chapter h2 small{
+  display:block;
+  font-family:"Bangers",cursive;
+  font-size:.5em;
+  letter-spacing:.14em;
+  color:var(--gray);
+  -webkit-text-stroke:0;
+}
+.chapter .zig{flex:1;height:8px;min-width:40px;
+  background:repeating-linear-gradient(-45deg,var(--ink) 0 6px,transparent 6px 12px);
+  clip-path:polygon(0 50%,100% 0,100% 100%);
+}
+
+/* ---------- Sticker-Badges ---------- */
+.sticker{
+  display:inline-block;
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:14px;
+  background:var(--coral);color:#fff;
+  border:2.5px solid var(--ink);
+  border-radius:999px;
+  padding:3px 14px;
+  box-shadow:3px 3px 0 var(--ink);
+  transform:rotate(-3deg);
+}
+.sticker.teal{background:var(--teal)}
+.sticker.yellow{background:var(--yellow);color:var(--ink)}
+.sticker.orange{background:var(--orange)}
+
+/* ---------- Feature-Raster ---------- */
+.feature-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+  margin-top:26px;
+}
+.f-card{
+  background:var(--panel);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--ink);
+  padding:22px 22px 20px;
+  position:relative;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.f-card:hover{transform:translate(-3px,-3px) rotate(-.8deg);box-shadow:9px 9px 0 var(--ink)}
+.f-card h3{
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:20px;margin:10px 0 8px;
+}
+.f-card .en-name{
+  font-family:"Bangers",cursive;
+  font-size:15px;letter-spacing:.08em;color:var(--gray);
+}
+.f-card p{font-size:14.5px;color:#2b2b2b}
+.f-card code{font-size:12.5px}
+.f-card .burst-mini{
+  position:absolute;top:-16px;right:-10px;
+  width:58px;height:58px;
+  animation:wiggle 3.2s ease-in-out infinite;
+}
+@keyframes wiggle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+code,kbd{
+  font-family:"JetBrains Mono",monospace;
+  background:var(--yellow);
+  border:1.5px solid var(--ink);
+  border-radius:5px;
+  padding:1px 6px;
+  font-size:.88em;
+}
+
+/* ---------- PROMPT-Panel ---------- */
+.prompt-block{
+  margin:26px 0 8px;
+  border:3.5px solid var(--ink);
+  box-shadow:7px 7px 0 var(--ink);
+  background:var(--dark);
+  position:relative;
+}
+.prompt-block .tab{
+  position:absolute;top:-19px;left:22px;
+  font-family:"Bangers",cursive;
+  font-size:17px;letter-spacing:.18em;
+  background:var(--coral);color:#fff;
+  border:3px solid var(--ink);
+  padding:3px 18px 1px;
+  transform:rotate(-2deg);
+  -webkit-text-stroke:.8px var(--ink);
+  paint-order:stroke fill;
+}
+.prompt-block pre{
+  padding:30px 26px 24px;
+  overflow-x:auto;
+  font-family:"JetBrains Mono",monospace;
+  font-size:13.5px;line-height:1.8;
+  color:#f4ecd8;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.prompt-block pre::selection{background:var(--orange)}
+.explain{
+  margin:14px 0 6px;
+  background:#fff;
+  border:3px dashed var(--ink);
+  border-radius:18px;
+  padding:18px 24px;
+  font-size:15px;
+  position:relative;
+}
+.explain::before{
+  content:"Erklärung auf Deutsch";
+  position:absolute;top:-15px;left:20px;
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:14px;
+  background:var(--teal-lt);
+  border:2.5px solid var(--ink);
+  border-radius:999px;
+  padding:1px 14px;
+}
+.explain b{color:var(--coral)}
+
+/* ---------- Zwischenueberschriften ---------- */
+h3.sub{
+  font-family:"ZCOOL KuaiLe",cursive;
+  font-size:24px;
+  margin:44px 0 6px;
+  display:flex;align-items:center;gap:12px;
+}
+h3.sub .star{color:var(--orange);font-size:28px;transform:rotate(-10deg)}
+h3.sub .en{font-family:"Bangers",cursive;font-size:16px;letter-spacing:.1em;color:var(--gray)}
+
+/* ---------- Verhaltensliste ---------- */
+.trait-list{list-style:none;margin-top:18px}
+.trait-list li{
+  background:var(--panel);
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+  padding:16px 20px 16px 62px;
+  margin-bottom:14px;
+  position:relative;
+  font-size:15px;
+}
+.trait-list li::before{
+  content:attr(data-i);
+  position:absolute;left:14px;top:50%;
+  transform:translateY(-50%) rotate(-6deg);
+  font-family:"Bangers",cursive;
+  font-size:24px;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--yellow);
+  border:2.5px solid var(--ink);
+  border-radius:50%;
+}
+.trait-list b{font-weight:900}
+
+/* ---------- Migrationsliste ---------- */
+.migrate li{
+  border-left:6px solid var(--orange);
+  padding:12px 18px;
+  margin-bottom:12px;
+  background:#fff;
+  border-top:2.5px solid var(--ink);
+  border-right:2.5px solid var(--ink);
+  border-bottom:2.5px solid var(--ink);
+  font-size:15px;
+  list-style:none;
+}
+.migrate{padding:0;margin-top:16px}
+.migrate b{font-weight:900}
+.codex-cmd{
+  font-family:"JetBrains Mono",monospace;
+  background:var(--dark);color:var(--yellow);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--ink);
+  padding:16px 22px;
+  font-size:15px;
+  margin:18px 0;
+  overflow-x:auto;
+}
+
+/* ---------- Footer ---------- */
+footer{
+  margin-top:90px;
+  background:var(--ink);
+  color:var(--paper);
+  padding:44px 20px 54px;
+  text-align:center;
+  position:relative;
+}
+footer::before{
+  content:"";
+  position:absolute;top:-14px;left:0;right:0;height:14px;
+  background:radial-gradient(circle at 8px -4px, transparent 12px, var(--ink) 13px);
+  background-size:24px 20px;
+}
+footer .fin{
+  font-family:"Bangers",cursive;
+  font-size:44px;letter-spacing:.1em;
+  color:var(--yellow);
+  transform:rotate(-2deg);display:inline-block;
+  text-shadow:3px 3px 0 var(--coral);
+}
+footer p{font-size:13.5px;color:#bdbdbd;margin-top:14px;max-width:640px;margin-left:auto;margin-right:auto}
+footer a{color:var(--teal-lt)}
+
+/* ---------- Fortschrittsbalken ---------- */
+.progress{
+  position:fixed;top:0;left:0;height:6px;width:0;
+  background:repeating-linear-gradient(45deg,var(--orange) 0 14px,var(--coral) 14px 28px);
+  border-bottom:2.5px solid var(--ink);
+  z-index:99;
+}
+
+@media(max-width:640px){
+  .panel{padding:26px 20px}
+  .hero-burst{width:104px;height:104px;top:14px;right:2vw}
+  .hero-burst .burst-txt{font-size:14px}
+  .chapter .num{font-size:38px}
+}
+</style>
+<meta name="description" content="GPT-6 Astra Modellleitfaden · Comic-Auszug - Shoa Lin visual comic article"><link rel="canonical" href="https://www.bydziwen.top/comics/gpt-6-astra/de/"><meta property="og:title" content="GPT-6 Astra Modellleitfaden · Comic-Auszug"><meta property="og:description" content="Visual comic article by Shoa Lin"><meta property="og:url" content="https://www.bydziwen.top/comics/gpt-6-astra/de/"><meta property="og:image" content="https://www.bydziwen.top/assets/avatar/profile.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="zh-CN" href="https://www.bydziwen.top/comics/gpt-6-astra/"><link rel="alternate" hreflang="en" href="https://www.bydziwen.top/comics/gpt-6-astra/en/"><link rel="alternate" hreflang="ja" href="https://www.bydziwen.top/comics/gpt-6-astra/ja/"><link rel="alternate" hreflang="ko" href="https://www.bydziwen.top/comics/gpt-6-astra/ko/"><link rel="alternate" hreflang="th" href="https://www.bydziwen.top/comics/gpt-6-astra/th/"><link rel="alternate" hreflang="fr" href="https://www.bydziwen.top/comics/gpt-6-astra/fr/"><link rel="alternate" hreflang="de" href="https://www.bydziwen.top/comics/gpt-6-astra/de/"><link rel="alternate" hreflang="vi" href="https://www.bydziwen.top/comics/gpt-6-astra/vi/"><link rel="alternate" hreflang="x-default" href="https://www.bydziwen.top/comics/gpt-6-astra/"><link rel="stylesheet" href="/comics/navigation.css?v=2"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script src="/comics/navigation.js?v=2" type="module"></script>
+<style>.comic-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;max-width:980px;margin:22px auto 0;padding:0 20px;font:600 13px/1.4 system-ui,-apple-system,sans-serif}.comic-langs a{display:inline-flex;align-items:center;min-height:32px;padding:4px 2px;border-bottom:2px solid transparent;color:#5a5a5a;text-decoration:none}.comic-langs a:hover{color:#141414}.comic-langs a[aria-current="page"]{color:#141414;border-bottom-color:#ff6b35}</style>
+</head>
+<body><header class="site-header comic-shell" data-comic-header>
+  <div class="comic-shell__inner">
+    <a class="comic-shell__brand" href="/">Shoa Lin</a>
+    <nav class="comic-shell__desktop" aria-label="主要导航"><a href="/">首页</a>
+<a href="/about/">关于</a>
+<a href="/blog/">文章</a>
+<a href="/comics/" aria-current="page">漫画</a>
+<a href="/food/">美食</a>
+<a href="/favorites/">收藏</a>
+<a href="/contact/">联系</a></nav>
+    <button class="comic-shell__toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="comic-nav-menu" data-comic-toggle><span aria-hidden="true">☰</span></button>
+    <nav class="comic-shell__menu" id="comic-nav-menu" aria-label="移动端导航" data-comic-menu hidden><a href="/">首页</a>
+<a href="/about/">关于</a>
+<a href="/blog/">文章</a>
+<a href="/comics/" aria-current="page">漫画</a>
+<a href="/food/">美食</a>
+<a href="/favorites/">收藏</a>
+<a href="/contact/">联系</a></nav>
+  </div>
+</header>
+<div class="progress" id="progress"></div>
+<nav class="comic-langs" aria-label="Sprache"><a href="/comics/gpt-6-astra/" hreflang="zh-CN" lang="zh-CN">简体中文</a><a href="/comics/gpt-6-astra/en/" hreflang="en" lang="en">English</a><a href="/comics/gpt-6-astra/ja/" hreflang="ja" lang="ja">日本語</a><a href="/comics/gpt-6-astra/ko/" hreflang="ko" lang="ko">한국어</a><a href="/comics/gpt-6-astra/th/" hreflang="th" lang="th">ไทย</a><a href="/comics/gpt-6-astra/fr/" hreflang="fr" lang="fr">Français</a><a href="/comics/gpt-6-astra/de/" hreflang="de" lang="de" aria-current="page">Deutsch</a><a href="/comics/gpt-6-astra/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
+
+<!-- ============ Masthead ============ -->
+<header class="masthead">
+  <svg class="hero-burst" viewBox="0 0 100 100" aria-hidden="true">
+    <polygon fill="#ffd23f" stroke="#141414" stroke-width="2.5"
+      points="50,0 58,18 74,8 74,28 94,24 86,42 100,50 86,58 94,76 74,72 74,92 58,82 50,100 42,82 26,92 26,72 6,76 14,58 0,50 14,42 6,24 26,28 26,8 42,18"/>
+  </svg>
+  <div class="burst-txt" style="position:absolute;top:36px;right:6vw;width:150px;height:150px;pointer-events:none">
+    <span style="font-family:'ZCOOL KuaiLe',cursive;font-size:19px;line-height:1.3;text-align:center">Offizielle Doku<br>als Comic-Auszug</span>
+  </div>
+  <div class="sfx sfx-1">BOOM!</div>
+  <div class="sfx sfx-2">ZAP!</div>
+  <span class="kicker">OPENAI API · MODEL GUIDANCE</span>
+  <h1 class="title">GPT-6 ASTRA
+    <span class="cn">Modellleitfaden · Comic-Auszug auf Deutsch</span>
+  </h1>
+  <div class="issue-bar">
+    <span>VOL.01</span>
+    <span>Original: developers.openai.com</span>
+    <span>Prompts im englischen Original + Erklärung auf Deutsch</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Intro -->
+  <div class="bubble pop reveal" style="--rr:-.5deg;margin-top:44px;max-width:640px">
+    <b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">📖 Lesehinweis:</b>
+    Dieser Auszug ist eine Übersetzung der offiziellen OpenAI-Dokumentation „Model guidance — Using GPT-6 Astra“. Der Fließtext ist ins Deutsche übertragen; alle <b>Prompts bleiben im englischen Original</b> (einfach kopieren und loslegen), und unter jedem Prompt steht eine „Erklärung auf Deutsch“, die zeigt, was er bewirkt.
+  </div>
+
+  <!-- ============ Kapitel 1: Einführung ============ -->
+  <div class="chapter reveal">
+    <span class="num">01</span>
+    <h2>GPT-6 Astra kennenlernen<small>INTRODUCTION</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-l reveal" style="--rr:-.6deg">
+    <p><b>GPT-6 Astra ist das bisher intelligenteste Modell von OpenAI</b> und liefert Spitzenleistung bei Computer Use, Web-Browsing, Software-Engineering, wissenschaftlicher Forschung und professioneller Arbeit. Es glänzt bei mehrstufigen Workflows über Code, Browser und Fachsoftware hinweg.</p>
+    <p style="margin-top:12px">In vielen Evaluationen erreicht Astra mit <b>deutlich weniger Output-Tokens</b> bessere Ergebnisse – trotz höherem Preis pro Token liegen die geschätzten API-Kosten pro Aufgabe unter denen früherer Modelle.</p>
+    <p style="margin-top:12px">Astra ist zugleich das <b>am besten ausgerichtete</b> Modell: Es handelt umsichtig, respektiert Aufgabengrenzen und kommuniziert transparent. Lassen Anweisungen Spielraum, füllt es Routinelücken selbst aus dem vorhandenen Kontext; könnte die Antwort das Ergebnis verändern, stellt es gezielte Fragen. Es nimmt neue Anforderungen auf, ändert auf Wunsch den Kurs und beantwortet Nebenfragen, ohne die Hauptaufgabe aus den Augen zu verlieren.</p>
+    <p style="margin-top:16px">So rufst du es in einer Responses-API-Anfrage auf:</p>
+    <div class="codex-cmd">model = "gpt-6-astra"</div>
+  </section>
+
+  <!-- ============ Kapitel 2: Neuerungen ============ -->
+  <div class="chapter reveal">
+    <span class="num">02</span>
+    <h2>Was gibt's Neues?<small>WHAT'S NEW</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="f-card reveal">
+      <svg class="burst-mini" viewBox="0 0 100 100"><polygon fill="#ff2d64" stroke="#141414" stroke-width="3" points="50,0 60,20 78,10 78,30 98,28 88,46 100,58 82,62 88,82 68,76 62,96 50,80 38,96 32,76 12,82 18,62 0,58 12,46 2,28 22,30 22,10 40,20"/></svg>
+      <span class="sticker orange">Neu</span>
+      <div class="en-name">ASYNC TOOL CALLING</div>
+      <h3>Asynchrone Tool-Aufrufe</h3>
+      <p>Während deine App gerade ein Tool ausführt, kann Astra <b>weiterdenken, andere Tools aufrufen oder unabhängige Teile der Anfrage schon beantworten</b>. Setze bei function/custom tools <code>async: true</code> und liefere das Ergebnis, sobald es fertig ist, mit der ursprünglichen <code>call_id</code> zurück. Tool-Ausführung und offene Arbeit verwaltet weiterhin deine App.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker teal">Neu</span>
+      <div class="en-name">MID-TURN STEERING</div>
+      <h3>Kurswechsel mitten im Turn</h3>
+      <p>Während das Modell arbeitet, kannst du <b>neue Nutzeranweisungen nachschieben</b> – etwa Korrekturen oder geänderte Anforderungen. Über eine WebSocket-Verbindung behält die Responses API die bereits erledigte Arbeit und bezieht das Update in die Fortsetzung ein.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker yellow">Neu</span>
+      <div class="en-name">CONFIGURATION UPDATE</div>
+      <h3>Reasoning-Stärke mittendrin ändern</h3>
+      <p>Füge ein <code>configuration_update</code>-Input-Item hinzu, und du kannst für schwere Aufgaben den <b>Reasoning Effort erhöhen</b> und für Routine-Rückfragen senken – <b>ohne das ursprüngliche Prompt-Präfix umzuschreiben, der Cache bleibt erhalten</b>. Die Einstellung gilt, bis das nächste <code>configuration_update</code> sie überschreibt.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker">Sicherheit</span>
+      <div class="en-name">MISALIGNMENT MONITORING</div>
+      <h3>Misalignment-Monitoring</h3>
+      <p>Als Teil der verstärkten Sicherheitsmaßnahmen für Astra <b>überwachen OpenAI-Systeme asynchron auf Misalignment-Verhalten</b> und lösen bei Bedarf Alarme aus.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker">Achtung</span>
+      <div class="en-name">LIMITATIONS</div>
+      <h3>Einschränkungen</h3>
+      <p>Astra <b>unterstützt den Reasoning Effort <code>none</code> nicht</b>; bei EU Data Residency ist der <b>Fast-Modus nicht verfügbar</b>.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker teal">Geerbt</span>
+      <div class="en-name">GPT-5.6 CAPABILITIES</div>
+      <h3>Alle bisherigen Fähigkeiten bleiben</h3>
+      <p>Computer Use, Structured Outputs, Streaming, Programmatic Tool Calling, Multi-Agent-Orchestrierung, Prompt-Caching, persistentes Reasoning, Compaction, Pro-Modus – alles, was GPT-5.6 kann, kann Astra auch.</p>
+    </div>
+  </div>
+
+  <!-- ============ Kapitel 3: Verhalten ============ -->
+  <div class="chapter reveal">
+    <span class="num">03</span>
+    <h2>Sein „Charakter“ und wie man ihn zähmt<small>PROMPTING BEST PRACTICES</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra ist klüger und fähiger als Vorgänger wie GPT-5.6 Sol, zeigt aber auch ein paar Verhaltensmuster, die sich <b>gezielt per Prompt optimieren lassen</b>:</p>
+    <ul class="trait-list">
+      <li data-i="1" class="reveal"><b>Initiative und Dranbleiben</b> – Es ist als effizienterer Mitarbeiter gebaut und <b>hält deshalb eher an, um nachzufragen</b>, wenn zusätzlicher Input das Ergebnis spürbar ändern könnte – wo du vielleicht erwartest, dass es selbst eine sinnvolle Annahme trifft und weitermacht.</li>
+      <li data-i="2" class="reveal"><b>Anweisungen befolgen</b> – Es folgt allgemeinen Anweisungen besser als je zuvor und gibt dir mehr Kontrolle über sein Verhalten. Dafür reagiert es auch empfindlicher auf Anweisungen in Skills und Dateien wie <code>AGENTS.md</code>. <b>Dringend empfohlen:</b> Prüfe die Skills und Dateien, auf die das Modell Zugriff hat, auf Anweisungen, die sein Verhalten beeinflussen könnten.</li>
+      <li data-i="3" class="reveal"><b>Persönlichkeit und Schreibstil</b> – Es neigt zu ausführlichen, formatierten Antworten und wiederholt manche Standardformulierungen über Sitzungen hinweg. Gib Schreibstil und Struktur, die deine App braucht, explizit vor.</li>
+      <li data-i="4" class="reveal"><b>Delegation an Subagenten</b> – Es delegiert womöglich seltener, als dein Workflow es braucht. Lege fest, wann und in welchem Umfang Subagenten parallel arbeiten sollen.</li>
+      <li data-i="5" class="reveal"><b>Testen und Verifizieren</b> – Beim Programmieren testet es gern gründlich, bevor es eine Aufgabe als erledigt betrachtet; bei kleinen Aufgaben kann der Testumfang dadurch über das Nötige hinausgehen.</li>
+    </ul>
+  </section>
+
+  <!-- ============ Kapitel 4: Fünf Zaubersprüche ============ -->
+  <div class="chapter reveal">
+    <span class="num">04</span>
+    <h2>Fünf Zaubersprüche (Prompt-Original + Erklärung)<small>PROMPT SPELLS</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <!-- 4.1 Initiative -->
+  <h3 class="sub reveal"><span class="star">★</span>Spruch 1: Mehr Eigenständigkeit <span class="en">INITIATIVE &amp; FOLLOW-THROUGH</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.5deg">
+    <p>Astra bleibt in langen Aufgaben konsistenter als seine Vorgänger, fragt aber auch eher nach, wo frühere Modelle einfach eine Annahme getroffen hätten. Für mehr Eigenständigkeit starte mit diesem Prompt:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>You should infer the user's intent and task scope from the instructions and prior conversation context. Your job is to bias towards action and carry the user's intended task to completion.
+
+When the user expresses intent to perform new work or fix an existing issue, persist until the user's intended goal is complete. Progress autonomously towards the user's goal (e.g. creating isolated worktrees / checkouts if needed, resolving merge conflicts, read-only actions, creating draft PRs etc.) unless they are clearly destructive or irreversible.</pre>
+    </div>
+    <div class="explain">
+      Das Modell soll <b>Absicht und Aufgabenumfang aus dem Kontext ableiten</b>, lieber handeln als fragen und die Aufgabe bis zum Ende durchziehen. Alles, was nicht offensichtlich destruktiv oder irreversibel ist (Worktree anlegen, Konflikte lösen, Lesezugriffe, Draft-PR erstellen), darf es eigenständig vorantreiben.
+    </div>
+
+    <p style="margin-top:24px">Ist die Absicht des Nutzers unklar, fragt das Modell eher nach. Steckt in der Formulierung schon eine Erlaubnis, bringt dieser Prompt es zum Handeln:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>When the user's prompt indicates a request for action, such as "can you...", "I want to...", "help me..." and similar expressions, treat these as instructions to do the work and take action. Do not stop at acknowledging capability (e.g. "Yes…"), proposing a plan, or offering to continue. Do not settle for a partial or "helpful enough" solution that does not fully satisfy the user's task to save time, effort or tokens. If a task requires sustained work, complete all the necessary work until the intended outcome is fulfilled.</pre>
+    </div>
+    <div class="explain">
+      Sagt der Nutzer „Kannst du …“, „Ich möchte …“ oder „Hilf mir …“, soll das Modell das <b>direkt als Arbeitsauftrag nehmen</b> – nicht bei „Klar, kann ich“ stehen bleiben, nicht nur einen Plan liefern, nicht fragen „Soll ich weitermachen?“. Und keine „gut genug“-Halblösung abgeben, um Zeit oder Tokens zu sparen: Es muss bis zum gewünschten Ergebnis durchziehen.
+    </div>
+
+    <p style="margin-top:24px">Das Modell soll erst dann um Freigabe bitten, <b>wenn ein konkretes, prüfbares Ergebnis vorliegt</b>, statt schon vor dem Start festzuhängen:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result. For example, before deploying a change, writing to an external application, merging a PR or publishing a site, do all the required work first so that user approval is the final step. You don't need user permission for reversible tasks, read-only actions, reviews or fixes, or anything for which authorization is provided earlier in the session or strongly implied from the task instruction.
+
+Do not introduce unsolicited warnings, disclaimers, approval flows, or safety/compliance checklists due to hypothetical risk.</pre>
+    </div>
+    <div class="explain">
+      Vor Deployment, Schreibzugriff auf externe Anwendungen, PR-Merge oder Website-Veröffentlichung <b>erst alles Machbare erledigen</b>, sodass die Freigabe des Nutzers der letzte Schritt ist. Reversible Aktionen, Lesezugriffe, Reviews und Fixes brauchen keine Erlaubnis. Auch keine ungebetenen Warnungen, Disclaimer oder Freigabeprozesse wegen hypothetischer Risiken. Übrigens: Standardmäßig stellt das Modell gern „nicht blockierende“ Fragen nebenbei – passe diese Prompts an den Autonomiegrad an, den deine App braucht.
+    </div>
+  </section>
+
+  <!-- 4.2 Anweisungen -->
+  <h3 class="sub reveal"><span class="star">★</span>Spruch 2: Klare Prioritäten bei Anweisungen <span class="en">INSTRUCTION FOLLOWING</span></h3>
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra kann längeren Anweisungen folgen, reagiert aber auch empfindlicher auf Informationen im Kontext – vage oder widersprüchliche Hinweise in einer Skill-Datei können es etwa zu früh anhalten lassen und die Arbeit blockieren. <b>Erkläre die Rangfolge von Nutzeranweisungen und Skills explizit</b>:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>The user's instructions take precedence over guidelines provided in a skill. If explicit user instructions conflict with a skill's instructions, prioritize the user's instructions.</pre>
+    </div>
+    <div class="explain">
+      Eine Regel in einem Satz: <b>Nutzeranweisung &gt; Skill-Vorgabe</b>. Bei Konflikten gilt, was der Nutzer sagt.
+    </div>
+
+    <p style="margin-top:24px">Lädt deine App viele Skills und Anweisungsdateien wie <code>AGENTS.md</code>, lass das Modell „verraten“, welcher Skill und welche Anweisung es zum Anhalten oder Abweichen gebracht hat – das macht sein Verhalten deutlich transparenter:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>If a skill causes you to ask for permission or confirmation, pause, leave requested work unfinished, or diverge from the user's intent, name and link to the exact SKILL.md file you read, quote the relevant instruction, and briefly explain how it applies. Distinguish explicit skill requirements from your interpretation of guidelines.</pre>
+    </div>
+    <div class="explain">
+      Hält das Modell wegen eines Skills an, bittet um Erlaubnis oder weicht von der Absicht ab, soll es <b>die konkrete SKILL.md-Datei nennen und verlinken, die betreffende Anweisung wörtlich zitieren</b>, kurz begründen, warum sie greift, und zwischen „expliziter Skill-Vorgabe“ und „eigener Auslegung“ unterscheiden. Ideal, um versteckte Konflikt-Anweisungen aufzuspüren.
+    </div>
+  </section>
+
+  <!-- 4.3 Schreibstil -->
+  <h3 class="sub reveal"><span class="star">★</span>Spruch 3: Den Schreibstil zügeln <span class="en">PERSONALITY &amp; WRITING STYLE</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.6deg">
+    <p>Astra nutzt gern Listen, Tabellen und Markdown, damit Antworten „überfliegbar“ sind. Braucht deine App weniger Formatierung und zusammenhängende Absätze, schreib es klar hin:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Default to using clear, concise paragraphs, each developing one main idea. Use lists only when the information is genuinely parallel, sequential, or easier to compare, and avoid nested lists unless the hierarchy cannot be expressed clearly in prose. Use plain, simple language: familiar words, concrete examples, and precise verbs. Prefer active voice and direct statements.
+
+Make sure to state the main point clearly and early, then develop it with the explanation and detail the reader needs. Let each sentence build on what came before. Develop the points that matter and provide enough support to be useful.</pre>
+    </div>
+    <div class="explain">
+      Standardmäßig <b>klare, knappe Absätze</b> (ein Gedanke pro Absatz); Listen nur, wenn die Informationen wirklich parallel, sequenziell oder zum Vergleichen sind; schlichte Sprache, Aktiv; <b>Hauptpunkt zuerst</b>, dann ausführen, jeder Satz baut auf dem vorigen auf.
+    </div>
+
+    <p style="margin-top:24px">In technischer Kommunikation hilft dieser Prompt, die Balance zwischen „klar und zusammenhängend“ und „fachlich angemessen“ zu finden:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Use plain language over jargon, and reference technical details only to the degree that it helps illustrate an idea or your work to the user. Communicate complex concepts in a clear and cohesive manner, and calibrate your writing to the level of background knowledge assumed from the user's prompt and context.</pre>
+    </div>
+    <div class="explain">
+      Weniger Fachjargon, technische Details nur, wo sie beim Erklären helfen; und die Tiefe <b>am Wissensstand des Nutzers kalibrieren</b>.
+    </div>
+
+    <p style="margin-top:24px">Um Floskeln und „KI-Sprech“ zu reduzieren, starte hiermit:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Avoid using slop words or phrases like "Bottom Line:" in conclusions, "delve," "foster," "leverage," "it's worth noting," "importantly," "Question? Answer." or "This isn't about X. It's about Y.", "genuinely" or hyphenated compound descriptions and adjectives. Do not use concluding summary statements such as "In short:..", "The simplest mental model is:...".
+
+State the intended action directly. Avoid adding what you won't do, what will remain unchanged, or how you'll separate or categorize results. Do not use contrastive framing such as "X, not Y" or "X—not Y" that introduces an unprompted alternative that the user didn't ask about. Avoid invented compound labels like "exact-head checks" and "editorial-row layouts", vague qualifiers, and canned transitions; use plain verbs and prepositions to state the actual relationship directly.</pre>
+    </div>
+    <div class="explain">
+      Eine „Schwarze Liste für KI-Floskeln“: keine abgenutzten Wörter wie <b>„delve“, „leverage“, „it's worth noting“</b>, keine Zusammenfassungen à la <b>„In short:“</b>, keine Kontrast-Schablonen wie <b>„nicht X, sondern Y“</b>, keine erfundenen Komposita-Labels und leeren Überleitungen. Die geplante Handlung direkt benennen und echte Zusammenhänge mit schlichten Verben und Präpositionen ausdrücken.
+    </div>
+  </section>
+
+  <!-- 4.4 Subagenten -->
+  <h3 class="sub reveal"><span class="star">★</span>Spruch 4: Delegation an Subagenten steuern <span class="en">SUBAGENT DELEGATION</span></h3>
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra wurde darauf trainiert, Arbeit aufzuteilen und an parallele Subagenten zu delegieren. Wenn dein Harness ein Multi-Agent-System umsetzt, regelt dieser Prompt, wie stark delegiert wird:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>If at any point you can parallelize work by delegating tasks to another agent (no matter if you are the root or subagent), you should do so using collaboration tools if it could save time or improve quality.</pre>
+    </div>
+    <div class="explain">
+      Egal ob das Modell Root-Agent oder Subagent ist: Sobald sich Arbeit durch Delegation <b>parallelisieren</b> lässt und das Zeit spart oder die Qualität hebt, soll es dafür die Kollaborations-Tools nutzen. Das Modell reagiert gut auf Prompts zu „wann und wie delegieren“ – stimme sie auf deine Multi-Agent-Implementierung ab.
+    </div>
+
+    <p style="margin-top:24px">Nachrichten zwischen Agenten enthalten manchmal Grammatik- oder Leerzeichenfehler; dieser Prompt macht sie lesbarer:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Messages that you send to other agents and your final answer may be read by a human, so ensure they are legible. Always put proper spaces between words and/or numbers.</pre>
+    </div>
+    <div class="explain">
+      Erinnert das Modell daran, dass Nachrichten an andere Agenten und die finale Antwort <b>von Menschen gelesen werden könnten</b> – also korrekte Leerzeichen zwischen Wörtern und Zahlen, damit alles klar lesbar bleibt.
+    </div>
+  </section>
+
+  <!-- 4.5 Tests -->
+  <h3 class="sub reveal"><span class="star">★</span>Spruch 5: Testaufwand kalibrieren <span class="en">TESTING &amp; VERIFICATION</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.5deg">
+    <p>Bei Programmieraufgaben vermeidet eine Kalibrierung von „wie viel Test und Verifikation braucht diese Änderung“ unnötige Tests und doppelte Prüfungen für kleine Änderungen:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Do not write tests for reversible, low-impact changes that mirror the implementation. If you do choose to verify your work with tests, make sure that the tests are meaningful and necessary to verify implementation.
+
+Run tests appropriate to the change and complete required checks. Once those pass, broaden or repeat testing only when new changes, failures, or unresolved concerns justify it; otherwise, continue toward completing the task.</pre>
+    </div>
+    <div class="explain">
+      <b>Für reversible Änderungen mit geringer Wirkung keine Tests schreiben, die nur die Implementierung nachplappern</b>; wenn Tests, dann sinnvolle. Erst die zur Änderung passenden Tests und Pflichtprüfungen laufen lassen; sind sie grün, geht es mit der Aufgabe weiter – ausgeweitet wird nur bei neuen Änderungen, Fehlern oder offenen Fragen, statt den Testumfang endlos aufzublähen.
+    </div>
+  </section>
+
+  <!-- ============ Kapitel 5: Migration ============ -->
+  <div class="chapter reveal">
+    <span class="num">05</span>
+    <h2>Migration auf einen Blick<small>MIGRATION QUICKSTART</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <span class="sticker orange">Mit Codex in einem Rutsch migrieren</span>
+    <p style="margin-top:12px">Codex kann die empfohlenen Änderungen aus diesem Leitfaden über den OpenAI-Docs-Skill anwenden:</p>
+    <div class="codex-cmd">$openai-docs migrate this project to GPT-6 Astra</div>
+    <p>Um den Skill in anderen Coding-Agenten zu nutzen, lade ihn aus dem Skills-Repository von OpenAI herunter.</p>
+
+    <p style="margin-top:22px">Manuelle Migration: Setze <code>model</code> auf <code>gpt-6-astra</code> und geh dann Punkt für Punkt durch:</p>
+    <ul class="migrate">
+      <li class="reveal"><b>Reasoning Effort:</b> Nutzt du derzeit <code>none</code> oder <code>minimal</code>, starte zum Vergleich mit <code>low</code>; sonst behalte den aktuell bewährten Reasoning Effort bei. Responses nutzt <code>reasoning.effort</code>, Chat Completions <code>reasoning_effort</code>.</li>
+      <li class="reveal"><b>Tool-Aufrufe:</b> Verwende die Responses API. Astra unterstützt zwar Chat Completions, aber <b>Tool-Aufrufe müssen über Responses laufen</b>.</li>
+      <li class="reveal"><b>Nicht unterstützte Parameter:</b> Entferne <code>temperature</code>, <code>top_p</code> und <code>top_logprobs</code>; bei Chat Completions zusätzlich <code>logprobs</code>; bei Responses aus <code>include</code> den Eintrag <code>message.output_text.logprobs</code> entfernen.</li>
+      <li class="reveal"><b>Fast-Modus:</b> Bei EU Data Residency Standard-Verarbeitung nutzen. Astra unterstützt dort weder <code>service_tier: "fast"</code> noch <code>"priority"</code>; außerdem kommt Astras Fast-Modus <b>ohne Latenz-SLA</b>.</li>
+      <li class="reveal"><b>Reasoning Effort ändern:</b> Muss deine App die Stärke zwischen Antworten anpassen, nutze in Standard-Single-Agent-Anfragen das <code>configuration_update</code>-Input-Item; lass <code>reasoning.effort</code> auf Anfrageebene unverändert, damit das Prompt-Präfix für den Cache erhalten bleibt. Prüfe vorher die Kompatibilitätsgrenzen.</li>
+      <li class="reveal"><b>Prompt-Caching:</b> Beim Umstieg von GPT-5.5 oder älter ersetze <code>prompt_cache_retention</code> durch <code>prompt_cache_options.ttl</code> mit dem Wert <code>"30m"</code>. Beachte die Änderungen bei Cache-Grenzen und der Abrechnung von Cache-Schreibvorgängen.</li>
+      <li class="reveal"><b>Unnötige Freigabe-Stopps:</b> Fragt das Modell vor jedem Schritt immer wieder um Erlaubnis, nutze die Initiative-Anweisungen aus „Spruch 1“, um die Eigenständigkeit zu erhöhen.</li>
+    </ul>
+  </section>
+
+  <!-- Schlussblase -->
+  <div class="bubble tail-r reveal" style="--rr:.6deg;margin:64px 0 0 auto;max-width:600px">
+    <b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">💡 In einem Satz:</b>
+    Astra ist klüger, aber auch „vorsichtiger“ – wer volle Power will, muss ihm per Prompt klar sagen: <b>wie eigenständig, wer das Sagen hat, wie geschrieben wird, wann delegiert und wie viel getestet wird</b>.
+  </div>
+</main>
+
+<footer>
+  <span class="fin">FIN.</span>
+  <p>Diese Seite ist ein deutscher Auszug mit Anmerkungen zur offiziellen OpenAI-Dokumentation „Model guidance — Using GPT-6 Astra“; die Prompts sind das offizielle Original. Quelle: developers.openai.com/api/docs/guides/latest-model</p>
+</footer>
+
+<script>
+// 滚动进度条
+var bar = document.getElementById('progress');
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, {passive:true});
+
+// 面板入场：缩小 + 上浮 + 回正，逐格登场
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e, i){
+    if(e.isIntersecting){
+      setTimeout(function(){ e.target.classList.add('in'); }, (i % 3) * 110);
+      io.unobserve(e.target);
+    }
+  });
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+<script src="/comics/comics.js" defer></script>
+<a href="mailto:shoa_lin@outlook.com" aria-label="Email">Contact</a></body>
+<style>[dir="rtl"]{direction:rtl;text-align:right}.language-switcher{direction:ltr}</style>
+</html>

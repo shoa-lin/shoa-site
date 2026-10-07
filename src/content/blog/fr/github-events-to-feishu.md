@@ -17,7 +17,7 @@ Dans la collaboration d’ingénierie, une petite routine interrompt souvent le 
 
 Je préfère en faire une chaîne pilotée par les événements : une modification GitHub réveille un Agent local, qui extrait uniquement les faits utiles et envoie une brève mise à jour d’ingénierie dans un groupe Feishu.
 
-![Un événement GitHub regroupé en mise à jour d’ingénierie](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![Un événement GitHub regroupé en mise à jour d’ingénierie](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## L’idée est simple
 

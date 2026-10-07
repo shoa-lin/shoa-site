@@ -13,7 +13,7 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-![Titelbild zu „Wie wir claude.ai in zwei Wochen 3x schneller gemacht haben“](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+![Titelbild zu „Wie wir claude.ai in zwei Wochen 3x schneller gemacht haben“](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac kam auf die Idee, direkt auf die zugrunde liegende [Layout Instability API
 
 Nach dem Deployment des Events las Claude die Felddaten und stellte fest, dass sich **bei 31 % der Web-Seitenaufrufe etwas bewegte, nachdem die Seite bereits nutzbar war** – ganz ohne Nutzerinteraktion. Von da an arbeitete Claude die Ursachen einzeln ab: eine Kopfzeile, die zu spät kam; ein Cursor, der seitlich rutschte, sobald der Nutzername geladen war; eine Liste, die sich verschob, wenn die Scrollleiste erschien. Die größten Übeltäter behob es gebündelt, und als sie verschwunden waren, fand es die nächste Ladung.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Bildschirmaufnahme der claude.ai-Seitenleiste beim Laden vor und nach dem Fix, mit gedrosseltem 4G"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Bildschirmaufnahme der claude.ai-Seitenleiste beim Laden vor und nach dem Fix, mit gedrosseltem 4G"></video>
 
 *Ruckelnde Seitenleiste, vorher und nachher (gedrosseltes 4G): Vorher kommen die Zeilen spät und ordnen sich neu; nachher füllen sie sich gleich an ihrer endgültigen Position.*
 
@@ -156,7 +156,7 @@ Als sich die Flags zu stapeln begannen, koordinierte ein eigener Thread ihr Ausr
 
 Dem Team war auch klar, dass Performance-Gewinne in einer schnell wachsenden Codebasis verfallen – und [bei Anthropic wird Code schnell ausgeliefert](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic). Sobald ein Projekt seinen Nutzen bewiesen hatte, investierte das Team also in dessen Schutz. Der statische Composer etwa ist von Natur aus fragil: Nutzer sehen fast sofort eine HTML-Kopie der Seite, und React zeichnet direkt darüber.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Bildschirmaufnahme eines Kaltstarts von claude.ai mit und ohne statischen Composer, mit gedrosseltem 4G"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Bildschirmaufnahme eines Kaltstarts von claude.ai mit und ohne statischen Composer, mit gedrosseltem 4G"></video>
 
 *Statischer Composer, vorher und nachher (gedrosseltes 4G): Eingabe nach 0,36 s statt nach 2,93 s möglich; getippter Text übersteht die Übergabe.*
 

@@ -27,13 +27,13 @@ translationStatus: "reviewed"
 
 Ein Teil des Harness wird vom Hersteller durch System-Prompts, Code-Retrieval und mitunter ein [anspruchsvolles Orchestrierungssystem](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) gebaut. Coding-Agenten geben Nutzern zusätzlich Werkzeuge, um einen äußeren Harness für das eigene System und den konkreten Anwendungsfall aufzubauen.
 
-![Drei konzentrische Kreise: Modell im Zentrum, Harness des Coding-Agent-Herstellers darum und Nutzer-Harness als äußere Schicht](/assets/blog/harness-engineering/harness-bounded-contexts.png)
+![Drei konzentrische Kreise: Modell im Zentrum, Harness des Coding-Agent-Herstellers darum und Nutzer-Harness als äußere Schicht](/assets/blog/harness-engineering/harness-bounded-contexts.webp)
 
 Abbildung 1: „Harness“ bedeutet in verschiedenen bounded contexts unterschiedliche Dinge.
 
 Ein guter äußerer Harness verfolgt zwei Ziele: Er erhöht die Wahrscheinlichkeit, dass der Agent die Aufgabe im ersten Versuch korrekt löst, und schafft einen Feedback-Loop, der möglichst viele Probleme korrigiert, bevor sie einen Menschen erreichen. Das soll Review-Aufwand reduzieren und die Systemqualität erhöhen; weniger verschwendete Tokens sind ein zusätzlicher Vorteil.
 
-![Übersicht: Guides speisen einen Coding-Agenten, Sensoren führen Ergebnisse in die Selbstkorrektur zurück, der Mensch steuert beide](/assets/blog/harness-engineering/harness-overview.png)
+![Übersicht: Guides speisen einen Coding-Agenten, Sensoren führen Ergebnisse in die Selbstkorrektur zurück, der Mensch steuert beide](/assets/blog/harness-engineering/harness-overview.webp)
 
 ## Feedforward und Feedback
 
@@ -84,14 +84,14 @@ Feedback-Sensoren – auch inferentielle – sollten entsprechend über den Lebe
 - Welche Kontrollen sind schnell genug, um vor der Integration oder sogar vor einem Commit zu laufen? Beispiele: Linter, schnelle Tests und ein einfacher Code-Review-Agent.
 - Welche Kontrollen sind so teuer, dass sie erst nach der Integration in der Pipeline neben einer Wiederholung der schnellen Checks laufen sollten? Beispiele: Mutation Testing und umfassenderes Code-Review, das das Gesamtbild benötigt.
 
-![Beispiele für Feedforward-Guides und Feedback-Sensoren vor und nach der Integration](/assets/blog/harness-engineering/harness-change-lifecycle-examples.png)
+![Beispiele für Feedforward-Guides und Feedback-Sensoren vor und nach der Integration](/assets/blog/harness-engineering/harness-change-lifecycle-examples.webp)
 
 **Kontinuierliche Drift- und Gesundheitssensoren**
 
 - **Codebase-Drift-Sensoren** laufen außerhalb des Änderungslebenszyklus und erkennen schleichende Verschlechterung, etwa toten Code, schwache Testabdeckung und Dependency-Probleme.
 - **Runtime-Health-Sensoren** lassen Agenten Produktionssignale wie schlechtere SLOs, Stichproben der Antwortqualität oder anomale Logs beobachten und Verbesserungen vorschlagen.
 
-![Beispiele für kontinuierliche Codebase-Drift-Erkennung und Runtime-Feedback nach der Integration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.png)
+![Beispiele für kontinuierliche Codebase-Drift-Erkennung und Runtime-Feedback nach der Integration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.webp)
 
 ## Kategorien der Regulierung
 
@@ -129,7 +129,7 @@ Dieser Ansatz vertraut KI-generierten Tests zu stark. Einige Teams erzielen gute
 
 Bevor Teams Aufsicht und manuelles Testen sicher reduzieren können, brauchen wir bessere Behaviour Harnesses.
 
-![Vereinfachtes Harness-Modell mit Guides und Sensoren für Wartbarkeit, Architecture Fitness und Verhalten](/assets/blog/harness-engineering/harness-types.png)
+![Vereinfachtes Harness-Modell mit Guides und Sensoren für Wartbarkeit, Architecture Fitness und Verhalten](/assets/blog/harness-engineering/harness-types.webp)
 
 ## Harnessability
 
@@ -146,7 +146,7 @@ Die meisten Unternehmen decken einen Großteil ihrer Anforderungen mit wenigen S
 
 Diese Vorlagen könnten zu **Harness-Templates** werden: Bündel aus Guides und Sensoren, die einen Coding-Agenten auf Struktur, Konventionen und Technologie-Stack einer Topologie begrenzen. Teams könnten Technologien künftig auch danach auswählen, welche Harnesses dafür verfügbar sind.
 
-![Beispielhafte Service-Topologien mit einem Harness-Template aus Guides und Sensoren](/assets/blog/harness-engineering/harness-templates.png)
+![Beispielhafte Service-Topologien mit einem Harness-Template aus Guides und Sensoren](/assets/blog/harness-engineering/harness-templates.webp)
 
 ### Ashbys Gesetz
 

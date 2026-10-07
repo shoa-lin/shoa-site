@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="권한이 맥락보다 한 토막 길고, 그 격차는 사람이 메운다: 팝업 승인, 사전 규칙 작성, 메모리와 선호 축적. 비밀번호는 일부러 메우지 않는 조각이다" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">승인은 사람이 맥락을 메우는 일</text>
+
+  <!-- 两根条 -->
+  <text x="24" y="84" font-size="17" font-weight="700" fill="#c2570c">권한</text>
+  <rect x="24" y="94" width="372" height="32" rx="6" fill="#c2570c" fill-opacity="0.16" stroke="#c2570c"/>
+  <text x="40" y="116" font-size="17" fill="#1f2328">계정에 로그인돼 버튼은 다 누를 수 있다</text>
+
+  <text x="24" y="160" font-size="17" font-weight="700" fill="#1a7f4b">맥락</text>
+  <rect x="24" y="170" width="190" height="32" rx="6" fill="#1a7f4b" fill-opacity="0.16" stroke="#1a7f4b"/>
+  <text x="40" y="192" font-size="17" fill="#1f2328">아는 것</text>
+  <rect x="218" y="170" width="178" height="32" rx="6" fill="none" stroke="#c2570c" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="307" y="192" font-size="17" font-weight="700" fill="#c2570c" text-anchor="middle">격차</text>
+  <text x="307" y="232" font-size="17" fill="#1f2328" text-anchor="middle">사람이 메우는 부분</text>
+
+  <!-- 三种补法 -->
+  <g font-size="17" fill="#1f2328">
+    <rect x="24" y="252" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="252" width="6" height="74" rx="3" fill="#c2570c"/>
+    <text x="44" y="282" font-weight="700">승인 한 번 띄우기</text>
+    <text x="44" y="310">작은 조각을 메운다: 이 동작은 되는가</text>
+
+    <rect x="24" y="338" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="338" width="6" height="74" rx="3" fill="#2563c9"/>
+    <text x="44" y="368" font-weight="700">규칙을 미리 써 두기</text>
+    <text x="44" y="396">한 번에 넘긴다: 허용, 승인 필요, 금지</text>
+
+    <rect x="24" y="424" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="424" width="6" height="74" rx="3" fill="#1a7f4b"/>
+    <text x="44" y="454" font-weight="700">메모리와 선호 쌓기</text>
+    <text x="44" y="482">맥락이 따라붙어야 팝업이 줄어든다</text>
+  </g>
+
+  <!-- 例外 -->
+  <text x="24" y="538" font-size="17" font-weight="700" fill="#1f2328">일부러 메우지 않는 조각: 비밀번호</text>
+  <text x="24" y="566" font-size="17" fill="#57606a">에이전트는 쓸 수 있지만 볼 수는 없다</text>
+</svg>

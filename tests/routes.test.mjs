@@ -36,3 +36,14 @@ test("route helpers reject unsupported locale input", async () => {
 
   assert.throws(() => localizedPath("es", "/about"), /Unsupported locale/);
 });
+
+test("alternate links only list locales that exist for the page", async () => {
+  const { alternateLinks } = await import("../src/lib/routes.ts");
+
+  const links = alternateLinks("/blog/example", ["zh"]);
+  assert.deepEqual(links.map((link) => link.hreflang), ["zh-CN", "x-default"]);
+  assert.equal(links.at(-1).href, "https://www.bydziwen.top/blog/example");
+
+  const partial = alternateLinks("/blog/example", ["en", "zh", "ja"]);
+  assert.deepEqual(partial.map((link) => link.hreflang), ["zh-CN", "en", "ja", "x-default"]);
+});

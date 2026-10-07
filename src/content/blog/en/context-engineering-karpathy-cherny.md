@@ -26,7 +26,7 @@ Karpathy frames the context window as a new programming interface. Boris Cherny 
 - **Verifiers** decide whether the system is actually learning rather than merely producing more output.
 - **Persistent state** lets the next run inherit validated experience.
 
-![Project rules, memory, skills, hooks, and learning records forming an agent context window](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![Project rules, memory, skills, hooks, and learning records forming an agent context window](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *Figure: Context-engineering architecture (vartekx, English image).*
 
@@ -43,7 +43,7 @@ The useful questions are therefore:
 
 The article describes three layers: **prompt engineering** writes a good one-off instruction; **context engineering** designs the environment the model sees; **loop engineering** places that design inside an automated, repeatable execution cycle.
 
-![The progression from prompt engineering to context engineering and loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![The progression from prompt engineering to context engineering and loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *Figure: The three layers build on one another rather than replace one another (vartekx, English image).*
 
@@ -51,13 +51,13 @@ The article describes three layers: **prompt engineering** writes a good one-off
 
 Karpathy's analogy is practical: the model is a processor and the context window is its working memory. The task is not to pack in every document, but to put the right information there at the right moment.
 
-![Multiple turns consuming a finite context window](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![Multiple turns consuming a finite context window](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *Figure: Multi-turn input and output share a finite context window (vartekx, English image).*
 
 Four operations make this manageable.
 
-![System prompts, rules, memory, tools, history, and examples composing a context window](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![System prompts, rules, memory, tools, history, and examples composing a context window](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *Figure: The prompt written by a user is usually only a small fraction of the full context (vartekx, English image).*
 
@@ -81,7 +81,7 @@ Parallel investigation is useful only when it does not pollute the main task. An
 
 The article cites Claude Code lead Boris Cherny: human work should move from repeatedly prompting an agent to designing loops that let it operate. Each run reads state, executes, checks, records the result, and starts the next run better informed.
 
-![Manual prompting compared with a system that executes context and verification automatically](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![Manual prompting compared with a system that executes context and verification automatically](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *Figure: “You are the engine” versus “the system is the engine” (vartekx, English image).*
 
@@ -99,7 +99,7 @@ Start with five components:
 
 The last component is easy to neglect. Without it, a loop may only keep agreeing with its own conclusions. Verification should come from outside the implementation step, or at least from a distinct context, standard, and role.
 
-![A loop automating context writing, selection, compression, isolation, and verification](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![A loop automating context writing, selection, compression, isolation, and verification](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *Figure: Loop engineering automates context engineering (vartekx, English image).*
 
@@ -109,7 +109,7 @@ A one-off prompt sounds like a wish: “refactor the authentication system.” A
 
 This does not mean turning project guidance into an encyclopedia. Keep durable rules compact and grounded in actual constraints, real failures, or reproducible verification needs.
 
-![Context before and after editing to make room for useful information](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![Context before and after editing to make room for useful information](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *Figure: Selection and compression make room for useful context (vartekx, English image).*
 
@@ -119,7 +119,7 @@ After a task, record a small number of action-oriented lessons: what worked, wha
 
 This closes the loop: execution produces evidence; evidence becomes state; the next run reads that state selectively; verifiers continue to filter errors. Experience becomes runnable context rather than a long, scattered memory of conversations.
 
-![Time and quality claims for specifications, accumulated context, and verification](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![Time and quality claims for specifications, accumulated context, and verification](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *Figure: The figures shown are the author's claims and have not been independently verified here (vartekx, English image).*
 

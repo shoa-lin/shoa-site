@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" lang="ja" aria-label="チャット欄ではコンテキストと権限がほとんど重ならない。リポジトリでは両者が大きく重なり、しかも git で戻せてテストで検証できる" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">リポジトリ：両軸が初めて重なる</text>
+
+  <!-- 聊天框 -->
+  <rect x="16" y="62" width="388" height="206" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="92" font-size="19" font-weight="700" fill="#1f2328">チャット欄では</text>
+  <circle cx="140" cy="166" r="56" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="140" y="172" font-size="15" fill="#1a7f4b" text-anchor="middle">コンテキスト</text>
+  <circle cx="292" cy="166" r="26" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="292" y="172" font-size="17" fill="#c2570c" text-anchor="middle">権限</text>
+  <text x="210" y="250" font-size="17" fill="#1f2328" text-anchor="middle">何を言ったかは知っているが、答えるだけ</text>
+
+  <!-- 仓库 -->
+  <rect x="16" y="284" width="388" height="296" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="314" font-size="19" font-weight="700" fill="#1f2328">リポジトリでは</text>
+  <circle cx="180" cy="402" r="66" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <circle cx="240" cy="402" r="66" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="145" y="398" font-size="13" fill="#1a7f4b" text-anchor="middle"><tspan x="145" y="398">コンテ</tspan><tspan x="145" y="414">キスト</tspan></text>
+  <text x="210" y="408" font-size="15" font-weight="700" fill="#1f2328" text-anchor="middle">重なり</text>
+  <text x="277" y="408" font-size="17" fill="#c2570c" text-anchor="middle">権限</text>
+  <g font-size="17" fill="#1f2328">
+    <text x="32" y="500"><tspan fill="#1a7f4b" font-weight="700">コンテキスト</tspan>：コード、履歴、テスト</text>
+    <text x="32" y="528"><tspan fill="#c2570c" font-weight="700">権限</tspan>：ファイル変更、コマンド実行</text>
+    <text x="32" y="556" font-weight="700">git で戻せる、テストで検証できる</text>
+  </g>
+</svg>

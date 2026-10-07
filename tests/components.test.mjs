@@ -54,33 +54,41 @@ test("global styles cover keyboard focus, reduced motion, and stable touch targe
   assert.match(css, /border-radius:\s*var\(--radius\)/);
 });
 
-test("global typography uses self-hosted locale font families", () => {
-  const fontPath = new URL("../src/styles/fonts.css", import.meta.url);
-  assert.equal(existsSync(fontPath), true, "font stylesheet exists");
+test("global typography uses system text stacks plus small self-hosted mono and Thai fonts", () => {
+  const fontFiles = {
+    mono: ["jetbrains-mono"],
+    th: ["noto-sans-thai-looped", "jetbrains-mono"],
+  };
+  for (const [name, families] of Object.entries(fontFiles)) {
+    const path = `src/styles/fonts/${name}.css`;
+    assert.equal(existsSync(new URL(`../${path}`, import.meta.url)), true, `${path} exists`);
+    const css = read(path);
+    for (const family of families) {
+      assert.match(css, new RegExp(`@fontsource-variable/${family}/wght\\.css`), `${path} imports ${family}`);
+    }
+    assert.doesNotMatch(css, /https?:\/\//);
+    assert.doesNotMatch(css, /noto-sans(?:-sc|-jp|-kr)?\//, `${path} ships no CJK or Latin text font`);
+  }
 
-  const fonts = read("src/styles/fonts.css");
+  const layout = read("src/layouts/BaseLayout.astro");
+  for (const name of Object.keys(fontFiles)) {
+    assert.match(layout, new RegExp(`styles/fonts/${name}\\.css\\?url`), `BaseLayout imports ${name} fonts`);
+  }
+  assert.match(layout, /<link rel="stylesheet" href=\{fontStylesheet\[locale\]\} \/>/);
+
+  const tokens = read("src/styles/tokens.css");
   const global = read("src/styles/global.css");
   const pages = read("src/styles/pages.css");
   const article = read("src/styles/article.css");
 
-  for (const family of [
-    "noto-sans",
-    "noto-sans-sc",
-    "noto-sans-jp",
-    "noto-sans-kr",
-    "noto-sans-thai-looped",
-    "jetbrains-mono",
-  ]) {
-    assert.match(fonts, new RegExp(`@fontsource-variable/${family}/wght\\.css`));
-  }
-
-  assert.match(global, /@import "\.\/fonts\.css"/);
-  assert.match(global, /html:lang\(zh-CN\).*Noto Sans SC Variable/s);
-  assert.match(global, /html:lang\(ja\).*Noto Sans JP Variable/s);
-  assert.match(global, /html:lang\(ko\).*Noto Sans KR Variable/s);
-  assert.match(global, /html:lang\(th\).*Noto Sans Thai Looped Variable/s);
+  assert.match(tokens, /--font-sans:\s*ui-sans-serif,\s*system-ui/);
+  assert.match(tokens, /--font-mono:\s*"JetBrains Mono Variable"/);
+  assert.doesNotMatch(global, /fonts\.css/);
+  assert.match(global, /html:lang\(zh-CN\)[^}]*"PingFang SC"[^}]*"Microsoft YaHei"/s);
+  assert.match(global, /html:lang\(ja\)[^}]*"Hiragino Sans"/s);
+  assert.match(global, /html:lang\(ko\)[^}]*"Apple SD Gothic Neo"[^}]*"Malgun Gothic"/s);
+  assert.match(global, /html:lang\(th\)[^}]*"Noto Sans Thai Looped Variable"/s);
   assert.match(global, /font-synthesis:\s*none/);
-  assert.doesNotMatch(fonts, /https?:\/\//);
   assert.match(pages, /line-height:\s*var\(--line-display\)/);
   assert.match(pages, /line-height:\s*var\(--line-prose\)/);
   assert.match(article, /line-height:\s*var\(--line-display\)/);

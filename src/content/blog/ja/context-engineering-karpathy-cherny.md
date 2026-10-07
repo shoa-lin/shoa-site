@@ -26,7 +26,7 @@ Karpathyはコンテキストウィンドウを新しいプログラミング界
 - **検証器**は、出力が増えただけでなく本当に改善したかを判断します。
 - **永続状態**は、次の実行に検証済みの経験を渡します。
 
-![プロジェクト規則、記憶、Skills、Hooks、学習記録がコンテキストウィンドウを構成する図](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![プロジェクト規則、記憶、Skills、Hooks、学習記録がコンテキストウィンドウを構成する図](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *図：コンテキストエンジニアリングの構成図（vartekx、英語画像）。*
 
@@ -38,7 +38,7 @@ Karpathyはコンテキストウィンドウを新しいプログラミング界
 
 記事は三層を示します。**Prompt engineering**は一回の指示を整えること、**Context engineering**はモデルが見る環境を設計すること、**Loop engineering**はそれを自動で反復する実行サイクルに置くことです。
 
-![Prompt engineering、Context engineering、Loop engineeringの三層](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![Prompt engineering、Context engineering、Loop engineeringの三層](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *図：三層は置き換えではなく積み重なります（vartekx、英語画像）。*
 
@@ -46,11 +46,11 @@ Karpathyはコンテキストウィンドウを新しいプログラミング界
 
 Karpathyの比喩は実用的です。モデルはプロセッサ、コンテキストウィンドウは作業記憶です。資料を全部詰め込むのではなく、必要な瞬間に必要な情報を置きます。
 
-![複数ターンが有限のコンテキストウィンドウを使う様子](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![複数ターンが有限のコンテキストウィンドウを使う様子](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *図：複数ターンの入出力が有限のウィンドウを共有する（vartekx、英語画像）。*
 
-![システム指示、規則、記憶、ツール、履歴、例がコンテキストを構成する図](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![システム指示、規則、記憶、ツール、履歴、例がコンテキストを構成する図](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *図：ユーザーが書くPromptは全体の一部にすぎません（vartekx、英語画像）。*
 
@@ -66,7 +66,7 @@ Karpathyの比喩は実用的です。モデルはプロセッサ、コンテキ
 
 記事が引用するBoris Chernyの視点では、人の仕事はAgentを何度も促すことから、Agentが動くループを設計することへ移ります。各回は状態を読み、実行し、確認し、結果を記録し、次回をより良くします。
 
-![手動Promptと自動のコンテキスト・検証システムの比較](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![手動Promptと自動のコンテキスト・検証システムの比較](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *図：「あなたがエンジン」と「システムがエンジン」の対比（vartekx、英語画像）。*
 
@@ -76,7 +76,7 @@ Karpathyの比喩は実用的です。モデルはプロセッサ、コンテキ
 
 必要なのは、実行間隔と停止条件、短く検証済みのプロジェクト知識、実装とレビューを分ける隔離、必要なコード・テスト・CIへの接続、そしてテスト、型検査、ビルド、契約検査、人の承認といった独立検証器です。
 
-![書き込み、選択、圧縮、隔離、検証を自動化するループ](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![書き込み、選択、圧縮、隔離、検証を自動化するループ](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *図：ループエンジニアリングはコンテキスト操作を自動化する（vartekx、英語画像）。*
 
@@ -84,7 +84,7 @@ Karpathyの比喩は実用的です。モデルはプロセッサ、コンテキ
 
 「認証をリファクタリングする」は願望です。実行可能な仕様には、目的、範囲、成果物、衝突時の扱い、終了条件が必要です。対象ディレクトリ、保護領域、更新すべきテスト、停止して報告する条件、必須の検査を明記すれば、Agentも検証器も推測に頼りません。
 
-![編集前後のコンテキストと有用な情報のための余白](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![編集前後のコンテキストと有用な情報のための余白](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *図：選択と圧縮が有用なコンテキストの余白を作る（vartekx、英語画像）。*
 
@@ -92,7 +92,7 @@ Karpathyの比喩は実用的です。モデルはプロセッサ、コンテキ
 
 完了後は、成功した方法、失敗、次回早く確認すべき点だけを行動可能な記録に残します。繰り返す失敗はプロジェクト規則や自動検査に昇格させます。実行が証拠を生み、証拠が状態になり、次の実行が選択的に読み、検証器が誤りを除く、という閉環になります。
 
-![仕様、蓄積コンテキスト、検証の時間と品質に関する主張](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![仕様、蓄積コンテキスト、検証の時間と品質に関する主張](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *図：数値は著者の主張であり、この記事では独立検証していません（vartekx、英語画像）。*
 

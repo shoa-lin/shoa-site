@@ -30,7 +30,17 @@ for (const file of htmlFiles) {
     ["twitter card", /<meta name="twitter:card" content="summary_large_image"/],
   ];
   for (const [label, pattern] of required) if (!pattern.test(html)) failures.push(`${path}: missing ${label}`);
-  if ((html.match(/hreflang=/g) ?? []).length !== 9) failures.push(`${path}: expected 9 alternate links`);
+  // hreflang alternates: at least one locale plus x-default, and every target must be a built page.
+  const alternates = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="https:\/\/www\.bydziwen\.top(\/[^"]*)"/g)];
+  if (alternates.length < 2) failures.push(`${path}: expected hreflang alternates plus x-default`);
+  if (!alternates.some(([, lang]) => lang === "x-default")) failures.push(`${path}: missing x-default alternate`);
+  for (const [, lang, href] of alternates) {
+    const clean = href.replace(/[?#].*$/, "");
+    const candidates = /\.[a-z0-9]+$/i.test(clean)
+      ? [join(root, clean)]
+      : [join(root, clean, "index.html"), join(root, `${clean}.html`)];
+    if (!candidates.some((target) => existsSync(target))) failures.push(`${path}: hreflang ${lang} points to missing ${href}`);
+  }
   const isArticle = /(?:^|\/)blog\/[^/]+\/index\.html$/.test(path) && !/(?:^|\/)blog\/index\.html$/.test(path);
   if (isArticle && !/<script type="application\/ld\+json">[^<]*"@type":"Article"/.test(html)) {
     failures.push(`${path}: missing Article JSON-LD`);

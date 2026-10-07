@@ -17,7 +17,7 @@ In der Entwicklungszusammenarbeit gibt es eine kleine, aber störende Routine: G
 
 Ich ziehe deshalb eine ereignisgesteuerte Pipeline vor: Eine Änderung in GitHub weckt einen lokalen Agenten, der nur die relevanten Fakten herausfiltert und eine kurze Entwicklungsnotiz in eine Feishu-Gruppe sendet.
 
-![Ein GitHub-Ereignis wird zu einem Entwicklungsupdate gebündelt](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![Ein GitHub-Ereignis wird zu einem Entwicklungsupdate gebündelt](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## Die Idee ist einfach
 

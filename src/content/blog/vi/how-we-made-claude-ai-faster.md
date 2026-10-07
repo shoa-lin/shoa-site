@@ -13,7 +13,7 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-![Ảnh bìa bài “Chúng tôi đã làm claude.ai nhanh gấp 3 lần trong hai tuần như thế nào”](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+![Ảnh bìa bài “Chúng tôi đã làm claude.ai nhanh gấp 3 lần trong hai tuần như thế nào”](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac nảy ra ý tưởng dùng trực tiếp [Layout Instability API](https://
 
 Sau khi sự kiện được deploy, Claude đọc dữ liệu thực tế và phát hiện **31% lượt tải trang web có thứ gì đó dịch chuyển sau khi trang đã dùng được**, dù người dùng không hề tương tác. Từ đó, Claude xử lý từng nguyên nhân một: một hàng tiêu đề đến muộn, một con trỏ soạn thảo trượt sang ngang khi tên người dùng tải xong, một danh sách xê dịch khi thanh cuộn xuất hiện. Nó sửa gộp một lượt những thủ phạm hàng đầu, và khi chúng biến mất, lại tìm ra lượt tiếp theo.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Bản ghi màn hình thanh bên của claude.ai khi tải, trước và sau khi sửa, trên mạng 4G bị bóp"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Bản ghi màn hình thanh bên của claude.ai khi tải, trước và sau khi sửa, trên mạng 4G bị bóp"></video>
 
 *Thanh bên giật cục, trước và sau (mạng 4G bị bóp): trước khi sửa, các hàng đến muộn và tự sắp xếp lại; sau khi sửa, chúng lấp vào đúng vị trí cuối cùng.*
 
@@ -156,7 +156,7 @@ Khi flag bắt đầu chồng chất, nhóm mở một thread riêng để đi�
 
 Nhóm cũng biết thành quả hiệu năng sẽ bị bào mòn trong một codebase thay đổi nhanh, mà [ở Anthropic, mã được phát hành rất nhanh](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic). Vì vậy, khi một dự án đã chứng minh hiệu quả, nhóm đầu tư để bảo vệ nó. Chẳng hạn, composer tĩnh vốn mong manh theo thiết kế: người dùng thấy gần như ngay lập tức một bản sao HTML của trang, rồi React vẽ thẳng lên trên đó.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Bản ghi màn hình khi tải mới claude.ai có và không có composer tĩnh, trên mạng 4G bị bóp"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Bản ghi màn hình khi tải mới claude.ai có và không có composer tĩnh, trên mạng 4G bị bóp"></video>
 
 *Composer tĩnh, trước và sau (mạng 4G bị bóp): nhập được ở giây 0,36 thay vì 2,93; văn bản đã gõ vẫn còn sau khi chuyển sang composer thật.*
 

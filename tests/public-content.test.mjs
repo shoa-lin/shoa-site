@@ -109,7 +109,7 @@ test("private-term scan tolerates tracked files deleted in the working tree", ()
 test("private-term scan checks tracked path names without printing the term", () => {
   const directory = mkdtempSync(join(tmpdir(), "shoa-public-content-"));
   const termsFile = join(directory, "terms.txt");
-  writeFileSync(termsFile, "EDGE-TTS-SETUP.md\n");
+  writeFileSync(termsFile, "playwright.config.ts\n");
 
   try {
     const result = spawnSync(process.execPath, ["scripts/check-public-content.mjs"], {
@@ -120,7 +120,7 @@ test("private-term scan checks tracked path names without printing the term", ()
 
     assert.equal(result.status, 1);
     assert.match(result.stderr, /tracked path: private term match/);
-    assert.doesNotMatch(result.stderr, /EDGE-TTS-SETUP\.md/);
+    assert.doesNotMatch(result.stderr, /playwright\.config\.ts/);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }

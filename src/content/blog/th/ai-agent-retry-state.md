@@ -26,7 +26,7 @@ translationStatus: "reviewed"
 
 อย่างไรก็ตาม ไม่มีเอกสารทางการที่ระบุว่า Codex “ยกเลิก Retry เพราะสถานะซับซ้อนเกินไป” บทความนี้เป็นการวิเคราะห์เชิงสถาปัตยกรรมจากโมเดล Thread, Turn, Item และ Fork ที่เปิดเผยต่อสาธารณะ
 
-![จาก Retry ที่สร้างคำตอบใหม่ ไปสู่การแตกแขนงที่เก็บประวัติเดิมไว้](/assets/blog/ai-agent-retry-state/retry-becomes-fork-th.png)
+![จาก Retry ที่สร้างคำตอบใหม่ ไปสู่การแตกแขนงที่เก็บประวัติเดิมไว้](/assets/blog/ai-agent-retry-state/retry-becomes-fork-th.webp)
 
 ตอนใช้ Chatbot รุ่นก่อน ผมคุ้นเคยกับฟังก์ชันเล็ก ๆ อย่าง **Retry** หรือ **Regenerate** มาก
 
@@ -120,7 +120,7 @@ Agent อย่าง Codex อาจทำงานไปมากแล้ว�
 
 > การทำงานหนึ่งรอบของ Agent สร้างห่วงโซ่เหตุและผลที่เกิดขึ้นจริง รอบที่สองไม่ได้เริ่มจากโลกก่อนรอบแรก
 
-![ข้อความเขียนใหม่ได้ แต่สถานะของโลกที่ Agent เปลี่ยนไปแล้วไม่ได้หายไป](/assets/blog/ai-agent-retry-state/text-vs-world-state-th.png)
+![ข้อความเขียนใหม่ได้ แต่สถานะของโลกที่ Agent เปลี่ยนไปแล้วไม่ได้หายไป](/assets/blog/ai-agent-retry-state/text-vs-world-state-th.webp)
 
 ## Retry ของ Agent เกี่ยวข้องกับสถานะอย่างน้อยสี่ประเภท
 

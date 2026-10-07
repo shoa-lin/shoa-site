@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 我更喜欢把它做成一条事件驱动的链路：GitHub 有变化时，主动唤醒本地的 Agent；Agent 只提炼必要事实，再把一条简短研发动态送到飞书群。
 
-![把工程事件收束成研发动态](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![把工程事件收束成研发动态](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## 思路很简单
 

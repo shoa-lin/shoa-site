@@ -17,7 +17,7 @@ Engineering work often has one small but distracting routine: repeatedly opening
 
 I prefer an event-driven pipeline: a GitHub change wakes a local agent, which extracts only the facts that matter and sends one concise engineering update to a Feishu group.
 
-![A GitHub event gathered into an engineering update](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![A GitHub event gathered into an engineering update](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## The idea is simple
 

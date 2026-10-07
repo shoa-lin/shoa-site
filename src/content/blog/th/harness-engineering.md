@@ -27,13 +27,13 @@ translationStatus: "reviewed"
 
 Harness ส่วนหนึ่งของ coding agent ถูกสร้างโดยผู้พัฒนาเครื่องมือ ผ่านพรอมป์ระบบ การค้นคืนโค้ด และบางครั้งก็รวมถึง[ระบบ orchestration ที่ซับซ้อน](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) ขณะเดียวกัน coding agent ยังเปิดทางให้ผู้ใช้สร้าง Harness ชั้นนอกให้เหมาะกับระบบและกรณีใช้งานของตนเอง
 
-![วงกลมซ้อนกันสามชั้น โดยมีโมเดลอยู่ตรงกลาง ล้อมด้วย Harness ของผู้สร้าง coding agent และ Harness ของผู้ใช้เป็นชั้นนอกสุด](/assets/blog/harness-engineering/harness-bounded-contexts.png)
+![วงกลมซ้อนกันสามชั้น โดยมีโมเดลอยู่ตรงกลาง ล้อมด้วย Harness ของผู้สร้าง coding agent และ Harness ของผู้ใช้เป็นชั้นนอกสุด](/assets/blog/harness-engineering/harness-bounded-contexts.webp)
 
 ภาพที่ 1: คำว่า "harness" มีขอบเขตความหมายต่างกันตามบริบทที่กำลังพิจารณา
 
 Harness ชั้นนอกที่ออกแบบมาดีมีเป้าหมายสองข้อ คือเพิ่มโอกาสให้ agent ทำงานถูกต้องตั้งแต่ครั้งแรก และสร้าง feedback loop ที่แก้ปัญหาให้ได้มากที่สุดก่อนส่งถึงมนุษย์ ผลที่ต้องการคือภาระการ review ลดลง คุณภาพระบบสูงขึ้น และยังช่วยลดโทเคนที่สูญเปล่าเป็นผลพลอยได้
 
-![ภาพรวม Guides ที่ป้อนเข้าสู่ coding agent และ Sensors ที่ส่งผลลัพธ์กลับสู่วงรอบการแก้ไขตนเอง โดยมีมนุษย์กำกับทั้งสองด้าน](/assets/blog/harness-engineering/harness-overview.png)
+![ภาพรวม Guides ที่ป้อนเข้าสู่ coding agent และ Sensors ที่ส่งผลลัพธ์กลับสู่วงรอบการแก้ไขตนเอง โดยมีมนุษย์กำกับทั้งสองด้าน](/assets/blog/harness-engineering/harness-overview.webp)
 
 ## Feedforward และ Feedback
 
@@ -84,14 +84,14 @@ Feedback sensors รวมถึงชนิด inferential ควรถูก�
 - การควบคุมใดเร็วพอจะรันก่อน integration หรือแม้แต่ก่อนสร้าง commit ตัวอย่างเช่น linters, ชุดทดสอบที่รวดเร็ว และ code review agent ระดับพื้นฐาน
 - การควบคุมใดมีต้นทุนสูงจนควรรันหลัง integration ใน pipeline เท่านั้น โดยรันร่วมกับชุดตรวจสอบเร็วซ้ำอีกครั้ง ตัวอย่างเช่น mutation testing และ code review ที่กว้างขึ้นซึ่งต้องเห็นภาพรวมทั้งหมด
 
-![ตัวอย่าง feedforward guides และ feedback sensors ที่ทำงานก่อนและหลัง integration ใน lifecycle ของการเปลี่ยนแปลง](/assets/blog/harness-engineering/harness-change-lifecycle-examples.png)
+![ตัวอย่าง feedforward guides และ feedback sensors ที่ทำงานก่อนและหลัง integration ใน lifecycle ของการเปลี่ยนแปลง](/assets/blog/harness-engineering/harness-change-lifecycle-examples.webp)
 
 **Sensors สำหรับตรวจ drift และสุขภาพระบบอย่างต่อเนื่อง**
 
 - **Codebase drift sensors** ทำงานนอก lifecycle ของการเปลี่ยนแปลง เพื่อตรวจจับคุณภาพที่เสื่อมลงทีละน้อย เช่น dead code, test coverage ที่อ่อนลง และปัญหาด้าน dependencies
 - **Runtime health sensors** ช่วยให้ agent เฝ้าดูสัญญาณจาก production เช่น SLO ที่แย่ลง คุณภาพคำตอบจากการสุ่มตัวอย่าง หรือ logs ที่ผิดปกติ แล้วเสนอแนวทางปรับปรุง
 
-![ตัวอย่างการตรวจ codebase drift อย่างต่อเนื่องและ runtime feedback sensors หลัง integration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.png)
+![ตัวอย่างการตรวจ codebase drift อย่างต่อเนื่องและ runtime feedback sensors หลัง integration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.webp)
 
 ## หมวดหมู่ของการกำกับควบคุม
 
@@ -129,7 +129,7 @@ Harness ของ agent ทำหน้าที่คล้ายตัวก�
 
 เรายังต้องการ Behaviour Harness ที่ดีกว่านี้ ก่อนที่ทีมจะลดการกำกับดูแลและการทดสอบด้วยมนุษย์ได้อย่างมั่นใจ
 
-![โมเดล Harness แบบย่อที่มี Guides และ Sensors ครอบคลุมมิติด้านการบำรุงรักษา ความเหมาะสมทางสถาปัตยกรรม และพฤติกรรม](/assets/blog/harness-engineering/harness-types.png)
+![โมเดล Harness แบบย่อที่มี Guides และ Sensors ครอบคลุมมิติด้านการบำรุงรักษา ความเหมาะสมทางสถาปัตยกรรม และพฤติกรรม](/assets/blog/harness-engineering/harness-types.webp)
 
 ## ความเอื้อต่อการสร้าง Harness
 
@@ -146,7 +146,7 @@ Harness ของ agent ทำหน้าที่คล้ายตัวก�
 
 Templates เหล่านั้นอาจพัฒนาไปเป็น **Harness templates** ซึ่งรวม Guides และ Sensors เป็นชุดเดียว เพื่อจำกัดให้ coding agent ทำงานภายในโครงสร้าง ข้อตกลง และ technology stack ของ topology ที่กำหนด ในอนาคต ทีมอาจเลือกเทคโนโลยีโดยพิจารณาจาก Harness ที่มีให้ใช้ด้วย
 
-![ตัวอย่าง service topologies ที่แต่ละ topology มี Harness template ซึ่งประกอบด้วย Guides และ Sensors](/assets/blog/harness-engineering/harness-templates.png)
+![ตัวอย่าง service topologies ที่แต่ละ topology มี Harness template ซึ่งประกอบด้วย Guides และ Sensors](/assets/blog/harness-engineering/harness-templates.webp)
 
 ### กฎของ Ashby
 

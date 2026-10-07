@@ -13,7 +13,7 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-![ภาพปกบทความ “เราทำให้ claude.ai เร็วขึ้น 3 เท่าในสองสัปดาห์ได้อย่างไร”](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+![ภาพปกบทความ “เราทำให้ claude.ai เร็วขึ้น 3 เท่าในสองสัปดาห์ได้อย่างไร”](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac มีไอเดียให้อ้างอิง [Layout Instability
 
 หลัง deploy อีเวนต์นี้ Claude อ่านข้อมูลจริงแล้วพบว่า **31% ของการโหลดหน้าเว็บ มีบางอย่างขยับหลังหน้าพร้อมใช้งานแล้ว** ทั้งที่ผู้ใช้ไม่ได้ทำอะไรเลย จากนั้น Claude ไล่แก้สาเหตุทีละตัว: แถวหัวตารางที่มาช้า เคอร์เซอร์ที่เลื่อนไปด้านข้างเมื่อชื่อผู้ใช้โหลดเสร็จ รายการที่ขยับเมื่อแถบเลื่อนโผล่ขึ้นมา มันแก้ตัวการหลัก ๆ ไปเป็นชุด และเมื่อชุดนั้นหมดไป ก็หาชุดถัดไปต่อ
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="วิดีโอบันทึกหน้าจอการโหลดแถบด้านข้างของ claude.ai ก่อนและหลังแก้ บนเน็ต 4G ที่จำลองให้ช้า"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="วิดีโอบันทึกหน้าจอการโหลดแถบด้านข้างของ claude.ai ก่อนและหลังแก้ บนเน็ต 4G ที่จำลองให้ช้า"></video>
 
 *แถบด้านข้างกระตุก ก่อนและหลัง (จำลองเน็ต 4G ช้า): ก่อนแก้ แถวมาช้าและสลับตำแหน่งกัน หลังแก้ แถวเติมเข้ามาในตำแหน่งสุดท้ายเลย*
 
@@ -156,7 +156,7 @@ Issac มีไอเดียให้อ้างอิง [Layout Instability
 
 ทีมยังรู้ดีว่าผลงานด้านประสิทธิภาพจะค่อย ๆ เสื่อมลงในโค้ดเบสที่เปลี่ยนแปลงเร็ว และ[ที่ Anthropic โค้ดถูกส่งออกไปอย่างรวดเร็ว](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic) เมื่อโปรเจกต์ใดพิสูจน์ได้ว่าได้ผล ทีมจึงลงทุนปกป้องมันไว้ ตัวอย่างเช่น static composer ที่เปราะบางโดยการออกแบบ ผู้ใช้จะเห็นสำเนา HTML ของหน้าแทบจะทันที แล้ว React ก็วาดทับลงไปตรง ๆ
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="วิดีโอบันทึกหน้าจอการโหลด claude.ai ใหม่ ก่อนและหลังมี static composer บนเน็ต 4G ที่จำลองให้ช้า"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="วิดีโอบันทึกหน้าจอการโหลด claude.ai ใหม่ ก่อนและหลังมี static composer บนเน็ต 4G ที่จำลองให้ช้า"></video>
 
 *static composer ก่อนและหลัง (จำลองเน็ต 4G ช้า): พิมพ์ได้ตั้งแต่ 0.36 วินาที แทนที่จะเป็น 2.93 วินาที และข้อความที่พิมพ์ไว้ยังอยู่ครบหลังสลับไปใช้ composer จริง*
 

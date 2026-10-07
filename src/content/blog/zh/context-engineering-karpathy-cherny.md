@@ -26,7 +26,7 @@ Prompt 只是模型输入中的一小部分。真正决定 Agent 能否稳定交
 - **验证器**决定系统是否真的在进步，而不是更快地产生未经检查的输出。
 - **持久化状态**让每次执行能够继承已验证的经验，而非从零开始。
 
-![上下文工程：由项目规则、记忆、Skills、Hooks 与学习记录共同塑造上下文窗口](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![上下文工程：由项目规则、记忆、Skills、Hooks 与学习记录共同塑造上下文窗口](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *图：上下文工程架构示意（vartekx，英文图片）。*
 
@@ -43,7 +43,7 @@ Prompt 只是模型输入中的一小部分。真正决定 Agent 能否稳定交
 
 这篇文章把这种转变概括为三层演进：**Prompt engineering** 是写好一次指令；**Context engineering** 是设计模型看见的整个环境；**Loop engineering** 则把这种环境设计放入自动、重复的执行循环。
 
-![从 Prompt Engineering 到 Context Engineering，再到 Loop Engineering 的三层演进](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![从 Prompt Engineering 到 Context Engineering，再到 Loop Engineering 的三层演进](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *图：三层演进图。每一层建立在前一层之上，而非彼此替代（vartekx，英文图片）。*
 
@@ -53,13 +53,13 @@ Prompt 只是模型输入中的一小部分。真正决定 Agent 能否稳定交
 
 Karpathy 的核心比喻很有用：模型像处理器，上下文窗口像工作内存。关键不在于把所有资料塞进去，而在于在恰当的时刻放入恰当的信息。
 
-![连续多轮交互如何持续占用有限上下文窗口](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![连续多轮交互如何持续占用有限上下文窗口](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *图：多轮输入、输出与有限上下文窗口，说明“上下文窗口就是程序”（vartekx，英文图片）。*
 
 围绕这个目标，可以把上下文工程拆成四项操作。
 
-![上下文窗口由系统提示、规则、记忆、工具描述、工具结果、历史与示例等共同组成](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![上下文窗口由系统提示、规则、记忆、工具描述、工具结果、历史与示例等共同组成](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *图：用户实际写下的 Prompt 往往只占整个上下文的一小部分（vartekx，英文图片）。*
 
@@ -100,7 +100,7 @@ Karpathy 的核心比喻很有用：模型像处理器，上下文窗口像工�
 
 换言之，上下文工程是配方，循环工程是厨房。没有好的配方，自动化只会稳定地放大问题；有了正确的上下文选择与验证，循环才会累积复利。
 
-![手工 Prompt 的线性重复，与循环系统自动执行上下文和验证的差异](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![手工 Prompt 的线性重复，与循环系统自动执行上下文和验证的差异](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *图：用“你是引擎”与“系统是引擎”对比手动提示和循环设计（vartekx，英文图片）。*
 
@@ -116,7 +116,7 @@ Karpathy 的核心比喻很有用：模型像处理器，上下文窗口像工�
 
 其中最容易被忽略的是第五项。没有验证器，循环很可能只是让 Agent 在自身结论上不断点头。验证必须尽可能来自模型之外，或至少来自与实现阶段不同的上下文、标准和角色。
 
-![循环工程将写入、选择、压缩、隔离和验证等上下文操作自动化](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![循环工程将写入、选择、压缩、隔离和验证等上下文操作自动化](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *图：循环工程是在自动驾驶状态下执行上下文工程（vartekx，英文图片）。*
 
@@ -128,7 +128,7 @@ Karpathy 的核心比喻很有用：模型像处理器，上下文窗口像工�
 
 这种写法并不意味着把项目说明膨胀成百科全书。文章建议将持久规则保持精炼；更实用的原则是：每一条长期指令都应来自真实的项目约束、真实的失败或可复现的验证需求。
 
-![上下文编辑前后：从堆积历史记录到为可用上下文腾出空间](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![上下文编辑前后：从堆积历史记录到为可用上下文腾出空间](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *图：以“编辑上下文前后”的对比，说明压缩和选择为何是循环的一部分（vartekx，英文图片）。*
 
@@ -138,7 +138,7 @@ Karpathy 的核心比喻很有用：模型像处理器，上下文窗口像工�
 
 这个过程形成一个闭环：执行产生证据，证据沉淀为状态，状态被下一轮有选择地读取，验证器继续过滤错误。经验由此成为可运行的上下文，而不是散落在冗长对话中的回忆。
 
-![构建规格、累积上下文与验证收益的时间和质量主张](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![构建规格、累积上下文与验证收益的时间和质量主张](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *图：图中的效果数字仅代表作者主张，尚未在本文中独立复核（vartekx，英文图片）。*
 

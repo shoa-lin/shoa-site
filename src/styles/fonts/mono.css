@@ -1,0 +1,2 @@
+/* Code and metadata font for every locale. Body text uses per-language system font stacks (see global.css). */
+@import "@fontsource-variable/jetbrains-mono/wght.css";
