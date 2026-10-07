@@ -13,7 +13,7 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-![《我们如何在两周内让 claude.ai 提速 3 倍》封面图](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+![《我们如何在两周内让 claude.ai 提速 3 倍》封面图](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac 想到直接去用更底层的 [Layout Instability API](https://wicg.githu
 
 事件上线后，Claude 读取线上数据，发现 **31% 的网页加载会在页面已经可用之后发生元素移动**，而且没有任何用户交互。接下来它按名字逐个排查原因：一行迟到的表头；用户名加载后向侧面滑动的光标；滚动条出现时整体挪动的列表。它把排名靠前的问题打包修掉，修完之后再去找下一批。
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="限速 4G 下 claude.ai 侧边栏加载的修复前后录屏"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="限速 4G 下 claude.ai 侧边栏加载的修复前后录屏"></video>
 
 *侧边栏抖动的前后对比（限速 4G）：修复前，条目姗姗来迟、互相挤位；修复后，条目直接出现在最终位置。*
 
@@ -156,7 +156,7 @@ flag 越积越多时，团队专门开了一个讨论串来协调它们的放量
 
 团队也清楚，在快速演进的代码库里，性能成果会慢慢流失，而 [Anthropic 的代码交付速度很快](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic)。所以一个项目一旦证明有效，就要投入资源去保护它。以静态输入框为例，它天生就很脆弱：用户几乎立刻就能看到页面的一份 HTML 副本，随后 React 直接在它上面绘制。
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="限速 4G 下全新加载 claude.ai 时有无静态输入框的前后录屏"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="限速 4G 下全新加载 claude.ai 时有无静态输入框的前后录屏"></video>
 
 *静态输入框的前后对比（限速 4G）：0.36 秒即可输入，而不是 2.93 秒；切换到真正输入框时，已输入的文字完整保留。*
 

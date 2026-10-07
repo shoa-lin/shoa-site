@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="สิทธิ์ยาวเกินบริบทออกไปช่วงหนึ่ง ช่องว่างนี้ให้คนเติม: หน้าต่างขออนุมัติ การเขียนกฎไว้ล่วงหน้า การสะสมหน่วยความจำและความชอบ ส่วนรหัสผ่านคือส่วนที่จงใจไม่เติม" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">การอนุมัติ คือคนกำลังเติมบริบท</text>
+
+  <!-- 两根条 -->
+  <text x="24" y="84" font-size="17" font-weight="700" fill="#c2570c">สิทธิ์</text>
+  <rect x="24" y="94" width="372" height="32" rx="6" fill="#c2570c" fill-opacity="0.16" stroke="#c2570c"/>
+  <text x="40" y="116" font-size="17" fill="#1f2328">ล็อกอินบัญชีคุณไว้ กดได้ทุกปุ่ม</text>
+
+  <text x="24" y="160" font-size="17" font-weight="700" fill="#1a7f4b">บริบท</text>
+  <rect x="24" y="170" width="190" height="32" rx="6" fill="#1a7f4b" fill-opacity="0.16" stroke="#1a7f4b"/>
+  <text x="40" y="192" font-size="17" fill="#1f2328">สิ่งที่มันรู้</text>
+  <rect x="218" y="170" width="178" height="32" rx="6" fill="none" stroke="#c2570c" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="307" y="192" font-size="17" font-weight="700" fill="#c2570c" text-anchor="middle">ช่องว่าง</text>
+  <text x="307" y="232" font-size="17" fill="#1f2328" text-anchor="middle">ส่วนนี้ต้องให้คนเติม</text>
+
+  <!-- 三种补法 -->
+  <g font-size="17" fill="#1f2328">
+    <rect x="24" y="252" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="252" width="6" height="74" rx="3" fill="#c2570c"/>
+    <text x="44" y="282" font-weight="700">เด้งขออนุมัติหนึ่งครั้ง</text>
+    <text x="44" y="310">เติมทีละนิด: ครั้งนี้ทำได้ไหม</text>
+
+    <rect x="24" y="338" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="338" width="6" height="74" rx="3" fill="#2563c9"/>
+    <text x="44" y="368" font-weight="700">เขียนกฎไว้ล่วงหน้า</text>
+    <text x="44" y="396">ส่งมอบครั้งเดียว: อนุญาต ต้องอนุมัติ ห้าม</text>
+
+    <rect x="24" y="424" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="424" width="6" height="74" rx="3" fill="#1a7f4b"/>
+    <text x="44" y="454" font-weight="700">สะสมหน่วยความจำและความชอบ</text>
+    <text x="44" y="482">บริบทตามทัน หน้าต่างเด้งถึงจะน้อยลง</text>
+  </g>
+
+  <!-- 例外 -->
+  <text x="24" y="538" font-size="17" font-weight="700" fill="#1f2328">ส่วนที่จงใจไม่เติม: รหัสผ่าน</text>
+  <text x="24" y="566" font-size="17" fill="#57606a">agent ใช้ได้ แต่มองไม่เห็น</text>
+</svg>

@@ -9,12 +9,18 @@ export interface SeoData {
   openGraphLocale: string;
 }
 
-export function buildSeo(locale: Locale, path: string, title: string, description: string): SeoData {
+export function buildSeo(
+  locale: Locale,
+  path: string,
+  title: string,
+  description: string,
+  available?: readonly Locale[],
+): SeoData {
   return {
     title,
     description,
     canonical: canonicalUrl(locale, path),
-    alternates: alternateLinks(path),
+    alternates: alternateLinks(path, available),
     openGraphLocale: localeMeta[locale].htmlLang,
   };
 }

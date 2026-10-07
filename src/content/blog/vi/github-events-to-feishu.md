@@ -17,7 +17,7 @@ Trong quá trình cộng tác kỹ thuật, có một việc nhỏ nhưng dễ l
 
 Tôi thích biến việc này thành một chuỗi hướng sự kiện: khi GitHub thay đổi, nó chủ động đánh thức Local Agent; Agent chỉ chắt lọc những dữ kiện cần thiết rồi gửi một cập nhật ngắn đến nhóm kỹ thuật trên Feishu.
 
-![Gom sự kiện kỹ thuật thành cập nhật cho nhóm](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![Gom sự kiện kỹ thuật thành cập nhật cho nhóm](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## Ý tưởng rất đơn giản
 

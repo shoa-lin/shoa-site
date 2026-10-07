@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 나는 이를 이벤트 기반 흐름으로 만드는 편을 선호한다. GitHub에 변화가 생기면 로컬 Agent가 깨어나고, 필요한 사실만 추려 Feishu 개발 그룹에 짧은 업데이트 하나를 보낸다.
 
-![GitHub 이벤트를 개발 업데이트로 모으기](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![GitHub 이벤트를 개발 업데이트로 모으기](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## 생각은 간단하다
 

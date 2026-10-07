@@ -25,6 +25,7 @@ const approvedGroups = new Set([
   "blog:jev-system-one-decision-layer",
   "blog:how-we-made-claude-ai-faster",
   "blog:agent-permission-context",
+  "blog:gpt-6-astra-codex-harness",
   "favorites:fix-your-life-in-one-day",
 ]);
 const approvedBlogIds = new Set([...approvedGroups]
@@ -98,7 +99,7 @@ test("the GitHub event article has eight reviewed editions with translated text 
   assert.ok(editions.every((entry) => entry.data.translationStatus === "reviewed"));
   assert.ok(editions.every((entry) => entry.data.contentType === "original"));
   assert.ok(editions.every((entry) => entry.data.sourceAuthor === "Shoa Lin"));
-  assert.ok(editions.every((entry) => /\/assets\/blog\/github-events-to-feishu\/01-event-to-update\.png/.test(entry.body)));
+  assert.ok(editions.every((entry) => /\/assets\/blog\/github-events-to-feishu\/01-event-to-update\.webp/.test(entry.body)));
   assert.ok(editions.every((entry) => /> /.test(entry.body)));
 
   for (const edition of editions.filter((entry) => entry.data.locale !== "zh")) {

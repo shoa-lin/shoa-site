@@ -26,7 +26,7 @@ translationStatus: "reviewed"
 
 Cần nói rõ một điểm: hiện không có tài liệu chính thức nào khẳng định Codex “loại bỏ Retry vì trạng thái quá phức tạp”. Bài viết này là một phân tích kiến trúc về tương tác sản phẩm agent, dựa trên mô hình Thread, Turn, Item và Fork được công khai.
 
-![Retry chuyển từ trả lời lại thành một nhánh giữ nguyên lịch sử](/assets/blog/ai-agent-retry-state/retry-becomes-fork-vi.png)
+![Retry chuyển từ trả lời lại thành một nhánh giữ nguyên lịch sử](/assets/blog/ai-agent-retry-state/retry-becomes-fork-vi.webp)
 
 Khi sử dụng các chatbot trước đây, tôi rất quen với một tính năng nhỏ: **Retry**, hay còn gọi là **Regenerate**.
 
@@ -120,7 +120,7 @@ Vì vậy, vấn đề thực sự không chỉ là “thông tin trung gian qu�
 
 > Một lần chạy của agent đã tạo ra chuỗi nhân quả thực. Lần chạy thứ hai không còn bắt đầu trong thế giới tồn tại trước lần chạy đầu tiên.
 
-![Văn bản có thể viết lại, nhưng agent đã thay đổi trạng thái thực](/assets/blog/ai-agent-retry-state/text-vs-world-state-vi.png)
+![Văn bản có thể viết lại, nhưng agent đã thay đổi trạng thái thực](/assets/blog/ai-agent-retry-state/text-vs-world-state-vi.webp)
 
 ## Retry của agent liên quan đến ít nhất bốn loại trạng thái
 

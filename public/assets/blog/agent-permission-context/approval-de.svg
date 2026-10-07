@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="Die Rechte reichen ein Stück über den Kontext hinaus; diese Lücke füllt der Mensch: Freigabe-Dialoge, vorab festgelegte Regeln, gesammeltes Memory und Präferenzen; Passwörter bleiben absichtlich ausgespart" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="20" font-weight="700" fill="#1f2328">Freigaben füllen die Kontextlücke</text>
+
+  <!-- 两根条 -->
+  <text x="24" y="84" font-size="17" font-weight="700" fill="#c2570c">Rechte</text>
+  <rect x="24" y="94" width="372" height="32" rx="6" fill="#c2570c" fill-opacity="0.16" stroke="#c2570c"/>
+  <text x="40" y="116" font-size="17" fill="#1f2328">In Ihrem Konto: jeder Knopf klickbar</text>
+
+  <text x="24" y="160" font-size="17" font-weight="700" fill="#1a7f4b">Kontext</text>
+  <rect x="24" y="170" width="190" height="32" rx="6" fill="#1a7f4b" fill-opacity="0.16" stroke="#1a7f4b"/>
+  <text x="40" y="192" font-size="17" fill="#1f2328">Was er weiß</text>
+  <rect x="218" y="170" width="178" height="32" rx="6" fill="none" stroke="#c2570c" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="307" y="192" font-size="17" font-weight="700" fill="#c2570c" text-anchor="middle">Lücke</text>
+  <text x="307" y="232" font-size="15" fill="#1f2328" text-anchor="middle">Das füllt der Mensch</text>
+
+  <!-- 三种补法 -->
+  <g font-size="17" fill="#1f2328">
+    <rect x="24" y="252" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="252" width="6" height="74" rx="3" fill="#c2570c"/>
+    <text x="44" y="282" font-weight="700">Eine Freigabe-Abfrage</text>
+    <text x="44" y="310">Ein kleines Stück: Darf ich das?</text>
+
+    <rect x="24" y="338" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="338" width="6" height="74" rx="3" fill="#2563c9"/>
+    <text x="44" y="368" font-weight="700">Regeln vorab festlegen</text>
+    <text x="44" y="396" font-size="15">Auf einmal: erlaubt, freigabepflichtig, verboten</text>
+
+    <rect x="24" y="424" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="424" width="6" height="74" rx="3" fill="#1a7f4b"/>
+    <text x="44" y="454" font-weight="700">Memory und Präferenzen sammeln</text>
+    <text x="44" y="482">Mehr Kontext, weniger Abfragen</text>
+  </g>
+
+  <!-- 例外 -->
+  <text x="24" y="538" font-size="17" font-weight="700" fill="#1f2328">Absichtlich offen: Passwörter</text>
+  <text x="24" y="566" font-size="17" fill="#57606a">Der Agent darf sie nutzen, nicht sehen</text>
+</svg>

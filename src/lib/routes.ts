@@ -23,13 +23,18 @@ export function localizedPath(locale: string, path: string): string {
   return `/${locale}${normalized}${suffix}`;
 }
 
-export function alternateLinks(path: string): Array<{ hreflang: string; href: string }> {
-  const links = locales.map((locale) => ({
+export function alternateLinks(
+  path: string,
+  available: readonly Locale[] = locales,
+): Array<{ hreflang: string; href: string }> {
+  const present = locales.filter((locale) => available.includes(locale));
+  const links = present.map((locale) => ({
     hreflang: localeMeta[locale].htmlLang,
     href: new URL(localizedPath(locale, path), site).href,
   }));
 
-  links.push({ hreflang: "x-default", href: new URL(localizedPath("zh", path), site).href });
+  const fallback = present.includes("zh") ? "zh" : present[0] ?? "zh";
+  links.push({ hreflang: "x-default", href: new URL(localizedPath(fallback, path), site).href });
   return links;
 }
 

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" lang="ja" aria-label="上半分：Grok Bot の複数の Bot はそれぞれ自分の会話と学んだコンテキストを持つが、ファイルとブラウザのログイン状態は共有している。下半分：各 agent が自分のアイデンティティを持ち、コンテキストも権限も agent ごとに切り分けられている" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif">
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="20" font-weight="700" fill="#1f2328">コンテキストは別々、権限は一つのまま</text>
+  <text x="24" y="74" font-size="15" fill="#57606a">今：Grok Bot の各 Bot は一つのアカウントを共有</text>
+
+  <!-- 三个 Bot：上下文各自一份 -->
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <rect x="16" y="90" width="116" height="100" rx="10" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="74" y="118" font-weight="700">Bot A</text>
+    <text x="74" y="146" fill="#1a7f4b">自分の会話</text>
+    <text x="74" y="172" fill="#1a7f4b">学んだこと</text>
+
+    <rect x="152" y="90" width="116" height="100" rx="10" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="210" y="118" font-weight="700">Bot B</text>
+    <text x="210" y="146" fill="#1a7f4b">自分の会話</text>
+    <text x="210" y="172" fill="#1a7f4b">学んだこと</text>
+
+    <rect x="288" y="90" width="116" height="100" rx="10" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="346" y="118" font-weight="700">Bot C</text>
+    <text x="346" y="146" fill="#1a7f4b">自分の会話</text>
+    <text x="346" y="172" fill="#1a7f4b">学んだこと</text>
+  </g>
+  <g stroke="#c2570c" stroke-width="2">
+    <line x1="74" y1="190" x2="74" y2="230"/>
+    <line x1="210" y1="190" x2="210" y2="230"/>
+    <line x1="346" y1="190" x2="346" y2="230"/>
+  </g>
+
+  <!-- 共用的权限 -->
+  <rect x="16" y="230" width="388" height="84" rx="10" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c" stroke-width="2"/>
+  <g font-size="17" fill="#1f2328" text-anchor="middle">
+    <text x="210" y="264" font-weight="700">共有：ファイル、ブラウザのログイン状態</text>
+    <text x="210" y="294">あなたのアカウント全体の権限に等しい</text>
+  </g>
+
+  <g font-size="17" fill="#1f2328">
+    <text x="24" y="346">どの Bot も全権限を握りながら、</text>
+    <text x="24" y="372">知っているのは一部の状況だけ。</text>
+  </g>
+
+  <line x1="24" y1="396" x2="396" y2="396" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 6"/>
+
+  <!-- 身份：一个 agent 一份 -->
+  <text x="24" y="428" font-size="15" fill="#57606a">切り方を変える：agent に自分のアイデンティティを</text>
+  <g font-size="17" text-anchor="middle">
+    <rect x="16" y="442" width="116" height="104" rx="10" fill="#ffffff" stroke="#8c959f"/>
+    <rect x="22" y="478" width="104" height="28" rx="6" fill="#1a7f4b" fill-opacity="0.14"/>
+    <rect x="22" y="510" width="104" height="28" rx="6" fill="#c2570c" fill-opacity="0.14"/>
+    <text x="74" y="468" font-weight="700" fill="#1f2328">Agent A</text>
+    <text x="74" y="498" fill="#1a7f4b" font-size="14">コンテキスト</text>
+    <text x="74" y="530" fill="#c2570c">権限</text>
+
+    <rect x="152" y="442" width="116" height="104" rx="10" fill="#ffffff" stroke="#8c959f"/>
+    <rect x="158" y="478" width="104" height="28" rx="6" fill="#1a7f4b" fill-opacity="0.14"/>
+    <rect x="158" y="510" width="104" height="28" rx="6" fill="#c2570c" fill-opacity="0.14"/>
+    <text x="210" y="468" font-weight="700" fill="#1f2328">Agent B</text>
+    <text x="210" y="498" fill="#1a7f4b" font-size="14">コンテキスト</text>
+    <text x="210" y="530" fill="#c2570c">権限</text>
+
+    <rect x="288" y="442" width="116" height="104" rx="10" fill="#ffffff" stroke="#8c959f"/>
+    <rect x="294" y="478" width="104" height="28" rx="6" fill="#1a7f4b" fill-opacity="0.14"/>
+    <rect x="294" y="510" width="104" height="28" rx="6" fill="#c2570c" fill-opacity="0.14"/>
+    <text x="346" y="468" font-weight="700" fill="#1f2328">Agent C</text>
+    <text x="346" y="498" fill="#1a7f4b" font-size="14">コンテキスト</text>
+    <text x="346" y="530" fill="#c2570c">権限</text>
+  </g>
+
+  <text x="24" y="578" font-size="17" fill="#1f2328">両方を agent ごとに分ければ、権限は</text>
+  <text x="24" y="604" font-size="17" fill="#1f2328">個別に付与し、上限を設け、取り消せる</text>
+  <text x="24" y="632" font-size="15" fill="#57606a">例：Cue は各 agent にメール、電話、ウォレットを</text>
+</svg>

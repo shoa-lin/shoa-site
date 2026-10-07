@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="Dans le chat, contexte et permissions ne se recouvrent presque pas ; dans le dépôt, ils se recouvrent largement, git annule et les tests valident" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">Dépôt : premier recouvrement</text>
+
+  <!-- 聊天框 -->
+  <rect x="16" y="62" width="388" height="206" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="92" font-size="19" font-weight="700" fill="#1f2328">Dans le chat</text>
+  <circle cx="140" cy="166" r="56" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="140" y="172" font-size="17" fill="#1a7f4b" text-anchor="middle">Contexte</text>
+  <circle cx="292" cy="166" r="26" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="292" y="212" font-size="14" fill="#c2570c" text-anchor="middle">Permissions</text>
+  <text x="210" y="250" font-size="17" fill="#1f2328" text-anchor="middle">Il sait, mais ne peut que répondre</text>
+
+  <!-- 仓库 -->
+  <rect x="16" y="284" width="388" height="296" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="314" font-size="19" font-weight="700" fill="#1f2328">Dans le dépôt</text>
+  <circle cx="180" cy="402" r="66" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <circle cx="240" cy="402" r="66" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="138" y="408" font-size="13" fill="#1a7f4b" text-anchor="middle">Contexte</text>
+  <text x="210" y="408" font-size="13" font-weight="700" fill="#1f2328" text-anchor="middle">Commun</text>
+  <text x="283" y="408" font-size="13" fill="#c2570c" text-anchor="middle">Permissions</text>
+  <g font-size="16" fill="#1f2328">
+    <text x="32" y="500"><tspan fill="#1a7f4b" font-weight="700">Contexte</tspan> : code, historique, tests</text>
+    <text x="32" y="528"><tspan fill="#c2570c" font-weight="700">Permissions</tspan> : éditer fichiers, lancer commandes</text>
+    <text x="32" y="556" font-weight="700">git annule, les tests valident</text>
+  </g>
+</svg>

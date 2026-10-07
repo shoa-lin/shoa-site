@@ -26,7 +26,7 @@ Karpathy xem cửa sổ ngữ cảnh là một giao diện lập trình mới. B
 - **Verifier** phân biệt tiến bộ thật với việc chỉ sinh thêm đầu ra.
 - **Trạng thái bền vững** truyền kinh nghiệm đã kiểm chứng sang lần chạy sau.
 
-![Quy tắc dự án, bộ nhớ, Skills, Hooks và ghi chép học tập tạo thành cửa sổ ngữ cảnh](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![Quy tắc dự án, bộ nhớ, Skills, Hooks và ghi chép học tập tạo thành cửa sổ ngữ cảnh](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *Hình: kiến trúc context engineering (vartekx, ảnh tiếng Anh).*
 
@@ -38,7 +38,7 @@ Vì vậy cần hỏi: bước này thật sự cần dữ kiện, tệp và rà
 
 Bài viết nêu ba lớp: **prompt engineering** viết chỉ dẫn một lần; **context engineering** thiết kế môi trường mô hình nhìn thấy; **loop engineering** đặt thiết kế đó vào chu trình tự động, lặp lại được.
 
-![Tiến trình từ prompt engineering đến context engineering và loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![Tiến trình từ prompt engineering đến context engineering và loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *Hình: ba lớp bổ sung cho nhau (vartekx, ảnh tiếng Anh).*
 
@@ -46,11 +46,11 @@ Bài viết nêu ba lớp: **prompt engineering** viết chỉ dẫn một lần
 
 Phép so sánh của Karpathy rất thực dụng: mô hình là bộ xử lý, cửa sổ ngữ cảnh là bộ nhớ làm việc. Không nên nhồi mọi tài liệu vào đó mà phải đặt đúng thông tin vào đúng thời điểm.
 
-![Nhiều lượt tương tác tiêu thụ một cửa sổ ngữ cảnh hữu hạn](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![Nhiều lượt tương tác tiêu thụ một cửa sổ ngữ cảnh hữu hạn](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *Hình: đầu vào và đầu ra nhiều lượt dùng chung một cửa sổ hữu hạn (vartekx, ảnh tiếng Anh).*
 
-![Chỉ dẫn hệ thống, quy tắc, bộ nhớ, công cụ, lịch sử và ví dụ tạo nên ngữ cảnh](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![Chỉ dẫn hệ thống, quy tắc, bộ nhớ, công cụ, lịch sử và ví dụ tạo nên ngữ cảnh](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *Hình: Prompt người dùng viết thường chỉ là phần nhỏ của toàn bộ ngữ cảnh (vartekx, ảnh tiếng Anh).*
 
@@ -64,7 +64,7 @@ Nhiều ngữ cảnh không đồng nghĩa ngữ cảnh tốt hơn. Khi sửa m�
 
 Theo góc nhìn được gán cho Boris Cherny, công việc của con người chuyển từ nhắc Agent liên tục sang thiết kế vòng lặp: mỗi lần chạy đọc trạng thái, thực thi, kiểm tra, ghi kết quả và bắt đầu lần sau với thông tin tốt hơn.
 
-![So sánh Prompt thủ công với hệ thống tự động thực hiện ngữ cảnh và kiểm chứng](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![So sánh Prompt thủ công với hệ thống tự động thực hiện ngữ cảnh và kiểm chứng](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *Hình: “bạn là động cơ” so với “hệ thống là động cơ” (vartekx, ảnh tiếng Anh).*
 
@@ -74,7 +74,7 @@ Một vòng lặp lành mạnh ghi trạng thái quan trọng, chỉ chọn tr�
 
 Cần có nhịp chạy và điều kiện dừng, tri thức dự án ngắn đã được kiểm chứng, sự tách biệt giữa triển khai và rà soát, connector thật với quyền phù hợp, cùng verifier độc lập như test, kiểm tra kiểu, build, kiểm tra hợp đồng hoặc phê duyệt của con người.
 
-![Vòng lặp tự động hóa ghi, chọn, nén, cô lập và kiểm chứng ngữ cảnh](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![Vòng lặp tự động hóa ghi, chọn, nén, cô lập và kiểm chứng ngữ cảnh](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *Hình: loop engineering tự động hóa context engineering (vartekx, ảnh tiếng Anh).*
 
@@ -82,7 +82,7 @@ Cần có nhịp chạy và điều kiện dừng, tri thức dự án ngắn đ
 
 “Refactor hệ thống xác thực” là một mong muốn. Specification có thể thực thi phải nêu mục tiêu, phạm vi, đầu ra, cách xử lý xung đột và điều kiện dừng: thư mục trong phạm vi, vùng phải giữ nguyên, test cần cập nhật, lúc cần báo cáo và các kiểm tra bắt buộc.
 
-![Ngữ cảnh trước và sau khi biên tập để dành chỗ cho thông tin hữu ích](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![Ngữ cảnh trước và sau khi biên tập để dành chỗ cho thông tin hữu ích](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *Hình: chọn lọc và nén tạo chỗ cho ngữ cảnh hữu ích (vartekx, ảnh tiếng Anh).*
 
@@ -90,7 +90,7 @@ Cần có nhịp chạy và điều kiện dừng, tri thức dự án ngắn đ
 
 Sau nhiệm vụ, chỉ lưu vài bài học có thể hành động: điều hiệu quả, điều thất bại và điều cần kiểm tra sớm hơn. Lỗi lặp lại có thể trở thành quy tắc dự án hoặc kiểm tra tự động. Thực thi tạo bằng chứng, bằng chứng thành trạng thái, lần chạy sau đọc có chọn lọc và verifier tiếp tục lọc lỗi.
 
-![Các tuyên bố về thời gian và chất lượng của specification, ngữ cảnh tích lũy và kiểm chứng](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![Các tuyên bố về thời gian và chất lượng của specification, ngữ cảnh tích lũy và kiểm chứng](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *Hình: các số liệu là tuyên bố của tác giả và chưa được kiểm chứng độc lập ở đây (vartekx, ảnh tiếng Anh).*
 

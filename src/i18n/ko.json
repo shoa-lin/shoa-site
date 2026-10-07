@@ -12,13 +12,10 @@
     "supporting": "이곳에 글, 연구 노트, 오래 참고할 자료를 모아 둡니다.",
     "interestsTitle": "관심 분야",
     "interestsBody": "에이전트가 도구를 안정적으로 사용하고, 맥락을 유지하고, 실패를 처리하며, 검토 가능한 결과를 남기는 방법을 살펴봅니다.",
-    "backgroundTitle": "공개 경력",
-    "backgroundBody": "지식 그래프, 데이터, 엔터프라이즈 아키텍처 관련 업무를 해왔습니다. 지금은 AI 에이전트 시스템과 개발자 워크플로에 집중하고 있습니다.",
     "approachTitle": "일하는 방식",
     "approachBody": "먼저 실제 상태를 확인하고, 문제를 나누어 가설을 검증한 뒤, 재사용할 수 있는 코드나 글로 정리합니다.",
     "latestTitle": "최근 글",
-    "contactTitle": "연락하기",
-    "contactBody": "AI 에이전트, 지식 시스템, 개발자 도구, 기술 글쓰기에 관한 이야기는 이메일이나 X로 연락해 주세요."
+    "moreTitle": "더 보기"
   },
   "about": {
     "title": "소개",

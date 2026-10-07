@@ -26,7 +26,7 @@ Karpathy versteht das Kontextfenster als neue Programmierschnittstelle. Boris Ch
 - **Verifier** unterscheiden echten Fortschritt von bloß mehr Ausgabe.
 - **Persistenter Zustand** übergibt validierte Erfahrung an den nächsten Lauf.
 
-![Projektregeln, Speicher, Skills, Hooks und Lernprotokolle bilden ein Kontextfenster](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![Projektregeln, Speicher, Skills, Hooks und Lernprotokolle bilden ein Kontextfenster](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *Abbildung: Context-Engineering-Architektur (vartekx, englische Grafik).*
 
@@ -38,7 +38,7 @@ Gefragt werden sollte: Welche Fakten, Dateien und Grenzen braucht dieser Schritt
 
 Der Beitrag beschreibt drei Schichten: **Prompt Engineering** formuliert eine einzelne Anweisung, **Context Engineering** gestaltet die Umgebung des Modells, **Loop Engineering** setzt diese Gestaltung in einen automatisierten, wiederholbaren Ablauf.
 
-![Entwicklung von Prompt Engineering über Context Engineering zu Loop Engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![Entwicklung von Prompt Engineering über Context Engineering zu Loop Engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *Abbildung: Die drei Schichten bauen aufeinander auf (vartekx, englische Grafik).*
 
@@ -46,11 +46,11 @@ Der Beitrag beschreibt drei Schichten: **Prompt Engineering** formuliert eine ei
 
 Karpathys Analogie ist hilfreich: Das Modell ist der Prozessor, das Kontextfenster der Arbeitsspeicher. Nicht alle Unterlagen gehören hinein, sondern die passende Information zum passenden Zeitpunkt.
 
-![Mehrere Turns verbrauchen ein endliches Kontextfenster](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![Mehrere Turns verbrauchen ein endliches Kontextfenster](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *Abbildung: Ein- und Ausgaben mehrerer Turns teilen sich ein begrenztes Fenster (vartekx, englische Grafik).*
 
-![Systemprompts, Regeln, Speicher, Werkzeuge, Historie und Beispiele bilden Kontext](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![Systemprompts, Regeln, Speicher, Werkzeuge, Historie und Beispiele bilden Kontext](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *Abbildung: Der vom Nutzer geschriebene Prompt ist meist nur ein kleiner Teil des Kontexts (vartekx, englische Grafik).*
 
@@ -64,7 +64,7 @@ Mehr Kontext ist nicht automatisch besser. Bei einer API-Korrektur werden Einsti
 
 Die Boris Cherny zugeschriebene Perspektive verschiebt menschliche Arbeit vom wiederholten Anstoßen eines Agenten zum Entwurf einer Schleife. Jeder Durchlauf liest Zustand, führt aus, prüft, protokolliert und startet besser informiert erneut.
 
-![Manuelles Prompting im Vergleich zu einem System für Kontext und Prüfung](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![Manuelles Prompting im Vergleich zu einem System für Kontext und Prüfung](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *Abbildung: „Du bist der Motor“ gegenüber „das System ist der Motor“ (vartekx, englische Grafik).*
 
@@ -74,7 +74,7 @@ Eine gesunde Schleife schreibt wichtigen Zustand, wählt aufgabenrelevanten Zust
 
 Sie braucht Takt und Abbruchbedingungen, kurze validierte Projektkenntnis, Trennung von Implementierung und Review, echte Connectoren mit passenden Rechten sowie unabhängige Verifier: Tests, Typprüfung, Build, Vertragsprüfung oder menschliche Freigabe.
 
-![Schleife für Schreiben, Auswahl, Verdichtung, Isolation und Verifikation](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![Schleife für Schreiben, Auswahl, Verdichtung, Isolation und Verifikation](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *Abbildung: Loop Engineering automatisiert Context Engineering (vartekx, englische Grafik).*
 
@@ -82,7 +82,7 @@ Sie braucht Takt und Abbruchbedingungen, kurze validierte Projektkenntnis, Trenn
 
 „Refaktoriere die Authentifizierung“ ist ein Wunsch. Eine ausführbare Spezifikation nennt Ziel, Umfang, Ergebnis, Konfliktbehandlung und Abbruchbedingungen: betroffene Verzeichnisse, unveränderliche Bereiche, anzupassende Tests, Eskalationspunkte und verpflichtende Prüfungen.
 
-![Kontext vor und nach der Bearbeitung mit freiem Raum für nützliche Information](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![Kontext vor und nach der Bearbeitung mit freiem Raum für nützliche Information](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *Abbildung: Auswahl und Verdichtung schaffen Platz für hilfreichen Kontext (vartekx, englische Grafik).*
 
@@ -90,7 +90,7 @@ Sie braucht Takt und Abbruchbedingungen, kurze validierte Projektkenntnis, Trenn
 
 Nach einer Aufgabe genügen wenige handlungsorientierte Erkenntnisse: was funktionierte, was scheiterte, was beim nächsten Mal früher zu prüfen ist. Wiederkehrende Fehler werden zu Projektregeln oder automatischen Prüfungen. Ausführung erzeugt Belege, Belege werden Zustand, der nächste Lauf liest ihn gezielt, und Verifier filtern weiter Fehler.
 
-![Zeit- und Qualitätsaussagen zu Spezifikationen, angesammeltem Kontext und Prüfung](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![Zeit- und Qualitätsaussagen zu Spezifikationen, angesammeltem Kontext und Prüfung](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *Abbildung: Die Zahlen sind Behauptungen des Autors und hier nicht unabhängig geprüft (vartekx, englische Grafik).*
 

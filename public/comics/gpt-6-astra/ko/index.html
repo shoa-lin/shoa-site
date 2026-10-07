@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-
-<html dir="ltr" lang="zh-CN">
+<html dir="ltr" lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>GPT-6 Astra 模型指南 · 漫画版摘录</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&amp;family=ZCOOL+KuaiLe&amp;family=Noto+Sans+SC:wght@400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT-6 Astra 모델 가이드 · 만화판 발췌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#fdf3e3;
@@ -35,7 +34,7 @@ body{
 }
 ::selection{background:var(--yellow);color:var(--ink)}
 
-/* ---------- 通用漫画面板 ---------- */
+/* ---------- 공통 만화 패널 ---------- */
 .wrap{max-width:980px;margin:0 auto;padding:0 20px}
 .panel{
   background:var(--panel);
@@ -49,7 +48,7 @@ body{
 .reveal{opacity:0;transform:translateY(46px) scale(.92) rotate(var(--rr,0deg));transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0) scale(1) rotate(var(--rr,0deg))}
 
-/* ---------- 顶部刊头 ---------- */
+/* ---------- 상단 마스트헤드 ---------- */
 .masthead{
   overflow:clip;
   text-align:center;
@@ -109,7 +108,7 @@ h1 .cn{
 .sfx-1{top:8%;left:5vw;font-size:clamp(38px,6vw,72px);transform:rotate(-14deg)}
 .sfx-2{bottom:4%;right:10vw;font-size:clamp(30px,5vw,56px);transform:rotate(9deg);color:var(--teal)}
 
-/* 连载编号条 */
+/* 연재 번호 바 */
 .issue-bar{
   display:flex;justify-content:center;gap:0;
   margin:26px auto 0;flex-wrap:wrap;
@@ -125,7 +124,7 @@ h1 .cn{
 .issue-bar span:nth-child(2){background:var(--teal-lt)}
 .issue-bar span:nth-child(3){background:var(--panel)}
 
-/* ---------- 对话框 ---------- */
+/* ---------- 말풍선 ---------- */
 .bubble{
   position:relative;
   background:#fff;
@@ -149,7 +148,7 @@ h1 .cn{
 .bubble.pop{animation:pop .55s var(--ease) both}
 @keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
 
-/* ---------- 章节标题 ---------- */
+/* ---------- 챕터 제목 ---------- */
 .chapter{
   display:flex;align-items:center;gap:18px;
   margin:76px 0 30px;
@@ -183,7 +182,7 @@ h1 .cn{
   clip-path:polygon(0 50%,100% 0,100% 100%);
 }
 
-/* ---------- 贴纸徽章 ---------- */
+/* ---------- 스티커 배지 ---------- */
 .sticker{
   display:inline-block;
   font-family:"ZCOOL KuaiLe",cursive;
@@ -199,7 +198,7 @@ h1 .cn{
 .sticker.yellow{background:var(--yellow);color:var(--ink)}
 .sticker.orange{background:var(--orange)}
 
-/* ---------- 特性格子 ---------- */
+/* ---------- 기능 카드 그리드 ---------- */
 .feature-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -240,7 +239,7 @@ code,kbd{
   font-size:.88em;
 }
 
-/* ---------- PROMPT 面板 ---------- */
+/* ---------- PROMPT 패널 ---------- */
 .prompt-block{
   margin:26px 0 8px;
   border:3.5px solid var(--ink);
@@ -279,7 +278,7 @@ code,kbd{
   position:relative;
 }
 .explain::before{
-  content:"中文解读";
+  content:"한국어 해설";
   position:absolute;top:-15px;left:20px;
   font-family:"ZCOOL KuaiLe",cursive;
   font-size:14px;
@@ -290,7 +289,7 @@ code,kbd{
 }
 .explain b{color:var(--coral)}
 
-/* ---------- 小节标题 ---------- */
+/* ---------- 소제목 ---------- */
 h3.sub{
   font-family:"ZCOOL KuaiLe",cursive;
   font-size:24px;
@@ -300,7 +299,7 @@ h3.sub{
 h3.sub .star{color:var(--orange);font-size:28px;transform:rotate(-10deg)}
 h3.sub .en{font-family:"Bangers",cursive;font-size:16px;letter-spacing:.1em;color:var(--gray)}
 
-/* ---------- 行为特点清单 ---------- */
+/* ---------- 행동 특성 목록 ---------- */
 .trait-list{list-style:none;margin-top:18px}
 .trait-list li{
   background:var(--panel);
@@ -325,7 +324,7 @@ h3.sub .en{font-family:"Bangers",cursive;font-size:16px;letter-spacing:.1em;colo
 }
 .trait-list b{font-weight:900}
 
-/* ---------- 迁移清单 ---------- */
+/* ---------- 마이그레이션 목록 ---------- */
 .migrate li{
   border-left:6px solid var(--orange);
   padding:12px 18px;
@@ -350,7 +349,7 @@ h3.sub .en{font-family:"Bangers",cursive;font-size:16px;letter-spacing:.1em;colo
   overflow-x:auto;
 }
 
-/* ---------- 页脚 ---------- */
+/* ---------- 푸터 ---------- */
 footer{
   margin-top:90px;
   background:var(--ink);
@@ -375,7 +374,7 @@ footer .fin{
 footer p{font-size:13.5px;color:#bdbdbd;margin-top:14px;max-width:640px;margin-left:auto;margin-right:auto}
 footer a{color:var(--teal-lt)}
 
-/* ---------- 进度条 ---------- */
+/* ---------- 진행 바 ---------- */
 .progress{
   position:fixed;top:0;left:0;height:6px;width:0;
   background:repeating-linear-gradient(45deg,var(--orange) 0 14px,var(--coral) 14px 28px);
@@ -390,8 +389,9 @@ footer a{color:var(--teal-lt)}
   .chapter .num{font-size:38px}
 }
 </style>
-<meta name="description" content="GPT-6 Astra 模型指南 · 漫画版摘录 - Shoa Lin visual comic article"><link rel="canonical" href="https://www.bydziwen.top/comics/gpt-6-astra/ko/"><meta property="og:title" content="GPT-6 Astra 模型指南 · 漫画版摘录"><meta property="og:description" content="Visual comic article by Shoa Lin"><meta property="og:url" content="https://www.bydziwen.top/comics/gpt-6-astra/ko/"><meta property="og:image" content="https://www.bydziwen.top/assets/images/avatar/profile.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="zh-CN" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="en" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="ja" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="ko" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="th" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="fr" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="de" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="vi" href="https://www.bydziwen.top/comics/"><link rel="alternate" hreflang="x-default" href="https://www.bydziwen.top/comics/"><link rel="stylesheet" href="/comics/navigation.css?v=2">
+<meta name="description" content="GPT-6 Astra 모델 가이드 · 만화판 발췌 - Shoa Lin visual comic article"><link rel="canonical" href="https://www.bydziwen.top/comics/gpt-6-astra/ko/"><meta property="og:title" content="GPT-6 Astra 모델 가이드 · 만화판 발췌"><meta property="og:description" content="Visual comic article by Shoa Lin"><meta property="og:url" content="https://www.bydziwen.top/comics/gpt-6-astra/ko/"><meta property="og:image" content="https://www.bydziwen.top/assets/avatar/profile.jpg"><meta name="twitter:card" content="summary_large_image"><link rel="alternate" hreflang="zh-CN" href="https://www.bydziwen.top/comics/gpt-6-astra/"><link rel="alternate" hreflang="en" href="https://www.bydziwen.top/comics/gpt-6-astra/en/"><link rel="alternate" hreflang="ja" href="https://www.bydziwen.top/comics/gpt-6-astra/ja/"><link rel="alternate" hreflang="ko" href="https://www.bydziwen.top/comics/gpt-6-astra/ko/"><link rel="alternate" hreflang="th" href="https://www.bydziwen.top/comics/gpt-6-astra/th/"><link rel="alternate" hreflang="fr" href="https://www.bydziwen.top/comics/gpt-6-astra/fr/"><link rel="alternate" hreflang="de" href="https://www.bydziwen.top/comics/gpt-6-astra/de/"><link rel="alternate" hreflang="vi" href="https://www.bydziwen.top/comics/gpt-6-astra/vi/"><link rel="alternate" hreflang="x-default" href="https://www.bydziwen.top/comics/gpt-6-astra/"><link rel="stylesheet" href="/comics/navigation.css?v=2"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script src="/comics/navigation.js?v=2" type="module"></script>
+<style>.comic-langs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;max-width:980px;margin:22px auto 0;padding:0 20px;font:600 13px/1.4 system-ui,-apple-system,sans-serif}.comic-langs a{display:inline-flex;align-items:center;min-height:32px;padding:4px 2px;border-bottom:2px solid transparent;color:#5a5a5a;text-decoration:none}.comic-langs a:hover{color:#141414}.comic-langs a[aria-current="page"]{color:#141414;border-bottom-color:#ff6b35}</style>
 </head>
 <body><header class="site-header comic-shell" data-comic-header>
   <div class="comic-shell__inner">
@@ -414,271 +414,300 @@ footer a{color:var(--teal-lt)}
   </div>
 </header>
 <div class="progress" id="progress"></div>
-<!-- ============ 刊头 ============ -->
+<nav class="comic-langs" aria-label="언어"><a href="/comics/gpt-6-astra/" hreflang="zh-CN" lang="zh-CN">简体中文</a><a href="/comics/gpt-6-astra/en/" hreflang="en" lang="en">English</a><a href="/comics/gpt-6-astra/ja/" hreflang="ja" lang="ja">日本語</a><a href="/comics/gpt-6-astra/ko/" hreflang="ko" lang="ko" aria-current="page">한국어</a><a href="/comics/gpt-6-astra/th/" hreflang="th" lang="th">ไทย</a><a href="/comics/gpt-6-astra/fr/" hreflang="fr" lang="fr">Français</a><a href="/comics/gpt-6-astra/de/" hreflang="de" lang="de">Deutsch</a><a href="/comics/gpt-6-astra/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav>
+
+<!-- ============ 마스트헤드 ============ -->
 <header class="masthead">
-<svg aria-hidden="true" class="hero-burst" viewbox="0 0 100 100">
-<polygon fill="#ffd23f" points="50,0 58,18 74,8 74,28 94,24 86,42 100,50 86,58 94,76 74,72 74,92 58,82 50,100 42,82 26,92 26,72 6,76 14,58 0,50 14,42 6,24 26,28 26,8 42,18" stroke="#141414" stroke-width="2.5"></polygon>
-</svg>
-<div class="burst-txt" style="position:absolute;top:36px;right:6vw;width:150px;height:150px;pointer-events:none">
-<span style="font-family:'ZCOOL KuaiLe',cursive;font-size:19px;line-height:1.3;text-align:center">官方文档<br/>漫画版摘录</span>
-</div>
-<div class="sfx sfx-1">BOOM!</div>
-<div class="sfx sfx-2">ZAP!</div>
-<span class="kicker">OPENAI API · MODEL GUIDANCE</span>
-<h1 class="title">GPT-6 ASTRA
-    <span class="cn">模型使用指南 · 中文漫画摘录</span>
-</h1>
-<div class="issue-bar">
-<span>VOL.01</span>
-<span>原文：developers.openai.com</span>
-<span>Prompt 保留英文原文 + 中文解读</span>
-</div>
-</header>
-<main class="wrap">
-<!-- 开场白 -->
-<div class="bubble pop reveal" style="--rr:-.5deg;margin-top:44px;max-width:640px">
-<b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">📖 阅读说明：</b>
-    本文摘录翻译自 OpenAI 官方文档《Model guidance — Using GPT-6 Astra》。正文已译为中文；所有 <b>Prompt 原文保留英文</b>（直接复制即可用），每条 Prompt 下方附「中文解读」帮你理解它的作用。
+  <svg class="hero-burst" viewBox="0 0 100 100" aria-hidden="true">
+    <polygon fill="#ffd23f" stroke="#141414" stroke-width="2.5"
+      points="50,0 58,18 74,8 74,28 94,24 86,42 100,50 86,58 94,76 74,72 74,92 58,82 50,100 42,82 26,92 26,72 6,76 14,58 0,50 14,42 6,24 26,28 26,8 42,18"/>
+  </svg>
+  <div class="burst-txt" style="position:absolute;top:36px;right:6vw;width:150px;height:150px;pointer-events:none">
+    <span style="font-family:'ZCOOL KuaiLe',cursive;font-size:19px;line-height:1.3;text-align:center">공식 문서<br>만화판 발췌</span>
   </div>
-<!-- ============ 第一话：介绍 ============ -->
-<div class="chapter reveal">
-<span class="num">01</span>
-<h2>认识 GPT-6 Astra<small>INTRODUCTION</small></h2>
-<div class="zig"></div>
-</div>
-<section class="panel rot-l reveal" style="--rr:-.6deg">
-<p><b>GPT-6 Astra 是 OpenAI 迄今最智能的模型</b>，在计算机操作（computer use）、网页浏览、软件工程、科学研究及专业工作方面拥有最先进水平的表现。它擅长跨代码、浏览器和专业软件执行多步骤工作流。</p>
-<p style="margin-top:12px">在多项评测中，Astra 用<b>明显更少的输出 token</b> 取得了更强的成绩——尽管单 token 定价更高，每个任务的估算 API 成本反而低于早期模型。</p>
-<p style="margin-top:12px">Astra 同时也是<b>对齐性最强</b>的模型：行事谨慎、尊重任务边界、沟通透明。当指令存在解释空间时，它会利用已有上下文自行补齐常规缺口；而当答案可能改变结果时，它会提出聚焦的问题。它能纳入新需求、按要求调整方向、回答支线问题而不丢失主任务。</p>
-<p style="margin-top:16px">在 Responses API 请求中这样调用它：</p>
-<div class="codex-cmd">model = "gpt-6-astra"</div>
-</section>
-<!-- ============ 第二话：新特性 ============ -->
-<div class="chapter reveal">
-<span class="num">02</span>
-<h2>有什么新玩意儿？<small>WHAT'S NEW</small></h2>
-<div class="zig"></div>
-</div>
-<div class="feature-grid">
-<div class="f-card reveal">
-<svg class="burst-mini" viewbox="0 0 100 100"><polygon fill="#ff2d64" points="50,0 60,20 78,10 78,30 98,28 88,46 100,58 82,62 88,82 68,76 62,96 50,80 38,96 32,76 12,82 18,62 0,58 12,46 2,28 22,30 22,10 40,20" stroke="#141414" stroke-width="3"></polygon></svg>
-<span class="sticker orange">新能力</span>
-<div class="en-name">ASYNC TOOL CALLING</div>
-<h3>异步工具调用</h3>
-<p>当你的应用正在执行某个工具时，Astra 可以<b>继续推理、调用其他工具、或先回答请求中独立的部分</b>。在 function / custom tool 上设置 <code>async: true</code>，准备好后用原 <code>call_id</code> 返回结果即可。工具执行与挂起工作仍由你的应用管理。</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker teal">新能力</span>
-<div class="en-name">MID-TURN STEERING</div>
-<h3>中途转向（插话）</h3>
-<p>模型工作过程中，你可以<b>追加新的用户指令</b>——比如纠正或变更需求。通过 WebSocket 连接，Responses API 会保留已完成的工作，并把更新纳入后续续写之中。</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker yellow">新能力</span>
-<div class="en-name">CONFIGURATION UPDATE</div>
-<h3>会话中途改推理强度</h3>
-<p>添加一个 <code>configuration_update</code> 输入项，即可对困难任务<b>提高 reasoning effort</b>、对常规追问降低强度——而且<b>不重写原始 prompt 前缀，缓存得以保留</b>。该设置持续生效，直到被下一个 <code>configuration_update</code> 覆盖。</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker">安全</span>
-<div class="en-name">MISALIGNMENT MONITORING</div>
-<h3>错位监控</h3>
-<p>作为 Astra 强化安全措施的一部分，OpenAI 的系统会<b>异步监控错位（misalignment）行为</b>，并在必要时触发告警。</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker">注意</span>
-<div class="en-name">LIMITATIONS</div>
-<h3>限制</h3>
-<p>Astra <b>不支持 <code>none</code> 推理强度</b>；在欧盟数据驻留（EU data residency）下<b>不可用 Fast 模式</b>。</p>
-</div>
-<div class="f-card reveal">
-<span class="sticker teal">继承</span>
-<div class="en-name">GPT-5.6 CAPABILITIES</div>
-<h3>既有能力全部保留</h3>
-<p>computer use、Structured Outputs、流式输出、Programmatic Tool Calling、多智能体编排、prompt 缓存、持久化推理、compaction、pro 模式——GPT-5.6 有的，Astra 都支持。</p>
-</div>
-</div>
-<!-- ============ 第三话：行为特点 ============ -->
-<div class="chapter reveal">
-<span class="num">03</span>
-<h2>它的「性格」与调教总览<small>PROMPTING BEST PRACTICES</small></h2>
-<div class="zig"></div>
-</div>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<p>Astra 比 GPT-5.6 Sol 等前代更聪明、更能干，同时也展现出一些<b>可以通过 prompt 针对性优化</b>的行为模式：</p>
-<ul class="trait-list">
-<li class="reveal" data-i="1"><b>主动性与跟进</b> —— 它被设计为更高效的协作者，因此当额外输入可能实质性改变结果时，<b>更倾向于停下来提问</b>——而你可能期望它自行做合理假设、坚持下去。</li>
-<li class="reveal" data-i="2"><b>指令遵循</b> —— 通用指令遵循能力比以往更强，给你更大的行为控制权。但它对 skills 和 <code>AGENTS.md</code> 等文件中的指令也更敏感。<b>强烈建议审计</b>模型可访问的 skills 和文件中可能影响其行为的指令。</li>
-<li class="reveal" data-i="3"><b>个性与文风</b> —— 倾向于详细、带格式的回复，且可能跨会话重复使用某些固定短语。请明确指定你的应用所需的写作风格与结构。</li>
-<li class="reveal" data-i="4"><b>子代理委派</b> —— 它的委派频率可能低于你的工作流所需。请指定何时、在多大程度上使用 subagents 并行工作。</li>
-<li class="reveal" data-i="5"><b>测试与验证</b> —— 写代码时，它倾向于在认定任务完成前做彻底测试；对小任务而言，这可能导致测试范围超出任务所需。</li>
-</ul>
-</section>
-<!-- ============ 第四话：五条调教咒语 ============ -->
-<div class="chapter reveal">
-<span class="num">04</span>
-<h2>五条调教咒语（Prompt 原文 + 解读）<small>PROMPT SPELLS</small></h2>
-<div class="zig"></div>
-</div>
-<!-- 4.1 主动性 -->
-<h3 class="sub reveal"><span class="star">★</span>咒语一：让它更自主地干活 <span class="en">INITIATIVE &amp; FOLLOW-THROUGH</span></h3>
-<section class="panel rot-l reveal" style="--rr:-.5deg">
-<p>Astra 在长任务中保持连贯的能力优于前代，但也更容易在「前代会直接假设」的地方要求澄清。想让它更自主，从这个 prompt 开始：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>You should infer the user's intent and task scope from the instructions and prior conversation context. Your job is to bias towards action and carry the user's intended task to completion.
+  <div class="sfx sfx-1">BOOM!</div>
+  <div class="sfx sfx-2">ZAP!</div>
+  <span class="kicker">OPENAI API · MODEL GUIDANCE</span>
+  <h1 class="title">GPT-6 ASTRA
+    <span class="cn">모델 사용 가이드 · 한국어 만화 발췌</span>
+  </h1>
+  <div class="issue-bar">
+    <span>VOL.01</span>
+    <span>원문: developers.openai.com</span>
+    <span>Prompt는 영어 원문 유지 + 한국어 해설</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 오프닝 -->
+  <div class="bubble pop reveal" style="--rr:-.5deg;margin-top:44px;max-width:640px">
+    <b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">📖 읽기 전에:</b>
+    이 글은 OpenAI 공식 문서 《Model guidance — Using GPT-6 Astra》를 발췌해 옮긴 것입니다. 본문은 한국어로 번역했고, 모든 <b>Prompt는 영어 원문 그대로</b> 두었습니다(복사해서 바로 쓸 수 있어요). 각 Prompt 아래에는 「한국어 해설」을 붙여 어떤 역할을 하는지 이해를 돕습니다.
+  </div>
+
+  <!-- ============ 1화: 소개 ============ -->
+  <div class="chapter reveal">
+    <span class="num">01</span>
+    <h2>GPT-6 Astra를 만나다<small>INTRODUCTION</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-l reveal" style="--rr:-.6deg">
+    <p><b>GPT-6 Astra는 OpenAI가 지금까지 내놓은 가장 똑똑한 모델</b>로, 컴퓨터 조작(computer use), 웹 브라우징, 소프트웨어 엔지니어링, 과학 연구, 전문 업무 전반에서 최고 수준의 성능을 보여줍니다. 코드, 브라우저, 전문 소프트웨어를 넘나드는 다단계 워크플로를 특히 잘 해냅니다.</p>
+    <p style="margin-top:12px">여러 벤치마크에서 Astra는 <b>눈에 띄게 적은 출력 토큰</b>으로 더 좋은 점수를 냈습니다. 토큰당 단가는 더 높지만, 작업 하나당 추정 API 비용은 오히려 이전 모델보다 낮습니다.</p>
+    <p style="margin-top:12px">Astra는 동시에 <b>정렬(alignment)이 가장 잘 된</b> 모델이기도 합니다. 신중하게 움직이고, 작업 범위를 존중하며, 투명하게 소통합니다. 지시에 해석의 여지가 있으면 이미 주어진 맥락으로 흔한 빈틈을 스스로 메우고, 답에 따라 결과가 달라질 수 있을 때는 핵심을 짚는 질문을 던집니다. 새 요구사항을 받아들이고, 요청에 따라 방향을 틀고, 곁가지 질문에 답하면서도 본래 작업을 놓치지 않습니다.</p>
+    <p style="margin-top:16px">Responses API 요청에서는 이렇게 호출하면 됩니다:</p>
+    <div class="codex-cmd">model = "gpt-6-astra"</div>
+  </section>
+
+  <!-- ============ 2화: 새 기능 ============ -->
+  <div class="chapter reveal">
+    <span class="num">02</span>
+    <h2>뭐가 새로워졌을까?<small>WHAT'S NEW</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="f-card reveal">
+      <svg class="burst-mini" viewBox="0 0 100 100"><polygon fill="#ff2d64" stroke="#141414" stroke-width="3" points="50,0 60,20 78,10 78,30 98,28 88,46 100,58 82,62 88,82 68,76 62,96 50,80 38,96 32,76 12,82 18,62 0,58 12,46 2,28 22,30 22,10 40,20"/></svg>
+      <span class="sticker orange">새 기능</span>
+      <div class="en-name">ASYNC TOOL CALLING</div>
+      <h3>비동기 도구 호출</h3>
+      <p>앱이 어떤 도구를 실행하는 동안에도 Astra는 <b>추론을 이어가거나, 다른 도구를 호출하거나, 요청 중 독립적인 부분에 먼저 답할</b> 수 있습니다. function / custom tool에 <code>async: true</code>를 설정하고, 준비되면 원래의 <code>call_id</code>로 결과를 돌려주기만 하면 됩니다. 도구 실행과 대기 중인 작업 관리는 여전히 앱의 몫입니다.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker teal">새 기능</span>
+      <div class="en-name">MID-TURN STEERING</div>
+      <h3>중간 방향 전환(끼어들기)</h3>
+      <p>모델이 작업하는 도중에 <b>새 사용자 지시를 덧붙일</b> 수 있습니다. 요구사항을 바로잡거나 바꾸는 식이죠. WebSocket 연결을 통하면 Responses API가 이미 끝난 작업은 보존한 채, 업데이트를 이후 진행에 반영합니다.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker yellow">새 기능</span>
+      <div class="en-name">CONFIGURATION UPDATE</div>
+      <h3>세션 중간에 추론 강도 바꾸기</h3>
+      <p><code>configuration_update</code> 입력 항목 하나만 추가하면 어려운 작업에는 <b>reasoning effort를 올리고</b>, 평범한 후속 질문에는 낮출 수 있습니다. 게다가 <b>원래 prompt 접두부를 다시 쓰지 않으니 캐시가 그대로 유지</b>됩니다. 이 설정은 다음 <code>configuration_update</code>가 덮어쓸 때까지 계속 적용됩니다.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker">안전</span>
+      <div class="en-name">MISALIGNMENT MONITORING</div>
+      <h3>정렬 이탈 모니터링</h3>
+      <p>Astra의 강화된 안전 조치의 일환으로, OpenAI 시스템이 <b>정렬 이탈(misalignment) 행동을 비동기로 모니터링</b>하고 필요하면 경보를 울립니다.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker">주의</span>
+      <div class="en-name">LIMITATIONS</div>
+      <h3>제한 사항</h3>
+      <p>Astra는 <b><code>none</code> 추론 강도를 지원하지 않으며</b>, EU 데이터 레지던시(EU data residency) 환경에서는 <b>Fast 모드를 쓸 수 없습니다</b>.</p>
+    </div>
+    <div class="f-card reveal">
+      <span class="sticker teal">계승</span>
+      <div class="en-name">GPT-5.6 CAPABILITIES</div>
+      <h3>기존 능력은 전부 그대로</h3>
+      <p>computer use, Structured Outputs, 스트리밍 출력, Programmatic Tool Calling, 멀티 에이전트 오케스트레이션, prompt 캐싱, 지속 추론, compaction, pro 모드까지. GPT-5.6에 있던 건 Astra도 모두 지원합니다.</p>
+    </div>
+  </div>
+
+  <!-- ============ 3화: 행동 특성 ============ -->
+  <div class="chapter reveal">
+    <span class="num">03</span>
+    <h2>Astra의 「성격」과 길들이기 개요<small>PROMPTING BEST PRACTICES</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra는 GPT-5.6 Sol 같은 이전 세대보다 더 똑똑하고 유능하지만, 동시에 <b>prompt로 콕 집어 다듬을 수 있는</b> 몇 가지 행동 패턴도 보여줍니다:</p>
+    <ul class="trait-list">
+      <li data-i="1" class="reveal"><b>주도성과 끝까지 밀고 가기</b> —— 더 효율적인 협업자가 되도록 설계된 탓에, 추가 입력이 결과를 실질적으로 바꿀 수 있다 싶으면 <b>멈추고 질문하는 쪽으로 기울어집니다</b>. 당신은 알아서 합리적으로 가정하고 밀고 나가길 바랐을 수도 있는데 말이죠.</li>
+      <li data-i="2" class="reveal"><b>지시 따르기</b> —— 전반적인 지시 이행 능력이 이전보다 강해져 행동을 더 세밀하게 통제할 수 있습니다. 다만 skills나 <code>AGENTS.md</code> 같은 파일 속 지시에도 더 민감하게 반응합니다. 모델이 접근할 수 있는 skills와 파일에 행동을 좌우할 만한 지시가 있는지 <b>꼭 점검해 보길 권합니다</b>.</li>
+      <li data-i="3" class="reveal"><b>성격과 문체</b> —— 자세하고 서식이 들어간 답변을 선호하며, 세션을 넘나들며 특정 표현을 되풀이할 수 있습니다. 앱에 필요한 글쓰기 스타일과 구조를 명확히 지정해 주세요.</li>
+      <li data-i="4" class="reveal"><b>서브에이전트 위임</b> —— 위임 빈도가 워크플로에 필요한 수준보다 낮을 수 있습니다. 언제, 어느 정도로 subagents를 병렬로 쓸지 지정해 주세요.</li>
+      <li data-i="5" class="reveal"><b>테스트와 검증</b> —— 코드를 쓸 때 작업이 끝났다고 판단하기 전에 철저히 테스트하려는 경향이 있습니다. 작은 작업이라면 테스트 범위가 필요 이상으로 커질 수 있습니다.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 4화: 다섯 가지 길들이기 주문 ============ -->
+  <div class="chapter reveal">
+    <span class="num">04</span>
+    <h2>다섯 가지 길들이기 주문(Prompt 원문 + 해설)<small>PROMPT SPELLS</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <!-- 4.1 주도성 -->
+  <h3 class="sub reveal"><span class="star">★</span>주문 하나: 더 알아서 일하게 만들기 <span class="en">INITIATIVE &amp; FOLLOW-THROUGH</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.5deg">
+    <p>Astra는 긴 작업에서 일관성을 유지하는 능력이 이전 세대보다 낫지만, 「이전 모델이라면 그냥 가정하고 넘어갔을」 지점에서 확인을 요청하기도 더 쉽습니다. 더 자율적으로 움직이게 하려면 이 prompt부터 시작하세요:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>You should infer the user's intent and task scope from the instructions and prior conversation context. Your job is to bias towards action and carry the user's intended task to completion.
 
 When the user expresses intent to perform new work or fix an existing issue, persist until the user's intended goal is complete. Progress autonomously towards the user's goal (e.g. creating isolated worktrees / checkouts if needed, resolving merge conflicts, read-only actions, creating draft PRs etc.) unless they are clearly destructive or irreversible.</pre>
-</div>
-<div class="explain">
-      让模型从上下文<b>推断用户意图和任务范围</b>，偏向行动而非询问，一路把任务做完。只要不是明显破坏性/不可逆的操作（如建 worktree、解决冲突、只读操作、建草稿 PR），都应自主推进。
     </div>
-<p style="margin-top:24px">当用户意图不清时，模型更可能要求澄清。若用户的措辞已隐含授权，用这条让它跟进执行：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>When the user's prompt indicates a request for action, such as "can you...", "I want to...", "help me..." and similar expressions, treat these as instructions to do the work and take action. Do not stop at acknowledging capability (e.g. "Yes…"), proposing a plan, or offering to continue. Do not settle for a partial or "helpful enough" solution that does not fully satisfy the user's task to save time, effort or tokens. If a task requires sustained work, complete all the necessary work until the intended outcome is fulfilled.</pre>
-</div>
-<div class="explain">
-      用户说「能不能…」「我想…」「帮我…」时，<b>直接当作执行指令</b>——别停在「可以呀」、别只给计划、别问「要我继续吗」。也不要为了省时间/省 token 交一个「差不多够用」的半成品，必须干到达成预期结果。
+    <div class="explain">
+      모델이 맥락에서 <b>사용자의 의도와 작업 범위를 추론</b>하고, 묻기보다 행동하는 쪽으로 기울어 작업을 끝까지 완수하게 합니다. 명백히 파괴적이거나 되돌릴 수 없는 작업이 아니라면(worktree 만들기, 충돌 해결, 읽기 전용 작업, 초안 PR 만들기 등) 스스로 밀고 나가야 합니다.
     </div>
-<p style="margin-top:24px">让模型只在<b>准备好具体、可评审的成果之后</b>再请求批准，避免在开工前就被卡住：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result. For example, before deploying a change, writing to an external application, merging a PR or publishing a site, do all the required work first so that user approval is the final step. You don't need user permission for reversible tasks, read-only actions, reviews or fixes, or anything for which authorization is provided earlier in the session or strongly implied from the task instruction.
+
+    <p style="margin-top:24px">사용자 의도가 불분명하면 모델은 확인을 요청할 가능성이 높아집니다. 사용자의 말투에 이미 승인이 담겨 있다면, 이 문장으로 바로 실행하게 하세요:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>When the user's prompt indicates a request for action, such as "can you...", "I want to...", "help me..." and similar expressions, treat these as instructions to do the work and take action. Do not stop at acknowledging capability (e.g. "Yes…"), proposing a plan, or offering to continue. Do not settle for a partial or "helpful enough" solution that does not fully satisfy the user's task to save time, effort or tokens. If a task requires sustained work, complete all the necessary work until the intended outcome is fulfilled.</pre>
+    </div>
+    <div class="explain">
+      사용자가 「~할 수 있어?」「~하고 싶어」「~좀 도와줘」라고 말하면 <b>곧바로 실행 지시로 받아들이게</b> 합니다. 「네, 가능해요」에서 멈추지 말고, 계획만 내놓지 말고, 「계속할까요?」라고 묻지도 말 것. 시간이나 토큰을 아끼려고 「이 정도면 됐지」 수준의 반쪽짜리 결과물을 내지 말고, 기대한 결과가 나올 때까지 해내야 합니다.
+    </div>
+
+    <p style="margin-top:24px"><b>구체적이고 검토 가능한 결과물을 준비한 뒤에야</b> 승인을 요청하게 해서, 시작도 하기 전에 막히는 일을 막습니다:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result. For example, before deploying a change, writing to an external application, merging a PR or publishing a site, do all the required work first so that user approval is the final step. You don't need user permission for reversible tasks, read-only actions, reviews or fixes, or anything for which authorization is provided earlier in the session or strongly implied from the task instruction.
 
 Do not introduce unsolicited warnings, disclaimers, approval flows, or safety/compliance checklists due to hypothetical risk.</pre>
-</div>
-<div class="explain">
-      在部署、写外部应用、合并 PR、发布网站之前，<b>先把所有能做的都做完</b>，让用户批准成为最后一步。可逆操作、只读操作、评审修复等无需许可。也不要因假想风险而主动抛出警告、免责声明或审批流程。另外，模型默认喜欢边干活边问「非阻塞式」问题——按你应用需要的自主程度调整这些 prompt。
     </div>
-</section>
-<!-- 4.2 指令遵循 -->
-<h3 class="sub reveal"><span class="star">★</span>咒语二：明确指令优先级 <span class="en">INSTRUCTION FOLLOWING</span></h3>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<p>Astra 能遵循更长的指令，但对上下文中的信息也更敏感——例如 skill 文件里含糊或冲突的指引可能导致它过早暂停、阻塞工作。请<b>显式声明用户指令与 skills 的优先级</b>：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>The user's instructions take precedence over guidelines provided in a skill. If explicit user instructions conflict with a skill's instructions, prioritize the user's instructions.</pre>
-</div>
-<div class="explain">
-      一句话定规矩：<b>用户指令 &gt; skill 指引</b>。冲突时以用户为准。
+    <div class="explain">
+      배포, 외부 앱에 쓰기, PR 머지, 사이트 게시 전에 <b>할 수 있는 일은 전부 먼저 끝내</b>, 사용자 승인이 마지막 단계가 되게 합니다. 되돌릴 수 있는 작업, 읽기 전용 작업, 리뷰와 수정 등에는 허락이 필요 없습니다. 가상의 위험 때문에 먼저 나서서 경고, 면책 문구, 승인 절차를 내밀지도 말 것. 덧붙여 모델은 기본적으로 일하면서 「비차단형」 질문을 던지길 좋아하니, 앱에 필요한 자율성 수준에 맞춰 이 prompt들을 조절하세요.
     </div>
-<p style="margin-top:24px">当应用加载了大量 skills 和 <code>AGENTS.md</code> 这类指令文件时，让模型「供出」是哪个 skill、哪条指令导致它停顿或转向，能有效提升行为透明度：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>If a skill causes you to ask for permission or confirmation, pause, leave requested work unfinished, or diverge from the user's intent, name and link to the exact SKILL.md file you read, quote the relevant instruction, and briefly explain how it applies. Distinguish explicit skill requirements from your interpretation of guidelines.</pre>
-</div>
-<div class="explain">
-      要求模型在因 skill 而暂停/要权限/偏离意图时，<b>点名并链接具体的 SKILL.md 文件、引用相关指令原文</b>、简要说明适用理由，并区分「skill 的明确要求」与「它自己的解读」。这条很适合用来排查隐藏的冲突指引。
+  </section>
+
+  <!-- 4.2 지시 따르기 -->
+  <h3 class="sub reveal"><span class="star">★</span>주문 둘: 지시의 우선순위 못 박기 <span class="en">INSTRUCTION FOLLOWING</span></h3>
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra는 더 긴 지시도 따를 수 있지만, 맥락 속 정보에도 그만큼 민감합니다. 예를 들어 skill 파일의 모호하거나 서로 충돌하는 지침 때문에 너무 일찍 멈춰 서서 작업이 막힐 수 있습니다. <b>사용자 지시와 skills의 우선순위를 명시적으로 선언</b>하세요:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>The user's instructions take precedence over guidelines provided in a skill. If explicit user instructions conflict with a skill's instructions, prioritize the user's instructions.</pre>
     </div>
-</section>
-<!-- 4.3 文风 -->
-<h3 class="sub reveal"><span class="star">★</span>咒语三：管住它的文风 <span class="en">PERSONALITY &amp; WRITING STYLE</span></h3>
-<section class="panel rot-l reveal" style="--rr:-.6deg">
-<p>Astra 喜欢用列表、表格和 Markdown 让回复「便于扫读」。如果你的应用需要更少格式的连续段落，明确写出来：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Default to using clear, concise paragraphs, each developing one main idea. Use lists only when the information is genuinely parallel, sequential, or easier to compare, and avoid nested lists unless the hierarchy cannot be expressed clearly in prose. Use plain, simple language: familiar words, concrete examples, and precise verbs. Prefer active voice and direct statements.
+    <div class="explain">
+      한 문장으로 규칙 정하기: <b>사용자 지시 &gt; skill 지침</b>. 충돌하면 사용자가 우선입니다.
+    </div>
+
+    <p style="margin-top:24px">앱이 많은 skills와 <code>AGENTS.md</code> 같은 지시 파일을 불러오는 경우, 어떤 skill의 어떤 지시 때문에 멈추거나 방향을 틀었는지 모델이 「실토」하게 하면 행동의 투명성이 크게 올라갑니다:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>If a skill causes you to ask for permission or confirmation, pause, leave requested work unfinished, or diverge from the user's intent, name and link to the exact SKILL.md file you read, quote the relevant instruction, and briefly explain how it applies. Distinguish explicit skill requirements from your interpretation of guidelines.</pre>
+    </div>
+    <div class="explain">
+      skill 때문에 멈추거나, 권한을 요청하거나, 의도에서 벗어날 때 <b>해당 SKILL.md 파일을 이름과 링크로 지목하고 관련 지시 원문을 인용</b>하며, 왜 적용되는지 짧게 설명하고, 「skill의 명시적 요구」와 「자기 해석」을 구분하게 합니다. 숨어 있는 충돌 지침을 찾아내기에 아주 좋은 문장입니다.
+    </div>
+  </section>
+
+  <!-- 4.3 문체 -->
+  <h3 class="sub reveal"><span class="star">★</span>주문 셋: 문체 단속하기 <span class="en">PERSONALITY &amp; WRITING STYLE</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.6deg">
+    <p>Astra는 목록, 표, Markdown으로 답변을 「훑어보기 쉽게」 만들길 좋아합니다. 앱에 서식이 적은 이어지는 문단이 필요하다면 분명히 적어 주세요:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Default to using clear, concise paragraphs, each developing one main idea. Use lists only when the information is genuinely parallel, sequential, or easier to compare, and avoid nested lists unless the hierarchy cannot be expressed clearly in prose. Use plain, simple language: familiar words, concrete examples, and precise verbs. Prefer active voice and direct statements.
 
 Make sure to state the main point clearly and early, then develop it with the explanation and detail the reader needs. Let each sentence build on what came before. Develop the points that matter and provide enough support to be useful.</pre>
-</div>
-<div class="explain">
-      默认用<b>清晰简洁的段落</b>（一段一个主旨）；只在信息真正并列/有序/需对比时才用列表；语言平实、主动语态；<b>先亮观点</b>再展开，每句承接上句。
     </div>
-<p style="margin-top:24px">技术沟通场景下，这条帮你在「清晰连贯」与「专业得体」之间取得平衡：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Use plain language over jargon, and reference technical details only to the degree that it helps illustrate an idea or your work to the user. Communicate complex concepts in a clear and cohesive manner, and calibrate your writing to the level of background knowledge assumed from the user's prompt and context.</pre>
-</div>
-<div class="explain">
-      少堆术语，技术细节只在有助于说明时引用；并<b>根据用户的知识背景校准</b>写作的深浅。
+    <div class="explain">
+      기본은 <b>명확하고 간결한 문단</b>(한 문단에 한 가지 요지). 정보가 정말로 병렬이거나 순서가 있거나 비교가 필요할 때만 목록을 쓰고, 쉬운 말과 능동태로 씁니다. <b>요점을 먼저 꺼낸 뒤</b> 풀어 가고, 각 문장이 앞 문장을 이어받게 합니다.
     </div>
-<p style="margin-top:24px">想减少套话和「AI 腔」词汇，从这条开始：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Avoid using slop words or phrases like "Bottom Line:" in conclusions, "delve," "foster," "leverage," "it's worth noting," "importantly," "Question? Answer." or "This isn't about X. It's about Y.", "genuinely" or hyphenated compound descriptions and adjectives. Do not use concluding summary statements such as "In short:..", "The simplest mental model is:...".
+
+    <p style="margin-top:24px">기술적인 소통 상황에서는 이 문장이 「명확하고 일관됨」과 「전문적이고 적절함」 사이에서 균형을 잡아 줍니다:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Use plain language over jargon, and reference technical details only to the degree that it helps illustrate an idea or your work to the user. Communicate complex concepts in a clear and cohesive manner, and calibrate your writing to the level of background knowledge assumed from the user's prompt and context.</pre>
+    </div>
+    <div class="explain">
+      전문용어를 쌓지 말고, 기술 세부사항은 설명에 도움이 될 때만 끌어옵니다. 그리고 <b>사용자의 배경지식에 맞춰</b> 글의 깊이를 조절합니다.
+    </div>
+
+    <p style="margin-top:24px">상투어와 「AI 말투」 단어를 줄이고 싶다면 여기서 시작하세요:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Avoid using slop words or phrases like "Bottom Line:" in conclusions, "delve," "foster," "leverage," "it's worth noting," "importantly," "Question? Answer." or "This isn't about X. It's about Y.", "genuinely" or hyphenated compound descriptions and adjectives. Do not use concluding summary statements such as "In short:..", "The simplest mental model is:...".
 
 State the intended action directly. Avoid adding what you won't do, what will remain unchanged, or how you'll separate or categorize results. Do not use contrastive framing such as "X, not Y" or "X—not Y" that introduces an unprompted alternative that the user didn't ask about. Avoid invented compound labels like "exact-head checks" and "editorial-row layouts", vague qualifiers, and canned transitions; use plain verbs and prepositions to state the actual relationship directly.</pre>
-</div>
-<div class="explain">
-      一份「AI 套话黑名单」：禁用 <b>"delve""leverage""it's worth noting"</b> 这类泛滥词、<b>"In short:"</b> 式总结、<b>"不是 X，而是 Y"</b> 式对比框架、生造的复合标签和空洞过渡语。直接陈述要做的动作，用朴实的动词和介词说明真实关系。
     </div>
-</section>
-<!-- 4.4 子代理 -->
-<h3 class="sub reveal"><span class="star">★</span>咒语四：调节子代理委派 <span class="en">SUBAGENT DELEGATION</span></h3>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<p>Astra 接受过「拆分工作并委派给并行子代理」的训练。如果你的 harness 实现了多智能体系统，用这条调节委派力度：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>If at any point you can parallelize work by delegating tasks to another agent (no matter if you are the root or subagent), you should do so using collaboration tools if it could save time or improve quality.</pre>
-</div>
-<div class="explain">
-      无论模型是主代理还是子代理，只要能通过委派<b>并行化</b>、节省时间或提升质量，就应使用协作工具进行委派。模型对「何时、如何委派」的 prompt 响应良好，可据你的多智能体实现来调校。
+    <div class="explain">
+      일종의 「AI 상투어 블랙리스트」입니다. <b>"delve" "leverage" "it's worth noting"</b> 같은 남용 단어, <b>"In short:"</b>식 마무리 요약, <b>"X가 아니라 Y"</b>식 대비 프레임, 지어낸 복합 라벨, 공허한 전환어를 금지합니다. 할 일을 바로 서술하고, 담백한 동사와 전치사로 실제 관계를 설명하게 합니다.
     </div>
-<p style="margin-top:24px">代理之间的消息可能出现语法或空格错误，这条让代理间消息更可读：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Messages that you send to other agents and your final answer may be read by a human, so ensure they are legible. Always put proper spaces between words and/or numbers.</pre>
-</div>
-<div class="explain">
-      提醒模型：发给其他代理的消息和最终答案<b>可能被人阅读</b>，词与数字之间要正确留白，保证清晰易读。
+  </section>
+
+  <!-- 4.4 서브에이전트 -->
+  <h3 class="sub reveal"><span class="star">★</span>주문 넷: 서브에이전트 위임 조절하기 <span class="en">SUBAGENT DELEGATION</span></h3>
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <p>Astra는 「작업을 쪼개 병렬 서브에이전트에 위임」하도록 훈련받았습니다. 하네스에 멀티 에이전트 시스템이 구현돼 있다면 이 문장으로 위임 강도를 조절하세요:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>If at any point you can parallelize work by delegating tasks to another agent (no matter if you are the root or subagent), you should do so using collaboration tools if it could save time or improve quality.</pre>
     </div>
-</section>
-<!-- 4.5 测试 -->
-<h3 class="sub reveal"><span class="star">★</span>咒语五：校准测试强度 <span class="en">TESTING &amp; VERIFICATION</span></h3>
-<section class="panel rot-l reveal" style="--rr:-.5deg">
-<p>写代码任务中，校准「一处改动需要多少测试与验证」，可避免为小改动做无谓的测试或重复检查：</p>
-<div class="prompt-block">
-<span class="tab">PROMPT</span>
-<pre>Do not write tests for reversible, low-impact changes that mirror the implementation. If you do choose to verify your work with tests, make sure that the tests are meaningful and necessary to verify implementation.
+    <div class="explain">
+      모델이 루트 에이전트든 서브에이전트든, 위임으로 <b>병렬화</b>해서 시간을 아끼거나 품질을 높일 수 있다면 협업 도구로 위임해야 합니다. 「언제, 어떻게 위임할지」에 대한 prompt에 모델이 잘 반응하니, 자신의 멀티 에이전트 구현에 맞춰 조정하면 됩니다.
+    </div>
+
+    <p style="margin-top:24px">에이전트끼리 주고받는 메시지에 문법이나 띄어쓰기 오류가 생길 수 있습니다. 이 문장은 에이전트 간 메시지를 더 읽기 좋게 만듭니다:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Messages that you send to other agents and your final answer may be read by a human, so ensure they are legible. Always put proper spaces between words and/or numbers.</pre>
+    </div>
+    <div class="explain">
+      다른 에이전트에게 보내는 메시지와 최종 답변은 <b>사람이 읽을 수도 있으니</b>, 단어와 숫자 사이를 제대로 띄어 명확하고 읽기 쉽게 만들라고 일깨워 줍니다.
+    </div>
+  </section>
+
+  <!-- 4.5 테스트 -->
+  <h3 class="sub reveal"><span class="star">★</span>주문 다섯: 테스트 강도 맞추기 <span class="en">TESTING &amp; VERIFICATION</span></h3>
+  <section class="panel rot-l reveal" style="--rr:-.5deg">
+    <p>코딩 작업에서 「변경 하나에 테스트와 검증이 얼마나 필요한가」를 맞춰 주면, 작은 변경에 쓸데없는 테스트나 반복 점검을 하는 일을 피할 수 있습니다:</p>
+    <div class="prompt-block">
+      <span class="tab">PROMPT</span>
+      <pre>Do not write tests for reversible, low-impact changes that mirror the implementation. If you do choose to verify your work with tests, make sure that the tests are meaningful and necessary to verify implementation.
 
 Run tests appropriate to the change and complete required checks. Once those pass, broaden or repeat testing only when new changes, failures, or unresolved concerns justify it; otherwise, continue toward completing the task.</pre>
-</div>
-<div class="explain">
-<b>可逆、低影响的改动不要写「复述实现」的测试</b>；要写就写有意义的。先跑与改动相称的测试和必需检查，通过后，除非有新改动、失败或未决问题，否则继续推进任务，别无限扩大测试范围。
     </div>
-</section>
-<!-- ============ 第五话：迁移 ============ -->
-<div class="chapter reveal">
-<span class="num">05</span>
-<h2>迁移速查表<small>MIGRATION QUICKSTART</small></h2>
-<div class="zig"></div>
-</div>
-<section class="panel rot-r reveal" style="--rr:.5deg">
-<span class="sticker orange">用 Codex 一键迁移</span>
-<p style="margin-top:12px">Codex 可以通过 OpenAI Docs skill 应用本指南中的推荐改动：</p>
-<div class="codex-cmd">$openai-docs migrate this project to GPT-6 Astra</div>
-<p>想在其他编程代理中使用该 skill，可从 OpenAI 的 skills 仓库下载。</p>
-<p style="margin-top:22px">手动迁移：把 <code>model</code> 设为 <code>gpt-6-astra</code>，然后逐项检查：</p>
-<ul class="migrate">
-<li class="reveal"><b>推理强度：</b>如果你现在用 <code>none</code> 或 <code>minimal</code>，先从 <code>low</code> 起步对比效果；否则保持当前有效推理强度。Responses 用 <code>reasoning.effort</code>，Chat Completions 用 <code>reasoning_effort</code>。</li>
-<li class="reveal"><b>工具调用：</b>使用 Responses API。Astra 虽支持 Chat Completions，但<b>工具调用必须走 Responses</b>。</li>
-<li class="reveal"><b>不支持的参数：</b>移除 <code>temperature</code>、<code>top_p</code>、<code>top_logprobs</code>；Chat Completions 还需移除 <code>logprobs</code>；Responses 需从 <code>include</code> 中移除 <code>message.output_text.logprobs</code>。</li>
-<li class="reveal"><b>Fast 模式：</b>欧盟数据驻留请用 Standard 处理。Astra 在 EU 数据驻留下不支持 <code>service_tier: "fast"</code> 或 <code>"priority"</code>；且 Astra 的 Fast 模式<b>不含延迟 SLA</b>。</li>
-<li class="reveal"><b>变更推理强度：</b>若应用需要在回复之间调整强度，在标准单代理请求中使用 <code>configuration_update</code> 输入项；保持请求级 <code>reasoning.effort</code> 不变，以保留 prompt 前缀用于缓存。采用前先确认兼容性限制。</li>
-<li class="reveal"><b>Prompt 缓存：</b>从 GPT-5.5 或更早版本迁移时，把 <code>prompt_cache_retention</code> 替换为 <code>prompt_cache_options.ttl</code> 并设为 <code>"30m"</code>。注意查阅缓存边界与缓存写入计费等变更。</li>
-<li class="reveal"><b>不必要的审批停顿：</b>如果模型总在推进前反复请求批准，用「咒语一」的主动性指引来提升自主执行程度。</li>
-</ul>
-</section>
-<!-- 结尾对话框 -->
-<div class="bubble tail-r reveal" style="--rr:.6deg;margin:64px 0 0 auto;max-width:600px">
-<b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">💡 一句话总结：</b>
-    Astra 更聪明也更「谨慎」——想让它火力全开，就要用 prompt 明确告诉它：<b>多自主、谁说了算、怎么写、何时委派、测多少</b>。
+    <div class="explain">
+      <b>되돌릴 수 있는 저영향 변경에는 「구현을 그대로 베낀」 테스트를 쓰지 말 것</b>. 쓴다면 의미 있는 것만 씁니다. 먼저 변경 규모에 맞는 테스트와 필수 검사를 돌리고, 통과하면 새 변경이나 실패, 미해결 문제가 없는 한 작업을 계속 진행합니다. 테스트 범위를 끝없이 넓히지 않도록.
+    </div>
+  </section>
+
+  <!-- ============ 5화: 마이그레이션 ============ -->
+  <div class="chapter reveal">
+    <span class="num">05</span>
+    <h2>마이그레이션 치트시트<small>MIGRATION QUICKSTART</small></h2>
+    <div class="zig"></div>
+  </div>
+
+  <section class="panel rot-r reveal" style="--rr:.5deg">
+    <span class="sticker orange">Codex로 한 번에 마이그레이션</span>
+    <p style="margin-top:12px">Codex는 OpenAI Docs skill을 통해 이 가이드의 권장 변경사항을 적용할 수 있습니다:</p>
+    <div class="codex-cmd">$openai-docs migrate this project to GPT-6 Astra</div>
+    <p>다른 코딩 에이전트에서 이 skill을 쓰고 싶다면 OpenAI의 skills 저장소에서 내려받으세요.</p>
+
+    <p style="margin-top:22px">수동 마이그레이션: <code>model</code>을 <code>gpt-6-astra</code>로 바꾼 뒤 항목별로 확인하세요:</p>
+    <ul class="migrate">
+      <li class="reveal"><b>추론 강도:</b> 지금 <code>none</code>이나 <code>minimal</code>을 쓰고 있다면 <code>low</code>부터 시작해 효과를 비교하고, 아니라면 현재 잘 작동하는 추론 강도를 유지하세요. Responses는 <code>reasoning.effort</code>, Chat Completions는 <code>reasoning_effort</code>를 씁니다.</li>
+      <li class="reveal"><b>도구 호출:</b> Responses API를 사용하세요. Astra가 Chat Completions도 지원하긴 하지만, <b>도구 호출은 반드시 Responses를 거쳐야</b> 합니다.</li>
+      <li class="reveal"><b>지원하지 않는 매개변수:</b> <code>temperature</code>, <code>top_p</code>, <code>top_logprobs</code>를 제거하세요. Chat Completions에서는 <code>logprobs</code>도 제거해야 하고, Responses에서는 <code>include</code>에서 <code>message.output_text.logprobs</code>를 빼야 합니다.</li>
+      <li class="reveal"><b>Fast 모드:</b> EU 데이터 레지던시에서는 Standard 처리를 사용하세요. Astra는 EU 데이터 레지던시에서 <code>service_tier: "fast"</code>나 <code>"priority"</code>를 지원하지 않으며, Astra의 Fast 모드에는 <b>지연 시간 SLA가 포함되지 않습니다</b>.</li>
+      <li class="reveal"><b>추론 강도 변경:</b> 앱이 응답 사이에 강도를 조절해야 한다면, 표준 단일 에이전트 요청에서 <code>configuration_update</code> 입력 항목을 사용하세요. 요청 수준의 <code>reasoning.effort</code>는 그대로 두어 prompt 접두부를 캐시용으로 보존합니다. 도입 전에 호환성 제약을 먼저 확인하세요.</li>
+      <li class="reveal"><b>Prompt 캐싱:</b> GPT-5.5 이하 버전에서 옮겨 온다면 <code>prompt_cache_retention</code>을 <code>prompt_cache_options.ttl</code>로 바꾸고 <code>"30m"</code>으로 설정하세요. 캐시 경계와 캐시 쓰기 과금 등 바뀐 내용도 확인해 두세요.</li>
+      <li class="reveal"><b>불필요한 승인 대기:</b> 모델이 진행하기 전에 자꾸 승인을 요청한다면, 「주문 하나」의 주도성 지침으로 자율 실행 수준을 끌어올리세요.</li>
+    </ul>
+  </section>
+
+  <!-- 마무리 말풍선 -->
+  <div class="bubble tail-r reveal" style="--rr:.6deg;margin:64px 0 0 auto;max-width:600px">
+    <b style="font-family:'ZCOOL KuaiLe',cursive;font-size:17px">💡 한 줄 요약:</b>
+    Astra는 더 똑똑하지만 더 「신중」하기도 합니다. 화력을 최대로 끌어내고 싶다면 prompt로 분명히 말해 주세요: <b>얼마나 알아서 할지, 누구 말이 우선인지, 어떻게 쓸지, 언제 위임할지, 얼마나 테스트할지</b>.
   </div>
 </main>
+
 <footer>
-<span class="fin">FIN.</span>
-<p>本页为 OpenAI 官方文档《Model guidance — Using GPT-6 Astra》的中文摘录与译注，Prompt 内容为官方原文。原文出处：developers.openai.com/api/docs/guides/latest-model</p>
+  <span class="fin">FIN.</span>
+  <p>이 페이지는 OpenAI 공식 문서 《Model guidance — Using GPT-6 Astra》의 한국어 발췌와 역주이며, Prompt 내용은 공식 원문 그대로입니다. 원문 출처: developers.openai.com/api/docs/guides/latest-model</p>
 </footer>
+
 <script>
-// 滚动进度条
+// 스크롤 진행 바
 var bar = document.getElementById('progress');
 addEventListener('scroll', function(){
   var h = document.documentElement;
   bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
 }, {passive:true});
 
-// 面板入场：缩小 + 上浮 + 回正，逐格登场
+// 패널 등장: 축소 + 떠오름 + 바로 서기, 한 칸씩 차례로 등장
 var io = new IntersectionObserver(function(entries){
   entries.forEach(function(e, i){
     if(e.isIntersecting){
@@ -689,7 +718,7 @@ var io = new IntersectionObserver(function(entries){
 }, {threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 </script>
-<script defer="" src="/comics/comics.js"></script>
+<script src="/comics/comics.js" defer></script>
 <a href="mailto:shoa_lin@outlook.com" aria-label="Email">Contact</a></body>
 <style>[dir="rtl"]{direction:rtl;text-align:right}.language-switcher{direction:ltr}</style>
 </html>

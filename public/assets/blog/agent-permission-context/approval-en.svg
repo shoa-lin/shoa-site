@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="Permission extends past context, and the gap is filled by people: pop-up approvals, rules written in advance, accumulated memory and preferences; passwords are the piece deliberately left out" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="19" font-weight="700" fill="#1f2328">Approval: humans fill in context</text>
+
+  <!-- 两根条 -->
+  <text x="24" y="84" font-size="17" font-weight="700" fill="#c2570c">Permission</text>
+  <rect x="24" y="94" width="372" height="32" rx="6" fill="#c2570c" fill-opacity="0.16" stroke="#c2570c"/>
+  <text x="40" y="116" font-size="14" fill="#1f2328">Logged in as you, it can click any button</text>
+
+  <text x="24" y="160" font-size="17" font-weight="700" fill="#1a7f4b">Context</text>
+  <rect x="24" y="170" width="190" height="32" rx="6" fill="#1a7f4b" fill-opacity="0.16" stroke="#1a7f4b"/>
+  <text x="40" y="192" font-size="17" fill="#1f2328">What it knows</text>
+  <rect x="218" y="170" width="178" height="32" rx="6" fill="none" stroke="#c2570c" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="307" y="192" font-size="17" font-weight="700" fill="#c2570c" text-anchor="middle">The gap</text>
+  <text x="307" y="232" font-size="17" fill="#1f2328" text-anchor="middle">Filled in by a human</text>
+
+  <!-- 三种补法 -->
+  <g font-size="17" fill="#1f2328">
+    <rect x="24" y="252" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="252" width="6" height="74" rx="3" fill="#c2570c"/>
+    <text x="44" y="282" font-weight="700">One approval prompt</text>
+    <text x="44" y="310">Fills one small gap: is this step OK?</text>
+
+    <rect x="24" y="338" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="338" width="6" height="74" rx="3" fill="#2563c9"/>
+    <text x="44" y="368" font-weight="700">Write the rules in advance</text>
+    <text x="44" y="396" font-size="14">One handoff: allow, needs approval, forbid</text>
+
+    <rect x="24" y="424" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="424" width="6" height="74" rx="3" fill="#1a7f4b"/>
+    <text x="44" y="454" font-weight="700">Build up memory and preferences</text>
+    <text x="44" y="482" font-size="16">Fewer prompts once context catches up</text>
+  </g>
+
+  <!-- 例外 -->
+  <text x="24" y="538" font-size="17" font-weight="700" fill="#1f2328">Deliberately left out: passwords</text>
+  <text x="24" y="566" font-size="17" fill="#57606a">The agent can use them, not see them</text>
+</svg>

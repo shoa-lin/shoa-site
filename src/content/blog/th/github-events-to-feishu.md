@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 ฉันจึงชอบทำให้มันเป็นสายงานที่ขับเคลื่อนด้วยเหตุการณ์ เมื่อ GitHub มีความเปลี่ยนแปลง Local Agent จะถูกปลุกขึ้น คัดเฉพาะข้อเท็จจริงที่จำเป็น แล้วส่งอัปเดตด้านวิศวกรรมสั้น ๆ หนึ่งข้อความไปยังกลุ่ม Feishu
 
-![รวบรวมเหตุการณ์ GitHub เป็นอัปเดตด้านวิศวกรรม](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![รวบรวมเหตุการณ์ GitHub เป็นอัปเดตด้านวิศวกรรม](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## แนวคิดนั้นเรียบง่าย
 

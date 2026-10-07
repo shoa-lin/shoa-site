@@ -13,7 +13,7 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-![Image de couverture de « Comment nous avons rendu claude.ai 3x plus rapide en deux semaines »](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+![Image de couverture de « Comment nous avons rendu claude.ai 3x plus rapide en deux semaines »](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac a eu l'idée de s'appuyer directement sur l'[API Layout Instability](https
 
 Une fois l'événement déployé, Claude a lu les données terrain et constaté que **31 % des chargements de page web déplaçaient quelque chose après que la page était devenue utilisable**, sans aucune interaction de l'utilisateur. Il a ensuite traité les causes une par une : une ligne d'en-tête qui arrivait en retard, un curseur qui glissait sur le côté une fois le nom de l'utilisateur chargé, une liste qui bougeait à l'apparition de la barre de défilement. Il a corrigé les principaux coupables d'un seul coup, puis, une fois ceux-ci éliminés, il a trouvé la série suivante.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Enregistrement d'écran du chargement de la barre latérale de claude.ai avant et après correction, en 4G bridée"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Enregistrement d'écran du chargement de la barre latérale de claude.ai avant et après correction, en 4G bridée"></video>
 
 *Saccades de la barre latérale, avant et après (4G bridée) : avant, les lignes arrivent en retard et se réorganisent ; après, elles se remplissent directement à leur place.*
 
@@ -156,7 +156,7 @@ Quand les flags ont commencé à s'accumuler, un fil dédié a coordonné leurs 
 
 L'équipe savait aussi que les gains de performance s'érodent dans une base de code qui évolue vite — et [chez Anthropic, le code est livré à grande vitesse](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic). Une fois qu'un projet avait prouvé son gain, elle investissait donc pour le protéger. Le compositeur statique, par exemple, est fragile par conception : l'utilisateur voit presque immédiatement une copie HTML de la page, et React vient peindre directement par-dessus.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Enregistrement d'écran d'un chargement à froid de claude.ai avec et sans compositeur statique, en 4G bridée"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Enregistrement d'écran d'un chargement à froid de claude.ai avec et sans compositeur statique, en 4G bridée"></video>
 
 *Compositeur statique, avant et après (4G bridée) : saisie possible à 0,36 s au lieu de 2,93 s ; le texte tapé survit à la transition.*
 

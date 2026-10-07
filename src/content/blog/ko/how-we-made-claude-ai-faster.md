@@ -13,7 +13,7 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-!['claude.ai를 2주 만에 3배 빠르게 만든 방법' 표지 이미지](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+!['claude.ai를 2주 만에 3배 빠르게 만든 방법' 표지 이미지](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac은 그 밑에 있는 [Layout Instability API](https://wicg.github.io/layou
 
 이벤트가 배포되자 Claude는 실서비스 데이터를 읽고, **웹 페이지 로드의 31%에서 페이지가 이미 사용 가능해진 뒤에 무언가가 움직인다**는 사실을 발견했다. 사용자가 아무것도 하지 않았는데도 말이다. 거기서부터 Claude는 원인을 하나씩 짚어 가며 해결했다. 늦게 도착하는 헤더 행, 사용자 이름이 로드된 뒤 옆으로 밀리는 캐럿, 스크롤바가 나타나면서 움직이는 목록. 상위 원인들을 한꺼번에 고쳤고, 그것들이 사라지자 다음 묶음을 찾아냈다.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="4G 속도 제한에서 claude.ai 사이드바가 불러와지는 모습을 수정 전후로 담은 화면 녹화"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="4G 속도 제한에서 claude.ai 사이드바가 불러와지는 모습을 수정 전후로 담은 화면 녹화"></video>
 
 *사이드바 덜컹거림, 전후 비교(4G 속도 제한): 수정 전에는 항목이 늦게 도착하며 자리를 바꾸고, 수정 후에는 처음부터 제자리에 채워진다.*
 
@@ -156,7 +156,7 @@ Issac은 그 밑에 있는 [Layout Instability API](https://wicg.github.io/layou
 
 빠르게 변하는 코드베이스에서는 성능 개선도 시간이 지나면 깎여 나간다. 게다가 [Anthropic에서는 코드가 빠르게 배포된다](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic). 그래서 어떤 프로젝트가 효과를 입증하면, 팀은 그 성과를 지키는 데 투자했다. 예컨대 정적 컴포저는 구조상 깨지기 쉽다. 사용자에게 페이지의 HTML 사본을 거의 즉시 보여 주고, 그 위에 React가 곧장 그리는 방식이기 때문이다.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="4G 속도 제한에서 claude.ai를 새로 불러올 때 정적 컴포저 적용 전후를 담은 화면 녹화"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="4G 속도 제한에서 claude.ai를 새로 불러올 때 정적 컴포저 적용 전후를 담은 화면 녹화"></video>
 
 *정적 컴포저, 전후 비교(4G 속도 제한): 입력 가능 시점이 2.93초에서 0.36초로 앞당겨졌고, 입력한 텍스트는 전환 후에도 남는다.*
 

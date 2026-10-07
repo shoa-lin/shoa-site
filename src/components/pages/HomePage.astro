@@ -1,7 +1,9 @@
 ---
+import { Picture } from "astro:assets";
+import { getCollection } from "astro:content";
+import portrait from "../../assets/avatar/profile.jpg";
 import { comicCopy } from "../../lib/navigation";
 import ArticleCard from "../ArticleCard.astro";
-import { getCollection } from "astro:content";
 import { profile } from "../../data/profile";
 import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { localizedPath } from "../../lib/routes";
@@ -17,6 +19,11 @@ const latestPublications = (await getCollection("blog", ({ data }) => (
 )))
   .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf())
   .slice(0, 3);
+const moreLinks = [
+  { href: "/comics/", title: comicCopy[locale].title, description: comicCopy[locale].description },
+  { href: localizedPath(locale, "/food"), title: dictionary.food.title, description: dictionary.food.description },
+  { href: localizedPath(locale, "/favorites"), title: dictionary.favorites.title, description: dictionary.favorites.description },
+];
 ---
 
 <BaseLayout locale={locale} path="/" description={dictionary.meta.siteDescription}>
@@ -32,24 +39,19 @@ const latestPublications = (await getCollection("blog", ({ data }) => (
       </div>
     </div>
     <div class="home-hero__portrait">
-      <img src={profile.avatar} alt="Shoa Lin" width="320" height="320" />
+      <Picture
+        src={portrait}
+        formats={["avif", "webp"]}
+        widths={[148, 296, 320, 580]}
+        sizes="(max-width: 760px) 148px, min(26vw, 290px)"
+        width={320}
+        height={320}
+        alt="Shoa Lin"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
     </div>
-  </section>
-
-  <section class="editorial-section editorial-split">
-    <h2>{dictionary.home.interestsTitle}</h2>
-    <p>{dictionary.home.interestsBody}</p>
-  </section>
-
-  <section class="editorial-section profile-notes">
-    <article>
-      <h2>{dictionary.home.backgroundTitle}</h2>
-      <p>{dictionary.home.backgroundBody}</p>
-    </article>
-    <article>
-      <h2>{dictionary.home.approachTitle}</h2>
-      <p>{dictionary.home.approachBody}</p>
-    </article>
   </section>
 
   <section class="editorial-section latest-writing">
@@ -70,27 +72,26 @@ const latestPublications = (await getCollection("blog", ({ data }) => (
     </div>
   </section>
 
-  <section class="editorial-section contact-strip" aria-labelledby="home-comics-title">
-    <div>
-      <h2 id="home-comics-title">{comicCopy[locale].title}</h2>
-      <p>{comicCopy[locale].description}</p>
-    </div>
-    <a class="text-command" href="/comics/">{comicCopy[locale].title} →</a>
+  <section class="editorial-section profile-notes">
+    <article>
+      <h2>{dictionary.home.interestsTitle}</h2>
+      <p>{dictionary.home.interestsBody}</p>
+    </article>
+    <article>
+      <h2>{dictionary.home.approachTitle}</h2>
+      <p>{dictionary.home.approachBody}</p>
+    </article>
   </section>
 
-  <section class="editorial-section contact-strip" aria-labelledby="home-food-title">
-    <div>
-      <h2 id="home-food-title">{dictionary.food.title}</h2>
-      <p>{dictionary.food.description}</p>
+  <section class="editorial-section home-more" aria-labelledby="home-more-title">
+    <h2 id="home-more-title">{dictionary.home.moreTitle}</h2>
+    <div class="home-more__grid">
+      {moreLinks.map((item) => (
+        <a class="home-more__item" href={item.href}>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </a>
+      ))}
     </div>
-    <a class="text-command" href={localizedPath(locale, "/food")}>{dictionary.nav.food} →</a>
-  </section>
-
-  <section class="editorial-section contact-strip">
-    <div>
-      <h2>{dictionary.home.contactTitle}</h2>
-      <p>{dictionary.home.contactBody}</p>
-    </div>
-    <a class="text-command" href={localizedPath(locale, "/contact")}>{dictionary.nav.contact}</a>
   </section>
 </BaseLayout>

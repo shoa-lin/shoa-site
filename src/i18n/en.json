@@ -12,13 +12,10 @@
     "supporting": "This site collects my articles, research notes, and long-term reading list.",
     "interestsTitle": "Areas of interest",
     "interestsBody": "I study how agents can use tools reliably, retain context, recover from failure, and leave results that people can review.",
-    "backgroundTitle": "Public background",
-    "backgroundBody": "My work has involved knowledge graphs, data, and enterprise architecture. I now spend most of my time on AI agent systems and developer workflows.",
     "approachTitle": "How I work",
     "approachBody": "I check the real state first, break the problem down, test assumptions, and turn the result into reusable code or writing.",
     "latestTitle": "Latest writing",
-    "contactTitle": "Keep in touch",
-    "contactBody": "Email or find me on X to discuss AI agents, knowledge systems, developer tools, and technical writing."
+    "moreTitle": "More"
   },
   "about": {
     "title": "About",

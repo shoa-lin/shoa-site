@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const routes = ['/comics/', '/comics/gpt-6-astra/', '/comics/gpt-6-astra/en/', '/comics/gpt-6-astra/ja/', '/comics/gpt-6-astra/ko/'];
+const routes = ['/comics/', '/comics/gpt-6-astra/', '/comics/gpt-6-astra/en/', '/comics/gpt-6-astra/ja/', '/comics/gpt-6-astra/ko/', '/comics/gpt-6-astra/th/', '/comics/gpt-6-astra/fr/', '/comics/gpt-6-astra/de/', '/comics/gpt-6-astra/vi/'];
 
 for (const route of routes) {
   test(`comic mobile navigation is compact and interactive: ${route}`, async ({ page }) => {

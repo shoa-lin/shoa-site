@@ -26,7 +26,7 @@ Karpathy는 컨텍스트 윈도우를 새로운 프로그래밍 인터페이스�
 - **검증기**는 시스템이 출력만 늘리는 것이 아니라 실제로 개선되는지 판단합니다.
 - **지속 상태**는 다음 실행이 검증된 경험을 이어받게 합니다.
 
-![프로젝트 규칙, 메모리, Skills, Hooks, 학습 기록이 컨텍스트 윈도우를 구성하는 모습](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![프로젝트 규칙, 메모리, Skills, Hooks, 학습 기록이 컨텍스트 윈도우를 구성하는 모습](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *그림: 컨텍스트 엔지니어링 아키텍처( vartekx, 영어 이미지).*
 
@@ -38,7 +38,7 @@ Karpathy는 컨텍스트 윈도우를 새로운 프로그래밍 인터페이스�
 
 글은 세 층을 구분합니다. **Prompt engineering**은 한 번의 지시를 잘 쓰는 일, **Context engineering**은 모델이 보는 환경을 설계하는 일, **Loop engineering**은 그 설계를 자동화되고 반복 가능한 실행 주기에 넣는 일입니다.
 
-![Prompt engineering, Context engineering, Loop engineering의 세 층](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![Prompt engineering, Context engineering, Loop engineering의 세 층](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *그림: 세 층은 서로 대체하지 않고 쌓입니다( vartekx, 영어 이미지).*
 
@@ -46,11 +46,11 @@ Karpathy는 컨텍스트 윈도우를 새로운 프로그래밍 인터페이스�
 
 Karpathy의 비유는 유용합니다. 모델은 프로세서이고 컨텍스트 윈도우는 작업 메모리입니다. 모든 자료를 넣는 것이 아니라, 필요한 순간에 필요한 정보를 넣는 것이 핵심입니다.
 
-![여러 턴이 유한한 컨텍스트 윈도우를 소비하는 모습](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![여러 턴이 유한한 컨텍스트 윈도우를 소비하는 모습](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *그림: 여러 입력과 출력이 하나의 유한한 윈도우를 공유합니다( vartekx, 영어 이미지).*
 
-![시스템 프롬프트, 규칙, 메모리, 도구, 이력, 예시가 컨텍스트를 구성하는 모습](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![시스템 프롬프트, 규칙, 메모리, 도구, 이력, 예시가 컨텍스트를 구성하는 모습](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *그림: 사용자가 쓴 Prompt는 전체 컨텍스트의 작은 부분인 경우가 많습니다( vartekx, 영어 이미지).*
 
@@ -66,7 +66,7 @@ Karpathy의 비유는 유용합니다. 모델은 프로세서이고 컨텍스트
 
 글이 인용하는 Boris Cherny의 관점에서 사람의 일은 Agent를 반복해서 재촉하는 데서, Agent가 스스로 동작할 루프를 설계하는 데로 옮겨 갑니다. 매 실행은 상태를 읽고, 수행하고, 검사하고, 결과를 기록하며 다음 실행을 더 잘 준비합니다.
 
-![수동 Prompt와 컨텍스트 및 검증을 자동 실행하는 시스템의 비교](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![수동 Prompt와 컨텍스트 및 검증을 자동 실행하는 시스템의 비교](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *그림: “당신이 엔진”과 “시스템이 엔진”의 대비( vartekx, 영어 이미지).*
 
@@ -76,7 +76,7 @@ Karpathy의 비유는 유용합니다. 모델은 프로세서이고 컨텍스트
 
 필요한 것은 실행 주기와 종료 조건, 짧고 검증된 프로젝트 지식, 구현과 검토를 분리하는 작업 격리, 필요한 코드·테스트·CI에 대한 연결, 그리고 테스트·타입 검사·빌드·계약 검사·사람의 승인을 포함한 독립 검증기입니다. 검증기가 없으면 루프는 자기 결론에 계속 동의할 뿐입니다.
 
-![기록, 선택, 압축, 격리, 검증을 자동화하는 루프](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![기록, 선택, 압축, 격리, 검증을 자동화하는 루프](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *그림: 루프 엔지니어링은 컨텍스트 엔지니어링을 자동화합니다( vartekx, 영어 이미지).*
 
@@ -84,7 +84,7 @@ Karpathy의 비유는 유용합니다. 모델은 프로세서이고 컨텍스트
 
 “인증 시스템을 리팩터링하라”는 소원에 가깝습니다. 실행 가능한 명세에는 목표, 범위, 산출물, 충돌 처리, 종료 조건이 필요합니다. 대상 디렉터리, 보호해야 할 영역, 바꿀 테스트, 충돌 시 보고할 조건, 반드시 통과해야 할 검사를 적으면 Agent와 검증기가 추측할 필요가 없습니다.
 
-![편집 전후의 컨텍스트와 유용한 정보 공간](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![편집 전후의 컨텍스트와 유용한 정보 공간](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *그림: 선택과 압축이 유용한 컨텍스트를 위한 공간을 만듭니다( vartekx, 영어 이미지).*
 
@@ -92,7 +92,7 @@ Karpathy의 비유는 유용합니다. 모델은 프로세서이고 컨텍스트
 
 작업 뒤에는 성공한 방법, 실패한 지점, 다음에 더 일찍 확인할 사항만 행동 가능한 기록으로 남깁니다. 반복되는 실패는 프로젝트 규칙이나 자동 검사로 승격할 수 있습니다. 실행은 증거를 만들고, 증거는 상태가 되며, 다음 실행은 그것을 선택적으로 읽고, 검증기는 계속 오류를 걸러냅니다.
 
-![명세, 누적 컨텍스트, 검증의 시간 및 품질 주장](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![명세, 누적 컨텍스트, 검증의 시간 및 품질 주장](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *그림: 표시된 수치는 저자의 주장일 뿐 이 글에서 독립 검증하지 않았습니다( vartekx, 영어 이미지).*
 

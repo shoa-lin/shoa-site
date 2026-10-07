@@ -12,13 +12,10 @@
     "supporting": "Diese Website sammelt meine Artikel, Forschungsnotizen und langfristige Leseliste.",
     "interestsTitle": "Interessengebiete",
     "interestsBody": "Ich untersuche, wie Agenten Werkzeuge zuverlässig nutzen, Kontext bewahren, sich von Fehlern erholen und überprüfbare Ergebnisse hinterlassen können.",
-    "backgroundTitle": "Öffentlicher Hintergrund",
-    "backgroundBody": "Meine Arbeit umfasste Wissensgraphen, Daten und Unternehmensarchitektur. Heute verbringe ich den Großteil meiner Zeit mit KI-Agentensystemen und Entwickler-Workflows.",
     "approachTitle": "Wie ich arbeite",
     "approachBody": "Ich prüfe zuerst den tatsächlichen Zustand, zerlege das Problem, teste Annahmen und überführe das Ergebnis in wiederverwendbaren Code oder verständliche Texte.",
     "latestTitle": "Neueste Artikel",
-    "contactTitle": "In Kontakt bleiben",
-    "contactBody": "Schreib mir eine E-Mail oder kontaktiere mich auf X, um über KI-Agenten, Wissenssysteme, Entwicklerwerkzeuge und technisches Schreiben zu sprechen."
+    "moreTitle": "Außerdem"
   },
   "about": {
     "title": "Über mich",

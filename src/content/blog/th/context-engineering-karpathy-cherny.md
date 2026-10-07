@@ -26,7 +26,7 @@ Karpathy มอง context window เป็นส่วนต่อประส�
 - **Verifier** แยกความก้าวหน้าจริงออกจากการสร้างผลลัพธ์มากขึ้น
 - **สถานะถาวร** ส่งต่อประสบการณ์ที่ผ่านการตรวจสอบ
 
-![กฎโครงการ หน่วยความจำ Skills Hooks และบันทึกการเรียนรู้ที่สร้าง context window](/assets/blog/context-engineering-karpathy-cherny/cover.jpg)
+![กฎโครงการ หน่วยความจำ Skills Hooks และบันทึกการเรียนรู้ที่สร้าง context window](/assets/blog/context-engineering-karpathy-cherny/cover.webp)
 
 *ภาพ: โครงสร้าง context engineering (vartekx, ภาพภาษาอังกฤษ)*
 
@@ -36,7 +36,7 @@ Karpathy มอง context window เป็นส่วนต่อประส�
 
 บทความแบ่งเป็นสามชั้น: **Prompt engineering** คือการเขียนคำสั่งครั้งเดียว, **Context engineering** คือการออกแบบสภาพแวดล้อมที่โมเดลเห็น, และ **Loop engineering** คือการนำสภาพแวดล้อมนั้นเข้าสู่วงจรอัตโนมัติที่ทำซ้ำได้
 
-![การพัฒนาจาก prompt engineering สู่ context engineering และ loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.png)
+![การพัฒนาจาก prompt engineering สู่ context engineering และ loop engineering](/assets/blog/context-engineering-karpathy-cherny/three-layers.webp)
 
 *ภาพ: ทั้งสามชั้นเสริมกัน ไม่ได้แทนที่กัน (vartekx, ภาพภาษาอังกฤษ)*
 
@@ -44,11 +44,11 @@ Karpathy มอง context window เป็นส่วนต่อประส�
 
 โมเดลเป็นเหมือนโปรเซสเซอร์ และ context window เป็นหน่วยความจำทำงาน จึงไม่ควรใส่เอกสารทุกอย่าง แต่ควรใส่ข้อมูลที่ถูกต้องในเวลาที่ถูกต้อง
 
-![หลายรอบการสนทนาใช้ context window ที่มีขีดจำกัด](/assets/blog/context-engineering-karpathy-cherny/context-window-program.jpg)
+![หลายรอบการสนทนาใช้ context window ที่มีขีดจำกัด](/assets/blog/context-engineering-karpathy-cherny/context-window-program.webp)
 
 *ภาพ: อินพุตและเอาต์พุตหลายรอบใช้หน้าต่างเดียวกัน (vartekx, ภาพภาษาอังกฤษ)*
 
-![คำสั่งระบบ กฎ หน่วยความจำ เครื่องมือ ประวัติ และตัวอย่างที่ประกอบเป็นบริบท](/assets/blog/context-engineering-karpathy-cherny/context-operations.png)
+![คำสั่งระบบ กฎ หน่วยความจำ เครื่องมือ ประวัติ และตัวอย่างที่ประกอบเป็นบริบท](/assets/blog/context-engineering-karpathy-cherny/context-operations.webp)
 
 *ภาพ: Prompt ของผู้ใช้มักเป็นเพียงส่วนเล็กของบริบททั้งหมด (vartekx, ภาพภาษาอังกฤษ)*
 
@@ -62,7 +62,7 @@ Karpathy มอง context window เป็นส่วนต่อประส�
 
 มุมมองของ Boris Cherny คือเปลี่ยนงานมนุษย์จากการคอยสั่ง Agent ซ้ำ ๆ เป็นการออกแบบลูปให้ Agent อ่านสถานะ ทำงาน ตรวจสอบ บันทึกผล และเริ่มรอบถัดไปได้ดีขึ้น
 
-![การเปรียบเทียบ prompt ด้วยมือกับระบบที่ทำบริบทและการตรวจสอบอัตโนมัติ](/assets/blog/context-engineering-karpathy-cherny/loop-context.png)
+![การเปรียบเทียบ prompt ด้วยมือกับระบบที่ทำบริบทและการตรวจสอบอัตโนมัติ](/assets/blog/context-engineering-karpathy-cherny/loop-context.webp)
 
 *ภาพ: “คุณคือเครื่องยนต์” เทียบกับ “ระบบคือเครื่องยนต์” (vartekx, ภาพภาษาอังกฤษ)*
 
@@ -72,7 +72,7 @@ Karpathy มอง context window เป็นส่วนต่อประส�
 
 ประกอบด้วยจังหวะและเงื่อนไขหยุด ความรู้โครงการที่สั้นและตรวจสอบแล้ว การแยกการพัฒนาออกจากการรีวิว ตัวเชื่อมต่อที่มีสิทธิ์พอดี และ verifier อิสระ เช่น test, type check, build, contract check หรือการอนุมัติของมนุษย์
 
-![ลูปที่ทำการเขียน เลือก ย่อ แยก และตรวจสอบบริบทโดยอัตโนมัติ](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.png)
+![ลูปที่ทำการเขียน เลือก ย่อ แยก และตรวจสอบบริบทโดยอัตโนมัติ](/assets/blog/context-engineering-karpathy-cherny/loop-building-blocks.webp)
 
 *ภาพ: loop engineering ทำให้ context engineering เป็นอัตโนมัติ (vartekx, ภาพภาษาอังกฤษ)*
 
@@ -80,7 +80,7 @@ Karpathy มอง context window เป็นส่วนต่อประส�
 
 “ปรับโครงสร้างระบบยืนยันตัวตน” คือความต้องการ แต่ specification ที่ทำงานได้ต้องบอกเป้าหมาย ขอบเขต ผลลัพธ์ วิธีจัดการความขัดแย้ง และเงื่อนไขจบงาน: ไดเรกทอรีในขอบเขต พื้นที่ที่ห้ามแตะ test ที่ต้องแก้ จุดที่ต้องหยุดรายงาน และการตรวจที่ต้องผ่าน
 
-![บริบทก่อนและหลังการแก้ไขเพื่อสร้างพื้นที่ให้ข้อมูลที่มีประโยชน์](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.jpg)
+![บริบทก่อนและหลังการแก้ไขเพื่อสร้างพื้นที่ให้ข้อมูลที่มีประโยชน์](/assets/blog/context-engineering-karpathy-cherny/claude-code-context-workflow.webp)
 
 *ภาพ: การเลือกและการย่อสร้างพื้นที่ให้บริบทที่มีประโยชน์ (vartekx, ภาพภาษาอังกฤษ)*
 
@@ -88,7 +88,7 @@ Karpathy มอง context window เป็นส่วนต่อประส�
 
 หลังงาน ให้เก็บบทเรียนที่นำไปทำต่อได้เพียงเล็กน้อย: สิ่งที่ได้ผล สิ่งที่ผิดพลาด และสิ่งที่ควรตรวจให้เร็วขึ้น ความล้มเหลวที่เกิดซ้ำยกเป็นกฎโครงการหรือการตรวจอัตโนมัติได้ การทำงานสร้างหลักฐาน หลักฐานกลายเป็นสถานะ รอบถัดไปอ่านอย่างเลือกสรร และ verifier กรองข้อผิดพลาดต่อไป
 
-![ข้ออ้างด้านเวลาและคุณภาพของ specification บริบทสะสม และการตรวจสอบ](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.png)
+![ข้ออ้างด้านเวลาและคุณภาพของ specification บริบทสะสม และการตรวจสอบ](/assets/blog/context-engineering-karpathy-cherny/self-improving-loop.webp)
 
 *ภาพ: ตัวเลขเป็นข้ออ้างของผู้เขียนและยังไม่ได้ตรวจสอบอิสระในบทความนี้ (vartekx, ภาพภาษาอังกฤษ)*
 

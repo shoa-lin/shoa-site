@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" lang="ja" aria-label="権限がコンテキストより一段長く伸びており、その差は人が補う：ダイアログでの承認、事前のルール、蓄積したメモリと好み。パスワードはあえて補わない部分" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="20" font-weight="700" fill="#1f2328">承認とは、人がコンテキストを補うこと</text>
+
+  <!-- 两根条 -->
+  <text x="24" y="84" font-size="17" font-weight="700" fill="#c2570c">権限</text>
+  <rect x="24" y="94" width="372" height="32" rx="6" fill="#c2570c" fill-opacity="0.16" stroke="#c2570c"/>
+  <text x="40" y="116" font-size="17" fill="#1f2328">あなたのアカウントで、どのボタンも押せる</text>
+
+  <text x="24" y="160" font-size="17" font-weight="700" fill="#1a7f4b">コンテキスト</text>
+  <rect x="24" y="170" width="190" height="32" rx="6" fill="#1a7f4b" fill-opacity="0.16" stroke="#1a7f4b"/>
+  <text x="40" y="192" font-size="17" fill="#1f2328">知っていること</text>
+  <rect x="218" y="170" width="178" height="32" rx="6" fill="none" stroke="#c2570c" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="307" y="192" font-size="17" font-weight="700" fill="#c2570c" text-anchor="middle">ギャップ</text>
+  <text x="307" y="232" font-size="17" fill="#1f2328" text-anchor="middle">ここは人が埋める</text>
+
+  <!-- 三种补法 -->
+  <g font-size="17" fill="#1f2328">
+    <rect x="24" y="252" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="252" width="6" height="74" rx="3" fill="#c2570c"/>
+    <text x="44" y="282" font-weight="700">承認を一度求める</text>
+    <text x="44" y="310">小さく一つ補う：この操作はいいか</text>
+
+    <rect x="24" y="338" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="338" width="6" height="74" rx="3" fill="#2563c9"/>
+    <text x="44" y="368" font-weight="700">事前にルールを書く</text>
+    <text x="44" y="396">一度に渡す：許可、要承認、禁止</text>
+
+    <rect x="24" y="424" width="372" height="74" rx="10" fill="#ffffff" stroke="#d0d7de"/>
+    <rect x="24" y="424" width="6" height="74" rx="3" fill="#1a7f4b"/>
+    <text x="44" y="454" font-weight="700">メモリと好みを蓄える</text>
+    <text x="44" y="482">コンテキストが追いつけば確認は減る</text>
+  </g>
+
+  <!-- 例外 -->
+  <text x="24" y="538" font-size="17" font-weight="700" fill="#1f2328">あえて補わないもの：パスワード</text>
+  <text x="24" y="566" font-size="17" fill="#57606a">agent は使えるが、見えない</text>
+</svg>

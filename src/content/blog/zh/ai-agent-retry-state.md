@@ -26,7 +26,7 @@ translationStatus: "reviewed"
 
 这里需要说明：目前没有官方资料明确表示，Codex 是“因为状态复杂而取消了 Retry”。本文是在官方公开的 Thread、Turn、Item 和 Fork 机制基础上，对 Agent 产品交互做出的架构分析。
 
-![Retry 从重新回答变成保留历史的分支](/assets/blog/ai-agent-retry-state/retry-becomes-fork.png)
+![Retry 从重新回答变成保留历史的分支](/assets/blog/ai-agent-retry-state/retry-becomes-fork.webp)
 
 过去使用 Chatbot 时，我很习惯一个功能：**Retry，或者叫重新生成。**
 
@@ -120,7 +120,7 @@ OpenAI 对 Codex App Server 的定义里，一个 Thread 由多个 Turn 组成�
 
 > 一次 Agent 运行已经形成了真实的因果链。第二次运行面对的，不再是第一次运行之前的世界。
 
-![文字可以重写，但 Agent 已经改变了真实状态](/assets/blog/ai-agent-retry-state/text-vs-world-state.png)
+![文字可以重写，但 Agent 已经改变了真实状态](/assets/blog/ai-agent-retry-state/text-vs-world-state.webp)
 
 ## Agent 的 Retry，至少涉及四种状态
 

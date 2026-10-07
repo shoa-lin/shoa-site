@@ -27,13 +27,13 @@ The term "harness" has become shorthand for everything in an AI agent except the
 
 Part of a coding agent's harness is built by its maker through system prompts, code retrieval, and sometimes a [sophisticated orchestration system](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents). Coding agents also give users the tools to build an outer harness for their own system and use case.
 
-![Three concentric circles showing the model at the center, the coding agent builder harness around it, and the user harness as the outer layer](/assets/blog/harness-engineering/harness-bounded-contexts.png)
+![Three concentric circles showing the model at the center, the coding agent builder harness around it, and the user harness as the outer layer](/assets/blog/harness-engineering/harness-bounded-contexts.webp)
 
 Figure 1: The term "harness" means different things in different bounded contexts.
 
 A well-built outer harness serves two goals: it raises the probability that the agent gets the task right on the first attempt, and it provides a feedback loop that corrects as many issues as possible before they reach a human. The intended result is less review toil and higher system quality, with fewer wasted tokens along the way as an added benefit.
 
-![Overview of guides feeding into a coding agent and sensors feeding results back into its self-correction loop, with a human steering both](/assets/blog/harness-engineering/harness-overview.png)
+![Overview of guides feeding into a coding agent and sensors feeding results back into its self-correction loop, with a human steering both](/assets/blog/harness-engineering/harness-overview.webp)
 
 ## Feedforward and Feedback
 
@@ -84,14 +84,14 @@ Feedback sensors, including inferential ones, should be distributed across the l
 - Which controls are fast enough to run before integration, or even before a commit is created? Examples include linters, fast test suites, and a basic code review agent.
 - Which controls are expensive enough to run only after integration in the pipeline, alongside a repeat of the fast checks? Examples include mutation testing and broader code review that needs the full picture.
 
-![Examples of feedforward guides and feedback sensors before and after integration in a change lifecycle](/assets/blog/harness-engineering/harness-change-lifecycle-examples.png)
+![Examples of feedforward guides and feedback sensors before and after integration in a change lifecycle](/assets/blog/harness-engineering/harness-change-lifecycle-examples.webp)
 
 **Continuous drift and health sensors**
 
 - **Codebase drift sensors** run outside the change lifecycle to detect degradation that accumulates gradually, such as dead code, weak test coverage, and dependency problems.
 - **Runtime health sensors** let agents monitor production signals, such as degrading SLOs, sampled response quality, or anomalous logs, and propose improvements.
 
-![Examples of continuous codebase drift detection and runtime feedback sensors after integration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.png)
+![Examples of continuous codebase drift detection and runtime feedback sensors after integration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.webp)
 
 ## Regulation categories
 
@@ -129,7 +129,7 @@ This approach places too much trust in AI-generated tests. Some teams are seeing
 
 We still need better behaviour harnesses before teams can reduce supervision and manual testing with confidence.
 
-![Simplified harness model with guides and sensors across maintainability, architecture fitness, and behaviour dimensions](/assets/blog/harness-engineering/harness-types.png)
+![Simplified harness model with guides and sensors across maintainability, architecture fitness, and behaviour dimensions](/assets/blog/harness-engineering/harness-types.webp)
 
 ## Harnessability
 
@@ -146,7 +146,7 @@ Most enterprises rely on a few common service topologies for most of their needs
 
 Those templates may evolve into **harness templates**: bundles of guides and sensors that constrain a coding agent to the structure, conventions, and technology stack of a topology. Teams may eventually choose technologies partly according to the harnesses available for them.
 
-![Example service topologies with a harness template containing guides and sensors for each topology](/assets/blog/harness-engineering/harness-templates.png)
+![Example service topologies with a harness template containing guides and sensors for each topology](/assets/blog/harness-engineering/harness-templates.webp)
 
 ### Ashby's Law
 

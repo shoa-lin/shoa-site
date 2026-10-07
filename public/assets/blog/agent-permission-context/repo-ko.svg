@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="600" viewBox="0 0 420 600" role="img" aria-label="채팅창에서는 맥락과 권한이 거의 겹치지 않지만, 저장소에서는 둘이 넓게 겹치고 git으로 되돌리고 테스트로 검수할 수 있다" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <rect width="420" height="600" rx="16" fill="#f7f8fa"/>
+
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">저장소: 두 축이 처음 겹친 곳</text>
+
+  <!-- 聊天框 -->
+  <rect x="16" y="62" width="388" height="206" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="92" font-size="19" font-weight="700" fill="#1f2328">채팅창에서</text>
+  <circle cx="140" cy="166" r="56" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="140" y="172" font-size="17" fill="#1a7f4b" text-anchor="middle">맥락</text>
+  <circle cx="292" cy="166" r="26" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="292" y="172" font-size="17" fill="#c2570c" text-anchor="middle">권한</text>
+  <text x="210" y="250" font-size="17" fill="#1f2328" text-anchor="middle">말한 내용은 알지만 답만 할 수 있다</text>
+
+  <!-- 仓库 -->
+  <rect x="16" y="284" width="388" height="296" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="314" font-size="19" font-weight="700" fill="#1f2328">저장소에서</text>
+  <circle cx="180" cy="402" r="66" fill="#1a7f4b" fill-opacity="0.14" stroke="#1a7f4b" stroke-width="2"/>
+  <circle cx="240" cy="402" r="66" fill="#c2570c" fill-opacity="0.14" stroke="#c2570c" stroke-width="2"/>
+  <text x="145" y="408" font-size="17" fill="#1a7f4b" text-anchor="middle">맥락</text>
+  <text x="210" y="408" font-size="17" font-weight="700" fill="#1f2328" text-anchor="middle">겹침</text>
+  <text x="277" y="408" font-size="17" fill="#c2570c" text-anchor="middle">권한</text>
+  <g font-size="17" fill="#1f2328">
+    <text x="32" y="500"><tspan fill="#1a7f4b" font-weight="700">맥락</tspan>: 코드, 이력, 테스트</text>
+    <text x="32" y="528"><tspan fill="#c2570c" font-weight="700">권한</tspan>: 파일 수정, 명령 실행</text>
+    <text x="32" y="556" font-weight="700">git으로 되돌리고, 테스트로 검수한다</text>
+  </g>
+</svg>

@@ -17,7 +17,7 @@ translationStatus: "reviewed"
 
 そこで私は、イベント駆動の経路にする方が好ましいと考えている。GitHub の変化がローカル Agent を起こし、必要な事実だけを取り出して、Feishu の開発グループへ短い更新を一件送る。
 
-![GitHub イベントを開発更新へまとめる](/assets/blog/github-events-to-feishu/01-event-to-update.png)
+![GitHub イベントを開発更新へまとめる](/assets/blog/github-events-to-feishu/01-event-to-update.webp)
 
 ## 考え方はシンプル
 

@@ -12,13 +12,10 @@
     "supporting": "Ce site rassemble mes articles, mes notes de recherche et une sélection de ressources à relire.",
     "interestsTitle": "Sujets de recherche",
     "interestsBody": "J'étudie comment les agents peuvent utiliser des outils de façon fiable, conserver le contexte, gérer les échecs et produire des résultats vérifiables.",
-    "backgroundTitle": "Parcours public",
-    "backgroundBody": "Mon parcours touche aux graphes de connaissances, aux données et à l'architecture d'entreprise. Je travaille aujourd'hui surtout sur les systèmes d'agents IA et les workflows de développement.",
     "approachTitle": "Méthode de travail",
     "approachBody": "Je vérifie d'abord l'état réel, je décompose le problème, je teste les hypothèses, puis je transforme le résultat en code ou en texte réutilisable.",
     "latestTitle": "Derniers articles",
-    "contactTitle": "Restons en contact",
-    "contactBody": "Écrivez-moi ou retrouvez-moi sur X pour parler d'agents IA, de systèmes de connaissance, d'outils de développement ou d'écriture technique."
+    "moreTitle": "Et aussi"
   },
   "about": {
     "title": "À propos",

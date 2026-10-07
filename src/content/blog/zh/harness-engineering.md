@@ -27,13 +27,13 @@ translationStatus: "reviewed"
 
 编码 Agent 的一部分 harness 由构建者提供，例如系统 prompt、代码检索，以及某些[复杂的编排系统](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)。同时，编码 Agent 也为用户提供能力，让我们针对自己的系统和用例构建外层 harness。
 
-![三个同心圆，中心是模型，外侧依次是编码 Agent 的 builder harness 和用户构建的外层 harness](/assets/blog/harness-engineering/harness-bounded-contexts.png)
+![三个同心圆，中心是模型，外侧依次是编码 Agent 的 builder harness 和用户构建的外层 harness](/assets/blog/harness-engineering/harness-bounded-contexts.webp)
 
 图 1：同一个“harness”在不同限界上下文中含义不同。
 
 一个良好的外层 harness 有两个目标：提高 Agent 首次完成任务的概率，并通过反馈回路，在问题到达人类之前尽可能自我修正。预期结果是减少 review 负担、提高系统质量；沿途减少无效 token 消耗只是附带收益。
 
-![Guides 输入编码 Agent，Sensors 将结果反馈给自我修正回路，人类同时驾驭两者的概览图](/assets/blog/harness-engineering/harness-overview.png)
+![Guides 输入编码 Agent，Sensors 将结果反馈给自我修正回路，人类同时驾驭两者的概览图](/assets/blog/harness-engineering/harness-overview.webp)
 
 ## Feedforward 与 Feedback
 
@@ -84,14 +84,14 @@ Feedback sensors，包括 inferential sensors，也应据此分布在整个生�
 - 哪些控制足够快，应该在集成前，甚至 commit 创建前运行？例如 linter、快速测试套件和基础 code review agent。
 - 哪些控制成本更高，应只在集成后的 pipeline 中运行，同时重复快速检查？例如 mutation testing，以及需要纵观全局的广泛 code review。
 
-![变更生命周期中集成前后 feedforward guides 与 feedback sensors 的示例](/assets/blog/harness-engineering/harness-change-lifecycle-examples.png)
+![变更生命周期中集成前后 feedforward guides 与 feedback sensors 的示例](/assets/blog/harness-engineering/harness-change-lifecycle-examples.webp)
 
 **持续 drift 与 health sensors**
 
 - **Codebase drift sensors** 在变更生命周期之外持续运行，检测逐渐积累的退化，例如死代码、薄弱的测试覆盖和依赖问题。
 - **Runtime health sensors** 让 Agent 监控生产信号，例如恶化的 SLO、抽样响应质量或异常日志，并提出改进建议。
 
-![集成后的持续 codebase drift 检测和 runtime feedback sensors 示例](/assets/blog/harness-engineering/harness-continuous-feedback-examples.png)
+![集成后的持续 codebase drift 检测和 runtime feedback sensors 示例](/assets/blog/harness-engineering/harness-continuous-feedback-examples.webp)
 
 ## 调节类别
 
@@ -129,7 +129,7 @@ Agent harness 像一个[控制论](https://en.wikipedia.org/wiki/Cybernetics)中
 
 在 behaviour harness 足以让团队放心减少监督和手动测试之前，我们还有很多工作要做。
 
-![Guides 与 sensors 横跨 maintainability、architecture fitness 和 behaviour 三个维度的简化 harness 模型](/assets/blog/harness-engineering/harness-types.png)
+![Guides 与 sensors 横跨 maintainability、architecture fitness 和 behaviour 三个维度的简化 harness 模型](/assets/blog/harness-engineering/harness-types.webp)
 
 ## Harnessability
 
@@ -146,7 +146,7 @@ Greenfield 和遗留系统面对不同约束：
 
 这些模板未来可能演变为 **harness templates**：把 guides 和 sensors 组合起来，将编码 Agent 约束在特定拓扑的结构、规范和技术栈中。团队甚至可能部分依据现成 harness 来选择技术和架构。
 
-![多种服务拓扑示例，每种拓扑都有包含 guides 和 sensors 的 harness template](/assets/blog/harness-engineering/harness-templates.png)
+![多种服务拓扑示例，每种拓扑都有包含 guides 和 sensors 的 harness template](/assets/blog/harness-engineering/harness-templates.webp)
 
 ### Ashby's Law
 

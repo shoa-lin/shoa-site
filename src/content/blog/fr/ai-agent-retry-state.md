@@ -26,7 +26,7 @@ Cette distinction permet de comprendre pourquoi les produits Agent comme Codex n
 
 Une précision est essentielle : aucune source officielle n’affirme que Codex a « supprimé Retry parce que l’état était devenu trop complexe ». Cet article propose une lecture architecturale fondée sur les notions publiques de Thread, Turn, Item et Fork.
 
-![Du Retry qui génère une autre réponse à une branche qui conserve l’historique](/assets/blog/ai-agent-retry-state/retry-becomes-fork-fr.png)
+![Du Retry qui génère une autre réponse à une branche qui conserve l’historique](/assets/blog/ai-agent-retry-state/retry-becomes-fork-fr.webp)
 
 Avec les premiers Chatbots, je m’étais habitué à une petite fonction : **Retry**, souvent appelée **Régénérer**.
 
@@ -120,7 +120,7 @@ Le vrai problème n’est donc pas seulement que « les informations intermédia
 
 > Une exécution d’Agent crée une véritable chaîne de causes et d’effets. La deuxième exécution ne commence plus dans le monde qui existait avant la première.
 
-![Le texte peut être réécrit, mais l’Agent a déjà modifié l’état du monde](/assets/blog/ai-agent-retry-state/text-vs-world-state-fr.png)
+![Le texte peut être réécrit, mais l’Agent a déjà modifié l’état du monde](/assets/blog/ai-agent-retry-state/text-vs-world-state-fr.webp)
 
 ## Le Retry d’un Agent touche à au moins quatre états
 

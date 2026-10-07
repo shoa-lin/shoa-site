@@ -13,7 +13,7 @@ contentType: "adaptation"
 translationStatus: "reviewed"
 ---
 
-![How we made claude.ai 3x faster in two weeks, cover image](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+![How we made claude.ai 3x faster in two weeks, cover image](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac had the idea of going straight to the underlying [Layout Instability API](
 
 Once the event was deployed, Claude read the field data and found that **31% of web page loads moved something after the page was already usable**, with no user interaction. From there it worked through the causes one by one: a header row that arrived late, a caret that slid sideways once the user's name loaded, a list that moved when the scrollbar popped in. It fixed the top offenders as a batch, and when those were gone, it found the next batch.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Screen recording of the claude.ai sidebar loading before and after the fix, on throttled 4G"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="Screen recording of the claude.ai sidebar loading before and after the fix, on throttled 4G"></video>
 
 *Sidebar jank, before and after (throttled 4G): before, rows arrive late and rearrange; after, they fill in where they stay.*
 
@@ -156,7 +156,7 @@ When the flags started piling up, a dedicated thread coordinated their rollout a
 
 Performance wins also decay in a fast-moving codebase, and [code ships fast at Anthropic](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic). So once a project proved a win, the team invested in protecting it. The static composer, for example, is brittle by design: users see an HTML copy of the page almost immediately, and React paints directly on top of it.
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Screen recording of a fresh claude.ai load with and without the static composer, on throttled 4G"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="Screen recording of a fresh claude.ai load with and without the static composer, on throttled 4G"></video>
 
 *Static composer, before and after (throttled 4G): input ready at 0.36 s instead of 2.93 s; typed text survives the handoff.*
 

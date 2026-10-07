@@ -27,13 +27,13 @@ Le terme « harnais d'exécution » est devenu un raccourci pour désigner tout 
 
 Une partie du harnais d'exécution d'un agent de programmation est construite par son concepteur : prompts système, recherche de code et, parfois, [système d'orchestration sophistiqué](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents). Ces agents donnent aussi à leurs utilisateurs les moyens de bâtir un harnais d'exécution externe adapté à leur propre système et à leur cas d'usage.
 
-![Trois cercles concentriques montrant le modèle au centre, le harnais d'exécution fourni par le concepteur de l'agent de programmation autour de lui, puis le harnais d'exécution utilisateur à l'extérieur](/assets/blog/harness-engineering/harness-bounded-contexts.png)
+![Trois cercles concentriques montrant le modèle au centre, le harnais d'exécution fourni par le concepteur de l'agent de programmation autour de lui, puis le harnais d'exécution utilisateur à l'extérieur](/assets/blog/harness-engineering/harness-bounded-contexts.webp)
 
 Figure 1 : l'expression « harnais d'exécution » recouvre des réalités différentes selon le contexte délimité.
 
 Un bon harnais d'exécution externe poursuit deux objectifs : augmenter la probabilité que l'agent réussisse la tâche dès sa première tentative, puis fournir une boucle de rétroaction capable de corriger autant de problèmes que possible avant qu'ils n'arrivent jusqu'à un humain. Le résultat recherché est une charge de revue plus faible et une meilleure qualité du système ; la réduction des tokens gaspillés n'est qu'un bénéfice supplémentaire.
 
-![Vue d'ensemble de guides alimentant un agent de programmation et de capteurs renvoyant les résultats vers sa boucle d'autocorrection, sous le pilotage d'un humain](/assets/blog/harness-engineering/harness-overview.png)
+![Vue d'ensemble de guides alimentant un agent de programmation et de capteurs renvoyant les résultats vers sa boucle d'autocorrection, sous le pilotage d'un humain](/assets/blog/harness-engineering/harness-overview.webp)
 
 ## Feedforward et feedback
 
@@ -84,14 +84,14 @@ Les sensors feedback, y compris les sensors inferential, doivent être distribu�
 - Quels contrôles sont assez rapides pour s'exécuter avant l'intégration, voire avant même la création d'un commit ? Par exemple les linters, les suites de tests rapides et un agent de revue de code élémentaire.
 - Quels contrôles sont assez coûteux pour ne s'exécuter qu'après l'intégration, dans le pipeline, en complément d'une nouvelle exécution des contrôles rapides ? Par exemple le mutation testing et une revue de code plus large nécessitant une vue d'ensemble.
 
-![Exemples de guides feedforward et de sensors feedback avant et après l'intégration dans le cycle de vie d'une modification](/assets/blog/harness-engineering/harness-change-lifecycle-examples.png)
+![Exemples de guides feedforward et de sensors feedback avant et après l'intégration dans le cycle de vie d'une modification](/assets/blog/harness-engineering/harness-change-lifecycle-examples.webp)
 
 **Sensors continus de dérive et de santé**
 
 - Les **sensors de dérive de la base de code** s'exécutent en dehors du cycle de vie des modifications pour détecter les dégradations qui s'accumulent progressivement, comme le code mort, une couverture de tests fragile ou des problèmes de dépendances.
 - Les **sensors de santé à l'exécution** permettent aux agents de surveiller des signaux de production, par exemple la dégradation des SLO, la qualité d'un échantillon de réponses ou des logs anormaux, puis de proposer des améliorations.
 
-![Exemples de détection continue de la dérive de la base de code et de sensors feedback à l'exécution après l'intégration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.png)
+![Exemples de détection continue de la dérive de la base de code et de sensors feedback à l'exécution après l'intégration](/assets/blog/harness-engineering/harness-continuous-feedback-examples.webp)
 
 ## Catégories de régulation
 
@@ -129,7 +129,7 @@ Cette approche accorde une confiance excessive aux tests générés par l'IA. Ce
 
 Il reste beaucoup de travail avant que les harnais d'exécution comportementaux permettent aux équipes de réduire avec confiance la supervision et les tests manuels.
 
-![Modèle simplifié du harnais d'exécution, avec guides et sensors répartis entre les dimensions de maintenabilité, d'aptitude architecturale et de comportement](/assets/blog/harness-engineering/harness-types.png)
+![Modèle simplifié du harnais d'exécution, avec guides et sensors répartis entre les dimensions de maintenabilité, d'aptitude architecturale et de comportement](/assets/blog/harness-engineering/harness-types.webp)
 
 ## Aptitude au harnais d'exécution (*Harnessability*)
 
@@ -146,7 +146,7 @@ La plupart des entreprises s'appuient sur quelques topologies de services récur
 
 Ces modèles pourraient évoluer vers des **modèles de harnais d'exécution** : des ensembles de guides et de sensors qui contraignent un agent de programmation à respecter la structure, les conventions et la pile technologique d'une topologie. À terme, les équipes pourraient même choisir leurs technologies en partie selon les harnais d'exécution disponibles.
 
-![Exemples de topologies de services, chacune associée à un modèle de harnais d'exécution contenant ses guides et ses sensors](/assets/blog/harness-engineering/harness-templates.png)
+![Exemples de topologies de services, chacune associée à un modèle de harnais d'exécution contenant ses guides et ses sensors](/assets/blog/harness-engineering/harness-templates.webp)
 
 ### Loi d'Ashby
 

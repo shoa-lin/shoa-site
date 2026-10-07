@@ -13,7 +13,7 @@ contentType: "translation"
 translationStatus: "reviewed"
 ---
 
-![「claude.ai を 2 週間で 3 倍速くした方法」のカバー画像](/assets/blog/how-we-made-claude-ai-faster/cover.png)
+![「claude.ai を 2 週間で 3 倍速くした方法」のカバー画像](/assets/blog/how-we-made-claude-ai-faster/cover.webp)
 
 ---
 
@@ -117,7 +117,7 @@ Issac は、その土台にある [Layout Instability API](https://wicg.github.i
 
 イベントがデプロイされると、Claude は本番データを読み、**Web のページ読み込みの 31% で、ページが使える状態になった後に何かが動いている**ことを見つけた。ユーザーは何も操作していないのに、だ。そこから Claude は原因を一つずつ名指しで潰していった。遅れて届くヘッダー行、ユーザー名の読み込み後に横へずれるキャレット、スクロールバーの出現で動くリスト。上位の原因をまとめて修正し、それが片づくと次のまとまりを見つけた。
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="低速 4G での claude.ai サイドバー読み込みの修正前後を映した画面録画"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/sidebar-jank.mp4" aria-label="低速 4G での claude.ai サイドバー読み込みの修正前後を映した画面録画"></video>
 
 *サイドバーのガタつき、ビフォー／アフター（低速 4G）：修正前は行が遅れて届いて並び替わり、修正後は最終的な位置にそのまま埋まる。*
 
@@ -156,7 +156,7 @@ Issac は、その土台にある [Layout Instability API](https://wicg.github.i
 
 変化の速いコードベースでは、パフォーマンスの成果は放っておくと目減りする。しかも [Anthropic ではコードの出荷が速い](https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic)。だから、あるプロジェクトの効果が証明されたら、それを守る仕組みに投資した。たとえば静的コンポーザーは、構造上どうしても壊れやすい。ユーザーにはほぼ即座にページの HTML コピーを見せ、その上に React が直接描画するからだ。
 
-<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.png" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="低速 4G で claude.ai を新規に読み込んだときの、静的コンポーザーの有無による違いを映した画面録画"></video>
+<video controls muted playsinline preload="metadata" poster="/assets/blog/how-we-made-claude-ai-faster/static-composer-poster.webp" src="/assets/blog/how-we-made-claude-ai-faster/static-composer.mp4" aria-label="低速 4G で claude.ai を新規に読み込んだときの、静的コンポーザーの有無による違いを映した画面録画"></video>
 
 *静的コンポーザー、ビフォー／アフター（低速 4G）：入力可能になるのは 2.93 秒ではなく 0.36 秒。入力したテキストは切り替え後も残る。*
 
