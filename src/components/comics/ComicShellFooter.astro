@@ -2,8 +2,11 @@
 /**
  * Site footer for comic pages, isolated in a declarative shadow root like the header.
  * Comics often style `footer` globally, which is why the old appended contact link broke.
- * It stacks above the comic's fixed elements (for example a "back to top" button), so its
- * links stay clickable at the end of the page.
+ * Stacking (resting below comic overlays, rising above small floating buttons) is handled in
+ * src/scripts/comic-shell.ts.
+ *
+ * The email link sits in <!--email_off--> comments: Cloudflare's email obfuscation would rewrite it
+ * to /cdn-cgi/l/email-protection, and its decoder script cannot reach into a shadow root.
  */
 import { comicsIndexPath, shellCss, shellHostStyle } from "../../lib/comics";
 import { profile } from "../../data/profile";
@@ -35,7 +38,7 @@ const dictionary = getDictionary(locale);
             )}
           </p>
           <div class="links">
-            <a href={`mailto:${profile.email}`}>Email</a>
+            <Fragment set:html="<!--email_off-->" /><a href={`mailto:${profile.email}`}>Email</a><Fragment set:html="<!--/email_off-->" />
             <a href={profile.x} rel="me noopener noreferrer">X</a>
             <a href={profile.github} rel="me noopener noreferrer">GitHub</a>
           </div>

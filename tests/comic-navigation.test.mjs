@@ -69,7 +69,8 @@ test('comic editions wrap the author HTML in the isolated site header and footer
     assert.equal((html.match(/<shoa-comic-header\b/g) ?? []).length, 1, `${label} one header`);
     assert.equal((html.match(/<shoa-comic-footer\b/g) ?? []).length, 1, `${label} one footer`);
     assert.equal((html.match(/<template shadowrootmode="open">/g) ?? []).length, 2, `${label} declarative shadow roots`);
-    assert.match(html, /<footer class="foot"[^>]*>[\s\S]*mailto:shoa_lin@outlook\.com[\s\S]*<\/footer>/, `${label} footer contact`);
+    // Cloudflare's email obfuscation cannot be decoded inside a shadow root, so the link opts out of it.
+    assert.match(html, /<footer class="foot"[^>]*>[\s\S]*<!--email_off--><a href="mailto:shoa_lin@outlook\.com">Email<\/a><!--\/email_off-->[\s\S]*<\/footer>/, `${label} footer contact`);
     assert.match(html, new RegExp(`class="back" href="${prefix(locale)}/comics"`), `${label} back to the list`);
     const google = [...html.matchAll(/(?:https?:)?\/\/fonts\.(?:googleapis|gstatic)\.com[^"'\s)<>]*/g)].map((match) => match[0]);
     assert.deepEqual(google.filter((url) => !isIconFontUrl(url)), [], `${label} loads no Google Fonts except icon fonts`);
