@@ -6,7 +6,7 @@ import { test } from "node:test";
 const root = new URL("../", import.meta.url);
 const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 const htmlLang = { zh: "zh-CN", en: "en", ja: "ja", ko: "ko", th: "th", fr: "fr", de: "de", vi: "vi" };
-const pages = ["home", "about", "blog", "food", "favorites", "contact", "404"];
+const pages = ["home", "about", "blog", "comics", "food", "favorites", "contact", "404"];
 
 function builtPath(locale, page) {
   if (locale === "zh") {
@@ -18,7 +18,7 @@ function builtPath(locale, page) {
   return `dist/${locale}/${page}/index.html`;
 }
 
-test("Astro builds all six core pages in all eight locales", () => {
+test("Astro builds all core pages in all eight locales", () => {
   const build = spawnSync("npm", ["run", "build"], { cwd: root, encoding: "utf8" });
   assert.equal(build.status, 0, `${build.stdout}\n${build.stderr}`);
 
@@ -28,7 +28,7 @@ test("Astro builds all six core pages in all eight locales", () => {
       assert.match(html, new RegExp(`<html[^>]+lang="${htmlLang[locale]}"`), `${locale}/${page}`);
       assert.equal((html.match(/<h1\b/g) ?? []).length, 1, `${locale}/${page} must have one h1`);
       assert.match(html, /<link rel="canonical" href="https:\/\/www\.bydziwen\.top\//);
-      assert.equal((html.match(/hreflang=/g) ?? []).length, 9, `${locale}/${page} alternate links`);
+      assert.equal((html.match(/<link rel="alternate" hreflang=/g) ?? []).length, 9, `${locale}/${page} alternate links`);
       assert.match(html, /data-theme-toggle/);
       assert.match(html, /class="language-menu"/);
       assert.doesNotMatch(html, /\/projects|Projects|项目展示|项目是系统实验/);

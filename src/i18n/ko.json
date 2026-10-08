@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "AI 에이전트, 지식 시스템, 개발자 도구와 기술 글쓰기를 다루는 Shoa Lin의 개인 사이트입니다."
   },
-  "nav": { "home": "홈", "about": "소개", "blog": "글", "food": "맛집", "favorites": "보관함", "contact": "연락" },
+  "nav": { "home": "홈", "about": "소개", "blog": "글", "comics": "만화", "food": "맛집", "favorites": "보관함", "contact": "연락" },
   "theme": { "label": "테마", "toggle": "밝은 테마와 어두운 테마 전환", "light": "밝게", "dark": "어둡게", "system": "시스템 설정" },
   "language": { "label": "언어", "menu": "언어 선택", "current": "현재 언어" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "전체",
     "empty": "이 분류에는 아직 글이 없습니다.",
     "categories": { "architecture": "아키텍처", "development": "개발", "evaluation": "평가", "application": "활용", "algorithm": "알고리즘", "general": "일반" }
+  },
+  "comics": {
+    "title": "만화",
+    "description": "기술 이야기를 만화로 그려, 가볍게 읽을 수 있게 정리합니다.",
+    "empty": "아직 만화가 없습니다.",
+    "languages": "언어",
+    "notInLanguage": "아직 한국어판이 없습니다",
+    "backToList": "만화 목록으로"
   },
   "favorites": {
     "title": "보관함",

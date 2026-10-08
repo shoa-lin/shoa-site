@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Shoa Lin's personal site about AI agents, knowledge systems, developer tools, and technical writing."
   },
-  "nav": { "home": "Home", "about": "About", "blog": "Writing", "food": "Food", "favorites": "Favorites", "contact": "Contact" },
+  "nav": { "home": "Home", "about": "About", "blog": "Writing", "comics": "Comics", "food": "Food", "favorites": "Favorites", "contact": "Contact" },
   "theme": { "label": "Theme", "toggle": "Switch between light and dark themes", "light": "Light", "dark": "Dark", "system": "System" },
   "language": { "label": "Language", "menu": "Choose a language", "current": "Current language" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "All",
     "empty": "There are no articles in this category yet.",
     "categories": { "architecture": "Architecture", "development": "Development", "evaluation": "Evaluation", "application": "Applications", "algorithm": "Algorithms", "general": "General" }
+  },
+  "comics": {
+    "title": "Comics",
+    "description": "Technical topics drawn as comics, for a lighter read.",
+    "empty": "No comics yet.",
+    "languages": "Languages",
+    "notInLanguage": "Not yet available in English",
+    "backToList": "Back to comics"
   },
   "favorites": {
     "title": "Favorites",

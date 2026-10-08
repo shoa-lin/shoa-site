@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Shoa Lins persönliche Website über KI-Agenten, Wissenssysteme, Entwicklerwerkzeuge und technisches Schreiben."
   },
-  "nav": { "home": "Startseite", "about": "Über mich", "blog": "Artikel", "food": "Essen", "favorites": "Favoriten", "contact": "Kontakt" },
+  "nav": { "home": "Startseite", "about": "Über mich", "blog": "Artikel", "comics": "Comics", "food": "Essen", "favorites": "Favoriten", "contact": "Kontakt" },
   "theme": { "label": "Darstellung", "toggle": "Zwischen hellem und dunklem Design wechseln", "light": "Hell", "dark": "Dunkel", "system": "System" },
   "language": { "label": "Sprache", "menu": "Sprache auswählen", "current": "Aktuelle Sprache" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "Alle",
     "empty": "In dieser Kategorie gibt es noch keine Artikel.",
     "categories": { "architecture": "Architektur", "development": "Entwicklung", "evaluation": "Evaluation", "application": "Anwendungen", "algorithm": "Algorithmen", "general": "Allgemein" }
+  },
+  "comics": {
+    "title": "Comics",
+    "description": "Technische Themen als Comic erzählt – so liest es sich leichter.",
+    "empty": "Noch keine Comics.",
+    "languages": "Sprachen",
+    "notInLanguage": "Noch nicht auf Deutsch verfügbar",
+    "backToList": "Zurück zu den Comics"
   },
   "favorites": {
     "title": "Favoriten",

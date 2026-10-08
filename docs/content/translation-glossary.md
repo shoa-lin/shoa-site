@@ -14,10 +14,12 @@ This glossary keeps recurring technical terms consistent while allowing natural 
 | memory | 记忆 | memory | メモリ | 메모리 | หน่วยความจำ | mémoire | Gedächtnis (Memory) | bộ nhớ |
 | evaluation | 评估 | evaluation | 評価 | 평가 | การประเมิน | évaluation | Evaluation | đánh giá |
 | tool calling | 工具调用 | tool calling | ツール呼び出し | 도구 호출 | การเรียกใช้เครื่องมือ | appel d'outils | Tool-Aufruf | gọi công cụ |
+| comic | 漫画 | comic | マンガ | 만화 | การ์ตูน | bande dessinée (BD) | Comic | truyện tranh |
 
 ## Usage Rules
 
 - Keep API names, command names, code, and configuration keys unchanged.
+- Navigation and list labels for the comics section use the plural: Comics, Bandes dessinées, Truyện tranh (zh 漫画, ja マンガ, ko 만화, th การ์ตูน).
 - Translate explanations, not identifiers.
 - Prefer the established English term in Chinese when a forced translation would reduce precision.
 - Preserve uncertainty and scope qualifiers such as "may", "typically", and "in this test".

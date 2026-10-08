@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Trang cá nhân của Shoa Lin về AI agent, hệ thống tri thức, công cụ dành cho lập trình viên và viết kỹ thuật."
   },
-  "nav": { "home": "Trang chủ", "about": "Giới thiệu", "blog": "Bài viết", "food": "Ẩm thực", "favorites": "Yêu thích", "contact": "Liên hệ" },
+  "nav": { "home": "Trang chủ", "about": "Giới thiệu", "blog": "Bài viết", "comics": "Truyện tranh", "food": "Ẩm thực", "favorites": "Yêu thích", "contact": "Liên hệ" },
   "theme": { "label": "Giao diện", "toggle": "Chuyển đổi giữa giao diện sáng và tối", "light": "Sáng", "dark": "Tối", "system": "Hệ thống" },
   "language": { "label": "Ngôn ngữ", "menu": "Chọn ngôn ngữ", "current": "Ngôn ngữ hiện tại" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "Tất cả",
     "empty": "Chưa có bài viết nào trong danh mục này.",
     "categories": { "architecture": "Kiến trúc", "development": "Phát triển", "evaluation": "Đánh giá", "application": "Ứng dụng", "algorithm": "Thuật toán", "general": "Tổng quát" }
+  },
+  "comics": {
+    "title": "Truyện tranh",
+    "description": "Các chủ đề kỹ thuật được vẽ thành truyện tranh, đọc nhẹ nhàng hơn.",
+    "empty": "Chưa có truyện tranh nào.",
+    "languages": "Ngôn ngữ",
+    "notInLanguage": "Chưa có bản tiếng Việt",
+    "backToList": "Quay lại danh sách truyện tranh"
   },
   "favorites": {
     "title": "Yêu thích",

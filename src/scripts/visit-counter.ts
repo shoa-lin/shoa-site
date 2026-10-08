@@ -23,8 +23,8 @@ async function requestTotal(apiUrl: string, count: boolean) {
   return total;
 }
 
-export async function initVisitCounter() {
-  const container = document.querySelector<HTMLElement>("[data-visit-counter]");
+export async function initVisitCounter(root: ParentNode = document) {
+  const container = root.querySelector<HTMLElement>("[data-visit-counter]");
   const output = container?.querySelector<HTMLElement>("[data-visit-total]");
   const apiUrl = container?.dataset.visitApi;
   if (!container || !output || !apiUrl) return;

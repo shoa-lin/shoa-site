@@ -34,7 +34,7 @@
 
 .site-header__inner {
   display: grid;
-  grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
+  grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
   align-items: center;
   gap: 1.25rem;
 }
@@ -154,7 +154,7 @@ html[data-theme="dark"] .theme-toggle__light {
 }
 
 .language-menu__code {
-  color: var(--muted-soft);
+  color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.7rem;
 }
@@ -334,6 +334,14 @@ html[data-theme="dark"] .theme-toggle__light {
 
   .mobile-nav {
     display: block;
+  }
+}
+
+/* French and Vietnamese navigation is wide: below 1024px drop the language name and tighten spacing. */
+@media (max-width: 1023px) {
+  .site-header__inner,
+  .desktop-nav {
+    gap: 0.875rem;
   }
 
   .language-menu summary span:not(.language-menu__code) {

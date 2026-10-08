@@ -72,6 +72,8 @@ test("tracked source and every built HTML page use the public Outlook address", 
   assert.ok(htmlFiles.length > 0);
   for (const path of htmlFiles) {
     const html = readText(path);
+    // Redirect stubs for moved URLs carry no page content.
+    if (/<meta http-equiv="refresh"/.test(html)) continue;
     assert.match(html, /mailto:shoa_lin@outlook\.com/, relative(root, path));
     assert.doesNotMatch(html, /contact@shoa\.lin/, relative(root, path));
   }

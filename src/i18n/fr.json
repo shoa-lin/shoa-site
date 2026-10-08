@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Le site personnel de Shoa Lin consacré aux agents IA, aux systèmes de connaissance, aux outils de développement et à l'écriture technique."
   },
-  "nav": { "home": "Accueil", "about": "À propos", "blog": "Articles", "food": "Cuisine", "favorites": "Sélection", "contact": "Contact" },
+  "nav": { "home": "Accueil", "about": "À propos", "blog": "Articles", "comics": "Bandes dessinées", "food": "Cuisine", "favorites": "Sélection", "contact": "Contact" },
   "theme": { "label": "Thème", "toggle": "Basculer entre les thèmes clair et sombre", "light": "Clair", "dark": "Sombre", "system": "Système" },
   "language": { "label": "Langue", "menu": "Choisir une langue", "current": "Langue actuelle" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "Tous",
     "empty": "Aucun article dans cette catégorie pour le moment.",
     "categories": { "architecture": "Architecture", "development": "Développement", "evaluation": "Évaluation", "application": "Applications", "algorithm": "Algorithmes", "general": "Général" }
+  },
+  "comics": {
+    "title": "Bandes dessinées",
+    "description": "Des sujets techniques racontés en bande dessinée, pour une lecture plus légère.",
+    "empty": "Aucune bande dessinée pour le moment.",
+    "languages": "Langues",
+    "notInLanguage": "Pas encore disponible en français",
+    "backToList": "Retour aux bandes dessinées"
   },
   "favorites": {
     "title": "Sélection",

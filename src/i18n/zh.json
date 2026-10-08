@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "Shoa Lin 的个人主页，写 AI Agent、知识系统和开发者工具，也收录研究笔记和长期收藏。"
   },
-  "nav": { "home": "首页", "about": "关于", "blog": "文章", "food": "美食", "favorites": "收藏", "contact": "联系" },
+  "nav": { "home": "首页", "about": "关于", "blog": "文章", "comics": "漫画", "food": "美食", "favorites": "收藏", "contact": "联系" },
   "theme": { "label": "主题", "toggle": "切换浅色与暗色主题", "light": "浅色", "dark": "暗色", "system": "跟随系统" },
   "language": { "label": "语言", "menu": "选择语言", "current": "当前语言" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "全部",
     "empty": "这个分类暂时没有文章。",
     "categories": { "architecture": "架构", "development": "开发", "evaluation": "评估", "application": "应用", "algorithm": "算法", "general": "通用" }
+  },
+  "comics": {
+    "title": "漫画",
+    "description": "把技术话题画成漫画，读起来轻松一点。",
+    "empty": "暂时还没有漫画。",
+    "languages": "语言版本",
+    "notInLanguage": "暂无中文版",
+    "backToList": "返回漫画列表"
   },
   "favorites": {
     "title": "收藏",

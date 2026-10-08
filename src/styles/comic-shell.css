@@ -1,0 +1,454 @@
+/*
+ * Site header and footer for comic pages. Inlined into the shadow roots of
+ * <shoa-comic-header> and <shoa-comic-footer>, so comic CSS cannot reach these rules and
+ * these rules cannot reach the comic. Colours and sizes mirror the main site (tokens.css,
+ * components.css): 68px header, 860px and 560px breakpoints. Lengths are in px and font sizes in
+ * em from the host's `font-size: medium`, so a comic changing the root font size
+ * (html { font-size: 62.5% }) cannot resize them while the reader's default size still applies.
+ */
+:host {
+  --shoa-bg: #f7f8fa;
+  --shoa-surface: #ffffff;
+  --shoa-surface-muted: #eef1f5;
+  --shoa-text: #181a1f;
+  --shoa-muted: #626773;
+  --shoa-muted-soft: #6c727d;
+  --shoa-border: #dfe2e8;
+  --shoa-accent: #175cd3;
+  --shoa-shadow: 0 14px 36px rgba(24, 26, 31, 0.1);
+  all: initial;
+  display: block;
+  color: var(--shoa-text);
+  font-family: var(--shoa-shell-font, ui-sans-serif, system-ui, sans-serif);
+  font-size: medium;
+  font-synthesis: none;
+  line-height: 1.45;
+  text-align: start;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Dark comics get the main site's dark palette (tokens.css), chosen per comic at build time. */
+:host([data-theme="dark"]) {
+  --shoa-bg: #111317;
+  --shoa-surface: #181b20;
+  --shoa-surface-muted: #22262d;
+  --shoa-text: #f3f5f7;
+  --shoa-muted: #a9afb9;
+  --shoa-muted-soft: #858d99;
+  --shoa-border: #30343c;
+  --shoa-accent: #76a9ff;
+  --shoa-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host([data-theme="auto"]) {
+    --shoa-bg: #111317;
+    --shoa-surface: #181b20;
+    --shoa-surface-muted: #22262d;
+    --shoa-text: #f3f5f7;
+    --shoa-muted: #a9afb9;
+    --shoa-muted-soft: #858d99;
+    --shoa-border: #30343c;
+    --shoa-accent: #76a9ff;
+    --shoa-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Inherited text properties are set on the inner roots, not only on :host, because a comic
+ * rule such as `* { font-family: X !important }` still reaches the host element. */
+.skip,
+.bar,
+.foot {
+  color: var(--shoa-text);
+  font-family: var(--shoa-shell-font, ui-sans-serif, system-ui, sans-serif);
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  font-stretch: normal;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  line-height: 1.45;
+  letter-spacing: normal;
+  word-spacing: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: manual;
+  text-align: start;
+  text-indent: 0;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+}
+
+a {
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--shoa-accent) 70%, white);
+  outline-offset: 3px;
+}
+
+.code {
+  color: var(--shoa-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7em;
+  letter-spacing: 0;
+}
+
+/* Header */
+.skip {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  padding: 11.2px 14.4px;
+  border-radius: 8px;
+  background: var(--shoa-text);
+  color: var(--shoa-bg);
+  text-decoration: none;
+}
+
+.skip:not(:focus) {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.bar {
+  height: 68px;
+  border-bottom: 1px solid var(--shoa-border);
+  background: var(--shoa-bg);
+}
+
+.inner {
+  position: relative;
+  width: min(1180px, calc(100% - 32px));
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.brand {
+  justify-self: start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--shoa-text);
+  font-size: 1em;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+}
+
+.nav a {
+  position: relative;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--shoa-muted);
+  font-size: 0.9em;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--shoa-text);
+}
+
+.nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  left: 0;
+  height: 2px;
+  background: var(--shoa-accent);
+}
+
+.tools {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang {
+  position: relative;
+}
+
+.lang summary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10.4px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--shoa-muted);
+  font-size: 0.82em;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.lang summary .code {
+  font-size: 0.854em;
+}
+
+.lang summary::-webkit-details-marker {
+  display: none;
+}
+
+.lang summary:hover,
+.lang[open] summary {
+  border-color: var(--shoa-border);
+  background: var(--shoa-surface-muted);
+  color: var(--shoa-text);
+}
+
+.popover,
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 2;
+  padding: 6.4px;
+  border: 1px solid var(--shoa-border);
+  border-radius: 8px;
+  background: var(--shoa-surface);
+  box-shadow: var(--shoa-shadow);
+}
+
+.popover {
+  min-width: 190px;
+  display: grid;
+}
+
+.popover a,
+.menu a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  color: var(--shoa-muted);
+  text-decoration: none;
+}
+
+.popover a {
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 10.4px;
+}
+
+.popover a:hover,
+.popover a[aria-current="page"] {
+  background: var(--shoa-surface-muted);
+  color: var(--shoa-text);
+}
+
+.toggle {
+  width: 44px;
+  height: 44px;
+  display: none;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--shoa-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  border-color: var(--shoa-border);
+  background: var(--shoa-surface-muted);
+}
+
+.toggle:active {
+  transform: scale(0.97);
+}
+
+.toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.menu {
+  width: min(224px, calc(100vw - 32px));
+  max-height: calc(100dvh - 92px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: grid;
+  padding: 8px;
+}
+
+.menu a {
+  padding: 0 10.4px;
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+.menu a:hover {
+  color: var(--shoa-text);
+}
+
+.menu a[aria-current="page"] {
+  background: var(--shoa-surface-muted);
+  color: var(--shoa-accent);
+}
+
+/* Footer */
+.foot {
+  border-top: 1px solid var(--shoa-border);
+  background: var(--shoa-bg);
+  color: var(--shoa-muted);
+  font-size: 0.82em;
+}
+
+.foot-inner {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.back {
+  justify-self: start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6.4px;
+  color: var(--shoa-text);
+  font-size: 1.098em;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.back-label {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+}
+
+.back:hover {
+  color: var(--shoa-accent);
+}
+
+.foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--shoa-border);
+}
+
+.foot-row p {
+  margin: 0;
+}
+
+.views {
+  color: var(--shoa-muted-soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.views::before {
+  content: " · ";
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+}
+
+.links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.links a:hover {
+  color: var(--shoa-text);
+}
+
+@media (max-width: 1023px) {
+  .inner,
+  .nav {
+    gap: 14px;
+  }
+
+  .lang-label {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .toggle {
+    display: grid;
+  }
+}
+
+@media (min-width: 861px) {
+  .menu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .inner,
+  .foot-inner {
+    width: min(100% - 20px, 1180px);
+  }
+
+  .foot-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media print {
+  :host {
+    display: none !important;
+  }
+}

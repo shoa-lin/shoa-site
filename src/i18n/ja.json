@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "AIエージェント、知識システム、開発者ツール、技術文書について発信するShoa Linの個人サイトです。"
   },
-  "nav": { "home": "ホーム", "about": "プロフィール", "blog": "記事", "food": "グルメ", "favorites": "コレクション", "contact": "連絡先" },
+  "nav": { "home": "ホーム", "about": "プロフィール", "blog": "記事", "comics": "マンガ", "food": "グルメ", "favorites": "コレクション", "contact": "連絡先" },
   "theme": { "label": "テーマ", "toggle": "ライトとダークを切り替える", "light": "ライト", "dark": "ダーク", "system": "システム設定" },
   "language": { "label": "言語", "menu": "言語を選択", "current": "現在の言語" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "すべて",
     "empty": "このカテゴリの記事はまだありません。",
     "categories": { "architecture": "アーキテクチャ", "development": "開発", "evaluation": "評価", "application": "活用", "algorithm": "アルゴリズム", "general": "一般" }
+  },
+  "comics": {
+    "title": "マンガ",
+    "description": "技術の話題をマンガにして、気軽に読めるようにしています。",
+    "empty": "まだマンガはありません。",
+    "languages": "対応言語",
+    "notInLanguage": "日本語版はまだありません",
+    "backToList": "マンガ一覧に戻る"
   },
   "favorites": {
     "title": "コレクション",

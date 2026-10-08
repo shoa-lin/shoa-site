@@ -1,0 +1,14 @@
+---
+import ComicEditionPage from "../../../../components/pages/ComicEditionPage.astro";
+import { getComics } from "../../../../lib/comics";
+
+export async function getStaticPaths() {
+  return (await getComics()).flatMap((comic) => comic.editions
+    .filter((edition) => edition.locale !== "zh")
+    .map((edition) => ({ params: { locale: edition.locale, id: comic.id }, props: { comic, edition } })));
+}
+
+const { comic, edition } = Astro.props;
+---
+
+<ComicEditionPage comic={comic} edition={edition} />

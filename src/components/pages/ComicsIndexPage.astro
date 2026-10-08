@@ -1,0 +1,66 @@
+---
+import { comicPath, editionFor, getComics } from "../../lib/comics";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
+// Newest first; the newest is featured. Readers get their language when it exists, else the original.
+const comics = (await getComics()).map((comic) => ({ comic, edition: editionFor(comic, locale) }));
+---
+
+<PageLayout locale={locale} path="/comics" title={dictionary.comics.title} description={dictionary.comics.description}>
+  <header class="page-intro page-intro--compact">
+    <h1>{dictionary.comics.title}</h1>
+    <p>{dictionary.comics.description}</p>
+  </header>
+  <div class="comic-list">
+    {comics.map(({ comic, edition }, index) => {
+      const href = comicPath(edition.locale, comic.id);
+      const otherLanguage = edition.locale !== locale ? localeMeta[edition.locale].htmlLang : undefined;
+      return (
+        <article class:list={["comic-card", { "comic-card--featured": index === 0 }]}>
+          <a class="comic-card__cover" href={href} tabindex="-1" aria-hidden="true">
+            {edition.cover && (
+              <img
+                src={edition.cover.webp}
+                alt=""
+                width="960"
+                height="504"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : undefined}
+                decoding="async"
+              />
+            )}
+          </a>
+          <div class="comic-card__body">
+            <div class="comic-card__meta">
+              <time datetime={comic.publishedAt.toISOString().slice(0, 10)}>{dateFormatter.format(comic.publishedAt)}</time>
+              {otherLanguage && <span>{dictionary.comics.notInLanguage}</span>}
+            </div>
+            <h2><a href={href} lang={otherLanguage}>{edition.title}</a></h2>
+            <p lang={otherLanguage}>{edition.description}</p>
+            {comic.editions.length > 1 && (
+              <ul class="comic-card__languages" aria-label={dictionary.comics.languages}>
+                {comic.editions.map((item) => (
+                  <li>
+                    <a
+                      class:list={{ "is-shown": item.locale === edition.locale }}
+                      href={comicPath(item.locale, comic.id)}
+                      lang={localeMeta[item.locale].htmlLang}
+                      hreflang={localeMeta[item.locale].htmlLang}
+                      title={localeMeta[item.locale].label}
+                    >{item.locale.toUpperCase()}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </article>
+      );
+    })}
+    {comics.length === 0 && <p class="collection-empty">{dictionary.comics.empty}</p>}
+  </div>
+</PageLayout>
