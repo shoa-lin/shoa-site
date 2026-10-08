@@ -4,17 +4,20 @@ if (header) {
   const toggle = header.querySelector('[data-comic-toggle]');
   const menu = header.querySelector('[data-comic-menu]');
   if (toggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
+    // Each edition carries its own language's labels; Chinese is the fallback.
+    const openLabel = toggle.dataset.labelOpen || '打开导航';
+    const closeLabel = toggle.dataset.labelClose || '关闭导航';
     function close(restoreFocus = false) {
       menu.hidden = true;
       toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', '打开导航');
+      toggle.setAttribute('aria-label', openLabel);
       if (restoreFocus) toggle.focus();
     }
     toggle.addEventListener('click', () => {
       if (!menu.hidden) return close(true);
       menu.hidden = false;
       toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', '关闭导航');
+      toggle.setAttribute('aria-label', closeLabel);
       menu.querySelector('a')?.focus();
     });
     document.addEventListener('pointerdown', event => {
