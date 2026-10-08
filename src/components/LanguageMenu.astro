@@ -17,14 +17,13 @@ const dictionary = getDictionary(locale);
     <span class="language-menu__code" aria-hidden="true">{locale.toUpperCase()}</span>
     <span>{localeMeta[locale].label}</span>
   </summary>
-  <div class="language-menu__popover" role="list" aria-label={dictionary.a11y.languageMenu}>
+  <nav class="language-menu__popover" aria-label={dictionary.a11y.languageMenu}>
     {
       availableLocales.map((option) => (
         <a
           href={localizedPath(option, path)}
           lang={localeMeta[option].htmlLang}
           data-locale={option}
-          role="listitem"
           aria-current={option === locale ? "page" : undefined}
         >
           <span>{localeMeta[option].label}</span>
@@ -32,7 +31,7 @@ const dictionary = getDictionary(locale);
         </a>
       ))
     }
-  </div>
+  </nav>
 </details>
 
 <script>

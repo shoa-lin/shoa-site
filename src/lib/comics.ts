@@ -38,7 +38,7 @@ export interface Comic {
   publishedAt: Date;
   updatedAt: Date;
   sourceLocale: Locale;
-  shellTheme?: "light" | "dark";
+  shellTheme?: "light" | "dark" | "auto";
   editions: ComicEdition[];
 }
 
@@ -134,7 +134,9 @@ export const shellCss = shellCssSource
  */
 export function shellHostStyle(locale: Locale): string {
   return [
-    "display:block", "position:relative", "z-index:2147483000", "box-sizing:border-box", "width:auto",
+    // z-index stays low so the comic's own overlays (lightboxes, dialogs) cover the site header and
+    // footer; comic-shell.ts raises it only while a site menu is open or a fixed button would hide links.
+    "display:block", "position:relative", "z-index:1", "box-sizing:border-box", "width:auto", "font-size:medium!important",
     "max-width:none", "min-width:0", "margin:0", "padding:0", "border:0", "outline:0", "background:none",
     "box-shadow:none", "opacity:1", "filter:none", "transform:none", "clip-path:none", "float:none",
     "overflow:visible", "visibility:visible", "flex:none", "order:0", "align-self:stretch",

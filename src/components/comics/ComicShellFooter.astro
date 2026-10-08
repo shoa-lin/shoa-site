@@ -12,7 +12,7 @@ import { getDictionary, type Locale } from "../../lib/i18n";
 
 interface Props {
   locale: Locale;
-  theme?: "light" | "dark";
+  theme?: "light" | "dark" | "auto";
 }
 
 const { locale, theme = "light" } = Astro.props;

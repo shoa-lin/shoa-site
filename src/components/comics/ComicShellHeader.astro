@@ -13,7 +13,7 @@ interface Props {
   locale: Locale;
   comicId: string;
   editionLocales: Locale[];
-  theme?: "light" | "dark";
+  theme?: "light" | "dark" | "auto";
 }
 
 const { locale, comicId, editionLocales, theme = "light" } = Astro.props;

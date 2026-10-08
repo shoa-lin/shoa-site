@@ -3,14 +3,15 @@
 // complete HTML file per edition (<locale>.html). The site wraps those files at build time.
 //
 //   npm run comic -- add <file.html> --id <slug> [--locale zh] [--title ...] [--description ...]
-//                        [--date YYYY-MM-DD] [--assets <dir>] [--shell-theme light|dark] [--draft] [--no-vendor]
+//                        [--date YYYY-MM-DD] [--assets <dir>] [--shell-theme light|dark|auto] [--draft] [--no-vendor]
 //   npm run comic -- fonts <id> [--locale xx]   self-host and subset the edition's Google Fonts
 //   npm run comic -- cover <id> [--locale xx]   render cover images for the list and link previews
 //   npm run comic -- check [<id>]               validate sources, metadata, fonts, assets and covers
+//   npm run comic -- prune <id> [--apply]       list (or delete) generated files nothing uses any more
 //
 // Network access (Google Fonts, CDN downloads) happens only here, never during the site build.
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { basename, dirname, extname, join, posix, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -18,7 +19,9 @@ import {
   SYSTEM_TEXT_FAMILIES,
   cleanComicSource,
   collectComicReferences,
+  derivedDescription,
   googleFontRequests,
+  listTitle,
   lintComicHtml,
   mapCssRefs,
   mergeFontRequests,
@@ -36,7 +39,7 @@ const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 const htmlLang = { zh: "zh-CN", en: "en", ja: "ja", ko: "ko", th: "th", fr: "fr", de: "de", vi: "vi" };
 const ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PREVIEW_ORIGIN = "http://comic.preview";
-const BOOLEAN_FLAGS = new Set(["draft", "no-vendor"]);
+const BOOLEAN_FLAGS = new Set(["draft", "no-vendor", "apply"]);
 // Google Fonts answers browsers it does not recognise with complete TTF files, which we subset.
 const FONT_FETCH_UA = "Mozilla/5.0";
 const DOWNLOAD_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36";
@@ -85,6 +88,10 @@ function readJson(path, fallback) {
 
 function writeJson(path, value) {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function isRealDate(value) {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && new Date(`${value}T00:00:00Z`).toISOString().slice(0, 10) === value;
 }
 
 function localeFromLang(lang) {
@@ -148,23 +155,6 @@ function visibleText(html) {
   return `${plainText(html)} ${attributes}`;
 }
 
-/** Title for the comics list: the HTML title without "| Shoa Lin" or a "· comic edition" tail. */
-function listTitle(title) {
-  const withoutSite = title.replace(/\s*[|·｜]\s*Shoa Lin\s*$/i, "").trim();
-  const withoutTail = withoutSite.replace(/\s*[·|｜–—-]\s*[^·|｜–—-]*(?:漫画|漫畫|マンガ|만화|comic|bande dessinée|truyện tranh|การ์ตูน)[^·|｜–—-]*$/i, "").trim();
-  return withoutTail || withoutSite;
-}
-
-/** A one- or two-sentence summary for comic.json when the HTML has no meta description. */
-function derivedDescription(body, limit = 120) {
-  const paragraphs = [...body.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((match) => plainText(match[1] ?? "")).filter((text) => text.length >= 20);
-  const text = paragraphs[0] ?? plainText(body);
-  if (text.length <= limit) return text;
-  const cut = text.slice(0, limit);
-  const end = Math.max(cut.lastIndexOf("。"), cut.lastIndexOf(". "), cut.lastIndexOf("！"), cut.lastIndexOf("？"));
-  return end > limit * 0.5 ? cut.slice(0, end + 1) : `${cut.trimEnd()}…`;
-}
-
 function attributes(record) {
   return Object.entries(record).map(([name, value]) => ` ${name}="${String(value).replace(/&/g, "&amp;").replace(/"/g, "&quot;")}"`).join("");
 }
@@ -175,6 +165,11 @@ function attributes(record) {
 async function launchBrowser() {
   const { chromium } = await import("@playwright/test");
   return chromium.launch();
+}
+
+async function assertBrowserInstalled() {
+  const { chromium } = await import("@playwright/test");
+  if (!existsSync(chromium.executablePath())) fail("Playwright's Chromium is not installed; run: npx playwright install chromium");
 }
 
 async function loadSharp() {
@@ -208,9 +203,14 @@ function syncAssets(id, locale, html, assetRoot, meta) {
   const previous = manifest[locale] ?? {};
   const map = {};
   const missing = [];
+  const unresolvedScriptRefs = [];
   const skipped = [];
   const pendingCss = [];
-  const queue = [...collectComicReferences(html).assets];
+  let inheritedCount = 0;
+  const references = collectComicReferences(html);
+  const queue = [...references.assets];
+  const optional = new Set(references.scriptAssets);
+  queue.push(...references.scriptAssets);
   const seen = new Set();
   const rootPath = resolve(assetRoot);
   while (queue.length) {
@@ -228,8 +228,8 @@ function syncAssets(id, locale, html, assetRoot, meta) {
         const css = readFileSync(file, "utf8");
         const nested = [];
         mapCssRefs(css, (nestedRef) => {
-          const key = normalizeAssetRef(posix.join(posix.dirname(ref), nestedRef));
-          if (key && !/^data:/i.test(nestedRef)) nested.push(key);
+          const key = cssRelativeKey(ref, nestedRef);
+          if (key) nested.push(key);
           return undefined;
         });
         pendingCss.push({ ref, css });
@@ -237,23 +237,32 @@ function syncAssets(id, locale, html, assetRoot, meta) {
         continue;
       }
       map[ref] = copyHashed(id, "assets", basename(ref), readFileSync(file));
-    } else if (inherited[ref] && existsSync(join(publicDir, inherited[ref]))) {
-      map[ref] = inherited[ref];
+    } else if (locale !== meta.sourceLocale && inherited[ref] && existsSync(join(publicDir, inherited[ref]))) {
+      // Not stored: the page falls back to the original edition's current file at build time.
+      inheritedCount += 1;
     } else if (previous[ref] && existsSync(join(publicDir, previous[ref]))) {
       map[ref] = previous[ref];
+    } else if (optional.has(ref)) {
+      unresolvedScriptRefs.push(ref);
     } else {
       missing.push(ref);
     }
   }
   for (const { ref, css } of pendingCss.reverse()) {
-    const rewritten = mapCssRefs(css, (nestedRef) => map[normalizeAssetRef(posix.join(posix.dirname(ref), nestedRef)) ?? ""]);
+    const rewritten = mapCssRefs(css, (nestedRef) => map[cssRelativeKey(ref, nestedRef) ?? ""] ?? (locale !== meta.sourceLocale ? inherited[cssRelativeKey(ref, nestedRef) ?? ""] : undefined));
     map[ref] = copyHashed(id, "assets", basename(ref), Buffer.from(rewritten));
   }
   const ordered = Object.fromEntries(Object.entries(map).sort(([left], [right]) => left.localeCompare(right)));
   if (Object.keys(ordered).length) manifest[locale] = ordered;
   else delete manifest[locale];
   if (Object.keys(manifest).length || existsSync(assetsManifestPath(id))) writeJson(assetsManifestPath(id), manifest);
-  return { copied: Object.keys(ordered).length, missing, skipped };
+  return { copied: Object.keys(ordered).length, inherited: inheritedCount, missing, unresolvedScriptRefs, skipped };
+}
+
+/** A reference inside a copied CSS file, as a path in the comic folder; undefined for absolute URLs. */
+function cssRelativeKey(cssRef, nestedRef) {
+  if (/^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(nestedRef.trim())) return undefined;
+  return normalizeAssetRef(posix.join(posix.dirname(cssRef), nestedRef.trim()));
 }
 
 async function download(url, { timeout = 20_000, userAgent = DOWNLOAD_UA } = {}) {
@@ -284,7 +293,13 @@ async function syncVendor(id, html) {
       results.push(`warning: could not download ${url} (${error.message}); the page keeps loading it from its original host`);
     }
   }
-  if (Object.keys(manifest).length) writeJson(vendorManifestPath(id), manifest);
+  // Drop entries no edition references any more (their files are reported by "prune").
+  const used = new Set(editionLocales(id).flatMap((locale) => {
+    const { externalScripts: scripts, externalStyles: styles } = collectComicReferences(readHtml(editionPath(id, locale)));
+    return [...scripts, ...styles];
+  }));
+  for (const url of Object.keys(manifest)) if (!used.has(url)) delete manifest[url];
+  if (Object.keys(manifest).length || existsSync(vendorManifestPath(id))) writeJson(vendorManifestPath(id), manifest);
   return results;
 }
 
@@ -350,7 +365,15 @@ async function glyphsByFamily(browser, id, locale) {
     const record = (node) => {
       const element = node.nodeType === Node.TEXT_NODE ? node.parentElement : node;
       if (!element || ["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE", "TITLE"].includes(element.tagName)) return;
-      seen.push([getComputedStyle(element).fontFamily, node.nodeType === Node.TEXT_NODE ? node.data : element.textContent ?? ""]);
+      if (node.nodeType === Node.TEXT_NODE) {
+        seen.push([getComputedStyle(element).fontFamily, node.data]);
+        return;
+      }
+      // An inserted element can hold text in several fonts; record each text node with its own font.
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+      for (let text = walker.nextNode(); text; text = walker.nextNode()) {
+        if (text.parentElement) seen.push([getComputedStyle(text.parentElement).fontFamily, text.data]);
+      }
     };
     new MutationObserver((mutations) => {
       for (const mutation of mutations) {
@@ -363,11 +386,13 @@ async function glyphsByFamily(browser, id, locale) {
   // Scroll through the page so reveal-on-scroll content appears, then wait for the DOM to settle.
   await page.evaluate(async () => {
     const pause = (ms) => new Promise((done) => setTimeout(done, ms));
+    // Comics often set scroll-behavior: smooth, which would leave the bottom unvisited.
+    document.documentElement.style.scrollBehavior = "auto";
     for (let y = 0; y < document.documentElement.scrollHeight; y += Math.max(200, innerHeight * 0.8)) {
-      scrollTo(0, y);
+      scrollTo({ top: y, behavior: "instant" });
       await pause(150);
     }
-    scrollTo(0, 0);
+    scrollTo({ top: 0, behavior: "instant" });
     let last = -1;
     for (let waited = 0, quiet = 0; waited < 8000 && quiet < 1500; waited += 250) {
       await pause(250);
@@ -513,10 +538,22 @@ async function buildCovers(id, only) {
     const outDir = join(publicComicsDir, id, "covers");
     mkdirSync(outDir, { recursive: true });
     for (const locale of targets) {
-      const page = await previewPage(browser, id, previewDocument(id, locale, { withFonts: true }), { width: 1200, height: 630 });
+      const page = await previewPage(browser, id, previewDocument(id, locale, { withFonts: true }), { width: 1200, height: 630 }, () => {
+        window.__comicMutations = 0;
+        new MutationObserver((mutations) => {
+          window.__comicMutations += mutations.length;
+        }).observe(document, { subtree: true, childList: true, characterData: true });
+      });
       await page.evaluate(async () => {
         await document.fonts.ready;
         await new Promise((done) => setTimeout(done, 1500));
+        // Typewriter text and other script-driven entrances: wait for a quiet DOM (at most 8 s).
+        let last = -1;
+        for (let waited = 0, quiet = 0; waited < 8000 && quiet < 1200; waited += 200) {
+          await new Promise((done) => setTimeout(done, 200));
+          quiet = window.__comicMutations === last ? quiet + 200 : 0;
+          last = window.__comicMutations;
+        }
         // Let entrance animations finish; ignore endless ones (spinners, marquees).
         const finite = document.getAnimations().filter((animation) => Number.isFinite(animation.effect?.getComputedTiming().endTime ?? Infinity));
         await Promise.race([Promise.allSettled(finite.map((animation) => animation.finished)), new Promise((done) => setTimeout(done, 3000))]);
@@ -542,8 +579,8 @@ async function add(args) {
   if (!file || !existsSync(file) || !statSync(file).isFile()) fail("usage: npm run comic -- add <file.html> --id <slug> [--locale zh]");
   const id = args.id;
   if (typeof id !== "string" || !ID_PATTERN.test(id)) fail("--id must be lowercase letters/digits joined by hyphens, for example gpt-6-astra");
-  if (args.date !== undefined && (typeof args.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(args.date))) fail("--date must look like 2026-10-08");
-  if (args["shell-theme"] !== undefined && !["light", "dark"].includes(args["shell-theme"])) fail("--shell-theme must be light or dark");
+  if (args.date !== undefined && !isRealDate(args.date)) fail("--date must be a real date like 2026-10-08");
+  if (args["shell-theme"] !== undefined && !["light", "dark", "auto"].includes(args["shell-theme"])) fail("--shell-theme must be light, dark or auto");
   const assetRoot = typeof args.assets === "string" ? args.assets : dirname(resolve(file));
   if (!existsSync(assetRoot) || !statSync(assetRoot).isDirectory()) fail(`--assets ${assetRoot} is not a folder`);
 
@@ -555,10 +592,12 @@ async function add(args) {
   const today = typeof args.date === "string" ? args.date : new Date().toISOString().slice(0, 10);
   const meta = readMeta(id) ?? { publishedAt: today, updatedAt: today, sourceLocale: locale, editions: {} };
   const previous = meta.editions[locale];
-  const title = typeof args.title === "string" ? args.title : previous?.title ?? listTitle(doc.title);
+  const title = (typeof args.title === "string" ? args.title : previous?.title ?? listTitle(doc.title)).trim();
   if (!title) fail("the HTML has no <title>; pass --title");
   const derived = !previous?.description && !doc.description && typeof args.description !== "string";
-  const description = typeof args.description === "string" ? args.description : previous?.description ?? (doc.description || derivedDescription(doc.body));
+  const description = (typeof args.description === "string" ? args.description : previous?.description ?? (doc.description || derivedDescription(doc.body))).trim();
+  if (!description) fail("could not find a description (no <meta name=\"description\"> and no paragraph text); pass --description");
+  await assertBrowserInstalled();
 
   // Everything is validated; write the edition.
   mkdirSync(join(comicsDir, id), { recursive: true });
@@ -571,11 +610,14 @@ async function add(args) {
 
   console.log(`${id}/${locale}: saved ${rel(editionPath(id, locale))}${removed ? ` (removed ${removed} site-shell leftovers)` : ""}`);
   if (previous && typeof args.title !== "string") console.log(`  kept the existing title "${title}" (pass --title to change it)`);
+  else if (typeof args.title !== "string") console.log(`  title: "${title}" (from <title>; pass --title to change it)`);
   if (derived) console.log(`  description taken from the comic's first paragraph; review it in ${rel(metaPath(id))}`);
   const assets = syncAssets(id, locale, html, assetRoot, meta);
   if (assets.copied) console.log(`  assets: ${assets.copied} file(s) mapped into public/comics/${id}/assets/`);
+  if (assets.inherited) console.log(`  assets: ${assets.inherited} file(s) shared with the ${meta.sourceLocale} edition`);
   for (const ref of assets.skipped) console.log(`  note: ${ref} is an HTML page and was not copied`);
   for (const ref of assets.missing) console.log(`  warning: missing asset ${ref}; put it next to the HTML (or in --assets) and rerun add`);
+  for (const ref of assets.unresolvedScriptRefs) console.log(`  note: a script mentions ${ref}, which is not next to the HTML; add the file and rerun add if the comic uses it`);
   if (!args["no-vendor"]) for (const line of await syncVendor(id, html)) console.log(`  ${line}`);
   for (const warning of lintComicHtml(html)) console.log(`  warning: ${warning}`);
   await buildFonts(id, locale);
@@ -609,11 +651,11 @@ function check(onlyId) {
       continue;
     }
     for (const key of ["publishedAt", "updatedAt"]) {
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(meta[key] ?? "")) errors.push(`${id}: ${key} must be YYYY-MM-DD`);
+      if (!isRealDate(meta[key])) errors.push(`${id}: ${key} must be a real date written as YYYY-MM-DD`);
     }
     if (meta.updatedAt < meta.publishedAt) warnings.push(`${id}: updatedAt is earlier than publishedAt`);
     if (meta.draft !== undefined && typeof meta.draft !== "boolean") errors.push(`${id}: draft must be true or false`);
-    if (meta.shellTheme !== undefined && !["light", "dark"].includes(meta.shellTheme)) errors.push(`${id}: shellTheme must be "light" or "dark"`);
+    if (meta.shellTheme !== undefined && !["light", "dark", "auto"].includes(meta.shellTheme)) errors.push(`${id}: shellTheme must be "light", "dark" or "auto"`);
     if (!locales.includes(meta.sourceLocale) || !meta.editions?.[meta.sourceLocale]) errors.push(`${id}: sourceLocale "${meta.sourceLocale}" has no edition`);
     for (const fileName of readdirSync(join(comicsDir, id)).filter((name) => name.endsWith(".html"))) {
       const locale = fileName.replace(/\.html$/, "");
@@ -672,6 +714,8 @@ function check(onlyId) {
       }
       for (const warning of lintComicHtml(html)) warnings.push(`${label}: ${warning}`);
     }
+    const orphans = orphanFiles(id);
+    if (orphans.length) warnings.push(`${id}: ${orphans.length} generated file(s) are no longer used (run "npm run comic -- prune ${id}" to review)`);
     for (const [locale] of Object.entries(meta.editions ?? {})) {
       if (locale === meta.sourceLocale || !sourceHtml || !existsSync(editionPath(id, locale))) continue;
       const label = `${id}/${locale}`;
@@ -696,6 +740,44 @@ function check(onlyId) {
 }
 
 // ---------------------------------------------------------------------------------------
+// prune
+
+function filesUnder(dir) {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => (entry.isDirectory() ? filesUnder(join(dir, entry.name)) : [join(dir, entry.name)]));
+}
+
+/** Generated files under public/comics/<id>/ that no manifest, font CSS or cover slot refers to. */
+function orphanFiles(id) {
+  const meta = readMeta(id);
+  const used = new Set();
+  for (const map of Object.values(readJson(assetsManifestPath(id), {}))) for (const url of Object.values(map)) used.add(join(publicDir, url));
+  for (const url of Object.values(readJson(vendorManifestPath(id), {}))) used.add(join(publicDir, url));
+  for (const locale of Object.keys(meta?.editions ?? {})) {
+    for (const [, url] of fontManifest(id, locale).css.matchAll(/url\((\/comics\/[^)]+)\)/g)) used.add(join(publicDir, url));
+    for (const extension of ["jpg", "webp"]) used.add(join(publicComicsDir, id, "covers", `${locale}.${extension}`));
+  }
+  return ["assets", "vendor", "fonts", "covers"].flatMap((folder) => filesUnder(join(publicComicsDir, id, folder))).filter((file) => !used.has(file));
+}
+
+function prune(id, apply) {
+  // The id becomes part of the paths this command deletes, so it must be a plain comic id.
+  if (!ID_PATTERN.test(id ?? "") || !readMeta(id)) fail(`usage: npm run comic -- prune <id> [--apply]; known comics: ${comicFolders().join(", ") || "none"}`);
+  const orphans = orphanFiles(id);
+  if (!orphans.length) {
+    console.log(`${id}: nothing to prune`);
+    return;
+  }
+  for (const file of orphans) console.log(`${apply ? "deleting" : "unused"}: ${rel(file)}`);
+  if (!apply) {
+    console.log(`\n${orphans.length} file(s). Rerun with --apply to delete exactly these files.`);
+    return;
+  }
+  for (const file of orphans) rmSync(file);
+  console.log(`${id}: deleted ${orphans.length} file(s)`);
+}
+
+// ---------------------------------------------------------------------------------------
 
 async function main() {
   const [command, ...rest] = process.argv.slice(2);
@@ -706,11 +788,15 @@ async function main() {
   if (command === "add") return add(args);
   if (command === "fonts" || command === "cover") {
     const id = args._[0];
-    if (!id || !readMeta(id)) fail(`usage: npm run comic -- ${command} <id> [--locale xx]; known comics: ${comicFolders().join(", ") || "none"}`);
+    if (!ID_PATTERN.test(id ?? "") || !readMeta(id)) fail(`usage: npm run comic -- ${command} <id> [--locale xx]; known comics: ${comicFolders().join(", ") || "none"}`);
     return command === "fonts" ? buildFonts(id, locale) : buildCovers(id, locale);
   }
-  if (command === "check") return check(args._[0]);
-  fail("commands: add, fonts, cover, check (see the header of scripts/comics.mjs)");
+  if (command === "check") {
+    if (args._[0] !== undefined && !ID_PATTERN.test(args._[0])) fail(`unknown comic id ${args._[0]}; known comics: ${comicFolders().join(", ") || "none"}`);
+    return check(args._[0]);
+  }
+  if (command === "prune") return prune(args._[0], Boolean(args.apply));
+  fail("commands: add, fonts, cover, check, prune (see the header of scripts/comics.mjs)");
 }
 
 main().catch((error) => {

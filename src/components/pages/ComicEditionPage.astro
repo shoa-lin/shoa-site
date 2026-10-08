@@ -73,7 +73,14 @@ const liftFooter = `(function(r){var e=document.querySelector("shoa-comic-footer
     <meta property="og:image:alt" content={edition.title} data-shoa-shell />
     <meta property="og:locale" content={localeMeta[locale].htmlLang} data-shoa-shell />
     <meta name="twitter:card" content="summary_large_image" data-shoa-shell />
-    <meta name="theme-color" content={shellTheme === "dark" ? "#111317" : "#f7f8fa"} data-shoa-shell />
+    {shellTheme === "auto" ? (
+      <>
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f8fa" data-shoa-shell />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111317" data-shoa-shell />
+      </>
+    ) : (
+      <meta name="theme-color" content={shellTheme === "dark" ? "#111317" : "#f7f8fa"} data-shoa-shell />
+    )}
     <link rel="icon" href="/favicon.ico" sizes="32x32" data-shoa-shell />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" data-shoa-shell />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" data-shoa-shell />

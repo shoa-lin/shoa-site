@@ -28,6 +28,8 @@ const SHELL_HTTP_EQUIV = /^(?:content-type|content-security-policy|refresh)$/i;
 const SHELL_LINK_RELS = new Set(["canonical", "alternate", "icon", "shortcut", "apple-touch-icon", "mask-icon", "manifest"]);
 const URL_ATTRIBUTES = new Set(["src", "href", "poster", "data", "background"]);
 const LEGACY_CONTACT = "mailto:shoa_lin@outlook.com";
+// A quoted relative path to a media or data file inside an inline script: "img/panel-1.png".
+const SCRIPT_ASSET = /(["'`])((?:\.\/)?[\w\-][\w\-./ ]*\.(?:png|jpe?g|gif|webp|avif|svg|mp4|webm|mp3|ogg|wav|json|woff2?|ttf|otf))\1/gi;
 
 /** CJK body-text families are not self-hosted; comics fall back to the reader's system fonts. */
 export const SYSTEM_TEXT_FAMILIES = /^(?:Noto (?:Sans|Serif)(?: Mono)? (?:SC|TC|HK|JP|KR)|Noto (?:Sans|Serif) CJK.*|Source Han (?:Sans|Serif).*)$/i;
@@ -294,6 +296,8 @@ function forEachElementRef(element: Element, visit: (ref: string, kind: "url" | 
 export interface ComicReferences {
   /** Relative files the comic uses, as paths inside its folder ("img/a.png"). */
   assets: string[];
+  /** Quoted relative file paths found in inline scripts ("panels/1.png"); copied when the file exists. */
+  scriptAssets: string[];
   /** Relative references that climb out of the comic folder ("../shared/a.png"). */
   escaping: string[];
   /** Classic external scripts and non-Google external stylesheets, which `add` downloads. */
@@ -318,6 +322,7 @@ export function collectComicReferences(input: string): ComicReferences {
   const externalScripts = new Set<string>();
   const externalStyles = new Set<string>();
   const googleFontUrls = new Set<string>();
+  const scriptAssets = new Set<string>();
   const note = (ref: string) => {
     const parts = splitRelativeRef(ref);
     if (!parts || !parts.path) return undefined;
@@ -334,6 +339,12 @@ export function collectComicReferences(input: string): ComicReferences {
     }
     const src = getAttr(element, "src") ?? "";
     const href = getAttr(element, "href") ?? "";
+    if (element.tagName === "script" && !src) {
+      for (const match of textContent(element).matchAll(SCRIPT_ASSET)) {
+        const path = normalizeAssetRef(match[2] ?? "");
+        if (path) scriptAssets.add(path);
+      }
+    }
     if (element.tagName === "script" && isExternal(src)) {
       if (!/^module$/i.test(getAttr(element, "type") ?? "")) externalScripts.add(absoluteUrl(src));
     }
@@ -348,6 +359,7 @@ export function collectComicReferences(input: string): ComicReferences {
   });
   return {
     assets: [...assets].sort(),
+    scriptAssets: [...scriptAssets].filter((path) => !assets.has(path)).sort(),
     escaping: [...escaping].sort(),
     externalScripts: [...externalScripts],
     externalStyles: [...externalStyles],
@@ -381,6 +393,7 @@ function tuplesFromAxes(axes: string): FontTuple[] {
 }
 
 function axesFromTuples(tuples: FontTuple[]): string {
+  if (!tuples.length) return "";
   const unique = [...new Map(tuples.map((tuple) => [`${tuple.italic ? 1 : 0},${tuple.weight}`, tuple])).values()]
     .sort((left, right) => Number(left.italic) - Number(right.italic) || Number.parseFloat(left.weight) - Number.parseFloat(right.weight));
   if (unique.length === 1 && !unique[0]!.italic && unique[0]!.weight === "400") return "";
@@ -419,21 +432,38 @@ export function googleFontRequests(url: string): GoogleFontRequest[] {
 /** Merge requests for the same family (several links, or a link plus an @import). */
 export function mergeFontRequests(requests: GoogleFontRequest[]): GoogleFontRequest[] {
   const byFamily = new Map<string, FontTuple[]>();
-  for (const request of requests) byFamily.set(request.family, [...(byFamily.get(request.family) ?? []), ...tuplesFromAxes(request.axes)]);
-  return [...byFamily].map(([family, tuples]) => ({ family, axes: axesFromTuples(tuples) }));
+  const verbatim = new Map<string, string>();
+  for (const request of requests) {
+    const names = (request.axes.split("@")[0] ?? "").split(",").map((name) => name.trim().toLowerCase()).filter(Boolean);
+    // Variable-font axes such as wdth, opsz or GRAD cannot be merged as weights; keep the first spec as written.
+    if (names.some((name) => name !== "ital" && name !== "wght")) {
+      if (!verbatim.has(request.family)) verbatim.set(request.family, request.axes);
+      continue;
+    }
+    byFamily.set(request.family, [...(byFamily.get(request.family) ?? []), ...tuplesFromAxes(request.axes)]);
+  }
+  const families = [...new Set([...requests.map((request) => request.family)])];
+  return families.map((family) => ({ family, axes: verbatim.get(family) ?? axesFromTuples(byFamily.get(family) ?? []) }));
 }
 
-/** Families of a Google Fonts URL that the comic should self-host (not system text or icon fonts). */
-export function selfHostableFamilies(url: string): string[] {
-  if (/\/icon(?:[?#]|$)/.test(url)) return [];
-  return googleFontRequests(url).map((request) => request.family).filter((family) => !SYSTEM_TEXT_FAMILIES.test(family) && !ICON_FAMILIES.test(family));
-}
-
-function fontsHandled(url: string, handled: ReadonlySet<string>): boolean {
-  if (/\/icon(?:[?#]|$)/.test(url)) return false;
-  const families = googleFontRequests(url).map((request) => request.family);
-  if (families.some((family) => ICON_FAMILIES.test(family))) return false;
-  return families.filter((family) => !SYSTEM_TEXT_FAMILIES.test(family)).every((family) => handled.has(family.toLowerCase()));
+/**
+ * The part of a Google Fonts URL that still has to load from Google: undefined when every family
+ * is self-hosted or left to system fonts, the URL itself when nothing is, otherwise a css2 URL for
+ * the remaining families (icon fonts, downloads that failed).
+ */
+function remainingFontUrl(url: string, handled: ReadonlySet<string>): string | undefined {
+  if (/\/icon(?:[?#]|$)/.test(url)) return url;
+  const requests = googleFontRequests(url);
+  const remaining = requests.filter(({ family }) => ICON_FAMILIES.test(family) || (!SYSTEM_TEXT_FAMILIES.test(family) && !handled.has(family.toLowerCase())));
+  if (!remaining.length) return undefined;
+  if (remaining.length === requests.length) return url;
+  const parsed = new URL(absoluteUrl(url));
+  const query = remaining.map(({ family, axes }) => `family=${encodeURIComponent(family).replace(/%20/g, "+")}${axes ? `:${axes}` : ""}`);
+  for (const name of ["display", "text"]) {
+    const value = parsed.searchParams.get(name);
+    if (value) query.push(`${name}=${encodeURIComponent(value)}`);
+  }
+  return `https://fonts.googleapis.com/css2?${query.join("&")}`;
 }
 
 function nonBlockingStylesheet(element: Element): void {
@@ -507,16 +537,39 @@ export function parseComicHtml(input: string, options: ComicTransformOptions = {
           const isStyle = rels.includes("stylesheet") || (rels.includes("preload") && getAttr(element, "as") === "style");
           if (!GOOGLE_CSS.test(href) || !isStyle) return false;
           googleFontUrls.push(absoluteUrl(href));
-          if (fontsHandled(href, handled)) return false;
+          const remaining = remainingFontUrl(href, handled);
+          if (!remaining) return false;
+          if (remaining !== href) setAttr(element, "href", remaining);
           if (rels.includes("stylesheet") && getAttr(element, "media") !== "print") nonBlockingStylesheet(element);
           return true;
         }
         const local = rels.includes("stylesheet") ? vendored[absoluteUrl(href)] : undefined;
-        if (local) setAttr(element, "href", local);
+        if (local) {
+          setAttr(element, "href", local);
+          // The local copy is served from this site and may have been adjusted, so SRI no longer applies.
+          element.attrs = element.attrs.filter((attribute) => attribute.name !== "integrity");
+        }
       }
       if (tag === "script") {
-        const local = vendored[absoluteUrl(getAttr(element, "src") ?? "")];
-        if (local) setAttr(element, "src", local);
+        const src = getAttr(element, "src");
+        const local = src ? vendored[absoluteUrl(src)] : undefined;
+        if (local) {
+          setAttr(element, "src", local);
+          element.attrs = element.attrs.filter((attribute) => attribute.name !== "integrity");
+        }
+        if (!src && options.assets) {
+          const mapped = textContent(element).replace(SCRIPT_ASSET, (match, quote: string, ref: string) => {
+            const target = mapAssetRef(ref, options.assets);
+            return target ? `${quote}${target}${quote}` : match;
+          });
+          setTextContent(element, mapped);
+        }
+      }
+      if (tag === "noscript") {
+        // A <noscript> fallback that only loads Google Fonts goes away once those fonts are self-hosted.
+        const fallback = textContent(element);
+        const links = [...fallback.matchAll(/<link\b[^>]*href=["']([^"']+)["'][^>]*>/gi)].map((match) => match[1] ?? "");
+        if (links.length && links.every((url) => GOOGLE_CSS.test(url) && !remainingFontUrl(url, handled)) && !fallback.replace(/<link\b[^>]*>/gi, "").trim()) return false;
       }
     }
     if (element.tagName === "style") {
@@ -524,9 +577,10 @@ export function parseComicHtml(input: string, options: ComicTransformOptions = {
       css = css.replace(GOOGLE_IMPORT, (match, _quote: string, urlInFunction?: string, _stringQuote?: string, urlInString?: string) => {
         const url = absoluteUrl(urlInFunction ?? urlInString ?? "");
         googleFontUrls.push(url);
-        if (fontsHandled(url, handled)) return "";
-        if (!isHtml(element) || !isElement(parent)) return match;
-        const link = tree.createElement("link", HTML_NS, [{ name: "rel", value: "stylesheet" }, { name: "href", value: url }]);
+        const remaining = remainingFontUrl(url, handled);
+        if (!remaining) return "";
+        if (!isHtml(element) || !isElement(parent)) return remaining === url ? match : `@import url("${remaining}");`;
+        const link = tree.createElement("link", HTML_NS, [{ name: "rel", value: "stylesheet" }, { name: "href", value: remaining }]);
         nonBlockingStylesheet(link);
         tree.insertBefore(parent, link, element);
         return "";
@@ -581,14 +635,17 @@ function cssWithoutComments(html: string): string {
   walk(parse(stripBom(html)), (element) => {
     if (element.tagName === "style") css.push(textContent(element));
     const style = getAttr(element, "style");
-    if (style) css.push(`[style]{${style}}`);
+    // Inline styles on <html> and <body> act like page-level rules.
+    if (style) css.push(`${element.tagName === "html" || element.tagName === "body" ? element.tagName : "[style]"}{${style}}`);
     return true;
   });
   return css.join("\n").replace(/\/\*[\s\S]*?\*\//g, "");
 }
 
 function rules(css: string): Array<{ selectors: string[]; declarations: string[] }> {
-  return [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selector = "", body = ""]) => ({
+  // Statement at-rules (@import url(...); @charset "..."; @layer a, b;) would otherwise glue onto the next selector.
+  const statements = css.replace(/@(?:import|charset|namespace|layer)\b[^;{}]*;/gi, "");
+  return [...statements.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selector = "", body = ""]) => ({
     selectors: selector.split(",").map((item) => item.trim()).filter(Boolean),
     declarations: body.split(";").map((item) => item.trim()).filter(Boolean),
   }));
@@ -614,14 +671,20 @@ export function lintComicHtml(input: string): string[] {
   for (const rule of pageRules) {
     const root = rule.selectors.find((selector) => /^(?:html|:root)(?:[.#[:][^\s>+~]*)?$/i.test(selector));
     if (!root) continue;
-    const layout = rule.declarations.filter((declaration) => (
-      /^(?:padding|margin)(?:-[a-z-]+)?\s*:\s*(?!0(?:px)?\s*(?:!important)?$)/i.test(declaration)
-      || /^(?:display\s*:\s*(?:inline-)?(?:flex|grid)|transform\s*:|zoom\s*:)/i.test(declaration)
-      || /^(?:min-|max-)?width\s*:/i.test(declaration)
-    ));
+    const layout = rule.declarations.filter((declaration) => {
+      const spacing = /^(?:padding|margin)(?:-[a-z-]+)?\s*:\s*(.+)$/i.exec(declaration)?.[1];
+      if (spacing !== undefined) return !/^(?:(?:0(?:\.0+)?[a-z%]*|auto)\s*)+(?:!important)?$/i.test(spacing.trim());
+      return /^(?:display\s*:\s*(?:inline-)?(?:flex|grid)|transform\s*:|zoom\s*:)/i.test(declaration)
+        || /^(?:min-|max-)?width\s*:/i.test(declaration);
+    });
     if (layout.length) warnings.push(`"${root} { ${layout.join("; ")} }" also lays out the site header and footer; put it on body or a content wrapper instead.`);
   }
 
+  const fixedHeight = pageRules.filter((rule) => rule.selectors.some((selector) => /^(?:html|body)$/i.test(selector))
+    && rule.declarations.some((declaration) => /^height\s*:\s*100(?:%|vh|dvh|svh|lvh)/i.test(declaration)));
+  if (fixedHeight.some((rule) => rule.selectors.some((selector) => /^body$/i.test(selector)))) {
+    warnings.push("body has height: 100% or 100vh; use min-height instead so the page grows with the comic (the site footer is placed after the content either way).");
+  }
   const scrollLock = pageRules.filter((rule) => rule.selectors.some((selector) => /^(?:html|body|:root)$/i.test(selector))
     && rule.declarations.some((declaration) => /^overflow(?:-y)?\s*:\s*(?:hidden|clip)/i.test(declaration)));
   if (scrollLock.length) warnings.push("The page itself does not scroll (overflow: hidden on html/body), so readers cannot reach the site footer; let the page scroll or check that it fits one screen.");
@@ -632,10 +695,21 @@ export function lintComicHtml(input: string): string[] {
   const fixedTopBars = pageRules
     .filter((rule) => rule.declarations.some((declaration) => /^position\s*:\s*fixed/i.test(declaration))
       && rule.declarations.some((declaration) => /^top\s*:\s*0(?:px)?\s*(?:!important)?$/i.test(declaration))
-      && !rule.declarations.some((declaration) => /^height\s*:\s*(?:\d|1[0-2])(?:\.\d+)?px/i.test(declaration)))
+      // Thin progress bars and full-height layers (overlays, side panels) are not top bars.
+      && !rule.declarations.some((declaration) => /^height\s*:\s*(?:(?:\d|1[0-2])(?:\.\d+)?px|100(?:%|vh|dvh|svh|lvh))|^bottom\s*:\s*0(?:px)?\s*(?:!important)?$/i.test(declaration)))
     .flatMap((rule) => rule.selectors);
   if (fixedTopBars.length) {
     warnings.push(`"${fixedTopBars.slice(0, 3).join('", "')}" is fixed at top: 0, so the 68px site header hides its top until the reader scrolls; position: sticky starts below the header instead.`);
+  }
+  const unlayeredOverlays = pageRules
+    .filter((rule) => rule.declarations.some((declaration) => /^position\s*:\s*fixed/i.test(declaration))
+      && !rule.declarations.some((declaration) => /^z-index\s*:/i.test(declaration))
+      && (rule.declarations.some((declaration) => /^inset\s*:\s*0(?:px)?\s*(?:!important)?$/i.test(declaration))
+        || (rule.declarations.some((declaration) => /^width\s*:\s*100(?:%|vw|dvw)/i.test(declaration))
+          && rule.declarations.some((declaration) => /^height\s*:\s*100(?:%|vh|dvh|svh|lvh)/i.test(declaration)))))
+    .flatMap((rule) => rule.selectors);
+  if (unlayeredOverlays.length) {
+    warnings.push(`"${unlayeredOverlays.slice(0, 3).join('", "')}" is a full-screen fixed layer without z-index; if it is an overlay (lightbox, dialog, splash), give it z-index: 2 or more so it covers the site header and footer.`);
   }
   if (/@font-face[^}]*url\(\s*["']?(?:https?:)?\/\/fonts\.gstatic\.com/i.test(css)) {
     warnings.push("@font-face points straight at fonts.gstatic.com, which mainland China blocks; load the font through a Google Fonts CSS link so `npm run comic` can self-host it.");
@@ -745,8 +819,25 @@ function withoutMediaBlocks(css: string): string {
  * Reads the html/body background outside @media blocks (the canvas uses html's background when
  * it has one, body's otherwise) and resolves simple var(--x) references from :root.
  */
-export function comicPageTone(input: string): "light" | "dark" {
-  const css = withoutMediaBlocks(cssWithoutComments(input));
+export function comicPageTone(input: string): "light" | "dark" | "auto" {
+  const allCss = cssWithoutComments(input);
+  const base = toneOf(withoutMediaBlocks(allCss));
+  if (base === "dark") return "dark";
+  // A light comic that turns dark for readers who prefer dark mode gets a header that follows them.
+  const darkBlocks = [...allCss.matchAll(/@media[^{]*prefers-color-scheme\s*:\s*dark[^{]*\{/gi)].map((match) => {
+    let depth = 1;
+    let end = (match.index ?? 0) + match[0].length;
+    const start = end;
+    for (; end < allCss.length && depth > 0; end += 1) {
+      if (allCss[end] === "{") depth += 1;
+      else if (allCss[end] === "}") depth -= 1;
+    }
+    return allCss.slice(start, end - 1);
+  });
+  return darkBlocks.some((block) => toneOf(`${withoutMediaBlocks(allCss)}\n${block}`) === "dark") ? "auto" : "light";
+}
+
+function toneOf(css: string): "light" | "dark" {
   const variables = new Map<string, string>();
   const backgrounds: Record<"html" | "body", string | undefined> = { html: undefined, body: undefined };
   for (const rule of rules(css)) {
@@ -768,4 +859,47 @@ export function comicPageTone(input: string): "light" | "dark" {
   const body = parseColor(resolve(backgrounds.body) ?? "");
   const canvas = html && html.alpha >= 0.5 ? html : body && body.alpha >= 0.5 ? body : undefined;
   return canvas && luminance(canvas.rgb) < 0.25 ? "dark" : "light";
+}
+
+// ---------------------------------------------------------------------------------------
+// Metadata defaults used by `npm run comic -- add`
+
+const COMIC_WORDS = /(?:漫画|漫畫|マンガ|만화|comic|bande dessinée|\bBD\b|truyện tranh|การ์ตูน)/i;
+
+/**
+ * Title for the comics list: the HTML title without "| Shoa Lin" or a "· comic edition" tail.
+ * Hyphens only separate when they have spaces around them, so "GPT-6 漫画指南" stays whole.
+ */
+export function listTitle(title: string): string {
+  const withoutSite = title.replace(/\s*[|·｜]\s*Shoa Lin\s*$/i, "").trim();
+  const parts = withoutSite.split(/\s*[·|｜]\s*|\s+[-–—]\s+/);
+  if (parts.length > 1 && COMIC_WORDS.test(parts.at(-1) ?? "")) {
+    const kept = withoutSite.slice(0, withoutSite.lastIndexOf(parts.at(-1)!)).replace(/(?:\s*[·|｜]\s*|\s+[-–—]\s+)$/, "").trim();
+    if (kept) return kept;
+  }
+  return withoutSite;
+}
+
+function plainText(html: string): string {
+  return html
+    .replace(/<(script|style|template|noscript|svg)[\s\S]*?<\/\1>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** A one- or two-sentence summary from the first real paragraph, for comics without a meta description. */
+export function derivedDescription(body: string, limit = 120): string {
+  const paragraphs = [...body.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map((match) => plainText(match[1] ?? "")).filter((text) => text.length >= 20);
+  const text = paragraphs[0] ?? "";
+  if (text.length <= limit) return text;
+  const cut = text.slice(0, limit);
+  const end = Math.max(cut.lastIndexOf("。"), cut.lastIndexOf(". "), cut.lastIndexOf("！"), cut.lastIndexOf("？"));
+  return end > limit * 0.5 ? cut.slice(0, end + 1) : `${cut.trimEnd()}…`;
 }

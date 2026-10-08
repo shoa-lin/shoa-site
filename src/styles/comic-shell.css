@@ -2,8 +2,9 @@
  * Site header and footer for comic pages. Inlined into the shadow roots of
  * <shoa-comic-header> and <shoa-comic-footer>, so comic CSS cannot reach these rules and
  * these rules cannot reach the comic. Colours and sizes mirror the main site (tokens.css,
- * components.css): 68px header, 860px and 560px breakpoints. Sizes are in px, not rem, because
- * a comic may change the root font size (html { font-size: 62.5% }).
+ * components.css): 68px header, 860px and 560px breakpoints. Lengths are in px and font sizes in
+ * em from the host's `font-size: medium`, so a comic changing the root font size
+ * (html { font-size: 62.5% }) cannot resize them while the reader's default size still applies.
  */
 :host {
   --shoa-bg: #f7f8fa;
@@ -19,7 +20,7 @@
   display: block;
   color: var(--shoa-text);
   font-family: var(--shoa-shell-font, ui-sans-serif, system-ui, sans-serif);
-  font-size: 16px;
+  font-size: medium;
   font-synthesis: none;
   line-height: 1.45;
   text-align: start;
@@ -41,6 +42,21 @@
   color-scheme: dark;
 }
 
+@media (prefers-color-scheme: dark) {
+  :host([data-theme="auto"]) {
+    --shoa-bg: #111317;
+    --shoa-surface: #181b20;
+    --shoa-surface-muted: #22262d;
+    --shoa-text: #f3f5f7;
+    --shoa-muted: #a9afb9;
+    --shoa-muted-soft: #858d99;
+    --shoa-border: #30343c;
+    --shoa-accent: #76a9ff;
+    --shoa-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+    color-scheme: dark;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -52,13 +68,21 @@
 .skip,
 .bar,
 .foot {
+  color: var(--shoa-text);
   font-family: var(--shoa-shell-font, ui-sans-serif, system-ui, sans-serif);
-  font-size: 16px;
+  font-size: 1em;
   font-style: normal;
   font-weight: 400;
+  font-variant: normal;
+  font-stretch: normal;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
   line-height: 1.45;
   letter-spacing: normal;
   word-spacing: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: manual;
   text-align: start;
   text-indent: 0;
   text-shadow: none;
@@ -82,7 +106,7 @@ a {
 .code {
   color: var(--shoa-muted);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 11.2px;
+  font-size: 0.7em;
   letter-spacing: 0;
 }
 
@@ -131,7 +155,7 @@ a {
   display: inline-flex;
   align-items: center;
   color: var(--shoa-text);
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -150,7 +174,7 @@ a {
   display: inline-flex;
   align-items: center;
   color: var(--shoa-muted);
-  font-size: 14.4px;
+  font-size: 0.9em;
   font-weight: 600;
   text-decoration: none;
 }
@@ -190,10 +214,14 @@ a {
   border: 1px solid transparent;
   border-radius: 8px;
   color: var(--shoa-muted);
-  font-size: 13.1px;
+  font-size: 0.82em;
   font-weight: 600;
   cursor: pointer;
   list-style: none;
+}
+
+.lang summary .code {
+  font-size: 0.854em;
 }
 
 .lang summary::-webkit-details-marker {
@@ -286,7 +314,7 @@ a {
 
 .menu a {
   padding: 0 10.4px;
-  font-size: 15.2px;
+  font-size: 0.95em;
   font-weight: 600;
 }
 
@@ -304,7 +332,7 @@ a {
   border-top: 1px solid var(--shoa-border);
   background: var(--shoa-bg);
   color: var(--shoa-muted);
-  font-size: 13.1px;
+  font-size: 0.82em;
 }
 
 .foot-inner {
@@ -322,7 +350,7 @@ a {
   align-items: center;
   gap: 6.4px;
   color: var(--shoa-text);
-  font-size: 14.4px;
+  font-size: 1.098em;
   font-weight: 700;
   text-decoration: none;
 }

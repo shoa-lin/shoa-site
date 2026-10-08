@@ -15,6 +15,15 @@ function ensureBuild() {
   assert.equal(build.status, 0, `${build.stdout}\n${build.stderr}`);
 }
 
+// Icon fonts (Material Icons / Symbols) are the one kind of font comics still load from Google.
+function isIconFontUrl(url) {
+  const parsed = new URL(url.replace(/&amp;/g, '&').replace(/^\/\//, 'https://'));
+  if (parsed.hostname === 'fonts.gstatic.com') return /^\/s\/material(?:icons|symbols)/i.test(parsed.pathname);
+  if (parsed.pathname === '/icon') return true;
+  const families = parsed.searchParams.getAll('family').map((value) => value.split(':')[0].trim());
+  return families.length > 0 && families.every((family) => /^Material (?:Icons|Symbols)\b/i.test(family));
+}
+
 function comicEditions() {
   return readdirSync(new URL('src/comics/', root), { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && existsSync(new URL(`src/comics/${entry.name}/comic.json`, root)))
@@ -62,7 +71,8 @@ test('comic editions wrap the author HTML in the isolated site header and footer
     assert.equal((html.match(/<template shadowrootmode="open">/g) ?? []).length, 2, `${label} declarative shadow roots`);
     assert.match(html, /<footer class="foot"[^>]*>[\s\S]*mailto:shoa_lin@outlook\.com[\s\S]*<\/footer>/, `${label} footer contact`);
     assert.match(html, new RegExp(`class="back" href="${prefix(locale)}/comics"`), `${label} back to the list`);
-    assert.doesNotMatch(html, /fonts\.(?:googleapis|gstatic)\.com/, `${label} loads no Google Fonts`);
+    const google = [...html.matchAll(/(?:https?:)?\/\/fonts\.(?:googleapis|gstatic)\.com[^"'\s)<>]*/g)].map((match) => match[0]);
+    assert.deepEqual(google.filter((url) => !isIconFontUrl(url)), [], `${label} loads no Google Fonts except icon fonts`);
     assert.doesNotMatch(html, /comic-langs|data-comic-header|aria-label="Email">Contact/, `${label} has no old shell leftovers`);
     assert.match(html, new RegExp(`og:image" content="https://www\\.bydziwen\\.top/comics/${id}/covers/${locale}\\.jpg"`), `${label} cover preview`);
     for (const [, url] of html.matchAll(/url\((\/comics\/[^)]+\.woff2)\)/g)) {

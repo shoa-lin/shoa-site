@@ -5,8 +5,10 @@ import {
   cleanComicSource,
   collectComicReferences,
   comicPageTone,
+  derivedDescription,
   googleFontRequests,
   lintComicHtml,
+  listTitle,
   mergeFontRequests,
   parseComicHtml,
 } from "../src/lib/comic-html.ts";
@@ -180,6 +182,11 @@ test("Google Fonts URLs of every shape resolve to families and axes", () => {
     mergeFontRequests([{ family: "Inter", axes: "wght@400" }, { family: "Inter", axes: "ital,wght@1,700" }, { family: "Inter", axes: "" }]),
     [{ family: "Inter", axes: "ital,wght@0,400;1,700" }],
   );
+  assert.deepEqual(
+    mergeFontRequests([{ family: "Roboto Flex", axes: "opsz,wght@8..144,100..1000" }, { family: "Roboto Flex", axes: "wght@400" }]),
+    [{ family: "Roboto Flex", axes: "opsz,wght@8..144,100..1000" }],
+    "variable-font axes are kept as written",
+  );
 });
 
 test("lintComicHtml flags real risks without flagging ordinary content rules", () => {
@@ -214,7 +221,94 @@ test("comicPageTone picks the dark header and footer only for dark comic pages",
   assert.equal(comicPageTone("<style>:root{--paper:#121212}body{background:var(--paper)}</style>"), "dark");
   assert.equal(comicPageTone("<style>html,body{background:linear-gradient(#0b0b12,#1b1b2a)}</style>"), "dark");
   assert.equal(comicPageTone("<style>html{background:#101010}body{background:transparent}</style>"), "dark", "the canvas uses html's background");
-  assert.equal(comicPageTone("<style>body{background:#fdf3e3}@media (prefers-color-scheme: dark){body{background:#000}}</style>"), "light", "@media blocks are ignored");
+  assert.equal(comicPageTone("<style>body{background:#fdf3e3}@media (max-width:600px){body{background:#000}}</style>"), "light", "other @media blocks are ignored");
+  assert.equal(comicPageTone("<style>body{background:#fdf3e3}@media (prefers-color-scheme: dark){body{background:#000}}</style>"), "auto", "a comic with its own dark mode gets a header that follows the reader");
   assert.equal(comicPageTone("<style>body{background:rgba(0,0,0,0.1)}</style>"), "light", "translucent backgrounds do not count");
   assert.equal(comicPageTone("<p>no page background</p>"), "light");
+});
+
+test("a Google Fonts link that mixes self-hosted families with icons keeps only what still loads from Google", () => {
+  const doc = parseComicHtml(`<head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+SC:wght@400&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"></head><body></body>`, {
+    handledFamilies: new Set(["bangers"]),
+  });
+
+  assert.match(doc.head, /<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com\/css2\?family=Material\+Symbols\+Outlined:opsz,wght,FILL,GRAD@20\.\.48,100\.\.700,0\.\.1,-50\.\.200&amp;display=block" media="print"/);
+  assert.doesNotMatch(doc.head, /Bangers|Noto/);
+});
+
+test("font fallbacks in <noscript> go once the fonts are self-hosted; SRI goes on downloaded copies", () => {
+  const doc = parseComicHtml(`<head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers"></noscript>
+<noscript><p>Turn on JavaScript</p></noscript>
+<link rel="stylesheet" href="https://cdn.example.com/a.css" integrity="sha384-x" crossorigin="anonymous">
+<script src="https://cdn.example.com/lib.js" integrity="sha384-y"></script>
+</head><body></body>`, {
+    handledFamilies: new Set(["bangers"]),
+    vendored: { "https://cdn.example.com/a.css": "/comics/t/vendor/a.css", "https://cdn.example.com/lib.js": "/comics/t/vendor/lib.js" },
+  });
+
+  assert.doesNotMatch(doc.head, /fonts\.googleapis|integrity/);
+  assert.match(doc.head, /<noscript><p>Turn on JavaScript<\/p><\/noscript>/, "other noscript content stays");
+  assert.match(doc.head, /<link rel="stylesheet" href="\/comics\/t\/vendor\/a\.css" crossorigin="anonymous">/);
+  assert.match(doc.head, /<script src="\/comics\/t\/vendor\/lib\.js"><\/script>/);
+});
+
+test("asset paths quoted in inline scripts are optional assets and map to the copies", () => {
+  const html = `<body><img src="img/a.png"><script>const panels = ["img/a.png", './img/p2.webp', \`sfx/pop.mp3\`, "https://x.example/y.png", "not a path"];</script></body>`;
+  const references = collectComicReferences(html);
+
+  assert.deepEqual(references.assets, ["img/a.png"]);
+  assert.deepEqual(references.scriptAssets, ["img/p2.webp", "sfx/pop.mp3"], "a path the markup uses too is a required asset only");
+  const doc = parseComicHtml(html, { assets: { "img/a.png": "/c/a.png", "img/p2.webp": "/c/p2.webp" } });
+  assert.match(doc.body, /\["\/c\/a\.png", '\/c\/p2\.webp', `sfx\/pop\.mp3`, "https:\/\/x\.example\/y\.png", "not a path"\]/);
+});
+
+test("lintComicHtml sees page rules after statement at-rules and in inline styles, and allows resets", () => {
+  const warnings = lintComicHtml(`<html style="padding:12px"><head><style>@charset "utf-8";
+@layer base, comic;
+@import url("parts/local.css");
+html { display: grid }
+html, body { margin: 0; padding: 0 }
+:root { margin: 0 !important }
+</style></head><body style="height:100vh"><p>x</p></body></html>`);
+  const has = (pattern) => warnings.some((warning) => pattern.test(warning));
+
+  assert.ok(has(/"html \{ display: grid \}"/), "the rule after @charset, @layer and @import keeps its html selector");
+  assert.ok(has(/"html \{ padding:12px \}"/), "inline style on <html>");
+  assert.ok(has(/body has height: 100%/), "inline height on <body>");
+  assert.ok(!has(/margin: 0|padding: 0/), "margin and padding resets are fine");
+  assert.ok(!has(/@import from/), "a local @import is not an external one");
+});
+
+test("lintComicHtml asks full-screen fixed layers without z-index to declare one", () => {
+  const warnings = lintComicHtml(`<style>
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8)}
+.modal{position:fixed;top:0;left:0;width:100vw;height:100vh}
+.dialog{position:fixed;inset:0;z-index:1000}
+.toast{position:fixed;bottom:16px;right:16px}
+</style>`);
+  const overlay = warnings.find((warning) => /full-screen fixed layer/.test(warning)) ?? "";
+
+  assert.match(overlay, /"\.lightbox", "\.modal" is/);
+  assert.doesNotMatch(overlay, /"\.dialog"|"\.toast"/);
+  assert.ok(!warnings.some((warning) => /is fixed at top: 0/.test(warning)), "a full-screen layer is not a top bar");
+});
+
+test("listTitle drops site and comic-format suffixes but keeps titles that merely mention comics", () => {
+  assert.equal(listTitle("GPT-6 Astra 指南 · 漫画版"), "GPT-6 Astra 指南");
+  assert.equal(listTitle("Guide to GPT-6 Astra — A Comic | Shoa Lin"), "Guide to GPT-6 Astra");
+  assert.equal(listTitle("Le guide GPT-6 · BD"), "Le guide GPT-6");
+  assert.equal(listTitle("GPT-6 漫画指南"), "GPT-6 漫画指南", "no separator: the whole title stays");
+  assert.equal(listTitle("GPT-6 Astra｜第一话"), "GPT-6 Astra｜第一话", "a subtitle without a comic word stays");
+});
+
+test("derivedDescription takes the first real paragraph and cuts at a sentence end", () => {
+  assert.equal(
+    derivedDescription("<p>Short.</p><p>This opening <b>paragraph</b> is long enough<script>x()</script> to be the summary.</p>"),
+    "This opening paragraph is long enough to be the summary.",
+  );
+  const first = `${"word ".repeat(15).trim()}.`;
+  assert.equal(derivedDescription(`<p>${first} ${"more ".repeat(30)}</p>`), first);
+  assert.equal(derivedDescription(`<p>${"x".repeat(200)}</p>`), `${"x".repeat(120)}…`);
 });
