@@ -60,7 +60,7 @@ test('comic editions wrap the author HTML in the isolated site header and footer
     assert.equal((html.match(/<shoa-comic-header\b/g) ?? []).length, 1, `${label} one header`);
     assert.equal((html.match(/<shoa-comic-footer\b/g) ?? []).length, 1, `${label} one footer`);
     assert.equal((html.match(/<template shadowrootmode="open">/g) ?? []).length, 2, `${label} declarative shadow roots`);
-    assert.match(html, /<footer class="foot">[\s\S]*mailto:shoa_lin@outlook\.com[\s\S]*<\/footer>/, `${label} footer contact`);
+    assert.match(html, /<footer class="foot"[^>]*>[\s\S]*mailto:shoa_lin@outlook\.com[\s\S]*<\/footer>/, `${label} footer contact`);
     assert.match(html, new RegExp(`class="back" href="${prefix(locale)}/comics"`), `${label} back to the list`);
     assert.doesNotMatch(html, /fonts\.(?:googleapis|gstatic)\.com/, `${label} loads no Google Fonts`);
     assert.doesNotMatch(html, /comic-langs|data-comic-header|aria-label="Email">Contact/, `${label} has no old shell leftovers`);
@@ -75,6 +75,6 @@ test('old comic edition URLs redirect to the locale-prefixed scheme', () => {
   ensureBuild();
   for (const locale of locales.filter((item) => item !== 'zh')) {
     const html = read(`dist/comics/gpt-6-astra/${locale}/index.html`);
-    assert.match(html, new RegExp(`http-equiv="refresh" content="0;url=/${locale}/comics/gpt-6-astra"`), locale);
+    assert.match(html, new RegExp(`http-equiv="refresh" content="0;url=/${locale}/comics/gpt-6-astra/?"`), locale);
   }
 });

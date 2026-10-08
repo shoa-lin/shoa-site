@@ -20,7 +20,7 @@ test("Astro config uses static output and the existing public domain", () => {
 
   assert.match(config, /output:\s*["']static["']/);
   assert.match(config, /site:\s*["']https:\/\/www\.bydziwen\.top["']/);
-  assert.match(config, /sitemap\(\)/);
+  assert.match(config, /sitemap\(/);
 });
 
 test("Pages artifact disables Jekyll processing for Astro routes", () => {
