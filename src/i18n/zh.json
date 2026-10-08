@@ -43,7 +43,7 @@
   "comics": {
     "title": "漫画",
     "description": "把技术话题画成漫画，读起来轻松一点。",
-    "empty": "还没有漫画。",
+    "empty": "暂时还没有漫画。",
     "languages": "语言版本",
     "notInLanguage": "暂无中文版",
     "backToList": "返回漫画列表"

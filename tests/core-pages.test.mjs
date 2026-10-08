@@ -28,7 +28,7 @@ test("Astro builds all core pages in all eight locales", () => {
       assert.match(html, new RegExp(`<html[^>]+lang="${htmlLang[locale]}"`), `${locale}/${page}`);
       assert.equal((html.match(/<h1\b/g) ?? []).length, 1, `${locale}/${page} must have one h1`);
       assert.match(html, /<link rel="canonical" href="https:\/\/www\.bydziwen\.top\//);
-      assert.equal((html.match(/hreflang=/g) ?? []).length, 9, `${locale}/${page} alternate links`);
+      assert.equal((html.match(/<link rel="alternate" hreflang=/g) ?? []).length, 9, `${locale}/${page} alternate links`);
       assert.match(html, /data-theme-toggle/);
       assert.match(html, /class="language-menu"/);
       assert.doesNotMatch(html, /\/projects|Projects|项目展示|项目是系统实验/);

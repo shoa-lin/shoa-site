@@ -8,3 +8,6 @@ lighthouse-reports/
 *.log
 .env
 .wrangler/
+
+# Agent worktrees created by Claude Code workflows
+.claude/worktrees/

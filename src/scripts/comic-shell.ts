@@ -1,5 +1,6 @@
 // Behaviour for the comic page header and footer (src/components/comics/). Both live in open
-// shadow roots, so events from inside them reach document listeners retargeted to the host.
+// shadow roots on elements that sit beside <body>, so events from inside them reach document
+// listeners retargeted to the host element.
 import { isPreferredLocale, localePreferenceKey } from "../lib/locale-preference";
 import { initVisitCounter } from "./visit-counter";
 
@@ -11,25 +12,31 @@ for (const template of document.querySelectorAll<HTMLTemplateElement>("template[
   template.remove();
 }
 
-const headerHost = document.querySelector("shoa-comic-header");
+const headerHost = document.querySelector<HTMLElement>("shoa-comic-header");
+const footerHost = document.querySelector<HTMLElement>("shoa-comic-footer");
 const header = headerHost?.shadowRoot;
 const toggle = header?.querySelector<HTMLButtonElement>("[data-toggle]");
 const menu = header?.querySelector<HTMLElement>("[data-menu]");
 const languages = header?.querySelector<HTMLDetailsElement>("[data-lang-menu]");
 
-if (headerHost && toggle && menu) {
-  const fromHeader = (event: Event) => event.composedPath().includes(headerHost);
-  const closeMenu = (restoreFocus = false) => {
-    if (menu.hidden) return;
-    menu.hidden = true;
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", toggle.dataset.labelOpen ?? "");
-    if (restoreFocus) toggle.focus();
-  };
+function closeMenu(restoreFocus = false): void {
+  if (!toggle || !menu || menu.hidden) return;
+  menu.hidden = true;
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-label", toggle.dataset.labelOpen ?? "");
+  if (restoreFocus) toggle.focus();
+}
 
+function closeLanguages(restoreFocus = false): void {
+  if (!languages?.open) return;
+  languages.open = false;
+  if (restoreFocus) languages.querySelector("summary")?.focus();
+}
+
+if (headerHost && toggle && menu) {
   toggle.addEventListener("click", () => {
     if (!menu.hidden) return closeMenu(true);
-    if (languages) languages.open = false;
+    closeLanguages();
     menu.hidden = false;
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", toggle.dataset.labelClose ?? "");
@@ -38,28 +45,55 @@ if (headerHost && toggle && menu) {
   menu.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("a")) closeMenu();
   });
-  document.addEventListener("pointerdown", (event) => {
-    if (fromHeader(event)) return;
-    closeMenu();
-    if (languages) languages.open = false;
+  languages?.addEventListener("toggle", () => {
+    if (languages.open) closeMenu();
   });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (event.composedPath().includes(headerHost)) return;
+    closeMenu();
+    closeLanguages();
+  });
+  // Escape anywhere closes an open menu; comics often listen for keys on document too.
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
-    if (!menu.hidden) {
+    if (menu && !menu.hidden) {
       event.preventDefault();
       closeMenu(true);
     } else if (languages?.open) {
       event.preventDefault();
-      languages.open = false;
-      languages.querySelector("summary")?.focus();
+      closeLanguages(true);
     }
   });
   headerHost.addEventListener("focusout", (event) => {
     const next = (event as FocusEvent).relatedTarget;
-    if (next instanceof Node && !headerHost.contains(next)) closeMenu();
+    if (next instanceof Node && !headerHost.contains(next)) {
+      closeMenu();
+      closeLanguages();
+    }
   });
   addEventListener("resize", () => closeMenu());
-  addEventListener("pageshow", () => closeMenu());
+  addEventListener("pageshow", () => {
+    closeMenu();
+    closeLanguages();
+  });
+}
+
+// Keys pressed inside the site header or footer belong to them, not to the comic's own
+// document-level shortcuts (arrow keys that flip panels, for example).
+for (const host of [headerHost, footerHost]) {
+  host?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      if (menu && !menu.hidden) {
+        event.preventDefault();
+        closeMenu(true);
+      } else if (languages?.open) {
+        event.preventDefault();
+        closeLanguages(true);
+      }
+    }
+    event.stopPropagation();
+  });
 }
 
 languages?.addEventListener("click", (event) => {
@@ -72,5 +106,4 @@ languages?.addEventListener("click", (event) => {
   }
 });
 
-const footer = document.querySelector("shoa-comic-footer")?.shadowRoot;
-if (footer) void initVisitCounter(footer);
+if (footerHost?.shadowRoot) void initVisitCounter(footerHost.shadowRoot);

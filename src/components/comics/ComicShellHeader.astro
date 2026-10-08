@@ -4,7 +4,7 @@
  * CSS (which often styles header, nav and a globally) cannot change it. Interactions live
  * in src/scripts/comic-shell.ts.
  */
-import { comicPath, shellCss, shellFontStack } from "../../lib/comics";
+import { comicPath, shellCss, shellHostStyle } from "../../lib/comics";
 import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { navigationItems } from "../../lib/navigation";
 import { localizedPath } from "../../lib/routes";
@@ -13,19 +13,19 @@ interface Props {
   locale: Locale;
   comicId: string;
   editionLocales: Locale[];
+  theme?: "light" | "dark";
 }
 
-const { locale, comicId, editionLocales } = Astro.props;
+const { locale, comicId, editionLocales, theme = "light" } = Astro.props;
 const dictionary = getDictionary(locale);
 const items = navigationItems(locale);
-const hostStyle = `display:block;position:relative;z-index:2147483000;margin:0;padding:0;--shoa-shell-font:${shellFontStack(locale)}`;
 ---
 
-<shoa-comic-header data-shoa-shell style={hostStyle}>
+<shoa-comic-header data-shoa-shell data-theme={theme} style={shellHostStyle(locale)}>
   <template shadowrootmode="open">
     <style is:inline set:html={shellCss}></style>
     <a class="skip" href="#shoa-comic-content">{dictionary.a11y.skip}</a>
-    <header class="bar">
+    <header class="bar" aria-label="Shoa Lin">
       <div class="inner">
         <a class="brand" href={localizedPath(locale, "/")}>Shoa Lin</a>
         <nav class="nav" aria-label={dictionary.a11y.mainNavigation}>
@@ -36,25 +36,24 @@ const hostStyle = `display:block;position:relative;z-index:2147483000;margin:0;p
         <div class="tools">
           {editionLocales.length > 1 && (
             <details class="lang" data-lang-menu>
-              <summary aria-label={dictionary.language.menu}>
+              <summary aria-label={`${dictionary.language.menu}: ${locale.toUpperCase()} ${localeMeta[locale].label}`}>
                 <span class="code" aria-hidden="true">{locale.toUpperCase()}</span>
                 <span class="lang-label">{localeMeta[locale].label}</span>
               </summary>
-              <div class="popover" role="list" aria-label={dictionary.a11y.languageMenu}>
+              <nav class="popover" aria-label={dictionary.a11y.languageMenu}>
                 {editionLocales.map((option) => (
                   <a
                     href={comicPath(option, comicId)}
                     lang={localeMeta[option].htmlLang}
                     hreflang={localeMeta[option].htmlLang}
                     data-locale={option}
-                    role="listitem"
                     aria-current={option === locale ? "page" : undefined}
                   >
                     <span>{localeMeta[option].label}</span>
                     <span class="code" aria-hidden="true">{option.toUpperCase()}</span>
                   </a>
                 ))}
-              </div>
+              </nav>
             </details>
           )}
           <button

@@ -292,13 +292,17 @@
   margin: 0 auto;
   padding-bottom: clamp(5rem, 10vw, 8rem);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
-  gap: clamp(2rem, 4vw, 3rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .comic-card {
   display: flex;
   flex-direction: column;
+}
+
+.comic-card--featured {
+  grid-column: 1 / -1;
 }
 
 .comic-card__cover {
@@ -359,31 +363,59 @@
 .comic-card__languages {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 0.9rem;
-  margin: 0.75rem 0 0;
+  gap: 0.15rem 0.35rem;
+  margin: 0.85rem 0 0;
   padding: 0;
   list-style: none;
-  font-size: 0.82rem;
 }
 
 .comic-card__languages a {
+  min-width: 32px;
   min-height: 32px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  padding: 0 0.3rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
   color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   text-decoration: none;
 }
 
-.comic-card__languages a:hover,
-.comic-card__languages a[aria-current="true"] {
+.comic-card__languages a:hover {
+  border-color: var(--border);
   color: var(--text);
 }
 
-.comic-card__languages a[aria-current="true"] {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.35em;
+.comic-card__languages a.is-shown {
+  border-color: var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+@media (min-width: 900px) {
+  .comic-card--featured {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: center;
+    gap: clamp(1.75rem, 3.5vw, 3rem);
+  }
+
+  .comic-card--featured .comic-card__meta {
+    margin-top: 0;
+  }
+
+  .comic-card--featured h2 {
+    font-size: clamp(1.5rem, 2.6vw, 2.05rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comic-card__cover img {
+    transition: none;
+  }
 }
 
 .food-card {

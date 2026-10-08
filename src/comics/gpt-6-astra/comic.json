@@ -13,11 +13,11 @@
     },
     "ja": {
       "title": "GPT-6 Astra モデルガイド",
-      "description": "OpenAI の『GPT-6 Astra 利用ガイド』をマンガで抜粋。できること、新機能、プロンプトの書き方を紹介します。"
+      "description": "OpenAI『GPT-6 Astra 利用ガイド』の要点をマンガで紹介。できること、新機能、プロンプトの書き方をまとめました。"
     },
     "ko": {
       "title": "GPT-6 Astra 모델 가이드",
-      "description": "OpenAI의 GPT-6 Astra 사용 가이드를 만화로 발췌했습니다. 무엇을 할 수 있는지, 무엇이 새로운지, 프롬프트는 어떻게 쓰는지 다룹니다."
+      "description": "OpenAI의 GPT-6 Astra 사용 가이드에서 핵심만 골라 만화로 정리했습니다. 무엇을 할 수 있는지, 무엇이 새로운지, 프롬프트는 어떻게 쓰는지 다룹니다."
     },
     "th": {
       "title": "คู่มือโมเดล GPT-6 Astra",
@@ -28,7 +28,7 @@
       "description": "Extraits en bande dessinée du guide d'OpenAI sur GPT-6 Astra : ses capacités, ses nouveautés et la façon de lui écrire des prompts."
     },
     "de": {
-      "title": "GPT-6 Astra Modellleitfaden",
+      "title": "Leitfaden zu GPT-6 Astra",
       "description": "Auszüge aus OpenAIs Leitfaden zu GPT-6 Astra als Comic: was das Modell kann, was neu ist und wie man es promptet."
     },
     "vi": {

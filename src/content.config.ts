@@ -84,6 +84,8 @@ const comics = defineCollection({
     updatedAt: z.coerce.date(),
     sourceLocale: locale,
     draft: z.boolean().optional(),
+    // Palette of the site header and footer; detected from the comic's page background when omitted.
+    shellTheme: z.enum(["light", "dark"]).optional(),
     editions: z.partialRecord(locale, z.object({
       title: z.string().min(1),
       description: z.string().min(1),

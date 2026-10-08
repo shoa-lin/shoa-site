@@ -43,7 +43,7 @@
   "comics": {
     "title": "Bandes dessinées",
     "description": "Des sujets techniques racontés en bande dessinée, pour une lecture plus légère.",
-    "empty": "Aucune bande dessinée pour l’instant.",
+    "empty": "Aucune bande dessinée pour le moment.",
     "languages": "Langues",
     "notInLanguage": "Pas encore disponible en français",
     "backToList": "Retour aux bandes dessinées"

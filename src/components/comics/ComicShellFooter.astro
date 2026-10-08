@@ -2,27 +2,29 @@
 /**
  * Site footer for comic pages, isolated in a declarative shadow root like the header.
  * Comics often style `footer` globally, which is why the old appended contact link broke.
+ * It stacks above the comic's fixed elements (for example a "back to top" button), so its
+ * links stay clickable at the end of the page.
  */
-import { comicsIndexPath, shellCss, shellFontStack } from "../../lib/comics";
+import { comicsIndexPath, shellCss, shellHostStyle } from "../../lib/comics";
 import { profile } from "../../data/profile";
 import { visitApiUrl } from "../../data/visit-api";
 import { getDictionary, type Locale } from "../../lib/i18n";
 
 interface Props {
   locale: Locale;
+  theme?: "light" | "dark";
 }
 
-const { locale } = Astro.props;
+const { locale, theme = "light" } = Astro.props;
 const dictionary = getDictionary(locale);
-const hostStyle = `display:block;position:relative;z-index:1;margin:0;padding:0;--shoa-shell-font:${shellFontStack(locale)}`;
 ---
 
-<shoa-comic-footer data-shoa-shell style={hostStyle}>
+<shoa-comic-footer data-shoa-shell data-theme={theme} style={shellHostStyle(locale)}>
   <template shadowrootmode="open">
     <style is:inline set:html={shellCss}></style>
-    <footer class="foot">
+    <footer class="foot" aria-label="Shoa Lin">
       <div class="foot-inner">
-        <a class="back" href={comicsIndexPath(locale)}><span aria-hidden="true">←</span>{dictionary.comics.backToList}</a>
+        <a class="back" href={comicsIndexPath(locale)}><span aria-hidden="true">←</span><span class="back-label">{dictionary.comics.backToList}</span></a>
         <div class="foot-row">
           <p>
             © {new Date().getFullYear()} Shoa Lin. {dictionary.footer.rights}

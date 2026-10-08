@@ -42,7 +42,7 @@
   },
   "comics": {
     "title": "만화",
-    "description": "기술 이야기를 만화로 그려 가볍게 읽을 수 있게 했습니다.",
+    "description": "기술 이야기를 만화로 그려, 가볍게 읽을 수 있게 정리합니다.",
     "empty": "아직 만화가 없습니다.",
     "languages": "언어",
     "notInLanguage": "아직 한국어판이 없습니다",

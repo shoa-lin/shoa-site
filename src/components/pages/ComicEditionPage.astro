@@ -1,13 +1,13 @@
 ---
 /**
  * One comic edition as a standalone document: the author's HTML (head and body kept as they
- * are, minus what this page provides) wrapped in site metadata, an isolated header and footer.
- * The comic keeps its own styles, scripts and paper background; nothing from the main site
- * stylesheet is loaded here.
+ * are, minus what this page provides) wrapped in site metadata and an isolated header and
+ * footer. The comic keeps its own styles, scripts and background; the main site stylesheet
+ * is not loaded here.
  */
 import ComicShellFooter from "../comics/ComicShellFooter.astro";
 import ComicShellHeader from "../comics/ComicShellHeader.astro";
-import { parseComicHtml } from "../../lib/comic-html.ts";
+import { comicPageTone, parseComicHtml } from "../../lib/comic-html.ts";
 import type { Comic, ComicEdition } from "../../lib/comics";
 import { localeMeta } from "../../lib/i18n";
 import { alternateLinks, canonicalUrl } from "../../lib/routes";
@@ -21,10 +21,12 @@ const { comic, edition } = Astro.props;
 const { locale } = edition;
 const path = `/comics/${comic.id}`;
 const document = parseComicHtml(edition.html, {
-  hasLocalFonts: edition.fontCss.includes("@font-face"),
-  assetBase: `/comics/${comic.id}/assets/`,
+  assets: edition.assets,
+  handledFamilies: edition.handledFamilies,
+  vendored: edition.vendored,
 });
 const editionLocales = comic.editions.map((item) => item.locale);
+const shellTheme = comic.shellTheme ?? comicPageTone(edition.html);
 const title = `${edition.title} | Shoa Lin`;
 const canonical = canonicalUrl(locale, path);
 const alternates = alternateLinks(path, editionLocales, comic.sourceLocale);
@@ -32,17 +34,24 @@ const image = new URL(edition.cover?.jpg ?? "/assets/avatar/profile.jpg", Astro.
 const htmlAttributes = { ...document.htmlAttrs, lang: localeMeta[locale].htmlLang, dir: "ltr" };
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  genre: "Comic",
+  "@type": "ComicStory",
   headline: edition.title,
+  name: edition.title,
   description: edition.description,
   inLanguage: localeMeta[locale].htmlLang,
   datePublished: comic.publishedAt.toISOString(),
   dateModified: comic.updatedAt.toISOString(),
   author: { "@type": "Person", name: "Shoa Lin" },
   image: image.href,
-  mainEntityOfPage: canonical,
+  url: canonical,
+  ...(locale !== comic.sourceLocale ? { translationOfWork: { "@id": canonicalUrl(comic.sourceLocale, path) } } : {}),
 };
+// The author's CSS on <body> (max-width, margins, padding, flex or grid gaps) would also lay out
+// the site header and footer, and scripts that rewrite body.innerHTML would erase them. So each
+// is moved beside <body>, as a child of <html>, the moment it is parsed. Without JavaScript they
+// simply stay inside <body>.
+const liftHeader = `(function(r,b){["shoa-comic-header","shoa-comic-anchor"].forEach(function(q){var e=document.querySelector(q);if(e)r.insertBefore(e,b)});document.currentScript.remove()})(document.documentElement,document.body)`;
+const liftFooter = `(function(r){var e=document.querySelector("shoa-comic-footer");if(e)r.appendChild(e);document.currentScript.remove()})(document.documentElement)`;
 ---
 
 <!doctype html>
@@ -59,9 +68,12 @@ const jsonLd = {
     <meta property="og:description" content={edition.description} data-shoa-shell />
     <meta property="og:url" content={canonical} data-shoa-shell />
     <meta property="og:image" content={image} data-shoa-shell />
+    {edition.cover && <meta property="og:image:width" content="1200" data-shoa-shell />}
+    {edition.cover && <meta property="og:image:height" content="630" data-shoa-shell />}
+    <meta property="og:image:alt" content={edition.title} data-shoa-shell />
     <meta property="og:locale" content={localeMeta[locale].htmlLang} data-shoa-shell />
     <meta name="twitter:card" content="summary_large_image" data-shoa-shell />
-    <meta name="theme-color" content="#f7f8fa" data-shoa-shell />
+    <meta name="theme-color" content={shellTheme === "dark" ? "#111317" : "#f7f8fa"} data-shoa-shell />
     <link rel="icon" href="/favicon.ico" sizes="32x32" data-shoa-shell />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" data-shoa-shell />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" data-shoa-shell />
@@ -70,10 +82,12 @@ const jsonLd = {
     <Fragment set:html={document.head} />
   </head>
   <body {...document.bodyAttrs}>
-    <ComicShellHeader locale={locale} comicId={comic.id} editionLocales={editionLocales} />
-    <div id="shoa-comic-content" tabindex="-1" data-shoa-shell style="display:block;height:0;margin:0;padding:0;overflow:hidden;outline:none"></div>
+    <ComicShellHeader locale={locale} comicId={comic.id} editionLocales={editionLocales} theme={shellTheme} />
+    <shoa-comic-anchor id="shoa-comic-content" tabindex="-1" data-shoa-shell style="display:block;position:absolute;width:1px;height:1px;margin:0;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;outline:none"></shoa-comic-anchor>
+    <script is:inline data-shoa-shell set:html={liftHeader} />
     <Fragment set:html={document.body} />
-    <ComicShellFooter locale={locale} />
+    <ComicShellFooter locale={locale} theme={shellTheme} />
+    <script is:inline data-shoa-shell set:html={liftFooter} />
     <script>
       import "../../scripts/comic-shell";
     </script>
