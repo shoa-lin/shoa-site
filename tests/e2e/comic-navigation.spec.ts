@@ -1,15 +1,40 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { expect, test } from '@playwright/test';
 
-const routes = ['/comics/', '/comics/gpt-6-astra/', '/comics/gpt-6-astra/en/', '/comics/gpt-6-astra/ja/', '/comics/gpt-6-astra/ko/', '/comics/gpt-6-astra/th/', '/comics/gpt-6-astra/fr/', '/comics/gpt-6-astra/de/', '/comics/gpt-6-astra/vi/'];
+const editionLocales = ['en', 'ja', 'ko', 'th', 'fr', 'de', 'vi'];
+const localeByRoute: Record<string, string> = {
+  '/comics/': 'zh',
+  '/comics/gpt-6-astra/': 'zh',
+  ...Object.fromEntries(editionLocales.map((locale) => [`/comics/gpt-6-astra/${locale}/`, locale])),
+};
+const routes = Object.keys(localeByRoute);
+const comicTitles = Object.fromEntries(
+  [...readFileSync(join(process.cwd(), 'src', 'lib', 'navigation.ts'), 'utf8').matchAll(/(\w+): \{ title: '([^']+)'/g)].map((match) => [match[1], match[2]]),
+);
+
+// Each comic edition's header speaks its own language and links to that locale's pages.
+function shellCopy(locale: string) {
+  const dictionary = JSON.parse(readFileSync(join(process.cwd(), 'src', 'i18n', `${locale}.json`), 'utf8'));
+  return {
+    open: dictionary.a11y.menuOpen as string,
+    close: dictionary.a11y.menuClose as string,
+    mobile: dictionary.a11y.mobileNavigation as string,
+    comics: comicTitles[locale] as string,
+    about: dictionary.nav.about as string,
+    aboutUrl: locale === 'zh' ? /\/about\/?$/ : new RegExp(`/${locale}/about/?$`),
+  };
+}
 
 for (const route of routes) {
   test(`comic mobile navigation is compact and interactive: ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
+    const copy = shellCopy(localeByRoute[route]);
     await page.goto(route);
     const header = page.locator('header.site-header');
     const trigger = header.getByRole('button', { includeHidden: true });
     await expect(trigger).toHaveCount(1);
-    await expect(trigger).toHaveAccessibleName('打开导航');
+    await expect(trigger).toHaveAccessibleName(copy.open);
     const box = await header.boundingBox();
     expect(box!.x).toBe(0);
     expect(box!.y).toBe(0);
@@ -24,16 +49,17 @@ for (const route of routes) {
     const textHeight = await brand.evaluate(el => { const range = document.createRange(); range.selectNodeContents(el); return range.getBoundingClientRect().height; });
     expect(textHeight).toBeLessThan(30);
     expect(await brand.evaluate(el => document.elementFromPoint(el.getBoundingClientRect().x + 5, el.getBoundingClientRect().y + 5)?.closest('a') === el)).toBe(true);
-    const panel = page.getByRole('navigation', { name: '移动端导航' });
+    const panel = page.getByRole('navigation', { name: copy.mobile });
     await trigger.click();
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(trigger).toHaveAccessibleName(copy.close);
     await expect(panel).toBeVisible();
     const menuBox = await panel.boundingBox();
     expect(menuBox!.width).toBeLessThanOrEqual(260);
     expect(menuBox!.height).toBeLessThanOrEqual(330);
     expect(menuBox!.y).toBeGreaterThanOrEqual(68);
     expect(menuBox!.x + menuBox!.width).toBeLessThanOrEqual(390);
-    await expect(panel.getByRole('link', { name: '漫画', exact: true })).toHaveAttribute('aria-current', 'page');
+    await expect(panel.getByRole('link', { name: copy.comics, exact: true })).toHaveAttribute('aria-current', 'page');
     await trigger.click();
     await expect(panel).toBeHidden();
     await trigger.click();
@@ -44,8 +70,8 @@ for (const route of routes) {
     await page.mouse.click(10, 420);
     await expect(panel).toBeHidden();
     await trigger.click();
-    await panel.getByRole('link', { name: '关于', exact: true }).click();
-    await expect(page).toHaveURL(/\/about\/?$/);
+    await panel.getByRole('link', { name: copy.about, exact: true }).click();
+    await expect(page).toHaveURL(copy.aboutUrl);
   });
 }
 

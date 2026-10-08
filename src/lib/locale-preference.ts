@@ -14,3 +14,11 @@ export function resolvePreferredLocale(languages: readonly string[]): Locale | u
 
   return undefined;
 }
+
+// Search engine crawlers render "/" with an English (or empty) browser language. They must
+// index the canonical Chinese homepage instead of following the visitor language redirect.
+const searchCrawlerPattern = /googlebot|bingbot|yandexbot|duckduckbot|applebot|petalbot|slurp|crawler|spider/i;
+
+export function isSearchCrawler(userAgent: string | null | undefined): boolean {
+  return Boolean(userAgent && searchCrawlerPattern.test(userAgent));
+}

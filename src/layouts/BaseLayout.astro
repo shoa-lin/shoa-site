@@ -87,9 +87,10 @@ const rssHref = localizedPath(locale, "/rss.xml");
       })();
     </script>
     <script>
-      import { isPreferredLocale, localePreferenceKey, resolvePreferredLocale } from "../lib/locale-preference";
+      import { isPreferredLocale, isSearchCrawler, localePreferenceKey, resolvePreferredLocale } from "../lib/locale-preference";
 
-      if (window.location.pathname === "/") {
+      // Visitors land on their browser language; search crawlers keep the canonical Chinese homepage.
+      if (window.location.pathname === "/" && !isSearchCrawler(navigator.userAgent)) {
         try {
           const saved = localStorage.getItem(localePreferenceKey);
           const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
