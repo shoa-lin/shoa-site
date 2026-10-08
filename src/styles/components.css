@@ -90,17 +90,38 @@
 .icon-button {
   width: 44px;
   height: 44px;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
   border: 1px solid transparent;
   border-radius: 50%;
   background: transparent;
   color: var(--text);
   font: inherit;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.icon-button:hover {
-  border-color: var(--border);
-  background: var(--surface-muted);
+.icon-button svg {
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Hover surfaces only where a pointer can hover; on touch screens they would stick after a tap. */
+@media (hover: hover) {
+  .icon-button:hover,
+  .language-menu summary:hover {
+    border-color: var(--border);
+    background: var(--surface-muted);
+    color: var(--text);
+  }
+
+  .language-menu__popover a:hover {
+    background: var(--surface-muted);
+    color: var(--text);
+  }
 }
 
 .icon-button:active {
@@ -109,18 +130,12 @@
 
 .theme-toggle__light,
 html[data-theme="dark"] .theme-toggle__dark {
-  display: inline;
+  display: block;
 }
 
 .theme-toggle__dark,
 html[data-theme="dark"] .theme-toggle__light {
   display: none;
-}
-
-.theme-toggle__icon {
-  display: block;
-  width: 1.2rem;
-  height: 1.2rem;
 }
 
 .language-menu {
@@ -129,6 +144,7 @@ html[data-theme="dark"] .theme-toggle__light {
 
 .language-menu summary {
   min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -146,7 +162,6 @@ html[data-theme="dark"] .theme-toggle__light {
   display: none;
 }
 
-.language-menu summary:hover,
 .language-menu[open] summary {
   border-color: var(--border);
   background: var(--surface-muted);
@@ -183,7 +198,6 @@ html[data-theme="dark"] .theme-toggle__light {
   text-decoration: none;
 }
 
-.language-menu__popover a:hover,
 .language-menu__popover a[aria-current="page"] {
   background: var(--surface-muted);
   color: var(--text);
@@ -192,13 +206,6 @@ html[data-theme="dark"] .theme-toggle__light {
 .mobile-nav {
   display: none;
   position: relative;
-}
-
-.mobile-nav__backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 190;
-  background: transparent;
 }
 
 .mobile-nav__panel {

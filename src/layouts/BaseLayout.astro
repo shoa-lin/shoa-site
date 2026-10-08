@@ -79,11 +79,17 @@ const rssHref = localizedPath(locale, "/rss.xml");
     <link rel="stylesheet" href={fontStylesheet[locale]} />
     <script is:inline>
       (() => {
-        const saved = localStorage.getItem("shoa-theme");
+        // Runs before first paint. Keep the colours in sync with src/scripts/site-header.ts.
+        let saved = null;
+        try {
+          saved = localStorage.getItem("shoa-theme");
+        } catch {
+          // Storage blocked: fall back to the system setting.
+        }
         const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.dataset.theme = saved === "light" || saved === "dark"
-          ? saved
-          : systemDark ? "dark" : "light";
+        const theme = saved === "light" || saved === "dark" ? saved : systemDark ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = theme === "dark" ? "#111317" : "#f7f8fa";
       })();
     </script>
     <script>

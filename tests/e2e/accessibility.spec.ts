@@ -99,7 +99,7 @@ for (const [name, route] of focusRoutes) {
   }
 }
 
-test("mobile navigation traps focus and restores it to the trigger", async ({ page }) => {
+test("mobile navigation closes when focus leaves it and restores focus on Escape", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   const trigger = page.locator("[data-mobile-nav-open]");
@@ -110,13 +110,16 @@ test("mobile navigation traps focus and restores it to the trigger", async ({ pa
   await trigger.click();
   await expect(panel).toBeVisible();
   await expect(closeButton).toBeFocused();
-  await page.keyboard.press("Shift+Tab");
-  await expect(lastLink).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(closeButton).toBeFocused();
   await page.keyboard.press("Escape");
   await expect(panel).toBeHidden();
   await expect(trigger).toBeFocused();
+
+  // Tabbing past the last link moves on to the page and closes the menu behind it.
+  await trigger.click();
+  await lastLink.focus();
+  await page.keyboard.press("Tab");
+  await expect(panel).toBeHidden();
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
 });
 
 async function expectReducedMotionState(page: Page, state: string) {

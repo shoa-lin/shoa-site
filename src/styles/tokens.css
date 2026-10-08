@@ -22,7 +22,13 @@
   --code-bg: #eef1f5;
 }
 
+/* Native controls and scrollbars follow the chosen theme, not only the system setting. */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
 html[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #111317;
   --surface: #181b20;
   --surface-muted: #22262d;

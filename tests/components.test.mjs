@@ -23,6 +23,7 @@ test("shared shell has localized navigation, language, theme, and mobile control
     "src/components/LanguageMenu.astro",
     "src/components/ThemeToggle.astro",
     "src/components/MobileNav.astro",
+    "src/scripts/site-header.ts",
   ];
   const source = files.map(read).join("\n");
 
