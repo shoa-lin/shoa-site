@@ -14,14 +14,16 @@
     "audit:content": "node scripts/check-public-content.mjs",
     "audit:links": "node scripts/check-links.mjs dist",
     "audit:seo": "node scripts/check-seo.mjs dist",
-    "verify": "npm run check && npm run test:unit && npm run audit:content && npm run build && npm run audit:seo && npm run audit:links && npm run test:e2e"
+    "verify": "npm run check && npm run test:unit && npm run audit:content && npm run build && npm run audit:seo && npm run audit:links && npm run test:e2e",
+    "comic": "node scripts/comics.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.3",
     "@fontsource-variable/jetbrains-mono": "5.2.8",
     "@fontsource-variable/noto-sans-thai-looped": "5.2.3",
-    "astro": "7.0.7"
+    "astro": "7.0.7",
+    "parse5": "^8.0.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",
@@ -29,6 +31,7 @@
     "@playwright/test": "1.61.1",
     "lighthouse": "13.4.0",
     "sharp": "^0.35.3",
+    "subset-font": "^2.9.0",
     "typescript": "6.0.3"
   }
 }

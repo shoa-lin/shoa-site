@@ -19,6 +19,17 @@ const htmlFiles = walk(root);
 for (const file of htmlFiles) {
   const path = relative(root, file);
   const html = readFileSync(file, "utf8");
+  // Astro redirect stubs (astro.config.mjs `redirects`) only need a valid target, canonical and noindex.
+  const refresh = /<meta http-equiv="refresh" content="\d+;\s*url=([^"]+)"/.exec(html)?.[1];
+  if (refresh) {
+    if (!/<meta name="robots" content="noindex"/.test(html)) failures.push(`${path}: redirect without noindex`);
+    if (!/<link rel="canonical" href="https:\/\/www\.bydziwen\.top\//.test(html)) failures.push(`${path}: redirect without canonical`);
+    const target = refresh.replace(/[?#].*$/, "").replace(/\/$/, "");
+    if (![join(root, target, "index.html"), join(root, `${target}.html`)].some((candidate) => existsSync(candidate))) {
+      failures.push(`${path}: redirect target ${refresh} does not exist`);
+    }
+    continue;
+  }
   const required = [
     ["title", /<title>[^<]+<\/title>/],
     ["description", /<meta name="description" content="[^"]+"/],

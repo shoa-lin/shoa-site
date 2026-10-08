@@ -6,7 +6,7 @@ import { test } from "node:test";
 const root = new URL("../", import.meta.url);
 const locales = ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"];
 const htmlLang = { zh: "zh-CN", en: "en", ja: "ja", ko: "ko", th: "th", fr: "fr", de: "de", vi: "vi" };
-const pages = ["home", "about", "blog", "food", "favorites", "contact", "404"];
+const pages = ["home", "about", "blog", "comics", "food", "favorites", "contact", "404"];
 
 function builtPath(locale, page) {
   if (locale === "zh") {
@@ -18,7 +18,7 @@ function builtPath(locale, page) {
   return `dist/${locale}/${page}/index.html`;
 }
 
-test("Astro builds all six core pages in all eight locales", () => {
+test("Astro builds all core pages in all eight locales", () => {
   const build = spawnSync("npm", ["run", "build"], { cwd: root, encoding: "utf8" });
   assert.equal(build.status, 0, `${build.stdout}\n${build.stderr}`);
 

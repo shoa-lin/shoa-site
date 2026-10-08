@@ -1,0 +1,83 @@
+---
+/**
+ * Site header for comic pages, rendered into a declarative shadow root so the comic's own
+ * CSS (which often styles header, nav and a globally) cannot change it. Interactions live
+ * in src/scripts/comic-shell.ts.
+ */
+import { comicPath, shellCss, shellFontStack } from "../../lib/comics";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
+import { navigationItems } from "../../lib/navigation";
+import { localizedPath } from "../../lib/routes";
+
+interface Props {
+  locale: Locale;
+  comicId: string;
+  editionLocales: Locale[];
+}
+
+const { locale, comicId, editionLocales } = Astro.props;
+const dictionary = getDictionary(locale);
+const items = navigationItems(locale);
+const hostStyle = `display:block;position:relative;z-index:2147483000;margin:0;padding:0;--shoa-shell-font:${shellFontStack(locale)}`;
+---
+
+<shoa-comic-header data-shoa-shell style={hostStyle}>
+  <template shadowrootmode="open">
+    <style is:inline set:html={shellCss}></style>
+    <a class="skip" href="#shoa-comic-content">{dictionary.a11y.skip}</a>
+    <header class="bar">
+      <div class="inner">
+        <a class="brand" href={localizedPath(locale, "/")}>Shoa Lin</a>
+        <nav class="nav" aria-label={dictionary.a11y.mainNavigation}>
+          {items.map((item) => (
+            <a href={item.href} aria-current={item.path === "/comics" ? "page" : undefined}>{item.label}</a>
+          ))}
+        </nav>
+        <div class="tools">
+          {editionLocales.length > 1 && (
+            <details class="lang" data-lang-menu>
+              <summary aria-label={dictionary.language.menu}>
+                <span class="code" aria-hidden="true">{locale.toUpperCase()}</span>
+                <span class="lang-label">{localeMeta[locale].label}</span>
+              </summary>
+              <div class="popover" role="list" aria-label={dictionary.a11y.languageMenu}>
+                {editionLocales.map((option) => (
+                  <a
+                    href={comicPath(option, comicId)}
+                    lang={localeMeta[option].htmlLang}
+                    hreflang={localeMeta[option].htmlLang}
+                    data-locale={option}
+                    role="listitem"
+                    aria-current={option === locale ? "page" : undefined}
+                  >
+                    <span>{localeMeta[option].label}</span>
+                    <span class="code" aria-hidden="true">{option.toUpperCase()}</span>
+                  </a>
+                ))}
+              </div>
+            </details>
+          )}
+          <button
+            class="toggle"
+            type="button"
+            aria-label={dictionary.a11y.menuOpen}
+            aria-expanded="false"
+            aria-controls="shoa-comic-menu"
+            data-toggle
+            data-label-open={dictionary.a11y.menuOpen}
+            data-label-close={dictionary.a11y.menuClose}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16"></path>
+            </svg>
+          </button>
+        </div>
+        <nav class="menu" id="shoa-comic-menu" aria-label={dictionary.a11y.mobileNavigation} data-menu hidden>
+          {items.map((item) => (
+            <a href={item.href} aria-current={item.path === "/comics" ? "page" : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+  </template>
+</shoa-comic-header>

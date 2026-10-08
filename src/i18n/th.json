@@ -3,7 +3,7 @@
     "siteTitle": "Shoa Lin",
     "siteDescription": "เว็บไซต์ส่วนตัวของ Shoa Lin ว่าด้วย AI Agent ระบบความรู้ เครื่องมือสำหรับนักพัฒนา และงานเขียนเชิงเทคนิค"
   },
-  "nav": { "home": "หน้าแรก", "about": "เกี่ยวกับ", "blog": "บทความ", "food": "ร้านอาหาร", "favorites": "รายการโปรด", "contact": "ติดต่อ" },
+  "nav": { "home": "หน้าแรก", "about": "เกี่ยวกับ", "blog": "บทความ", "comics": "การ์ตูน", "food": "ร้านอาหาร", "favorites": "รายการโปรด", "contact": "ติดต่อ" },
   "theme": { "label": "ธีม", "toggle": "สลับธีมสว่างและมืด", "light": "สว่าง", "dark": "มืด", "system": "ตามระบบ" },
   "language": { "label": "ภาษา", "menu": "เลือกภาษา", "current": "ภาษาปัจจุบัน" },
   "home": {
@@ -39,6 +39,14 @@
     "all": "ทั้งหมด",
     "empty": "ยังไม่มีบทความในหมวดนี้",
     "categories": { "architecture": "สถาปัตยกรรม", "development": "การพัฒนา", "evaluation": "การประเมิน", "application": "การประยุกต์ใช้", "algorithm": "อัลกอริทึม", "general": "ทั่วไป" }
+  },
+  "comics": {
+    "title": "การ์ตูน",
+    "description": "เรื่องเทคนิคที่วาดเป็นการ์ตูน อ่านได้สบายขึ้น",
+    "empty": "ยังไม่มีการ์ตูน",
+    "languages": "ภาษา",
+    "notInLanguage": "ยังไม่มีฉบับภาษาไทย",
+    "backToList": "กลับไปที่รายการการ์ตูน"
   },
   "favorites": {
     "title": "รายการโปรด",

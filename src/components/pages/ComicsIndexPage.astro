@@ -1,0 +1,60 @@
+---
+import { comicPath, editionFor, getComics } from "../../lib/comics";
+import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
+import PageLayout from "../../layouts/PageLayout.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const dateFormatter = new Intl.DateTimeFormat(localeMeta[locale].htmlLang, { dateStyle: "medium" });
+const comics = (await getComics()).map((comic) => ({ comic, edition: editionFor(comic, locale) }));
+---
+
+<PageLayout locale={locale} path="/comics" title={dictionary.comics.title} description={dictionary.comics.description}>
+  <header class="page-intro page-intro--compact">
+    <h1>{dictionary.comics.title}</h1>
+    <p>{dictionary.comics.description}</p>
+  </header>
+  <div class="comic-list">
+    {comics.map(({ comic, edition }, index) => {
+      const href = comicPath(edition.locale, comic.id);
+      return (
+        <article class="comic-card">
+          <a class="comic-card__cover" href={href} tabindex="-1" aria-hidden="true">
+            {edition.cover && (
+              <img
+                src={edition.cover.webp}
+                alt=""
+                width="960"
+                height="504"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            )}
+          </a>
+          <div class="comic-card__meta">
+            <time datetime={comic.publishedAt.toISOString().slice(0, 10)}>{dateFormatter.format(comic.publishedAt)}</time>
+            {edition.locale !== locale && <span>{dictionary.comics.notInLanguage}</span>}
+          </div>
+          <h2><a href={href} lang={edition.locale !== locale ? localeMeta[edition.locale].htmlLang : undefined}>{edition.title}</a></h2>
+          <p lang={edition.locale !== locale ? localeMeta[edition.locale].htmlLang : undefined}>{edition.description}</p>
+          {comic.editions.length > 1 && (
+            <ul class="comic-card__languages" aria-label={dictionary.comics.languages}>
+              {comic.editions.map((item) => (
+                <li>
+                  <a
+                    href={comicPath(item.locale, comic.id)}
+                    lang={localeMeta[item.locale].htmlLang}
+                    hreflang={localeMeta[item.locale].htmlLang}
+                    aria-current={item.locale === edition.locale ? "true" : undefined}
+                  >{localeMeta[item.locale].label}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+      );
+    })}
+    {comics.length === 0 && <p class="collection-empty">{dictionary.comics.empty}</p>}
+  </div>
+</PageLayout>

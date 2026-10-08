@@ -1,0 +1,44 @@
+---
+/**
+ * Site footer for comic pages, isolated in a declarative shadow root like the header.
+ * Comics often style `footer` globally, which is why the old appended contact link broke.
+ */
+import { comicsIndexPath, shellCss, shellFontStack } from "../../lib/comics";
+import { profile } from "../../data/profile";
+import { visitApiUrl } from "../../data/visit-api";
+import { getDictionary, type Locale } from "../../lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const hostStyle = `display:block;position:relative;z-index:1;margin:0;padding:0;--shoa-shell-font:${shellFontStack(locale)}`;
+---
+
+<shoa-comic-footer data-shoa-shell style={hostStyle}>
+  <template shadowrootmode="open">
+    <style is:inline set:html={shellCss}></style>
+    <footer class="foot">
+      <div class="foot-inner">
+        <a class="back" href={comicsIndexPath(locale)}><span aria-hidden="true">←</span>{dictionary.comics.backToList}</a>
+        <div class="foot-row">
+          <p>
+            © {new Date().getFullYear()} Shoa Lin. {dictionary.footer.rights}
+            {visitApiUrl && (
+              <span class="views" data-visit-counter data-visit-api={visitApiUrl} hidden>
+                {dictionary.footer.viewsLabel} <span data-visit-total></span>
+              </span>
+            )}
+          </p>
+          <div class="links">
+            <a href={`mailto:${profile.email}`}>Email</a>
+            <a href={profile.x} rel="me noopener noreferrer">X</a>
+            <a href={profile.github} rel="me noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </template>
+</shoa-comic-footer>

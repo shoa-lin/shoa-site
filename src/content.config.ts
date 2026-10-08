@@ -75,4 +75,20 @@ const food = defineCollection({
   }),
 });
 
-export const collections = { blog, favorites, food };
+// A comic is a folder src/comics/<id>/ with comic.json plus one complete HTML file per edition
+// (<locale>.html). Validate and prepare it with scripts/comics.mjs; see src/comics/README.md.
+const comics = defineCollection({
+  loader: glob({ pattern: "*/comic.json", base: "./src/comics", generateId: ({ entry }) => entry.split("/")[0] ?? entry }),
+  schema: z.object({
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date(),
+    sourceLocale: locale,
+    draft: z.boolean().optional(),
+    editions: z.partialRecord(locale, z.object({
+      title: z.string().min(1),
+      description: z.string().min(1),
+    })),
+  }).refine((data) => Boolean(data.editions[data.sourceLocale]), { message: "sourceLocale must have an edition" }),
+});
+
+export const collections = { blog, favorites, food, comics };

@@ -1,0 +1,371 @@
+/*
+ * Site header and footer for comic pages. Inlined into the shadow roots of
+ * <shoa-comic-header> and <shoa-comic-footer>, so comic CSS cannot reach these rules and
+ * these rules cannot reach the comic. Colours and sizes mirror the main site's light theme
+ * (tokens.css, components.css): 68px header, 860px and 560px breakpoints.
+ */
+:host {
+  all: initial;
+  display: block;
+  color: #181a1f;
+  font-family: var(--shoa-shell-font, ui-sans-serif, system-ui, sans-serif);
+  font-size: 16px;
+  font-synthesis: none;
+  line-height: 1.45;
+  text-align: start;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, #175cd3 70%, white);
+  outline-offset: 3px;
+}
+
+.code {
+  color: #6c727d;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0;
+}
+
+/* Header */
+.skip {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 10;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  background: #181a1f;
+  color: #f7f8fa;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+
+.skip:focus-visible {
+  transform: translateY(0);
+}
+
+.bar {
+  height: 68px;
+  border-bottom: 1px solid #dfe2e8;
+  background: #f7f8fa;
+}
+
+.inner {
+  position: relative;
+  width: min(1180px, calc(100% - 2rem));
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.brand {
+  justify-self: start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: #181a1f;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  white-space: nowrap;
+}
+
+.nav a {
+  position: relative;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: #626773;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: #181a1f;
+}
+
+.nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  left: 0;
+  height: 2px;
+  background: #175cd3;
+}
+
+.tools {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lang {
+  position: relative;
+}
+
+.lang summary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #626773;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.lang summary::-webkit-details-marker {
+  display: none;
+}
+
+.lang summary:hover,
+.lang[open] summary {
+  border-color: #dfe2e8;
+  background: #eef1f5;
+  color: #181a1f;
+}
+
+.popover,
+.menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 2;
+  padding: 0.4rem;
+  border: 1px solid #dfe2e8;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 14px 36px rgba(24, 26, 31, 0.1);
+}
+
+.popover {
+  min-width: 190px;
+  display: grid;
+}
+
+.popover a,
+.menu a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  color: #626773;
+  text-decoration: none;
+}
+
+.popover a {
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 0.65rem;
+}
+
+.popover a:hover,
+.popover a[aria-current="page"] {
+  background: #eef1f5;
+  color: #181a1f;
+}
+
+.toggle {
+  width: 44px;
+  height: 44px;
+  display: none;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: #181a1f;
+  font: inherit;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  border-color: #dfe2e8;
+  background: #eef1f5;
+}
+
+.toggle:active {
+  transform: scale(0.97);
+}
+
+.toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.menu {
+  width: min(224px, calc(100vw - 2rem));
+  max-height: calc(100dvh - 92px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: grid;
+  padding: 0.5rem;
+}
+
+.menu a {
+  padding: 0 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.menu a:hover {
+  color: #181a1f;
+}
+
+.menu a[aria-current="page"] {
+  background: #eef1f5;
+  color: #175cd3;
+}
+
+/* Footer */
+.foot {
+  border-top: 1px solid #dfe2e8;
+  background: #f7f8fa;
+  color: #626773;
+  font-size: 0.82rem;
+}
+
+.foot-inner {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 1.75rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.back {
+  justify-self: start;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #181a1f;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+}
+
+.back:hover {
+  color: #175cd3;
+}
+
+.foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #dfe2e8;
+}
+
+.foot-row p {
+  margin: 0;
+}
+
+.views {
+  color: #6c727d;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.views::before {
+  content: " · ";
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+.links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.links a:hover {
+  color: #181a1f;
+}
+
+@media (max-width: 860px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav,
+  .lang-label {
+    display: none;
+  }
+
+  .toggle {
+    display: grid;
+  }
+}
+
+@media (min-width: 861px) {
+  .menu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .inner,
+  .foot-inner {
+    width: min(100% - 1.25rem, 1180px);
+  }
+
+  .foot-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip {
+    transition: none;
+  }
+}
+
+@media print {
+  :host {
+    display: none !important;
+  }
+}

@@ -26,6 +26,7 @@ export function localizedPath(locale: string, path: string): string {
 export function alternateLinks(
   path: string,
   available: readonly Locale[] = locales,
+  defaultLocale?: Locale,
 ): Array<{ hreflang: string; href: string }> {
   const present = locales.filter((locale) => available.includes(locale));
   const links = present.map((locale) => ({
@@ -33,7 +34,7 @@ export function alternateLinks(
     href: new URL(localizedPath(locale, path), site).href,
   }));
 
-  const fallback = present.includes("zh") ? "zh" : present[0] ?? "zh";
+  const fallback = defaultLocale && present.includes(defaultLocale) ? defaultLocale : present.includes("zh") ? "zh" : present[0] ?? "zh";
   links.push({ hreflang: "x-default", href: new URL(localizedPath(fallback, path), site).href });
   return links;
 }

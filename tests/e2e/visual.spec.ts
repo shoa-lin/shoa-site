@@ -11,6 +11,7 @@ const corePages = [
   { name: "home", suffix: "/" },
   { name: "about", suffix: "/about" },
   { name: "blog", suffix: "/blog" },
+  { name: "comics", suffix: "/comics" },
   { name: "favorites", suffix: "/favorites" },
   { name: "contact", suffix: "/contact" },
 ] as const;

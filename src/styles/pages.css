@@ -287,6 +287,105 @@
   gap: clamp(1.75rem, 4vw, 2.5rem);
 }
 
+.comic-list {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding-bottom: clamp(5rem, 10vw, 8rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+.comic-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.comic-card__cover {
+  display: block;
+  aspect-ratio: 40 / 21;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+}
+
+.comic-card__cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 240ms ease;
+}
+
+.comic-card__cover:hover img {
+  transform: scale(1.02);
+}
+
+.comic-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+  color: var(--muted-soft);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.comic-card h2 {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: var(--line-section-heading);
+  overflow-wrap: anywhere;
+}
+
+.comic-card h2 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.comic-card h2 a:hover {
+  color: var(--accent);
+}
+
+.comic-card p {
+  max-width: 60ch;
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  line-height: var(--line-prose);
+}
+
+.comic-card__languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+}
+
+.comic-card__languages a {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.comic-card__languages a:hover,
+.comic-card__languages a[aria-current="true"] {
+  color: var(--text);
+}
+
+.comic-card__languages a[aria-current="true"] {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+}
+
 .food-card {
   display: flex;
   flex-direction: column;
@@ -749,6 +848,7 @@
   .favorite-list,
   .contact-list,
   .food-list,
+  .comic-list,
   .not-found,
   .filter-row,
   .blog-list-quiet {

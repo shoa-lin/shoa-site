@@ -2,7 +2,6 @@
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import portrait from "../../assets/avatar/profile.jpg";
-import { comicCopy } from "../../lib/navigation";
 import ArticleCard from "../ArticleCard.astro";
 import { profile } from "../../data/profile";
 import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
@@ -20,7 +19,7 @@ const latestPublications = (await getCollection("blog", ({ data }) => (
   .sort((left, right) => right.data.publishedAt.valueOf() - left.data.publishedAt.valueOf())
   .slice(0, 3);
 const moreLinks = [
-  { href: "/comics/", title: comicCopy[locale].title, description: comicCopy[locale].description },
+  { href: localizedPath(locale, "/comics"), title: dictionary.comics.title, description: dictionary.comics.description },
   { href: localizedPath(locale, "/food"), title: dictionary.food.title, description: dictionary.food.description },
   { href: localizedPath(locale, "/favorites"), title: dictionary.favorites.title, description: dictionary.favorites.description },
 ];
