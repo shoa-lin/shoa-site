@@ -9,7 +9,7 @@ test("desktop navigation and contact channels work", async ({ page }) => {
   await expect(page.locator('.contact-list a[href="https://x.com/pand_lin"]')).toHaveCount(1);
 });
 
-test("mobile navigation traps focus and closes with Escape", async ({ page }) => {
+test("mobile navigation is a disclosure that closes with Escape", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   const trigger = page.getByRole("button", { name: "打开导航" });
@@ -17,11 +17,12 @@ test("mobile navigation traps focus and closes with Escape", async ({ page }) =>
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
   const navigation = page.getByRole("navigation", { name: "移动端导航" });
   const closeButton = page.getByRole("button", { name: "关闭导航" });
-  const lastLink = navigation.getByRole("link").last();
   await expect(navigation).toBeVisible();
   await expect(closeButton).toBeFocused();
+  // Shift+Tab goes back to the trigger, which belongs to the same disclosure, so the menu stays open.
   await page.keyboard.press("Shift+Tab");
-  await expect(lastLink).toBeFocused();
+  await expect(trigger).toBeFocused();
+  await expect(navigation).toBeVisible();
   await page.keyboard.press("Tab");
   await expect(closeButton).toBeFocused();
   await expect(page.locator("body")).toHaveClass(/nav-open/);
