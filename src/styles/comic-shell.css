@@ -23,6 +23,25 @@
   box-sizing: border-box;
 }
 
+/* Inherited text properties are set on the inner roots, not only on :host, because a comic
+ * rule such as `* { font-family: X !important }` still reaches the host element. */
+.skip,
+.bar,
+.foot {
+  font-family: var(--shoa-shell-font, ui-sans-serif, system-ui, sans-serif);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-align: start;
+  text-indent: 0;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+}
+
 a {
   color: inherit;
 }
