@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="620" viewBox="0 0 420 620" role="img" aria-label="一次改进的三件事：定目标规定什么叫更好，仍由人做；出改法已交给 AI；打分正在交出去，人还在兜底；好的改动留下，进入下一圈" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#175cd3"/>
+    </marker>
+  </defs>
+  <rect width="420" height="620" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">一次改进的三件事</text>
+
+  <!-- 定目标 -->
+  <rect x="56" y="66" width="308" height="78" rx="12" fill="#ffffff" stroke="#175cd3" stroke-width="2"/>
+  <text x="74" y="98" font-size="19" font-weight="700" fill="#1f2328">定目标</text>
+  <text x="74" y="126" font-size="15" fill="#57606a">规定什么叫「更好」</text>
+  <rect x="300" y="80" width="48" height="28" rx="14" fill="#175cd3" fill-opacity="0.12" stroke="#175cd3"/>
+  <text x="324" y="99" font-size="15" font-weight="700" fill="#175cd3" text-anchor="middle">人</text>
+
+  <!-- 出改法 -->
+  <rect x="56" y="184" width="308" height="78" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="74" y="216" font-size="19" font-weight="700" fill="#1f2328">出改法</text>
+  <text x="74" y="244" font-size="15" fill="#57606a">提出一个改动，自己动手做</text>
+  <rect x="254" y="198" width="94" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+  <text x="301" y="217" font-size="15" font-weight="700" fill="#1a7f4b" text-anchor="middle">AI 已接手</text>
+
+  <!-- 打分 -->
+  <rect x="56" y="302" width="308" height="78" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <text x="74" y="334" font-size="19" font-weight="700" fill="#1f2328">打分</text>
+  <text x="74" y="362" font-size="15" fill="#57606a">证明它真的更好</text>
+  <rect x="244" y="316" width="104" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+  <text x="296" y="335" font-size="15" font-weight="700" fill="#c2570c" text-anchor="middle">正在交出去</text>
+
+  <!-- 留下 -->
+  <rect x="56" y="420" width="308" height="66" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="74" y="450" font-size="19" font-weight="700" fill="#1f2328">留下</text>
+  <text x="74" y="474" font-size="15" fill="#57606a">好的保留，进入下一圈</text>
+
+  <!-- 圈内箭头 -->
+  <line x1="210" y1="262" x2="210" y2="298" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="210" y1="380" x2="210" y2="416" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- 下一圈：从留下回到出改法 -->
+  <path d="M56 453 H34 V223 H52" fill="none" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="26" y="340" font-size="15" fill="#57606a" text-anchor="middle" transform="rotate(-90 26 340)">下一圈</text>
+  <!-- 定目标决定打分的尺子 -->
+  <path d="M364 105 H388 V341 H368" fill="none" stroke="#175cd3" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow-blue)"/>
+  <text x="398" y="223" font-size="15" fill="#175cd3" text-anchor="middle" transform="rotate(90 398 223)">什么算好</text>
+
+  <!-- 说明 -->
+  <rect x="16" y="510" width="388" height="94" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="540" font-size="15" fill="#57606a">颜色是 2026 年的状态</text>
+  <text x="32" y="568" font-size="16" font-weight="700" fill="#1f2328">RSI：三件事都交给 AI，</text>
+  <text x="32" y="592" font-size="16" font-weight="700" fill="#1f2328">而且每转一圈，下一圈都转得更好</text>
+</svg>

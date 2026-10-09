@@ -28,7 +28,7 @@ const multilingualApprovedGroups = [
   "favorites:fix-your-life-in-one-day",
 ];
 // Published in Chinese first; other locales are added after the author reviews the zh version.
-const chineseOnlyApprovedGroups = [];
+const chineseOnlyApprovedGroups = ["blog:rsi-verification"];
 const expectedStructure = {
   "blog:fable-5-1-prompt-harness-evolution": { headings: 19, images: 0, codeFences: 6, tables: 1, links: 6 },
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
@@ -48,6 +48,7 @@ const expectedStructure = {
   "blog:how-we-made-claude-ai-faster": { headings: 9, images: 5, codeFences: 0, tables: 0, links: 10 },
   "blog:agent-permission-context": { headings: 8, images: 5, codeFences: 0, tables: 0, links: 0 },
   "blog:gpt-6-astra-codex-harness": { headings: 10, images: 0, codeFences: 6, tables: 1, links: 12 },
+  "blog:rsi-verification": { headings: 5, images: 2, codeFences: 0, tables: 0, links: 9 },
   "favorites:fix-your-life-in-one-day": { headings: 0, images: 0, codeFences: 0, tables: 0, links: 0 },
 };
 const loopsImages = [

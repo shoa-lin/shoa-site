@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="打分越便宜，越先跑出来：算子和编译器已在复利；代码、数学证明和 agent 自己的代码已在发生；训练数据和流程刚起步；研究方向和对齐目标还看不到" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">打分越便宜，越先跑出来</text>
+
+  <!-- 纵轴：打一次分的代价 -->
+  <text x="30" y="84" font-size="14" fill="#57606a" text-anchor="middle">便宜</text>
+  <line x1="30" y1="96" x2="30" y2="540" stroke="#57606a" stroke-width="2" marker-end="url(#down)"/>
+  <text x="30" y="562" font-size="14" fill="#57606a" text-anchor="middle">昂贵</text>
+
+  <g font-size="15">
+    <!-- 1 -->
+    <rect x="52" y="66" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="98" font-size="18" font-weight="700" fill="#1f2328">算子、编译器</text>
+    <text x="68" y="128" fill="#57606a">打分：计时器，几秒</text>
+    <rect x="296" y="80" width="94" height="28" rx="14" fill="#1a7f4b"/>
+    <text x="343" y="99" font-weight="700" fill="#ffffff" text-anchor="middle">已在复利</text>
+
+    <!-- 2 -->
+    <rect x="52" y="162" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="194" font-size="18" font-weight="700" fill="#1f2328">代码、数学证明</text>
+    <text x="68" y="224" fill="#57606a">打分：测试、证明检查器</text>
+    <rect x="296" y="176" width="94" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="343" y="195" font-weight="700" fill="#1a7f4b" text-anchor="middle">已在发生</text>
+
+    <!-- 3 -->
+    <rect x="52" y="258" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="290" font-size="18" font-weight="700" fill="#1f2328">agent 自己的代码</text>
+    <text x="68" y="320" fill="#57606a">打分：隐藏评测，几小时</text>
+    <rect x="296" y="272" width="94" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="343" y="291" font-weight="700" fill="#1a7f4b" text-anchor="middle">已在发生</text>
+
+    <!-- 4 -->
+    <rect x="52" y="354" width="352" height="84" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+    <text x="68" y="386" font-size="18" font-weight="700" fill="#1f2328">训练数据和流程</text>
+    <text x="68" y="416" fill="#57606a">打分：训完才知道，几周</text>
+    <rect x="296" y="368" width="94" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+    <text x="343" y="387" font-weight="700" fill="#c2570c" text-anchor="middle">刚起步</text>
+
+    <!-- 5 -->
+    <rect x="52" y="450" width="352" height="84" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+    <text x="68" y="482" font-size="18" font-weight="700" fill="#1f2328">研究方向、对齐目标</text>
+    <text x="68" y="512" fill="#57606a">打分：靠人判断，几个月以上</text>
+    <rect x="296" y="464" width="94" height="28" rx="14" fill="#eaeef2" stroke="#8c959f"/>
+    <text x="343" y="483" font-weight="700" fill="#57606a" text-anchor="middle">还看不到</text>
+  </g>
+
+  <!-- 说明 -->
+  <rect x="16" y="580" width="388" height="64" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="606" font-size="15" font-weight="700" fill="#1f2328">光便宜不够，还要量得准：</text>
+  <text x="32" y="630" font-size="15" fill="#57606a">只看跑分、不看真实效果，就会被钻空子</text>
+</svg>
