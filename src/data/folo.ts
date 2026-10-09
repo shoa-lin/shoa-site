@@ -5,4 +5,6 @@ import type { Locale } from "../lib/i18n";
  * and the "RSS tag" method, then copy the two numbers here under that feed's locale. The feed
  * then carries <follow_challenge>; after Folo confirms the claim the entry may be removed.
  */
-export const foloClaims: Partial<Record<Locale, { feedId: string; userId: string }>> = {};
+export const foloClaims: Partial<Record<Locale, { feedId: string; userId: string }>> = {
+  zh: { feedId: "1325136190583472128", userId: "1325134759352729600" },
+};
