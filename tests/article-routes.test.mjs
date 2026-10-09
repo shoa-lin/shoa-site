@@ -26,6 +26,7 @@ const approvedGroups = new Set([
   "blog:how-we-made-claude-ai-faster",
   "blog:agent-permission-context",
   "blog:gpt-6-astra-codex-harness",
+  "blog:rsi-verification",
   "favorites:fix-your-life-in-one-day",
 ]);
 const approvedBlogIds = new Set([...approvedGroups]
