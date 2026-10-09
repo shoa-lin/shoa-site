@@ -86,5 +86,26 @@
   },
   "errors": { "notFoundTitle": "页面不存在", "notFoundBody": "这个地址可能已经变了，或者页面还没发布。", "home": "返回首页" },
   "a11y": { "skip": "跳到主要内容", "menuOpen": "打开导航", "menuClose": "关闭导航", "mainNavigation": "主要导航", "mobileNavigation": "移动端导航", "languageMenu": "语言菜单", "themeToggle": "主题切换" },
-  "footer": { "rights": "保留所有权利。", "viewsLabel": "累计浏览" }
+  "footer": { "rights": "保留所有权利。", "viewsLabel": "累计浏览", "rssTitle": "用 RSS 订阅文章" },
+  "feed": { "readOnSite": "在网站上阅读" },
+  "subscribe": {
+    "title": "订阅",
+    "description": "用 RSS 阅读器订阅文章。新文章发布后会自动出现在阅读器里，读的是全文。",
+    "feedLabel": "订阅地址",
+    "copy": "复制",
+    "copied": "已复制",
+    "howTitle": "怎么订阅",
+    "step1": "复制上面的订阅地址。",
+    "step2": "在 RSS 阅读器里选择「添加订阅」，粘贴地址。",
+    "step3": "之后每篇新文章都会自动出现在阅读器里。",
+    "readersTitle": "常用的阅读器",
+    "otherLanguages": "其他语言的文章",
+    "openFeed": "直接打开订阅源",
+    "whatIs": "RSS 是网站为订阅者准备的一个更新地址。订阅之后，新文章会自动送到你那里，不用再回来翻。",
+    "agentTitle": "交给你的 Agent",
+    "agentIntro": "不想自己装阅读器，就把下面这段话复制给你常用的 AI Agent，比如 Claude、ChatGPT、Codex 或 OpenClaw，让它帮你订阅。",
+    "copyPrompt": "复制提示词",
+    "agentPrompt": "请帮我订阅 Shoa Lin 的文章。订阅地址（RSS）：{url}\n\n1. 如果我在用 RSS 阅读器（比如 Folo、Inoreader、Feedly、NetNewsWire），而你能操作它，就把这个地址加进去，加好后告诉我。\n2. 如果我没有阅读器，或者你操作不了，就由你来跟进：每天检查一次这个地址，有新文章时告诉我标题、链接和两三句要点。用每篇文章的 guid 判断是不是新文章，已经告诉过我的不要重复。第一次检查时，只告诉我最新的一篇。\n3. 动手前先告诉我你打算用哪种方式。需要我登录账号或授权的，先问我。",
+    "readers": { "folo": "中文用户多，带 AI 摘要和翻译", "inoreader": "网页、手机都能用", "feedly": "老牌阅读器，网页和手机都有", "netnewswire": "苹果设备上的免费开源阅读器" }
+  }
 }

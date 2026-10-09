@@ -9,6 +9,7 @@ const routes = [
   ["Comics", "/comics"],
   ["Favorites", "/favorites"],
   ["Contact", "/contact"],
+  ["Subscribe", "/subscribe"],
   ["404", "/404"],
 ] as const;
 

@@ -9,6 +9,7 @@
  * to /cdn-cgi/l/email-protection, and its decoder script cannot reach into a shadow root.
  */
 import { comicsIndexPath, shellCss, shellHostStyle } from "../../lib/comics";
+import { localizedPath } from "../../lib/routes";
 import { profile } from "../../data/profile";
 import { visitApiUrl } from "../../data/visit-api";
 import { getDictionary, type Locale } from "../../lib/i18n";
@@ -41,6 +42,7 @@ const dictionary = getDictionary(locale);
             <Fragment set:html="<!--email_off-->" /><a href={`mailto:${profile.email}`}>Email</a><Fragment set:html="<!--/email_off-->" />
             <a href={profile.x} rel="me noopener noreferrer">X</a>
             <a href={profile.github} rel="me noopener noreferrer">GitHub</a>
+            <a class="rss" href={localizedPath(locale, "/subscribe")} title={dictionary.footer.rssTitle}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 11a8 8 0 0 1 8 8M5 4.5A14.5 14.5 0 0 1 19.5 19"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>RSS</a>
           </div>
         </div>
       </div>

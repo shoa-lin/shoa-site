@@ -86,5 +86,26 @@
   },
   "errors": { "notFoundTitle": "Page introuvable", "notFoundBody": "L'adresse a peut-être changé ou la page n'est pas encore publiée.", "home": "Retour à l'accueil" },
   "a11y": { "skip": "Aller au contenu principal", "menuOpen": "Ouvrir la navigation", "menuClose": "Fermer la navigation", "mainNavigation": "Navigation principale", "mobileNavigation": "Navigation mobile", "languageMenu": "Menu des langues", "themeToggle": "Contrôle du thème" },
-  "footer": { "rights": "Tous droits réservés.", "viewsLabel": "Vues au total" }
+  "footer": { "rights": "Tous droits réservés.", "viewsLabel": "Vues au total", "rssTitle": "S’abonner aux articles par RSS" },
+  "feed": { "readOnSite": "Lire sur le site" },
+  "subscribe": {
+    "title": "S’abonner",
+    "description": "Suivez les articles dans un lecteur RSS. Les nouveaux articles y arrivent automatiquement, en entier.",
+    "feedLabel": "Adresse du flux",
+    "copy": "Copier",
+    "copied": "Copié",
+    "howTitle": "Comment s’abonner",
+    "step1": "Copiez l’adresse du flux ci-dessus.",
+    "step2": "Dans votre lecteur RSS, choisissez « Ajouter un flux » et collez-la.",
+    "step3": "Chaque nouvel article y apparaîtra ensuite tout seul.",
+    "readersTitle": "Lecteurs courants",
+    "otherLanguages": "Articles dans d’autres langues",
+    "openFeed": "Ouvrir le flux",
+    "whatIs": "Le RSS est une adresse de mise à jour qu’un site tient pour ses abonnés. Une fois abonné, les nouveaux articles viennent à vous, sans avoir à revenir vérifier.",
+    "agentTitle": "Confiez-le à votre agent",
+    "agentIntro": "Pas envie d’installer un lecteur ? Copiez le texte ci-dessous et envoyez-le à l’agent IA que vous utilisez déjà, comme Claude, ChatGPT, Codex ou OpenClaw : il s’abonnera pour vous.",
+    "copyPrompt": "Copier le prompt",
+    "agentPrompt": "Abonne-moi aux articles de Shoa Lin. Flux (RSS) : {url}\n\n1. Si j’utilise un lecteur RSS (comme Folo, Inoreader, Feedly ou NetNewsWire) et que tu peux le piloter, ajoute-y ce flux et dis-moi quand c’est fait.\n2. Si je n’ai pas de lecteur, ou si tu ne peux pas le piloter, suis le flux toi-même : vérifie-le une fois par jour et, quand un nouvel article paraît, envoie-moi son titre, son lien et deux ou trois idées clés. Utilise le guid de chaque article pour repérer les nouveaux, et ne répète pas ceux dont tu m’as déjà parlé. Lors de la première vérification, signale-moi seulement le plus récent.\n3. Avant de commencer, dis-moi quelle méthode tu vas utiliser. Demande-moi d’abord si tu as besoin que je me connecte ou que je donne un accès.",
+    "readers": { "folo": "Très utilisé en chinois, avec résumés et traduction par IA", "inoreader": "Sur le web et sur mobile", "feedly": "Un lecteur historique, web et mobile", "netnewswire": "Gratuit et open source, pour les appareils Apple" }
+  }
 }

@@ -283,6 +283,18 @@ html[data-theme="dark"] .theme-toggle__light {
   color: inherit;
 }
 
+.site-footer__rss {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.site-footer__rss svg {
+  width: 0.95em;
+  height: 0.95em;
+  flex: none;
+}
+
 .site-footer__views {
   color: var(--muted-soft);
   font-variant-numeric: tabular-nums;

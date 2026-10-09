@@ -1,0 +1,99 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { feedPath } from "../../lib/feed";
+import { getDictionary, localeMeta, locales, type Locale } from "../../lib/i18n";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const copy = dictionary.subscribe;
+const feedUrl = new URL(feedPath(locale), Astro.site).href;
+const agentPrompt = copy.agentPrompt.replace("{url}", feedUrl);
+const readers = [
+  { id: "folo", name: "Folo", href: "https://folo.is" },
+  { id: "inoreader", name: "Inoreader", href: "https://www.inoreader.com" },
+  { id: "feedly", name: "Feedly", href: "https://feedly.com" },
+  { id: "netnewswire", name: "NetNewsWire", href: "https://netnewswire.com" },
+] as const;
+const otherLocales = locales.filter((item) => item !== locale);
+---
+
+<PageLayout locale={locale} path="/subscribe" title={copy.title} description={copy.description}>
+  <header class="page-intro page-intro--compact">
+    <h1>{copy.title}</h1>
+    <p>{copy.description}</p>
+    <p>{copy.whatIs}</p>
+  </header>
+  <div class="subscribe-page">
+    <section class="subscribe-row" aria-labelledby="subscribe-feed">
+      <h2 id="subscribe-feed">{copy.feedLabel}</h2>
+      <div>
+        <div class="subscribe-feed">
+          <code id="subscribe-feed-url" data-feed-url>{feedUrl}</code>
+          <button type="button" data-copy="subscribe-feed-url" data-copy-feed data-copied={copy.copied}>{copy.copy}</button>
+        </div>
+        <p class="subscribe-feed__status" data-copy-status="subscribe-feed-url" role="status"></p>
+        <a href={feedPath(locale)}>{copy.openFeed}</a>
+      </div>
+    </section>
+    <section class="subscribe-row" aria-labelledby="subscribe-agent">
+      <h2 id="subscribe-agent">{copy.agentTitle}</h2>
+      <div>
+        <p class="subscribe-agent__intro">{copy.agentIntro}</p>
+        <pre class="subscribe-prompt" id="subscribe-agent-prompt" data-agent-prompt>{agentPrompt}</pre>
+        <button type="button" class="subscribe-copy" data-copy="subscribe-agent-prompt" data-copy-prompt data-copied={copy.copied}>{copy.copyPrompt}</button>
+        <p class="subscribe-feed__status" data-copy-status="subscribe-agent-prompt" role="status"></p>
+      </div>
+    </section>
+    <section class="subscribe-row" aria-labelledby="subscribe-how">
+      <h2 id="subscribe-how">{copy.howTitle}</h2>
+      <ol class="subscribe-steps">
+        <li>{copy.step1}</li>
+        <li>{copy.step2}</li>
+        <li>{copy.step3}</li>
+      </ol>
+    </section>
+    <section class="subscribe-row" aria-labelledby="subscribe-readers">
+      <h2 id="subscribe-readers">{copy.readersTitle}</h2>
+      <ul class="subscribe-readers">
+        {readers.map((reader) => (
+          <li>
+            <a href={reader.href} rel="noopener noreferrer">{reader.name}</a>
+            <span>{copy.readers[reader.id]}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section class="subscribe-row" aria-labelledby="subscribe-languages">
+      <h2 id="subscribe-languages">{copy.otherLanguages}</h2>
+      <ul class="subscribe-languages">
+        {otherLocales.map((item) => (
+          <li><a href={feedPath(item)} lang={localeMeta[item].htmlLang} hreflang={localeMeta[item].htmlLang}>{localeMeta[item].label}</a></li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</PageLayout>
+
+<script>
+  // Copy buttons for the feed address and the agent prompt. Without clipboard access the text is
+  // selected instead, so the reader can copy it by hand.
+  for (const button of document.querySelectorAll<HTMLButtonElement>("button[data-copy]")) {
+    const id = button.dataset.copy ?? "";
+    const source = document.getElementById(id);
+    const status = document.querySelector<HTMLElement>(`[data-copy-status="${id}"]`);
+    button.addEventListener("click", async () => {
+      if (!source) return;
+      try {
+        await navigator.clipboard.writeText(source.textContent?.trim() ?? "");
+        if (status) status.textContent = button.dataset.copied ?? "";
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(source);
+        const selection = getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+      }
+    });
+  }
+</script>
