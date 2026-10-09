@@ -14,6 +14,7 @@ const corePages = [
   { name: "comics", suffix: "/comics" },
   { name: "favorites", suffix: "/favorites" },
   { name: "contact", suffix: "/contact" },
+  { name: "subscribe", suffix: "/subscribe" },
 ] as const;
 
 function localizedPath(locale: Locale, suffix: string) {

@@ -86,5 +86,26 @@
   },
   "errors": { "notFoundTitle": "Page not found", "notFoundBody": "The address may have changed, or the page has not been published.", "home": "Back home" },
   "a11y": { "skip": "Skip to main content", "menuOpen": "Open navigation", "menuClose": "Close navigation", "mainNavigation": "Main navigation", "mobileNavigation": "Mobile navigation", "languageMenu": "Language menu", "themeToggle": "Theme control" },
-  "footer": { "rights": "All rights reserved.", "viewsLabel": "Total views" }
+  "footer": { "rights": "All rights reserved.", "viewsLabel": "Total views", "rssTitle": "Subscribe to the articles via RSS" },
+  "feed": { "readOnSite": "Read on the site" },
+  "subscribe": {
+    "title": "Subscribe",
+    "description": "Follow the articles in an RSS reader. New posts show up there automatically, in full.",
+    "feedLabel": "Feed address",
+    "copy": "Copy",
+    "copied": "Copied",
+    "howTitle": "How to subscribe",
+    "step1": "Copy the feed address above.",
+    "step2": "In your RSS reader, choose “Add feed” and paste it.",
+    "step3": "Every new article then appears in the reader on its own.",
+    "readersTitle": "Popular readers",
+    "otherLanguages": "Articles in other languages",
+    "openFeed": "Open the feed itself",
+    "whatIs": "RSS is an update address a site keeps for its subscribers. Once you subscribe, new articles come to you, with no need to check back.",
+    "agentTitle": "Hand it to your agent",
+    "agentIntro": "Rather not install a reader? Copy the text below to the AI agent you already use, such as Claude, ChatGPT, Codex or OpenClaw, and let it subscribe for you.",
+    "copyPrompt": "Copy prompt",
+    "agentPrompt": "Please subscribe me to Shoa Lin's articles. Feed (RSS): {url}\n\n1. If I use an RSS reader (such as Folo, Inoreader, Feedly or NetNewsWire) and you can operate it, add this feed there and tell me when it's done.\n2. If I don't have a reader, or you can't operate it, follow the feed yourself: check it once a day, and when there's a new article, send me its title, link and two or three key points. Use each item's guid to tell new articles from old ones, and don't repeat any you've already told me about. On the first check, tell me only about the latest article.\n3. Before you start, tell me which approach you'll take. Ask me first if you need me to sign in or grant access.",
+    "readers": { "folo": "Popular with Chinese readers, with AI summaries and translation", "inoreader": "On the web and on phones", "feedly": "A long-standing reader for web and mobile", "netnewswire": "Free and open source, for Apple devices" }
+  }
 }

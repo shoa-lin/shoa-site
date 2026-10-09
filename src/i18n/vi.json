@@ -86,5 +86,26 @@
   },
   "errors": { "notFoundTitle": "Không tìm thấy trang", "notFoundBody": "Địa chỉ có thể đã thay đổi hoặc trang này chưa được xuất bản.", "home": "Về trang chủ" },
   "a11y": { "skip": "Chuyển đến nội dung chính", "menuOpen": "Mở điều hướng", "menuClose": "Đóng điều hướng", "mainNavigation": "Điều hướng chính", "mobileNavigation": "Điều hướng di động", "languageMenu": "Trình đơn ngôn ngữ", "themeToggle": "Điều khiển giao diện" },
-  "footer": { "rights": "Bảo lưu mọi quyền.", "viewsLabel": "Tổng lượt xem" }
+  "footer": { "rights": "Bảo lưu mọi quyền.", "viewsLabel": "Tổng lượt xem", "rssTitle": "Theo dõi bài viết qua RSS" },
+  "feed": { "readOnSite": "Đọc trên trang web" },
+  "subscribe": {
+    "title": "Theo dõi",
+    "description": "Theo dõi bài viết bằng trình đọc RSS. Bài mới sẽ tự động xuất hiện trong trình đọc, kèm toàn văn.",
+    "feedLabel": "Địa chỉ nguồn cấp",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "howTitle": "Cách theo dõi",
+    "step1": "Sao chép địa chỉ nguồn cấp ở trên.",
+    "step2": "Trong trình đọc RSS, chọn “Thêm nguồn cấp” rồi dán địa chỉ.",
+    "step3": "Từ đó, mỗi bài mới sẽ tự xuất hiện trong trình đọc.",
+    "readersTitle": "Trình đọc phổ biến",
+    "otherLanguages": "Bài viết bằng ngôn ngữ khác",
+    "openFeed": "Mở trực tiếp nguồn cấp",
+    "whatIs": "RSS là một địa chỉ cập nhật mà trang web chuẩn bị cho người theo dõi. Khi đã theo dõi, bài mới sẽ tự đến với bạn, không cần quay lại kiểm tra.",
+    "agentTitle": "Giao cho Agent của bạn",
+    "agentIntro": "Không muốn cài trình đọc? Hãy sao chép đoạn dưới đây gửi cho AI Agent bạn đang dùng, như Claude, ChatGPT, Codex hoặc OpenClaw, để nó theo dõi giúp bạn.",
+    "copyPrompt": "Sao chép prompt",
+    "agentPrompt": "Hãy giúp tôi theo dõi các bài viết của Shoa Lin. Nguồn cấp (RSS): {url}\n\n1. Nếu tôi đang dùng trình đọc RSS (như Folo, Inoreader, Feedly hoặc NetNewsWire) và bạn điều khiển được nó, hãy thêm nguồn cấp này vào và báo tôi khi xong.\n2. Nếu tôi không có trình đọc, hoặc bạn không điều khiển được, hãy tự theo dõi: mỗi ngày kiểm tra nguồn cấp này một lần, khi có bài mới thì gửi tôi tiêu đề, đường dẫn và hai, ba ý chính. Dùng guid của từng bài để phân biệt bài mới, và đừng nhắc lại những bài đã báo. Ở lần kiểm tra đầu tiên, chỉ báo bài mới nhất.\n3. Trước khi bắt đầu, hãy cho tôi biết bạn sẽ làm theo cách nào. Nếu cần tôi đăng nhập hoặc cấp quyền, hãy hỏi tôi trước.",
+    "readers": { "folo": "Nhiều người dùng tiếng Trung, có tóm tắt và dịch bằng AI", "inoreader": "Dùng được trên web và điện thoại", "feedly": "Trình đọc lâu đời, có bản web và di động", "netnewswire": "Miễn phí, mã nguồn mở, dành cho thiết bị Apple" }
+  }
 }

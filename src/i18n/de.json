@@ -86,5 +86,26 @@
   },
   "errors": { "notFoundTitle": "Seite nicht gefunden", "notFoundBody": "Die Adresse wurde möglicherweise geändert oder die Seite wurde noch nicht veröffentlicht.", "home": "Zur Startseite" },
   "a11y": { "skip": "Zum Hauptinhalt springen", "menuOpen": "Navigation öffnen", "menuClose": "Navigation schließen", "mainNavigation": "Hauptnavigation", "mobileNavigation": "Mobile Navigation", "languageMenu": "Sprachauswahl", "themeToggle": "Darstellungssteuerung" },
-  "footer": { "rights": "Alle Rechte vorbehalten.", "viewsLabel": "Aufrufe insgesamt" }
+  "footer": { "rights": "Alle Rechte vorbehalten.", "viewsLabel": "Aufrufe insgesamt", "rssTitle": "Artikel per RSS abonnieren" },
+  "feed": { "readOnSite": "Auf der Website lesen" },
+  "subscribe": {
+    "title": "Abonnieren",
+    "description": "Folgen Sie den Artikeln in einem RSS-Reader. Neue Beiträge erscheinen dort automatisch und vollständig.",
+    "feedLabel": "Feed-Adresse",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "howTitle": "So abonnieren Sie",
+    "step1": "Kopieren Sie die Feed-Adresse oben.",
+    "step2": "Wählen Sie im RSS-Reader „Feed hinzufügen“ und fügen Sie sie ein.",
+    "step3": "Danach erscheint jeder neue Artikel automatisch im Reader.",
+    "readersTitle": "Bekannte Reader",
+    "otherLanguages": "Artikel in anderen Sprachen",
+    "openFeed": "Feed direkt öffnen",
+    "whatIs": "RSS ist eine Update-Adresse, die eine Website für ihre Abonnenten bereitstellt. Sobald Sie abonniert haben, kommen neue Artikel zu Ihnen, ohne dass Sie nachsehen müssen.",
+    "agentTitle": "Ihrem Agenten überlassen",
+    "agentIntro": "Sie möchten keinen Reader installieren? Kopieren Sie den Text unten an den KI-Agenten, den Sie ohnehin nutzen, etwa Claude, ChatGPT, Codex oder OpenClaw, und lassen Sie ihn das Abonnement übernehmen.",
+    "copyPrompt": "Prompt kopieren",
+    "agentPrompt": "Bitte abonniere für mich die Artikel von Shoa Lin. Feed (RSS): {url}\n\n1. Wenn ich einen RSS-Reader nutze (etwa Folo, Inoreader, Feedly oder NetNewsWire) und du ihn bedienen kannst, füge diesen Feed dort hinzu und sag mir Bescheid, wenn es erledigt ist.\n2. Wenn ich keinen Reader habe oder du ihn nicht bedienen kannst, verfolge den Feed selbst: Prüfe ihn einmal am Tag, und wenn ein neuer Artikel erscheint, schick mir Titel, Link und zwei, drei Kernaussagen. Erkenne neue Artikel an ihrer guid und wiederhole keine, über die du mich schon informiert hast. Beim ersten Prüfen nenne mir nur den neuesten Artikel.\n3. Sag mir, bevor du anfängst, welchen Weg du nimmst. Frag mich zuerst, wenn ich mich anmelden oder Zugriff gewähren muss.",
+    "readers": { "folo": "Bei chinesischen Lesern beliebt, mit KI-Zusammenfassung und Übersetzung", "inoreader": "Im Web und auf dem Handy", "feedly": "Ein bewährter Reader für Web und Handy", "netnewswire": "Kostenlos und quelloffen, für Apple-Geräte" }
+  }
 }

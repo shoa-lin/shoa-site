@@ -11,6 +11,7 @@ import { comicPageTone, parseComicHtml } from "../../lib/comic-html.ts";
 import type { Comic, ComicEdition } from "../../lib/comics";
 import { localeMeta } from "../../lib/i18n";
 import { alternateLinks, canonicalUrl } from "../../lib/routes";
+import { feedPath } from "../../lib/feed";
 
 interface Props {
   comic: Comic;
@@ -62,6 +63,7 @@ const liftFooter = `(function(r){var e=document.querySelector("shoa-comic-footer
     <title>{title}</title>
     <meta name="description" content={edition.description} data-shoa-shell />
     <link rel="canonical" href={canonical} data-shoa-shell />
+    <link rel="alternate" type="application/rss+xml" title="Shoa Lin · RSS" href={feedPath(locale)} data-shoa-shell />
     {alternates.map((link) => <link rel="alternate" hreflang={link.hreflang} href={link.href} data-shoa-shell />)}
     <meta property="og:type" content="article" data-shoa-shell />
     <meta property="og:title" content={title} data-shoa-shell />

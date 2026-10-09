@@ -6,6 +6,7 @@ Shoa Lin 的个人主页源码，部署在 www.bydziwen.top。
 - 语言：简体中文为默认语言（无 URL 前缀），另有 en、ja、ko、th、fr、de、vi 七种语言（带前缀）。界面文案在 `src/i18n/*.json`，八份字典的键必须一致。
 - 内容：`src/content/blog`、`src/content/favorites`、`src/content/food`，按 `<locale>/<slug>.md` 组织；公开文章要求八种语言齐全并标为 `reviewed`。流程见 `.codex/skills/translate-blog-publish/SKILL.md`，术语见 `docs/content/translation-glossary.md`。
 - 漫画：`src/comics/<id>/` 保存作者的完整 HTML 和 `comic.json`，构建时套上站点页头页脚；用 `npm run comic -- add <file.html> --id <slug>` 发布，详见 `src/comics/README.md`。
+- RSS：每种语言一个全文订阅源（`/rss.xml`、`/<locale>/rss.xml`，最近 20 篇文章），由 `src/lib/feed.ts` 生成；页脚的 RSS 链接通向订阅说明页 `/subscribe`。Folo 认领订阅源时，把 Folo 给出的 feedId 和 userId 填进 `src/data/folo.ts`，上线后回 Folo 点验证，通过后可删除。条目的 guid 是带末尾斜杠的文章地址，不要改，改了订阅者会把旧文当新文再收一遍。
 - 页脚访问计数：`workers/site-visits/` 的 Cloudflare Worker，手动用 wrangler 部署；站点通过仓库变量 `PUBLIC_VISIT_API_URL` 接入。
 
 ## 常用命令

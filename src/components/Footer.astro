@@ -1,6 +1,7 @@
 ---
 import { visitApiUrl } from "../data/visit-api";
 import { getDictionary, type Locale } from "../lib/i18n";
+import { localizedPath } from "../lib/routes";
 
 interface Props {
   locale: Locale;
@@ -24,6 +25,9 @@ const dictionary = getDictionary(locale);
       <a href="mailto:shoa_lin@outlook.com">Email</a>
       <a href="https://x.com/pand_lin" rel="me noopener noreferrer">X</a>
       <a href="https://github.com/shoa-lin" rel="me noopener noreferrer">GitHub</a>
+      <a class="site-footer__rss" href={localizedPath(locale, "/subscribe")} title={dictionary.footer.rssTitle}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 11a8 8 0 0 1 8 8M5 4.5A14.5 14.5 0 0 1 19.5 19"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>RSS
+      </a>
     </div>
   </div>
 </footer>

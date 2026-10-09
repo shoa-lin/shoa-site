@@ -400,6 +400,13 @@ a {
   align-items: center;
 }
 
+.links .rss svg {
+  width: 0.95em;
+  height: 0.95em;
+  margin-right: 0.3em;
+  flex: none;
+}
+
 .links a:hover {
   color: var(--shoa-text);
 }
