@@ -82,7 +82,7 @@
     "xNote": "Am besten für kurze Nachrichten und öffentliche Diskussionen."
   },
   "article": {
-    "source": "Quelle", "author": "Autor", "published": "Veröffentlicht", "updated": "Aktualisiert", "languages": "Artikelsprachen", "toc": "Inhalt", "tocOpen": "Inhaltsverzeichnis öffnen", "tocClose": "Inhaltsverzeichnis schließen", "previous": "Zurück", "next": "Weiter", "back": "Zurück zu den Artikeln", "adaptationNotice": "Dies ist eine strukturierte Adaption. Bitte beachte die Originalquelle."
+    "source": "Quelle", "author": "Autor", "published": "Veröffentlicht", "updated": "Aktualisiert", "languages": "Artikelsprachen", "toc": "Inhalt", "tocOpen": "Inhaltsverzeichnis öffnen", "tocClose": "Inhaltsverzeichnis schließen", "previous": "Zurück", "next": "Weiter", "back": "Zurück zu den Artikeln", "adaptationNotice": "Dies ist eine strukturierte Adaption. Bitte beachte die Originalquelle.", "like": "Gefällt mir", "liked": "Gefällt dir"
   },
   "errors": { "notFoundTitle": "Seite nicht gefunden", "notFoundBody": "Die Adresse wurde möglicherweise geändert oder die Seite wurde noch nicht veröffentlicht.", "home": "Zur Startseite" },
   "a11y": { "skip": "Zum Hauptinhalt springen", "menuOpen": "Navigation öffnen", "menuClose": "Navigation schließen", "mainNavigation": "Hauptnavigation", "mobileNavigation": "Mobile Navigation", "languageMenu": "Sprachauswahl", "themeToggle": "Darstellungssteuerung" },

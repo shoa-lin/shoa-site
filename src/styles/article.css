@@ -84,6 +84,52 @@
   grid-template-columns: minmax(0, 720px);
 }
 
+.article-likes {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.article-likes__button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.article-likes__button:hover {
+  border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+  color: var(--text-secondary);
+}
+
+.article-likes__button[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  color: var(--accent);
+}
+
+.article-likes__icon {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+}
+
+.article-likes__button[aria-pressed="true"] .article-likes__icon {
+  fill: currentColor;
+}
+
+.article-likes__count {
+  font-family: var(--font-mono), var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
 .article-toc {
   position: sticky;
   top: 92px;

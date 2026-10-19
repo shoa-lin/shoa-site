@@ -8,6 +8,16 @@ compatibility_date = "2026-09-01"
 binding = "VISITS"
 id = "8e83536b23cc4bdcb75e72cc5946cbab"
 
+# Per-IP throttle for POST /likes (Workers Rate Limiting binding): 10 likes per
+# 60 seconds. Deploying this block needs wrangler >= 4.36; without the binding
+# the Worker fails open and likes are only gated by Origin/bot/KV checks.
+[[ratelimits]]
+name = "LIKE_LIMITER"
+namespace_id = "41001"
+  [ratelimits.simple]
+  limit = 10
+  period = 60
+
 [vars]
 # Comma-separated exact origins. http://localhost:* and http://127.0.0.1:* are always allowed for local preview.
 ALLOWED_ORIGINS = "https://www.bydziwen.top,https://bydziwen.top"
