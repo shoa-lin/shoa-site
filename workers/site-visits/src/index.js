@@ -1,5 +1,6 @@
 // Site-wide page-view counter and per-article reader likes for www.bydziwen.top.
-// Stores one integer per key in KV; no cookies, IPs, or user agents are persisted.
+// Stores one integer per key in KV; no cookies, raw IPs, or user agents are persisted.
+// Like dedupe keeps only a truncated one-way hash of (IP, slug), and only for 24h.
 
 import {
   TOTAL_KEY,
@@ -31,6 +32,22 @@ function json(body, status, headers) {
 async function readCount(env, key) {
   const value = Number.parseInt((await env.VISITS.get(key)) ?? "0", 10);
   return Number.isSafeInteger(value) && value >= 0 ? value : 0;
+}
+
+// One counted like per visitor per article per 24h. The KV key holds the first
+// 16 hex chars of SHA-256("{ip}|{slug}|site-likes-v1"), never the IP itself.
+const LIKE_DEDUPE_TTL_SECONDS = 86400;
+const LIKE_DEDUPE_SALT = "site-likes-v1";
+
+async function likeDedupeKey(ip, slug) {
+  const data = new TextEncoder().encode(`${ip}|${slug}|${LIKE_DEDUPE_SALT}`);
+  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", data));
+  const hex = Array.from(digest.subarray(0, 8), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `liked:${slug}:${hex}`;
+}
+
+function errorDetails(error) {
+  return { name: error?.name, message: error?.message ?? String(error) };
 }
 
 // Best-effort per-IP throttle for like writes. A missing binding (local dev,
@@ -100,15 +117,42 @@ export default {
           return json({ ok: false, error: "rate limited", likes }, 429, likeHeaders);
         }
 
+        // Dedupe: a visitor who already liked this article in the last 24h gets
+        // the current count back, uncounted. No CF-Connecting-IP (local dev)
+        // skips it; a dedupe KV failure fails open and is logged.
+        const ip = request.headers.get("CF-Connecting-IP");
+        let dedupeKey = null;
+        if (ip) {
+          try {
+            dedupeKey = await likeDedupeKey(ip, likesSlug);
+            if ((await env.VISITS.get(dedupeKey)) !== null) {
+              return json(
+                { ok: true, slug: likesSlug, likes, counted: false, duplicate: true },
+                200,
+                { ...likeHeaders, "X-Like-RL": "dup" },
+              );
+            }
+          } catch (error) {
+            console.error("like dedupe read failed; failing open", errorDetails(error));
+          }
+        }
+
         const next = likes + 1;
         try {
           await env.VISITS.put(key, String(next));
-          return json({ ok: true, slug: likesSlug, likes: next, counted: true }, 200, likeHeaders);
         } catch {
           // KV allows one write per key per second; a burst or an exhausted
           // daily quota lands here. Like /hit: report the old value, counted false.
           return json({ ok: true, slug: likesSlug, likes, counted: false }, 200, likeHeaders);
         }
+        if (dedupeKey) {
+          try {
+            await env.VISITS.put(dedupeKey, "1", { expirationTtl: LIKE_DEDUPE_TTL_SECONDS });
+          } catch (error) {
+            console.error("like dedupe write failed; like still counted", errorDetails(error));
+          }
+        }
+        return json({ ok: true, slug: likesSlug, likes: next, counted: true }, 200, likeHeaders);
       }
     }
 
