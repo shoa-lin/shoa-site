@@ -1,0 +1,202 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { test } from "node:test";
+import {
+  TOTAL_KEY,
+  isValidSlug,
+  likesKey,
+  parseLikesPath,
+} from "../workers/site-visits/src/counter.js";
+import worker from "../workers/site-visits/src/index.js";
+
+const browserUA = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1";
+
+function createEnv() {
+  const store = new Map();
+  return {
+    store,
+    ALLOWED_ORIGINS: "https://www.bydziwen.top,https://bydziwen.top",
+    VISITS: {
+      get: async (key) => store.get(key) ?? null,
+      put: async (key, value) => void store.set(key, value),
+    },
+  };
+}
+
+function request(path, { method = "GET", origin = "https://www.bydziwen.top", ua = browserUA, ip = "203.0.113.7", body } = {}) {
+  const headers = new Headers({ "User-Agent": ua });
+  if (origin) headers.set("Origin", origin);
+  if (ip) headers.set("CF-Connecting-IP", ip);
+  const init = { method, headers };
+  if (body !== undefined) init.body = body;
+  return new Request(`https://shoa-site-visits.example.workers.dev${path}`, init);
+}
+
+test("slug and path helpers accept translationKey-style slugs only", () => {
+  assert.equal(isValidSlug("getting-started-with-loops"), true);
+  assert.equal(isValidSlug("a"), true);
+  assert.equal(isValidSlug("x".repeat(64)), true);
+  assert.equal(isValidSlug("Getting-Started"), false);
+  assert.equal(isValidSlug(".."), false);
+  assert.equal(isValidSlug(""), false);
+  assert.equal(isValidSlug("x".repeat(65)), false);
+  assert.equal(likesKey("post-a"), "likes:post-a");
+  assert.equal(parseLikesPath("/likes/post-a"), "post-a");
+  assert.equal(parseLikesPath("/likes/%2e%2e"), "..");
+  assert.equal(parseLikesPath("/total"), null);
+  assert.equal(parseLikesPath("/likes"), null);
+});
+
+test("GET /likes/{slug} returns zero for an unknown slug without writing", async () => {
+  const env = createEnv();
+  const response = await worker.fetch(request("/likes/brand-new-post"), env);
+
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { ok: true, slug: "brand-new-post", likes: 0 });
+  assert.equal(env.store.has(likesKey("brand-new-post")), false);
+});
+
+test("POST /likes/{slug} increments likes:{slug} and repeated posts accumulate (no rate-limit binding)", async () => {
+  const env = createEnv();
+  const slug = "getting-started-with-loops";
+
+  const first = await worker.fetch(request(`/likes/${slug}`, { method: "POST" }), env);
+  assert.equal(first.status, 200);
+  assert.deepEqual(await first.json(), { ok: true, slug, likes: 1, counted: true });
+
+  const second = await worker.fetch(request(`/likes/${slug}`, { method: "POST" }), env);
+  assert.deepEqual(await second.json(), { ok: true, slug, likes: 2, counted: true });
+  assert.equal(env.store.get(likesKey(slug)), "2");
+
+  const read = await worker.fetch(request(`/likes/${slug}`), env);
+  assert.deepEqual(await read.json(), { ok: true, slug, likes: 2 });
+});
+
+test("invalid slugs are rejected with 400 on both GET and POST", async () => {
+  const env = createEnv();
+  // Pure dot segments (".", "..", "%2e%2e") are normalized away by the URL
+  // parser before the request reaches the Worker; the shapes that do arrive
+  // are covered here — uppercase, slashes, spaces, encoded traversals, empty,
+  // and over-length slugs all decode to something the slug regex rejects.
+  const invalid = ["Getting-Started", "a/b", "", "%41bc", "foo%20bar", "..%2fx", "foo%2Fbar", "x".repeat(65)];
+
+  for (const slug of invalid) {
+    const path = `/likes/${slug}`;
+    const get = await worker.fetch(request(path), env);
+    assert.equal(get.status, 400, `GET ${path}`);
+    assert.deepEqual(await get.json(), { ok: false, error: "invalid slug" });
+
+    const post = await worker.fetch(request(path, { method: "POST" }), env);
+    assert.equal(post.status, 400, `POST ${path}`);
+  }
+  assert.equal(env.store.size, 0);
+});
+
+test("dot-segment paths that URL normalization resolves stay 404 and write nothing", async () => {
+  const env = createEnv();
+  // "/likes/." normalizes to "/likes/", which lands on the empty-slug 400 above.
+  for (const path of ["/likes/..", "/likes/%2e%2e"]) {
+    const response = await worker.fetch(request(path), env);
+    assert.equal(response.status, 404, path);
+  }
+  assert.equal(env.store.size, 0);
+});
+
+test("POST /likes from a foreign origin is rejected with 403 and nothing is written", async () => {
+  const env = createEnv();
+  const response = await worker.fetch(request("/likes/fixture-post", { method: "POST", origin: "https://evil.example" }), env);
+
+  assert.equal(response.status, 403);
+  assert.equal(env.store.size, 0);
+});
+
+test("bot user agents read but never write the like count", async () => {
+  const env = createEnv();
+  env.store.set(likesKey("fixture-post"), "41");
+  const response = await worker.fetch(request("/likes/fixture-post", { method: "POST", ua: "Googlebot/2.1" }), env);
+
+  assert.deepEqual(await response.json(), { ok: true, slug: "fixture-post", likes: 41, counted: false });
+  assert.equal(env.store.get(likesKey("fixture-post")), "41");
+});
+
+test("a failed KV write returns the old count with counted:false", async () => {
+  const env = createEnv();
+  env.store.set(likesKey("fixture-post"), "7");
+  env.VISITS.put = async () => { throw new Error("quota"); };
+  const response = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { ok: true, slug: "fixture-post", likes: 7, counted: false });
+});
+
+test("a rate-limited IP gets 429 with the current count and no KV write", async () => {
+  const env = createEnv();
+  env.store.set(likesKey("fixture-post"), "5");
+  const limitedKeys = [];
+  env.LIKE_LIMITER = {
+    limit: async ({ key }) => {
+      limitedKeys.push(key);
+      return { success: false };
+    },
+  };
+
+  const response = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(response.status, 429);
+  assert.deepEqual(await response.json(), { ok: false, error: "rate limited", likes: 5 });
+  assert.equal(env.store.get(likesKey("fixture-post")), "5");
+  assert.deepEqual(limitedKeys, ["203.0.113.7"]);
+
+  const noIp = await worker.fetch(request("/likes/other-post", { method: "POST", ip: null }), env);
+  assert.equal(noIp.status, 429);
+  assert.deepEqual(limitedKeys, ["203.0.113.7", "unknown"]);
+});
+
+test("a throwing or succeeding limiter never blocks the like on its own", async () => {
+  const env = createEnv();
+  env.LIKE_LIMITER = {
+    limit: async () => { throw new Error("limiter down"); },
+  };
+  const failing = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.deepEqual(await failing.json(), { ok: true, slug: "fixture-post", likes: 1, counted: true });
+
+  env.LIKE_LIMITER = {
+    limit: async () => ({ success: true }),
+  };
+  const passing = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.deepEqual(await passing.json(), { ok: true, slug: "fixture-post", likes: 2, counted: true });
+});
+
+test("there is no unlike: an unlike body still increments", async () => {
+  const env = createEnv();
+  env.store.set(likesKey("fixture-post"), "3");
+  const response = await worker.fetch(
+    request("/likes/fixture-post", { method: "POST", body: JSON.stringify({ action: "unlike" }) }),
+    env,
+  );
+
+  assert.deepEqual(await response.json(), { ok: true, slug: "fixture-post", likes: 4, counted: true });
+  assert.equal(env.store.get(likesKey("fixture-post")), "4");
+});
+
+test("article.like and article.liked exist and are non-empty in every locale", () => {
+  for (const locale of ["zh", "en", "ja", "ko", "th", "fr", "de", "vi"]) {
+    const dictionary = JSON.parse(readFileSync(new URL(`../src/i18n/${locale}.json`, import.meta.url), "utf8"));
+    assert.ok(dictionary.article.like.trim(), `${locale} article.like`);
+    assert.ok(dictionary.article.liked.trim(), `${locale} article.liked`);
+    assert.notEqual(dictionary.article.like, dictionary.article.liked, `${locale} like/liked differ`);
+  }
+});
+
+test("/hit and /total keep their original behaviour next to the likes routes", async () => {
+  const env = createEnv();
+  env.store.set(TOTAL_KEY, "9");
+
+  const hit = await worker.fetch(request("/hit", { method: "POST" }), env);
+  assert.deepEqual(await hit.json(), { ok: true, counted: true, total: 10 });
+
+  const total = await worker.fetch(request("/total"), env);
+  assert.deepEqual(await total.json(), { total: 10 });
+
+  const likes = await worker.fetch(request("/likes/fixture-post"), env);
+  assert.deepEqual(await likes.json(), { ok: true, slug: "fixture-post", likes: 0 });
+});

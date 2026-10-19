@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import { getDictionary, localeMeta, type Locale } from "../../lib/i18n";
 import { localizedPath } from "../../lib/routes";
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import ArticleLikes from "../ArticleLikes.astro";
 import MobileArticleToc from "../MobileArticleToc.astro";
 
 interface Props {
@@ -70,6 +71,7 @@ if (entry.data.translationStatus === "draft") availableLocales.push(locale);
         <Content />
       </div>
     </div>
+    <ArticleLikes locale={locale} slug={entry.data.translationKey} />
     {
       visibleHeadings.length >= 3 && (
         <MobileArticleToc

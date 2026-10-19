@@ -82,7 +82,7 @@
     "xNote": "Phù hợp nhất cho trao đổi ngắn và thảo luận công khai."
   },
   "article": {
-    "source": "Nguồn", "author": "Tác giả", "published": "Đăng ngày", "updated": "Cập nhật", "languages": "Ngôn ngữ bài viết", "toc": "Mục lục", "tocOpen": "Mở mục lục bài viết", "tocClose": "Đóng mục lục bài viết", "previous": "Trước", "next": "Sau", "back": "Quay lại bài viết", "adaptationNotice": "Đây là bản chuyển thể có cấu trúc. Vui lòng tham khảo nguồn gốc."
+    "source": "Nguồn", "author": "Tác giả", "published": "Đăng ngày", "updated": "Cập nhật", "languages": "Ngôn ngữ bài viết", "toc": "Mục lục", "tocOpen": "Mở mục lục bài viết", "tocClose": "Đóng mục lục bài viết", "previous": "Trước", "next": "Sau", "back": "Quay lại bài viết", "adaptationNotice": "Đây là bản chuyển thể có cấu trúc. Vui lòng tham khảo nguồn gốc.", "like": "Thích", "liked": "Đã thích"
   },
   "errors": { "notFoundTitle": "Không tìm thấy trang", "notFoundBody": "Địa chỉ có thể đã thay đổi hoặc trang này chưa được xuất bản.", "home": "Về trang chủ" },
   "a11y": { "skip": "Chuyển đến nội dung chính", "menuOpen": "Mở điều hướng", "menuClose": "Đóng điều hướng", "mainNavigation": "Điều hướng chính", "mobileNavigation": "Điều hướng di động", "languageMenu": "Trình đơn ngôn ngữ", "themeToggle": "Điều khiển giao diện" },
