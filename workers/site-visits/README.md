@@ -19,6 +19,8 @@ CORS allows the origins in `ALLOWED_ORIGINS` (`wrangler.toml`) plus any `http://
 
 `wrangler.toml` declares a Workers Rate Limiting binding `LIKE_LIMITER`: 10 `POST /likes/{slug}` per 60 seconds per `CF-Connecting-IP` (missing header counts as `"unknown"`). Over the limit the Worker answers `429 { ok: false, error: "rate limited", likes }` without touching KV. `GET` is never limited. When the binding is absent (local `wrangler dev`, tests) or `limit()` throws, the Worker silently fails open — likes still work and are only guarded by the Origin allowlist, bot-UA filter, and KV's one-write-per-key-per-second ceiling.
 
+Every `POST /likes/{slug}` that reaches the limiter (i.e. not a bot UA, allowed `Origin`) carries an `X-Like-RL` response header naming the branch that ran: `ok` (under the limit), `limited` (429), `nobinding` (binding absent, `console.warn` logged) or `error` (`limit()` threw, `console.error` logged with the error name/message). Check it with `curl -i` or `npx wrangler tail`. Note that curl's default UA counts as a bot, so pass a browser `User-Agent` when testing.
+
 Deploying the `[[ratelimits]]` block requires **wrangler ≥ 4.36**; older versions reject the config.
 
 ## Deploy

@@ -62,6 +62,7 @@ test("POST /likes/{slug} increments likes:{slug} and repeated posts accumulate (
 
   const first = await worker.fetch(request(`/likes/${slug}`, { method: "POST" }), env);
   assert.equal(first.status, 200);
+  assert.equal(first.headers.get("X-Like-RL"), "nobinding");
   assert.deepEqual(await first.json(), { ok: true, slug, likes: 1, counted: true });
 
   const second = await worker.fetch(request(`/likes/${slug}`, { method: "POST" }), env);
@@ -142,6 +143,7 @@ test("a rate-limited IP gets 429 with the current count and no KV write", async 
 
   const response = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
   assert.equal(response.status, 429);
+  assert.equal(response.headers.get("X-Like-RL"), "limited");
   assert.deepEqual(await response.json(), { ok: false, error: "rate limited", likes: 5 });
   assert.equal(env.store.get(likesKey("fixture-post")), "5");
   assert.deepEqual(limitedKeys, ["203.0.113.7"]);
@@ -157,13 +159,63 @@ test("a throwing or succeeding limiter never blocks the like on its own", async 
     limit: async () => { throw new Error("limiter down"); },
   };
   const failing = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(failing.headers.get("X-Like-RL"), "error");
   assert.deepEqual(await failing.json(), { ok: true, slug: "fixture-post", likes: 1, counted: true });
 
   env.LIKE_LIMITER = {
     limit: async () => ({ success: true }),
   };
   const passing = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(passing.headers.get("X-Like-RL"), "ok");
   assert.deepEqual(await passing.json(), { ok: true, slug: "fixture-post", likes: 2, counted: true });
+});
+
+test("X-Like-RL reports the limiter branch and failures are logged, not swallowed", async (t) => {
+  const warnings = [];
+  const errors = [];
+  t.mock.method(console, "warn", (...args) => void warnings.push(args));
+  t.mock.method(console, "error", (...args) => void errors.push(args));
+
+  const env = createEnv();
+  const missing = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(missing.status, 200);
+  assert.equal(missing.headers.get("X-Like-RL"), "nobinding");
+  assert.equal(missing.headers.get("Access-Control-Expose-Headers"), "X-Like-RL");
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0][0], /LIKE_LIMITER binding missing/);
+
+  // A binding object without a callable limit() counts as missing too.
+  env.LIKE_LIMITER = {};
+  const notCallable = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(notCallable.headers.get("X-Like-RL"), "nobinding");
+  assert.equal(warnings.length, 2);
+
+  env.LIKE_LIMITER = { limit: async () => { throw new TypeError("bad key"); } };
+  const thrown = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(thrown.status, 200);
+  assert.equal(thrown.headers.get("X-Like-RL"), "error");
+  assert.equal(errors.length, 1);
+  assert.deepEqual(errors[0][1], { name: "TypeError", message: "bad key" });
+
+  // A synchronous throw from limit() is caught the same way.
+  env.LIKE_LIMITER = { limit: () => { throw new Error("sync boom"); } };
+  const syncThrown = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(syncThrown.headers.get("X-Like-RL"), "error");
+  assert.equal(errors.length, 2);
+
+  // A KV write failure after a passing limiter still carries the header.
+  env.LIKE_LIMITER = { limit: async () => ({ success: true }) };
+  env.VISITS.put = async () => { throw new Error("quota"); };
+  const kvFail = await worker.fetch(request("/likes/fixture-post", { method: "POST" }), env);
+  assert.equal(kvFail.headers.get("X-Like-RL"), "ok");
+  assert.equal((await kvFail.json()).counted, false);
+
+  // GET and bot POSTs never reach the limiter, so they carry no header.
+  const get = await worker.fetch(request("/likes/fixture-post"), env);
+  assert.equal(get.headers.get("X-Like-RL"), null);
+  const bot = await worker.fetch(request("/likes/fixture-post", { method: "POST", ua: "curl/8.7.1" }), env);
+  assert.equal(bot.headers.get("X-Like-RL"), null);
+  assert.equal((await bot.json()).counted, false);
 });
 
 test("there is no unlike: an unlike body still increments", async () => {

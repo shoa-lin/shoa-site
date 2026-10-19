@@ -16,6 +16,7 @@ function corsHeaders(origin, env) {
     headers["Access-Control-Allow-Origin"] = origin;
     headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS";
     headers["Access-Control-Max-Age"] = "86400";
+    headers["Access-Control-Expose-Headers"] = "X-Like-RL";
   }
   return headers;
 }
@@ -34,14 +35,25 @@ async function readCount(env, key) {
 
 // Best-effort per-IP throttle for like writes. A missing binding (local dev,
 // tests) or a throwing limiter must never break the endpoint: fail open.
-async function isLikeRateLimited(env, request) {
-  if (typeof env.LIKE_LIMITER?.limit !== "function") return false;
+// Returns which branch ran ("ok" | "limited" | "nobinding" | "error"); POST
+// /likes echoes it in the X-Like-RL response header so a curl shows it at once.
+async function likeRateLimitStatus(env, request) {
+  if (typeof env.LIKE_LIMITER?.limit !== "function") {
+    console.warn("LIKE_LIMITER binding missing or has no limit(); failing open", {
+      bindingType: typeof env.LIKE_LIMITER,
+    });
+    return "nobinding";
+  }
   const key = request.headers.get("CF-Connecting-IP") ?? "unknown";
   try {
     const { success } = await env.LIKE_LIMITER.limit({ key });
-    return success !== true;
-  } catch {
-    return false;
+    return success === true ? "ok" : "limited";
+  } catch (error) {
+    console.error("LIKE_LIMITER.limit() threw; failing open", {
+      name: error?.name,
+      message: error?.message ?? String(error),
+    });
+    return "error";
   }
 }
 
@@ -82,18 +94,20 @@ export default {
           return json({ ok: true, slug: likesSlug, likes, counted: false }, 200, cors);
         }
 
-        if (await isLikeRateLimited(env, request)) {
-          return json({ ok: false, error: "rate limited", likes }, 429, cors);
+        const rateLimit = await likeRateLimitStatus(env, request);
+        const likeHeaders = { ...cors, "X-Like-RL": rateLimit };
+        if (rateLimit === "limited") {
+          return json({ ok: false, error: "rate limited", likes }, 429, likeHeaders);
         }
 
         const next = likes + 1;
         try {
           await env.VISITS.put(key, String(next));
-          return json({ ok: true, slug: likesSlug, likes: next, counted: true }, 200, cors);
+          return json({ ok: true, slug: likesSlug, likes: next, counted: true }, 200, likeHeaders);
         } catch {
           // KV allows one write per key per second; a burst or an exhausted
           // daily quota lands here. Like /hit: report the old value, counted false.
-          return json({ ok: true, slug: likesSlug, likes, counted: false }, 200, cors);
+          return json({ ok: true, slug: likesSlug, likes, counted: false }, 200, likeHeaders);
         }
       }
     }
