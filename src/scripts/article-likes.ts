@@ -22,7 +22,7 @@ function rememberLike(key: string) {
 
 async function readJson(response: Response) {
   try {
-    return (await response.json()) as { likes?: unknown; counted?: unknown } | null;
+    return (await response.json()) as { likes?: unknown; counted?: unknown; duplicate?: unknown } | null;
   } catch {
     return null;
   }
@@ -67,9 +67,10 @@ export function initArticleLikes(root: ParentNode = document) {
       const payload = await readJson(await fetch(likesUrl, { method: "POST", keepalive: true }));
       const next = readCount(payload);
       if (next !== null) likes = next;
-      // Trust the server: only counted:true is recorded as liked. Anything
-      // else (rate limited, quota skipped) leaves the button clickable.
-      if (payload?.counted === true) {
+      // Trust the server: counted:true, or duplicate:true (this visitor already
+      // liked it in the last 24h), is recorded as liked with the returned count.
+      // Anything else (rate limited, quota skipped) leaves the button clickable.
+      if (payload?.counted === true || payload?.duplicate === true) {
         liked = true;
         rememberLike(likedKey);
       }

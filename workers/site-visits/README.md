@@ -1,6 +1,6 @@
 # site-visits Worker
 
-Site-wide cumulative **page-view (PV)** counter and per-article **reader likes** for www.bydziwen.top. Cloudflare KV holds one integer per key (`site:pv`, `likes:{slug}`); no cookies, IPs, or user agents are stored.
+Site-wide cumulative **page-view (PV)** counter and per-article **reader likes** for www.bydziwen.top. Cloudflare KV holds one integer per key (`site:pv`, `likes:{slug}`); no cookies, raw IPs, or user agents are stored. Like dedupe keeps only a truncated one-way hash per visitor and article, and only for 24h (below).
 
 ## API
 
@@ -9,17 +9,24 @@ Site-wide cumulative **page-view (PV)** counter and per-article **reader likes**
 | POST   | `/hit`   | `{ ok: true, counted: boolean, total }`    | Increments `site:pv`. Requires an allowed `Origin`; bot-like / missing user agents return the total without counting. |
 | GET    | `/total` | `{ total }`                                | Public read. |
 | GET    | `/likes/{slug}` | `{ ok: true, slug, likes }`         | Public read of one article's like count. No key means `likes: 0`. |
-| POST   | `/likes/{slug}` | `{ ok: true, slug, likes, counted }` | Increments `likes:{slug}`, **never decrements** — there is no unlike. Same `Origin` / bot-UA rules as `/hit`, plus per-IP rate limiting (below). |
+| POST   | `/likes/{slug}` | `{ ok: true, slug, likes, counted }` | Increments `likes:{slug}`, **never decrements** — there is no unlike. Same `Origin` / bot-UA rules as `/hit`, plus one counted like per visitor per article per 24h and per-IP rate limiting (below). A repeat returns `{ ok: true, slug, likes, counted: false, duplicate: true }`. |
 
 The `{slug}` is the blog post's `translationKey`, shared by all eight language editions, so every locale reads and writes the same counter. Slugs must match `^[a-z0-9][a-z0-9-]{0,63}$`; anything else (uppercase, `/`, `..`, encoded characters, >64 chars) gets `400 { ok: false, error: "invalid slug" }` on both GET and POST.
 
 CORS allows the origins in `ALLOWED_ORIGINS` (`wrangler.toml`) plus any `http://localhost:*` / `http://127.0.0.1:*` for previews.
 
+## Like dedupe (the real guard)
+
+Each counted like also writes `liked:{slug}:{h}` = `"1"` with `expirationTtl: 86400`, where `h` is the first 16 hex chars of `SHA-256("{CF-Connecting-IP}|{slug}|site-likes-v1")`. No raw IP is stored. If that key exists, the Worker returns the current count with `counted: false, duplicate: true` and `X-Like-RL: dup`, and doesn't increment. The frontend shows the button as already liked. With no `CF-Connecting-IP` header (local dev) dedupe is skipped. If the dedupe KV read or write throws, the like is still counted and a `console.error` is logged. Each counted like costs two KV writes against the free plan's 1,000/day.
+
 ## Rate limiting
+
+In production the binding has not been observed to trip: about 40 same-IP POSTs at IAD, zero 429s. Treat it as a best-effort extra; the dedupe above is what actually limits likes.
+
 
 `wrangler.toml` declares a Workers Rate Limiting binding `LIKE_LIMITER`: 10 `POST /likes/{slug}` per 60 seconds per `CF-Connecting-IP` (missing header counts as `"unknown"`). Over the limit the Worker answers `429 { ok: false, error: "rate limited", likes }` without touching KV. `GET` is never limited. When the binding is absent (local `wrangler dev`, tests) or `limit()` throws, the Worker silently fails open — likes still work and are only guarded by the Origin allowlist, bot-UA filter, and KV's one-write-per-key-per-second ceiling.
 
-Every `POST /likes/{slug}` that reaches the limiter (i.e. not a bot UA, allowed `Origin`) carries an `X-Like-RL` response header naming the branch that ran: `ok` (under the limit), `limited` (429), `nobinding` (binding absent, `console.warn` logged) or `error` (`limit()` threw, `console.error` logged with the error name/message). Check it with `curl -i` or `npx wrangler tail`. Note that curl's default UA counts as a bot, so pass a browser `User-Agent` when testing.
+Every `POST /likes/{slug}` that reaches the limiter (i.e. not a bot UA, allowed `Origin`) carries an `X-Like-RL` response header naming the branch that ran: `ok` (under the limit), `limited` (429), `dup` (dedupe hit, see above), `nobinding` (binding absent, `console.warn` logged) or `error` (`limit()` threw, `console.error` logged with the error name/message). Check it with `curl -i` or `npx wrangler tail`. Note that curl's default UA counts as a bot, so pass a browser `User-Agent` when testing.
 
 Deploying the `[[ratelimits]]` block requires **wrangler ≥ 4.36**; older versions reject the config.
 
@@ -55,5 +62,5 @@ PUBLIC_VISIT_API_URL=http://127.0.0.1:8787 npm run build && npm run preview
 
 - **KV has no atomic increment.** Two hits landing at the same moment can collapse into one, and a KV value read at another edge location can lag by up to ~60s. That is fine for a rough public PV figure. If exact counts matter later, swap KV for a Durable Object (single-threaded, atomic).
 - **Free plan: 1,000 KV writes/day**, shared by `/hit` and `/likes`. Past that, both still return the last value (`counted: false`) and the pages keep working; the counters just stop increasing until the next UTC day. Workers Paid lifts this.
-- **Like counts are integrity-light by design** (same as the PV figure): `Origin` and UA headers stop casual browser-side noise, `LIKE_LIMITER` slows scripted floods to 10/min/IP, but a determined actor with rotating IPs can still inflate numbers. The rate-limit binding is the knob to tighten first.
+- **Like counts are integrity-light by design** (same as the PV figure): `Origin` and UA headers stop casual browser-side noise, the 24h per-visitor dedupe allows one counted like per IP per article per day (`LIKE_LIMITER` is a best-effort extra), but a determined actor with rotating IPs can still inflate numbers.
 - Bot filtering is a simple UA regex (`bot|crawl|spider|headless|lighthouse|…`). It never matches ordinary mobile or desktop browsers.

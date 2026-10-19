@@ -9,13 +9,13 @@ const slug = "getting-started-with-loops";
 test.skip(!process.env.PUBLIC_VISIT_API_URL, "PUBLIC_VISIT_API_URL is not set; article pages render no likes button");
 
 // Every likes request is mocked regardless of host, so no test ever touches production.
-function mockLikes(page: Page, getCount: number, post: { likes: number; counted: boolean }) {
+function mockLikes(page: Page, getCount: number, post: { likes: number; counted: boolean; duplicate?: boolean }) {
   return page.route("**/likes/**", async (route) => {
     if (route.request().method() === "POST") {
       await route.fulfill({
         status: 200,
         contentType: "application/json",
-        body: JSON.stringify({ ok: true, slug, likes: post.likes, counted: post.counted }),
+        body: JSON.stringify({ ok: true, slug, ...post }),
       });
       return;
     }
@@ -64,6 +64,23 @@ test("an uncounted like is not recorded and the button stays active", async ({ p
   await expect(button).toHaveAttribute("aria-pressed", "false");
   await expect(button).toContainText("点赞");
   expect(await page.evaluate((key) => localStorage.getItem(key), `shoa-liked:${slug}`)).toBeNull();
+});
+
+test("a duplicate like (already liked within 24h) shows the liked state with the server count", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await mockLikes(page, 12, { likes: 13, counted: false, duplicate: true });
+  await page.goto(articlePath);
+
+  const button = page.locator("[data-likes-button]");
+  await expect(button).toContainText("12");
+
+  await button.click();
+  await expect(button).toHaveAttribute("aria-pressed", "true");
+  await expect(button).toContainText("已赞");
+  await expect(button).toContainText("13");
+  await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), `shoa-liked:${slug}`)).toBe("1");
+  expect(errors).toEqual([]);
 });
 
 test("the like button stays hidden and quiet when the count cannot be loaded", async ({ page }) => {
