@@ -1,17 +1,17 @@
 {
   "meta": {
     "siteTitle": "Shoa Lin",
-    "siteDescription": "Shoa Lins persönliche Website über KI-Agenten, Wissenssysteme, Entwicklerwerkzeuge und technisches Schreiben."
+    "siteDescription": "Persönliche Website von Shoa Lin. Wissensgraph-Forscher · Unternehmensarchitekt · KI-Agentensysteme mit Schwerpunkt auf Organisation und Zusammenarbeit von Multi-Agenten-Systemen."
   },
   "nav": { "home": "Startseite", "about": "Über mich", "blog": "Artikel", "comics": "Comics", "food": "Essen", "favorites": "Favoriten", "contact": "Kontakt" },
   "theme": { "label": "Darstellung", "toggle": "Zwischen hellem und dunklem Design wechseln", "light": "Hell", "dark": "Dunkel", "system": "System" },
   "language": { "label": "Sprache", "menu": "Sprache auswählen", "current": "Aktuelle Sprache" },
   "home": {
     "greeting": "Hallo, ich bin Shoa Lin.",
-    "intro": "Ich beschäftige mich mit KI-Agenten, Wissenssystemen und Entwicklerwerkzeugen – insbesondere damit, wie Werkzeugnutzung, Gedächtnis, Evaluation und Workflows in realen Aufgaben zusammenspielen.",
+    "intro": "Ehemaliger Forscher im Bereich Wissensgraphen und Unternehmensarchitekt mit langjähriger Erfahrung in der digitalen Transformation von Unternehmen. Heute konzentriere ich mich auf KI-Agentensysteme; mein Forschungsschwerpunkt liegt auf der Organisation und Zusammenarbeit mehrerer Agenten.",
     "supporting": "Diese Website sammelt meine Artikel, Forschungsnotizen und langfristige Leseliste.",
     "interestsTitle": "Interessengebiete",
-    "interestsBody": "Ich untersuche, wie Agenten Werkzeuge zuverlässig nutzen, Kontext bewahren, sich von Fehlern erholen und überprüfbare Ergebnisse hinterlassen können.",
+    "interestsBody": "Wie mehrere Agenten Aufgaben aufteilen, sich abstimmen und zusammenarbeiten – und wie sie sich zu stabilen, überprüfbaren Systemen organisieren lassen.",
     "approachTitle": "Wie ich arbeite",
     "approachBody": "Ich prüfe zuerst den tatsächlichen Zustand, zerlege das Problem, teste Annahmen und überführe das Ergebnis in wiederverwendbaren Code oder verständliche Texte.",
     "latestTitle": "Neueste Artikel",
@@ -19,12 +19,12 @@
   },
   "about": {
     "title": "Über mich",
-    "paragraphOne": "Meine Arbeit umfasste Wissensgraphen, Daten und Unternehmensarchitektur. Heute verbringe ich den Großteil meiner Zeit mit KI-Agentensystemen und Entwickler-Workflows.",
+    "paragraphOne": "Ehemaliger Forscher im Bereich Wissensgraphen und Unternehmensarchitekt mit langjähriger Erfahrung in der digitalen Transformation von Unternehmen. Heute konzentriere ich mich auf KI-Agentensysteme; mein Forschungsschwerpunkt liegt auf der Organisation und Zusammenarbeit mehrerer Agenten.",
     "paragraphTwo": "Mich interessiert nicht nur, was ein Modell beantworten kann, sondern auch, wie es Werkzeuge nutzt, Kontext bewahrt, mit Fehlern umgeht und überprüfbare Arbeit hinterlässt.",
     "backgroundTitle": "Hintergrund",
     "backgroundBody": "Diese Erfahrung hat mein Interesse an Systemgrenzen, Informationsstrukturen und der Überführung komplexer Arbeit in überprüfbare Schritte geprägt.",
     "interestsTitle": "Aktuelle Interessen",
-    "interestsBody": "Werkzeugnutzung, Gedächtnis, Evaluation, Workflows, Wissensorganisation und ihr Zusammenspiel in realen Aufgaben.",
+    "interestsBody": "KI-Agentensysteme, insbesondere die Organisation und Zusammenarbeit mehrerer Agenten.",
     "principlesTitle": "Arbeitsprinzipien",
     "principleEvidenceTitle": "Mit Belegen beginnen",
     "principleEvidenceBody": "Bei Laufzeitstatus, Codeverhalten oder Produktentscheidungen gehe ich zu den tatsächlichen Dateien, Protokollen und Testergebnissen zurück.",
