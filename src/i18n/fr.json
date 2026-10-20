@@ -8,7 +8,7 @@
   "language": { "label": "Langue", "menu": "Choisir une langue", "current": "Langue actuelle" },
   "home": {
     "greeting": "Bonjour, je suis Shoa Lin.",
-    "intro": "Ancien chercheur en graphes de connaissances et architecte d'entreprise, j'ai longtemps accompagné la transformation numérique des entreprises. Je me consacre aujourd'hui aux systèmes d'agents IA, et mes recherches portent sur l'organisation et la collaboration multi-agents.",
+    "intro": "Chercheur en graphes de connaissances et ancien architecte d'entreprise, j'ai longtemps accompagné la transformation numérique des entreprises. Je me consacre aujourd'hui aux systèmes d'agents IA, et mes recherches portent sur l'organisation et la collaboration multi-agents.",
     "supporting": "Ce site rassemble mes articles, mes notes de recherche et une sélection de ressources à relire.",
     "interestsTitle": "Sujets de recherche",
     "interestsBody": "Comment plusieurs agents se répartissent le travail, se coordonnent et collaborent, et comment les organiser en systèmes stables et vérifiables.",
@@ -19,7 +19,7 @@
   },
   "about": {
     "title": "À propos",
-    "paragraphOne": "Ancien chercheur en graphes de connaissances et architecte d'entreprise, j'ai longtemps accompagné la transformation numérique des entreprises. Je me consacre aujourd'hui aux systèmes d'agents IA, et mes recherches portent sur l'organisation et la collaboration multi-agents.",
+    "paragraphOne": "Chercheur en graphes de connaissances et ancien architecte d'entreprise, j'ai longtemps accompagné la transformation numérique des entreprises. Je me consacre aujourd'hui aux systèmes d'agents IA, et mes recherches portent sur l'organisation et la collaboration multi-agents.",
     "paragraphTwo": "Je ne m'intéresse pas seulement à ce qu'un modèle peut répondre, mais aussi à sa manière d'utiliser des outils, de conserver le contexte, de gérer les échecs et de laisser un résultat vérifiable.",
     "backgroundTitle": "Parcours",
     "backgroundBody": "Cette expérience a renforcé mon intérêt pour les limites des systèmes, la structure de l'information et la décomposition d'un travail complexe en étapes vérifiables.",

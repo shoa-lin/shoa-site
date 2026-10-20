@@ -8,7 +8,7 @@
   "language": { "label": "Language", "menu": "Choose a language", "current": "Current language" },
   "home": {
     "greeting": "Hi, I'm Shoa Lin.",
-    "intro": "Former knowledge-graph researcher and enterprise architect with a background in enterprise digital transformation. Now building AI agent systems, with a focus on multi-agent organization and collaboration.",
+    "intro": "Knowledge-graph researcher and former enterprise architect with a background in enterprise digital transformation. Now building AI agent systems, with a focus on multi-agent organization and collaboration.",
     "supporting": "This site collects my articles, research notes, and long-term reading list.",
     "interestsTitle": "Areas of interest",
     "interestsBody": "How multiple agents divide work, coordinate, and collaborate, and how to organize them into stable, reviewable systems.",
@@ -19,7 +19,7 @@
   },
   "about": {
     "title": "About",
-    "paragraphOne": "Former knowledge-graph researcher and enterprise architect with a background in enterprise digital transformation. Now building AI agent systems, with a focus on multi-agent organization and collaboration.",
+    "paragraphOne": "Knowledge-graph researcher and former enterprise architect with a background in enterprise digital transformation. Now building AI agent systems, with a focus on multi-agent organization and collaboration.",
     "paragraphTwo": "I care not only about what a model can answer, but also how it uses tools, retains context, handles failure, and leaves work that can be reviewed.",
     "backgroundTitle": "Background",
     "backgroundBody": "That experience shaped my interest in system boundaries, information structure, and turning complex work into verifiable steps.",

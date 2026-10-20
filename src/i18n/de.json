@@ -8,7 +8,7 @@
   "language": { "label": "Sprache", "menu": "Sprache auswählen", "current": "Aktuelle Sprache" },
   "home": {
     "greeting": "Hallo, ich bin Shoa Lin.",
-    "intro": "Ehemaliger Forscher im Bereich Wissensgraphen und Unternehmensarchitekt mit langjähriger Erfahrung in der digitalen Transformation von Unternehmen. Heute konzentriere ich mich auf KI-Agentensysteme; mein Forschungsschwerpunkt liegt auf der Organisation und Zusammenarbeit mehrerer Agenten.",
+    "intro": "Forscher im Bereich Wissensgraphen und ehemaliger Unternehmensarchitekt mit langjähriger Erfahrung in der digitalen Transformation von Unternehmen. Heute konzentriere ich mich auf KI-Agentensysteme; mein Forschungsschwerpunkt liegt auf der Organisation und Zusammenarbeit mehrerer Agenten.",
     "supporting": "Diese Website sammelt meine Artikel, Forschungsnotizen und langfristige Leseliste.",
     "interestsTitle": "Interessengebiete",
     "interestsBody": "Wie mehrere Agenten Aufgaben aufteilen, sich abstimmen und zusammenarbeiten – und wie sie sich zu stabilen, überprüfbaren Systemen organisieren lassen.",
@@ -19,7 +19,7 @@
   },
   "about": {
     "title": "Über mich",
-    "paragraphOne": "Ehemaliger Forscher im Bereich Wissensgraphen und Unternehmensarchitekt mit langjähriger Erfahrung in der digitalen Transformation von Unternehmen. Heute konzentriere ich mich auf KI-Agentensysteme; mein Forschungsschwerpunkt liegt auf der Organisation und Zusammenarbeit mehrerer Agenten.",
+    "paragraphOne": "Forscher im Bereich Wissensgraphen und ehemaliger Unternehmensarchitekt mit langjähriger Erfahrung in der digitalen Transformation von Unternehmen. Heute konzentriere ich mich auf KI-Agentensysteme; mein Forschungsschwerpunkt liegt auf der Organisation und Zusammenarbeit mehrerer Agenten.",
     "paragraphTwo": "Mich interessiert nicht nur, was ein Modell beantworten kann, sondern auch, wie es Werkzeuge nutzt, Kontext bewahrt, mit Fehlern umgeht und überprüfbare Arbeit hinterlässt.",
     "backgroundTitle": "Hintergrund",
     "backgroundBody": "Diese Erfahrung hat mein Interesse an Systemgrenzen, Informationsstrukturen und der Überführung komplexer Arbeit in überprüfbare Schritte geprägt.",
