@@ -61,13 +61,34 @@ async function markVisibleFocusableElements(page: Page) {
   });
 }
 
+async function waitForStableFocusables(page: Page) {
+  // CI is slower: late hydration/islands can insert focusable elements after
+  // "load". Wait for the network to settle and the focusable set to be stable.
+  await page.waitForLoadState("load");
+  await page.waitForLoadState("networkidle").catch(() => {});
+  await page.evaluate(() => document.fonts?.ready);
+  let previous = "";
+  await expect.poll(async () => {
+    const current = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>("a[href],button,summary,input,select,textarea,[tabindex]")]
+      .map((element) => `${element.tagName}:${element.getAttribute("href") ?? ""}:${element.hidden}:${element.getClientRects().length > 0}`).join("|"));
+    const stable = current === previous;
+    previous = current;
+    return stable;
+  }, { intervals: [250, 250, 500, 500, 1000], timeout: 15000 }).toBe(true);
+}
+
 async function expectCompleteFocusOrder(page: Page) {
+  await waitForStableFocusables(page);
   const focusableCount = await markVisibleFocusableElements(page);
   expect(focusableCount).toBeGreaterThan(4);
 
   for (let index = 0; index < focusableCount; index += 1) {
     await page.keyboard.press("Tab");
     const target = page.locator(`[data-e2e-focus-index="${index}"]`);
+    await expect.poll(() => page.evaluate(() => {
+      const active = document.activeElement as HTMLElement | null;
+      return active?.dataset.e2eFocusIndex ?? `unmarked:${active?.outerHTML.slice(0, 160) ?? "null"}`;
+    }), { message: `focus step ${index}` }).toBe(String(index));
     await expect(target).toBeFocused();
     await expect.poll(() => target.evaluate((element) => {
       const rect = element.getBoundingClientRect();
