@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="The cheaper the scoring, the sooner it takes off: kernels and compilers are already compounding; in code, math proofs, and the agent's own code it is already happening; in training data and pipelines it is just starting; in research directions and alignment goals it is not yet in sight" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">Cheap scoring, early takeoff</text>
+
+  <!-- 纵轴：打一次分的代价 -->
+  <text x="30" y="84" font-size="13" fill="#57606a" text-anchor="middle">Cheap</text>
+  <line x1="30" y1="96" x2="30" y2="540" stroke="#57606a" stroke-width="2" marker-end="url(#down)"/>
+  <text x="30" y="562" font-size="13" fill="#57606a" text-anchor="middle">Costly</text>
+
+  <g font-size="15">
+    <!-- 1 -->
+    <rect x="52" y="66" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="98" font-size="18" font-weight="700" fill="#1f2328">Kernels, compilers</text>
+    <text x="68" y="128" fill="#57606a">Scoring: a timer, seconds</text>
+    <rect x="263" y="80" width="127" height="28" rx="14" fill="#1a7f4b"/>
+    <text x="326.5" y="99" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Compounding</text>
+
+    <!-- 2 -->
+    <rect x="52" y="162" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="194" font-size="18" font-weight="700" fill="#1f2328">Code, math proofs</text>
+    <text x="68" y="224" fill="#57606a">Scoring: tests, proof checkers</text>
+    <rect x="286" y="176" width="104" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="338" y="195" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">Happening</text>
+
+    <!-- 3 -->
+    <rect x="52" y="258" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="290" font-size="18" font-weight="700" fill="#1f2328">Agent's own code</text>
+    <text x="68" y="320" fill="#57606a">Scoring: hidden evals, hours</text>
+    <rect x="286" y="272" width="104" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="338" y="291" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">Happening</text>
+
+    <!-- 4 -->
+    <rect x="52" y="354" width="352" height="84" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+    <text x="68" y="386" font-size="18" font-weight="700" fill="#1f2328">Training data, pipeline</text>
+    <text x="68" y="416" fill="#57606a">Scoring: known after training, weeks</text>
+    <rect x="307" y="368" width="83" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+    <text x="348.5" y="387" font-size="14" font-weight="700" fill="#c2570c" text-anchor="middle">Starting</text>
+
+    <!-- 5 -->
+    <rect x="52" y="450" width="352" height="84" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+    <text x="68" y="482" font-size="18" font-weight="700" fill="#1f2328">Research, alignment</text>
+    <text x="68" y="512" fill="#57606a">Scoring: human judgment, months+</text>
+    <rect x="282" y="464" width="108" height="28" rx="14" fill="#eaeef2" stroke="#8c959f"/>
+    <text x="336" y="483" font-size="14" font-weight="700" fill="#57606a" text-anchor="middle">Not in sight</text>
+  </g>
+
+  <!-- 说明 -->
+  <rect x="16" y="580" width="388" height="64" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="606" font-size="14" font-weight="700" fill="#1f2328">Cheap is not enough; it must be accurate:</text>
+  <text x="32" y="630" font-size="14" fill="#57606a">benchmarks without real-world checks get gamed</text>
+</svg>

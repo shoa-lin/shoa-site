@@ -25,10 +25,11 @@ const multilingualApprovedGroups = [
   "blog:how-we-made-claude-ai-faster",
   "blog:agent-permission-context",
   "blog:gpt-6-astra-codex-harness",
+  "blog:rsi-verification",
   "favorites:fix-your-life-in-one-day",
 ];
 // Published in Chinese first; other locales are added after the author reviews the zh version.
-const chineseOnlyApprovedGroups = ["blog:rsi-verification"];
+const chineseOnlyApprovedGroups = [];
 const expectedStructure = {
   "blog:fable-5-1-prompt-harness-evolution": { headings: 19, images: 0, codeFences: 6, tables: 1, links: 6 },
   "blog:getting-started-with-loops": { headings: 8, images: 4, codeFences: 8, tables: 1, links: 9 },
@@ -87,10 +88,10 @@ function paritySignature(signature) {
   };
 }
 
-test("content root contains nineteen approved groups with eight reviewed locales", () => {
+test("content root contains twenty approved groups with eight reviewed locales", () => {
   const groups = Map.groupBy(publishedEntries, groupKey);
 
-  assert.equal(multilingualApprovedGroups.length, 19);
+  assert.equal(multilingualApprovedGroups.length, 20);
   assert.deepEqual(locales, expectedLocales);
   assert.equal(publishedEntries.length, multilingualApprovedGroups.length * expectedLocales.length);
   assert.deepEqual([...groups.keys()].sort(), [...multilingualApprovedGroups].sort());

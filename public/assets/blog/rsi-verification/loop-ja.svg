@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="620" viewBox="0 0 420 620" role="img" aria-label="一回の改善にある三つの仕事：目標を決める仕事は何をもって良いとするかを定め、今も人が担う。改善案を出す仕事はすでに AI に渡った。採点は引き渡しの途中で、まだ人が最後の砦になっている。良い変更は残して次の一周へ進む" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#175cd3"/>
+    </marker>
+  </defs>
+  <rect width="420" height="620" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">一回の改善にある三つの仕事</text>
+
+  <!-- 定目标 -->
+  <rect x="56" y="66" width="308" height="78" rx="12" fill="#ffffff" stroke="#175cd3" stroke-width="2"/>
+  <text x="74" y="98" font-size="19" font-weight="700" fill="#1f2328">目標を決める</text>
+  <text x="74" y="126" font-size="15" fill="#57606a">「より良い」とは何かを定める</text>
+  <rect x="300" y="80" width="48" height="28" rx="14" fill="#175cd3" fill-opacity="0.12" stroke="#175cd3"/>
+  <text x="324" y="99" font-size="15" font-weight="700" fill="#175cd3" text-anchor="middle">人</text>
+
+  <!-- 出改法 -->
+  <rect x="56" y="184" width="308" height="78" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="74" y="216" font-size="19" font-weight="700" fill="#1f2328">改善案を出す</text>
+  <text x="74" y="244" font-size="15" fill="#57606a">変更を提案し、自分で手を動かす</text>
+  <rect x="250" y="198" width="98" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+  <text x="299" y="217" font-size="15" font-weight="700" fill="#1a7f4b" text-anchor="middle">AI が担当</text>
+
+  <!-- 打分 -->
+  <rect x="56" y="302" width="308" height="78" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <text x="74" y="334" font-size="19" font-weight="700" fill="#1f2328">採点</text>
+  <text x="74" y="362" font-size="15" fill="#57606a">本当に良くなったと証明する</text>
+  <rect x="239" y="316" width="109" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+  <text x="293.5" y="335" font-size="15" font-weight="700" fill="#c2570c" text-anchor="middle">引き渡し中</text>
+
+  <!-- 留下 -->
+  <rect x="56" y="420" width="308" height="66" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="74" y="450" font-size="19" font-weight="700" fill="#1f2328">残す</text>
+  <text x="74" y="474" font-size="15" fill="#57606a">良いものを残し、次の一周へ</text>
+
+  <!-- 圈内箭头 -->
+  <line x1="210" y1="262" x2="210" y2="298" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="210" y1="380" x2="210" y2="416" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- 下一圈：从留下回到出改法 -->
+  <path d="M56 453 H34 V223 H52" fill="none" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="26" y="340" font-size="15" fill="#57606a" text-anchor="middle" transform="rotate(-90 26 340)">次の一周</text>
+  <!-- 定目标决定打分的尺子 -->
+  <path d="M364 105 H388 V341 H368" fill="none" stroke="#175cd3" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow-blue)"/>
+  <text x="398" y="223" font-size="15" fill="#175cd3" text-anchor="middle" transform="rotate(90 398 223)">何が良いか</text>
+
+  <!-- 说明 -->
+  <rect x="16" y="510" width="388" height="94" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="540" font-size="15" fill="#57606a">色は 2026 年時点の状態</text>
+  <text x="32" y="568" font-size="16" font-weight="700" fill="#1f2328">RSI：三つの仕事をすべて AI に渡し、</text>
+  <text x="32" y="592" font-size="16" font-weight="700" fill="#1f2328">一周ごとに次の一周がより良く回ること</text>
+</svg>

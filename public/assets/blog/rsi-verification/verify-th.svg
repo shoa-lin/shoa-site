@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="ต้นทุนให้คะแนนยิ่งต่ำ ยิ่งไปได้ก่อน: เคอร์เนลและคอมไพเลอร์กำลังทบต้นอยู่แล้ว โค้ด บทพิสูจน์คณิตศาสตร์ และโค้ดของ agent เองกำลังเกิดขึ้นแล้ว ข้อมูลเทรนและกระบวนการเทรนเพิ่งเริ่ม ทิศทางการวิจัยและเป้าหมายด้าน alignment ยังมองไม่เห็น" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">ต้นทุนให้คะแนนยิ่งต่ำ ยิ่งไปได้ก่อน</text>
+
+  <!-- 纵轴：打一次分的代价 -->
+  <text x="30" y="84" font-size="14" fill="#57606a" text-anchor="middle">ถูก</text>
+  <line x1="30" y1="96" x2="30" y2="540" stroke="#57606a" stroke-width="2" marker-end="url(#down)"/>
+  <text x="30" y="562" font-size="14" fill="#57606a" text-anchor="middle">แพง</text>
+
+  <g font-size="15">
+    <!-- 1 -->
+    <rect x="52" y="66" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="98" font-size="18" font-weight="700" fill="#1f2328">เคอร์เนล คอมไพเลอร์</text>
+    <text x="68" y="128" fill="#57606a">ให้คะแนน: ตัวจับเวลา ไม่กี่วินาที</text>
+    <rect x="285" y="80" width="105" height="28" rx="14" fill="#1a7f4b"/>
+    <text x="337.5" y="99" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">ทบต้นอยู่แล้ว</text>
+
+    <!-- 2 -->
+    <rect x="52" y="162" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="194" font-size="18" font-weight="700" fill="#1f2328">โค้ด บทพิสูจน์คณิตศาสตร์</text>
+    <text x="68" y="224" fill="#57606a">ให้คะแนน: เทสต์ ตัวตรวจบทพิสูจน์</text>
+    <rect x="300" y="176" width="90" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="345" y="195" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">เกิดขึ้นแล้ว</text>
+
+    <!-- 3 -->
+    <rect x="52" y="258" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="290" font-size="18" font-weight="700" fill="#1f2328">โค้ดของ agent เอง</text>
+    <text x="68" y="320" fill="#57606a">ให้คะแนน: การประเมินที่ซ่อนไว้ หลายชั่วโมง</text>
+    <rect x="300" y="272" width="90" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="345" y="291" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">เกิดขึ้นแล้ว</text>
+
+    <!-- 4 -->
+    <rect x="52" y="354" width="352" height="84" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+    <text x="68" y="386" font-size="18" font-weight="700" fill="#1f2328">ข้อมูลและกระบวนการเทรน</text>
+    <text x="68" y="416" fill="#57606a">ให้คะแนน: รู้ผลหลังเทรนจบ หลายสัปดาห์</text>
+    <rect x="323" y="368" width="67" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+    <text x="356.5" y="387" font-size="14" font-weight="700" fill="#c2570c" text-anchor="middle">เพิ่งเริ่ม</text>
+
+    <!-- 5 -->
+    <rect x="52" y="450" width="352" height="84" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+    <text x="68" y="482" font-size="18" font-weight="700" fill="#1f2328">ทิศทางวิจัยและ alignment</text>
+    <text x="68" y="512" fill="#57606a">ให้คะแนน: พึ่งการตัดสินของคน หลายเดือนขึ้นไป</text>
+    <rect x="310" y="464" width="80" height="28" rx="14" fill="#eaeef2" stroke="#8c959f"/>
+    <text x="350" y="483" font-size="14" font-weight="700" fill="#57606a" text-anchor="middle">ยังไม่เห็น</text>
+  </g>
+
+  <!-- 说明 -->
+  <rect x="16" y="580" width="388" height="64" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="606" font-size="14" font-weight="700" fill="#1f2328">ถูกอย่างเดียวไม่พอ ต้องวัดได้แม่นด้วย:</text>
+  <text x="32" y="630" font-size="14" fill="#57606a">ดูแต่คะแนน benchmark ไม่ดูผลจริง ก็จะถูกหาช่องโหว่</text>
+</svg>

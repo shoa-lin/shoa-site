@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="620" viewBox="0 0 420 620" role="img" aria-label="Trois tâches dans un tour d'amélioration : fixer l'objectif définit ce qui compte comme meilleur et reste une affaire humaine ; proposer les modifications est déjà confié à l'IA ; la notation est en cours de transfert, les humains servant encore de filet de sécurité ; les bonnes modifications sont gardées et passent au tour suivant" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#175cd3"/>
+    </marker>
+  </defs>
+  <rect width="420" height="620" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">Trois tâches par amélioration</text>
+
+  <!-- 定目标 -->
+  <rect x="56" y="66" width="308" height="78" rx="12" fill="#ffffff" stroke="#175cd3" stroke-width="2"/>
+  <text x="74" y="98" font-size="19" font-weight="700" fill="#1f2328">Fixer l’objectif</text>
+  <text x="74" y="126" font-size="14" fill="#57606a">Définir ce que « meilleur » veut dire</text>
+  <rect x="259" y="80" width="89" height="28" rx="14" fill="#175cd3" fill-opacity="0.12" stroke="#175cd3"/>
+  <text x="303.5" y="99" font-size="15" font-weight="700" fill="#175cd3" text-anchor="middle">Humain</text>
+
+  <!-- 出改法 -->
+  <rect x="56" y="184" width="308" height="78" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="74" y="216" font-size="19" font-weight="700" fill="#1f2328">Proposer</text>
+  <text x="74" y="244" font-size="14" fill="#57606a">Proposer et réaliser une modification</text>
+  <rect x="224" y="198" width="124" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+  <text x="286" y="217" font-size="15" font-weight="700" fill="#1a7f4b" text-anchor="middle">Confié à l’IA</text>
+
+  <!-- 打分 -->
+  <rect x="56" y="302" width="308" height="78" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <text x="74" y="334" font-size="19" font-weight="700" fill="#1f2328">Noter</text>
+  <text x="74" y="362" font-size="14" fill="#57606a">Prouver qu’elle est vraiment meilleure</text>
+  <rect x="219" y="316" width="129" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+  <text x="283.5" y="335" font-size="15" font-weight="700" fill="#c2570c" text-anchor="middle">En passation</text>
+
+  <!-- 留下 -->
+  <rect x="56" y="420" width="308" height="66" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="74" y="450" font-size="19" font-weight="700" fill="#1f2328">Garder</text>
+  <text x="74" y="474" font-size="14" fill="#57606a">Garder les bonnes pour le tour suivant</text>
+
+  <!-- 圈内箭头 -->
+  <line x1="210" y1="262" x2="210" y2="298" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="210" y1="380" x2="210" y2="416" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- 下一圈：从留下回到出改法 -->
+  <path d="M56 453 H34 V223 H52" fill="none" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="26" y="340" font-size="15" fill="#57606a" text-anchor="middle" transform="rotate(-90 26 340)">Tour suivant</text>
+  <!-- 定目标决定打分的尺子 -->
+  <path d="M364 105 H388 V341 H368" fill="none" stroke="#175cd3" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow-blue)"/>
+  <text x="398" y="223" font-size="15" fill="#175cd3" text-anchor="middle" transform="rotate(90 398 223)">Ce qui est meilleur</text>
+
+  <!-- 说明 -->
+  <rect x="16" y="510" width="388" height="94" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="540" font-size="15" fill="#57606a">Couleurs : état en 2026</text>
+  <text x="32" y="568" font-size="16" font-weight="700" fill="#1f2328">RSI : les trois tâches confiées à l’IA,</text>
+  <text x="32" y="592" font-size="16" font-weight="700" fill="#1f2328">et chaque tour améliore le suivant</text>
+</svg>
