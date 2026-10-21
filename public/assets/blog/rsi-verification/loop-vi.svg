@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="620" viewBox="0 0 420 620" role="img" aria-label="Ba việc trong một lần cải thiện: đặt mục tiêu quy định thế nào là tốt hơn, vẫn do con người làm; đưa ra cách sửa đã giao cho AI; chấm điểm đang được giao dần, con người vẫn là chốt chặn cuối; thay đổi tốt được giữ lại và đi vào vòng tiếp theo" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#175cd3"/>
+    </marker>
+  </defs>
+  <rect width="420" height="620" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">Ba việc trong một lần cải thiện</text>
+
+  <!-- 定目标 -->
+  <rect x="56" y="66" width="308" height="78" rx="12" fill="#ffffff" stroke="#175cd3" stroke-width="2"/>
+  <text x="74" y="98" font-size="17" font-weight="700" fill="#1f2328">Đặt mục tiêu</text>
+  <text x="74" y="126" font-size="15" fill="#57606a">Quy định thế nào là “tốt hơn”</text>
+  <rect x="272" y="80" width="76" height="28" rx="14" fill="#175cd3" fill-opacity="0.12" stroke="#175cd3"/>
+  <text x="310" y="99" font-size="15" font-weight="700" fill="#175cd3" text-anchor="middle">Người</text>
+
+  <!-- 出改法 -->
+  <rect x="56" y="184" width="308" height="78" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="74" y="216" font-size="17" font-weight="700" fill="#1f2328">Đưa ra cách sửa</text>
+  <text x="74" y="244" font-size="15" fill="#57606a">Đề xuất thay đổi và tự tay làm</text>
+  <rect x="225" y="198" width="123" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+  <text x="286.5" y="217" font-size="15" font-weight="700" fill="#1a7f4b" text-anchor="middle">AI tiếp quản</text>
+
+  <!-- 打分 -->
+  <rect x="56" y="302" width="308" height="78" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <text x="74" y="334" font-size="17" font-weight="700" fill="#1f2328">Chấm điểm</text>
+  <text x="74" y="362" font-size="15" fill="#57606a">Chứng minh nó thật sự tốt hơn</text>
+  <rect x="207" y="316" width="141" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+  <text x="277.5" y="335" font-size="15" font-weight="700" fill="#c2570c" text-anchor="middle">Đang giao dần</text>
+
+  <!-- 留下 -->
+  <rect x="56" y="420" width="308" height="66" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="74" y="450" font-size="17" font-weight="700" fill="#1f2328">Giữ lại</text>
+  <text x="74" y="474" font-size="15" fill="#57606a">Giữ cái tốt, đi vào vòng tiếp theo</text>
+
+  <!-- 圈内箭头 -->
+  <line x1="210" y1="262" x2="210" y2="298" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="210" y1="380" x2="210" y2="416" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- 下一圈：从留下回到出改法 -->
+  <path d="M56 453 H34 V223 H52" fill="none" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="26" y="340" font-size="15" fill="#57606a" text-anchor="middle" transform="rotate(-90 26 340)">Vòng tiếp theo</text>
+  <!-- 定目标决定打分的尺子 -->
+  <path d="M364 105 H388 V341 H368" fill="none" stroke="#175cd3" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow-blue)"/>
+  <text x="398" y="223" font-size="15" fill="#175cd3" text-anchor="middle" transform="rotate(90 398 223)">Thế nào là tốt</text>
+
+  <!-- 说明 -->
+  <rect x="16" y="510" width="388" height="94" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="540" font-size="15" fill="#57606a">Màu thể hiện trạng thái năm 2026</text>
+  <text x="32" y="568" font-size="16" font-weight="700" fill="#1f2328">RSI: giao cả ba việc cho AI,</text>
+  <text x="32" y="592" font-size="16" font-weight="700" fill="#1f2328">và mỗi vòng giúp vòng sau quay tốt hơn</text>
+</svg>

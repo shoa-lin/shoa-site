@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="Chấm điểm càng rẻ, càng chạy được trước: kernel và trình biên dịch đã có lãi kép; mã nguồn, chứng minh toán học và mã của chính agent đã và đang diễn ra; dữ liệu và quy trình huấn luyện mới bắt đầu; hướng nghiên cứu và mục tiêu căn chỉnh vẫn chưa thấy" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="20" font-weight="700" fill="#1f2328">Chấm điểm càng rẻ, càng chạy trước</text>
+
+  <!-- 纵轴：打一次分的代价 -->
+  <text x="30" y="84" font-size="14" fill="#57606a" text-anchor="middle">Rẻ</text>
+  <line x1="30" y1="96" x2="30" y2="540" stroke="#57606a" stroke-width="2" marker-end="url(#down)"/>
+  <text x="30" y="562" font-size="14" fill="#57606a" text-anchor="middle">Đắt</text>
+
+  <g font-size="15">
+    <!-- 1 -->
+    <rect x="52" y="66" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="98" font-size="17" font-weight="700" fill="#1f2328">Kernel, trình biên dịch</text>
+    <text x="68" y="128" font-size="13" fill="#57606a">Chấm điểm: đồng hồ bấm giờ, vài giây</text>
+    <rect x="277" y="80" width="113" height="28" rx="14" fill="#1a7f4b"/>
+    <text x="333.5" y="99" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Đang lãi kép</text>
+
+    <!-- 2 -->
+    <rect x="52" y="162" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="194" font-size="17" font-weight="700" fill="#1f2328">Mã nguồn, toán học</text>
+    <text x="68" y="224" font-size="13" fill="#57606a">Chấm điểm: test, trình kiểm tra chứng minh</text>
+    <rect x="274" y="176" width="116" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="332" y="195" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">Đang diễn ra</text>
+
+    <!-- 3 -->
+    <rect x="52" y="258" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="290" font-size="17" font-weight="700" fill="#1f2328">Mã của chính agent</text>
+    <text x="68" y="320" font-size="13" fill="#57606a">Chấm điểm: đánh giá ẩn, vài giờ</text>
+    <rect x="274" y="272" width="116" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="332" y="291" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">Đang diễn ra</text>
+
+    <!-- 4 -->
+    <rect x="52" y="354" width="352" height="84" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+    <text x="68" y="386" font-size="17" font-weight="700" fill="#1f2328">Quy trình huấn luyện</text>
+    <text x="68" y="416" font-size="13" fill="#57606a">Chấm điểm: huấn luyện xong mới biết, vài tuần</text>
+    <rect x="280" y="368" width="110" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+    <text x="335" y="387" font-size="14" font-weight="700" fill="#c2570c" text-anchor="middle">Mới bắt đầu</text>
+
+    <!-- 5 -->
+    <rect x="52" y="450" width="352" height="84" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+    <text x="68" y="482" font-size="17" font-weight="700" fill="#1f2328">Nghiên cứu, căn chỉnh</text>
+    <text x="68" y="512" font-size="13" fill="#57606a">Chấm điểm: dựa vào người, vài tháng trở lên</text>
+    <rect x="292" y="464" width="98" height="28" rx="14" fill="#eaeef2" stroke="#8c959f"/>
+    <text x="341" y="483" font-size="14" font-weight="700" fill="#57606a" text-anchor="middle">Chưa thấy</text>
+  </g>
+
+  <!-- 说明 -->
+  <rect x="16" y="580" width="388" height="64" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="606" font-size="14" font-weight="700" fill="#1f2328">Rẻ thôi chưa đủ, còn phải đo chuẩn:</text>
+  <text x="32" y="630" font-size="14" fill="#57606a">chỉ xem benchmark, bỏ qua hiệu quả thật là bị lách</text>
+</svg>

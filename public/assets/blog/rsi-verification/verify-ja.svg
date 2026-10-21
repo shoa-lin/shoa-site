@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="採点が安いほど先に走り出す：カーネルとコンパイラはすでに複利で効いている。コード、数学の証明、agent 自身のコードではすでに起きている。学習データとパイプラインは始まったばかり。研究の方向とアラインメントの目標はまだ見えない" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">採点が安いほど、先に走り出す</text>
+
+  <!-- 纵轴：打一次分的代价 -->
+  <text x="30" y="84" font-size="14" fill="#57606a" text-anchor="middle">安い</text>
+  <line x1="30" y1="96" x2="30" y2="540" stroke="#57606a" stroke-width="2" marker-end="url(#down)"/>
+  <text x="30" y="562" font-size="14" fill="#57606a" text-anchor="middle">高い</text>
+
+  <g font-size="15">
+    <!-- 1 -->
+    <rect x="52" y="66" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="98" font-size="15" font-weight="700" fill="#1f2328">カーネル、コンパイラ</text>
+    <text x="68" y="128" fill="#57606a">採点：タイマー、数秒</text>
+    <rect x="292" y="80" width="98" height="28" rx="14" fill="#1a7f4b"/>
+    <text x="341" y="99" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">すでに複利</text>
+
+    <!-- 2 -->
+    <rect x="52" y="162" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="194" font-size="15" font-weight="700" fill="#1f2328">コード、数学の証明</text>
+    <text x="68" y="224" fill="#57606a">採点：テスト、証明検証器</text>
+    <rect x="322" y="176" width="68" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="356" y="195" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">進行中</text>
+
+    <!-- 3 -->
+    <rect x="52" y="258" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="290" font-size="15" font-weight="700" fill="#1f2328">agent 自身のコード</text>
+    <text x="68" y="320" fill="#57606a">採点：隠し評価、数時間</text>
+    <rect x="322" y="272" width="68" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="356" y="291" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">進行中</text>
+
+    <!-- 4 -->
+    <rect x="52" y="354" width="352" height="84" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+    <text x="68" y="386" font-size="15" font-weight="700" fill="#1f2328">学習データと手順</text>
+    <text x="68" y="416" fill="#57606a">採点：学習が終わるまで不明、数週間</text>
+    <rect x="307" y="368" width="83" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+    <text x="348.5" y="387" font-size="14" font-weight="700" fill="#c2570c" text-anchor="middle">初期段階</text>
+
+    <!-- 5 -->
+    <rect x="52" y="450" width="352" height="84" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+    <text x="68" y="482" font-size="15" font-weight="700" fill="#1f2328">研究方向・アラインメント</text>
+    <text x="68" y="512" fill="#57606a">採点：人の判断頼み、数か月以上</text>
+    <rect x="277" y="464" width="113" height="28" rx="14" fill="#eaeef2" stroke="#8c959f"/>
+    <text x="333.5" y="483" font-size="14" font-weight="700" fill="#57606a" text-anchor="middle">まだ見えない</text>
+  </g>
+
+  <!-- 说明 -->
+  <rect x="16" y="580" width="388" height="64" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="606" font-size="14" font-weight="700" fill="#1f2328">安いだけでは足りず、正確に測れること：</text>
+  <text x="32" y="630" font-size="14" fill="#57606a">スコアだけ見て実効果を見ないと抜け穴を突かれる</text>
+</svg>

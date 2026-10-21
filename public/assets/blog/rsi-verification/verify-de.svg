@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="Je billiger die Bewertung, desto früher läuft es an: bei Kernels und Compilern wirkt bereits der Zinseszinseffekt; bei Code, mathematischen Beweisen und dem eigenen Code des Agents passiert es bereits; Trainingsdaten und Pipelines fangen gerade erst an; Forschungsrichtungen und Alignment-Ziele sind noch nicht in Sicht" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">Billige Bewertung läuft zuerst an</text>
+
+  <!-- 纵轴：打一次分的代价 -->
+  <text x="30" y="84" font-size="14" fill="#57606a" text-anchor="middle">Billig</text>
+  <line x1="30" y1="96" x2="30" y2="540" stroke="#57606a" stroke-width="2" marker-end="url(#down)"/>
+  <text x="30" y="562" font-size="14" fill="#57606a" text-anchor="middle">Teuer</text>
+
+  <g font-size="15">
+    <!-- 1 -->
+    <rect x="52" y="66" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="98" font-size="16" font-weight="700" fill="#1f2328">Kernels, Compiler</text>
+    <text x="68" y="128" font-size="14" fill="#57606a">Bewertung: Stoppuhr, Sekunden</text>
+    <rect x="288" y="80" width="102" height="28" rx="14" fill="#1a7f4b"/>
+    <text x="339" y="99" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Zinseszins</text>
+
+    <!-- 2 -->
+    <rect x="52" y="162" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="194" font-size="16" font-weight="700" fill="#1f2328">Code, Beweise</text>
+    <text x="68" y="224" font-size="14" fill="#57606a">Bewertung: Tests, Beweisprüfer</text>
+    <rect x="297" y="176" width="93" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="343.5" y="195" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">Im Gange</text>
+
+    <!-- 3 -->
+    <rect x="52" y="258" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="290" font-size="16" font-weight="700" fill="#1f2328">Eigener Agent-Code</text>
+    <text x="68" y="320" font-size="14" fill="#57606a">Bewertung: verdeckte Evals, Stunden</text>
+    <rect x="297" y="272" width="93" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="343.5" y="291" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">Im Gange</text>
+
+    <!-- 4 -->
+    <rect x="52" y="354" width="352" height="84" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+    <text x="68" y="386" font-size="16" font-weight="700" fill="#1f2328">Trainingsdaten, Pipeline</text>
+    <text x="68" y="416" font-size="14" fill="#57606a">Bewertung: erst nach dem Training, Wochen</text>
+    <rect x="303" y="368" width="87" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+    <text x="346.5" y="387" font-size="14" font-weight="700" fill="#c2570c" text-anchor="middle">Fängt an</text>
+
+    <!-- 5 -->
+    <rect x="52" y="450" width="352" height="84" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+    <text x="68" y="482" font-size="16" font-weight="700" fill="#1f2328">Forschung, Alignment</text>
+    <text x="68" y="512" font-size="14" fill="#57606a">Bewertung: menschliches Urteil, Monate+</text>
+    <rect x="268" y="464" width="122" height="28" rx="14" fill="#eaeef2" stroke="#8c959f"/>
+    <text x="329" y="483" font-size="14" font-weight="700" fill="#57606a" text-anchor="middle">Nicht in Sicht</text>
+  </g>
+
+  <!-- 说明 -->
+  <rect x="16" y="580" width="388" height="64" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="606" font-size="14" font-weight="700" fill="#1f2328">Billig reicht nicht, es muss genau messen:</text>
+  <text x="32" y="630" font-size="14" fill="#57606a">Benchmark statt echter Wirkung? Wird ausgetrickst</text>
+</svg>

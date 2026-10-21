@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="660" viewBox="0 0 420 660" role="img" aria-label="점수 매기기가 쌀수록 먼저 달려 나간다: 커널과 컴파일러에서는 이미 복리 효과가 나고 있다. 코드, 수학 증명, 에이전트 자신의 코드에서는 이미 일어나고 있다. 학습 데이터와 파이프라인에서는 막 시작됐다. 연구 방향과 정렬 목표에서는 아직 보이지 않는다" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+  </defs>
+  <rect width="420" height="660" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">점수 매기기가 쌀수록 먼저 달려 나간다</text>
+
+  <!-- 纵轴：打一次分的代价 -->
+  <text x="30" y="84" font-size="14" fill="#57606a" text-anchor="middle">저렴</text>
+  <line x1="30" y1="96" x2="30" y2="540" stroke="#57606a" stroke-width="2" marker-end="url(#down)"/>
+  <text x="30" y="562" font-size="14" fill="#57606a" text-anchor="middle">비쌈</text>
+
+  <g font-size="15">
+    <!-- 1 -->
+    <rect x="52" y="66" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="98" font-size="18" font-weight="700" fill="#1f2328">커널, 컴파일러</text>
+    <text x="68" y="128" fill="#57606a">채점: 타이머, 몇 초</text>
+    <rect x="311" y="80" width="79" height="28" rx="14" fill="#1a7f4b"/>
+    <text x="350.5" y="99" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">복리 효과</text>
+
+    <!-- 2 -->
+    <rect x="52" y="162" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="194" font-size="18" font-weight="700" fill="#1f2328">코드, 수학 증명</text>
+    <text x="68" y="224" fill="#57606a">채점: 테스트, 증명 검사기</text>
+    <rect x="325" y="176" width="65" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="357.5" y="195" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">진행 중</text>
+
+    <!-- 3 -->
+    <rect x="52" y="258" width="352" height="84" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+    <text x="68" y="290" font-size="18" font-weight="700" fill="#1f2328">에이전트 자신의 코드</text>
+    <text x="68" y="320" fill="#57606a">채점: 숨겨진 평가, 몇 시간</text>
+    <rect x="325" y="272" width="65" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+    <text x="357.5" y="291" font-size="14" font-weight="700" fill="#1a7f4b" text-anchor="middle">진행 중</text>
+
+    <!-- 4 -->
+    <rect x="52" y="354" width="352" height="84" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+    <text x="68" y="386" font-size="18" font-weight="700" fill="#1f2328">학습 데이터와 파이프라인</text>
+    <text x="68" y="416" fill="#57606a">채점: 학습이 끝나야 앎, 몇 주</text>
+    <rect x="325" y="368" width="65" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+    <text x="357.5" y="387" font-size="14" font-weight="700" fill="#c2570c" text-anchor="middle">막 시작</text>
+
+    <!-- 5 -->
+    <rect x="52" y="450" width="352" height="84" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+    <text x="68" y="482" font-size="18" font-weight="700" fill="#1f2328">연구 방향, 정렬 목표</text>
+    <text x="68" y="512" fill="#57606a">채점: 사람의 판단, 몇 달 이상</text>
+    <rect x="295" y="464" width="95" height="28" rx="14" fill="#eaeef2" stroke="#8c959f"/>
+    <text x="342.5" y="483" font-size="14" font-weight="700" fill="#57606a" text-anchor="middle">아직 안 보임</text>
+  </g>
+
+  <!-- 说明 -->
+  <rect x="16" y="580" width="388" height="64" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="606" font-size="15" font-weight="700" fill="#1f2328">싸기만 해서는 안 되고, 정확히 재야 한다:</text>
+  <text x="32" y="630" font-size="15" fill="#57606a">벤치마크만 보고 실제 효과를 안 보면 허점을 찔린다</text>
+</svg>

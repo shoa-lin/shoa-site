@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="620" viewBox="0 0 420 620" role="img" aria-label="Three jobs in one round of improvement: setting the goal defines what better means and is still done by humans; proposing changes has been handed to AI; scoring is being handed over, with humans still as the backstop; good changes are kept and go into the next turn" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#57606a"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#175cd3"/>
+    </marker>
+  </defs>
+  <rect width="420" height="620" rx="16" fill="#f7f8fa"/>
+  <text x="24" y="42" font-size="22" font-weight="700" fill="#1f2328">Three jobs in one improvement</text>
+
+  <!-- 定目标 -->
+  <rect x="56" y="66" width="308" height="78" rx="12" fill="#ffffff" stroke="#175cd3" stroke-width="2"/>
+  <text x="74" y="98" font-size="19" font-weight="700" fill="#1f2328">Set the goal</text>
+  <text x="74" y="126" font-size="15" fill="#57606a">Define what “better” means</text>
+  <rect x="263" y="80" width="85" height="28" rx="14" fill="#175cd3" fill-opacity="0.12" stroke="#175cd3"/>
+  <text x="305.5" y="99" font-size="15" font-weight="700" fill="#175cd3" text-anchor="middle">Human</text>
+
+  <!-- 出改法 -->
+  <rect x="56" y="184" width="308" height="78" rx="12" fill="#ffffff" stroke="#1a7f4b" stroke-width="2"/>
+  <text x="74" y="216" font-size="19" font-weight="700" fill="#1f2328">Propose</text>
+  <text x="74" y="244" font-size="15" fill="#57606a">Suggest a change, then make it</text>
+  <rect x="217" y="198" width="131" height="28" rx="14" fill="#1a7f4b" fill-opacity="0.12" stroke="#1a7f4b"/>
+  <text x="282.5" y="217" font-size="15" font-weight="700" fill="#1a7f4b" text-anchor="middle">Handed to AI</text>
+
+  <!-- 打分 -->
+  <rect x="56" y="302" width="308" height="78" rx="12" fill="#ffffff" stroke="#c2570c" stroke-width="2"/>
+  <text x="74" y="334" font-size="19" font-weight="700" fill="#1f2328">Score</text>
+  <text x="74" y="362" font-size="15" fill="#57606a">Prove it is really better</text>
+  <rect x="215" y="316" width="133" height="28" rx="14" fill="#c2570c" fill-opacity="0.12" stroke="#c2570c"/>
+  <text x="281.5" y="335" font-size="15" font-weight="700" fill="#c2570c" text-anchor="middle">Handing over</text>
+
+  <!-- 留下 -->
+  <rect x="56" y="420" width="308" height="66" rx="12" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="74" y="450" font-size="19" font-weight="700" fill="#1f2328">Keep</text>
+  <text x="74" y="474" font-size="15" fill="#57606a">Keep the good ones for the next turn</text>
+
+  <!-- 圈内箭头 -->
+  <line x1="210" y1="262" x2="210" y2="298" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="210" y1="380" x2="210" y2="416" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- 下一圈：从留下回到出改法 -->
+  <path d="M56 453 H34 V223 H52" fill="none" stroke="#57606a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="26" y="340" font-size="15" fill="#57606a" text-anchor="middle" transform="rotate(-90 26 340)">Next turn</text>
+  <!-- 定目标决定打分的尺子 -->
+  <path d="M364 105 H388 V341 H368" fill="none" stroke="#175cd3" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow-blue)"/>
+  <text x="398" y="223" font-size="15" fill="#175cd3" text-anchor="middle" transform="rotate(90 398 223)">What counts as good</text>
+
+  <!-- 说明 -->
+  <rect x="16" y="510" width="388" height="94" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="540" font-size="15" fill="#57606a">Colors show the state in 2026</text>
+  <text x="32" y="568" font-size="16" font-weight="700" fill="#1f2328">RSI: all three jobs handed to AI,</text>
+  <text x="32" y="592" font-size="16" font-weight="700" fill="#1f2328">and each turn makes the next one better</text>
+</svg>
