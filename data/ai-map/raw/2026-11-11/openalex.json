@@ -1,0 +1,11 @@
+{
+  "source": "openalex",
+  "label": "OpenAlex",
+  "license": "CC0",
+  "retrievedAt": "2026-11-11T07:04:47.339Z",
+  "status": "skipped",
+  "skipped": "OPENALEX_API_KEY not set (free key: https://openalex.org/settings/api)",
+  "notes": [],
+  "errors": [],
+  "items": {}
+}

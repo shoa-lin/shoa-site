@@ -1,0 +1,42 @@
+[
+  {
+    "id": "cn-ai-plus",
+    "region": "cn",
+    "title": { "zh": "国务院关于深入实施“人工智能+”行动的意见", "en": "State Council Opinions on Deepening the “AI+” Initiative" },
+    "issuer": { "zh": "国务院（国发〔2025〕11号）", "en": "State Council of China (Guofa [2025] No. 11)" },
+    "date": "2025-08-26",
+    "dateLabel": "published",
+    "sourceUrl": "https://www.gov.cn/zhengce/content/202508/content_7037861.htm",
+    "verifiedAt": "2026-11-11"
+  },
+  {
+    "id": "cn-ai-labeling",
+    "region": "cn",
+    "title": { "zh": "人工智能生成合成内容标识办法", "en": "Measures for Labeling AI-Generated and Synthetic Content" },
+    "issuer": { "zh": "国家网信办等四部门", "en": "Cyberspace Administration of China and three other agencies" },
+    "date": "2025-09-01",
+    "dateLabel": "effective",
+    "sourceUrl": "https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm",
+    "verifiedAt": "2026-11-11"
+  },
+  {
+    "id": "eu-ai-act",
+    "region": "global",
+    "title": { "zh": "欧盟《人工智能法》（Regulation (EU) 2024/1689）", "en": "EU AI Act (Regulation (EU) 2024/1689)" },
+    "issuer": { "zh": "欧盟", "en": "European Union" },
+    "date": "2026-08-02",
+    "dateLabel": "applicable",
+    "sourceUrl": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "verifiedAt": "2026-11-11"
+  },
+  {
+    "id": "us-ai-action-plan",
+    "region": "global",
+    "title": { "zh": "美国人工智能行动计划（America’s AI Action Plan）", "en": "America’s AI Action Plan" },
+    "issuer": { "zh": "美国白宫", "en": "The White House" },
+    "date": "2025-07",
+    "dateLabel": "published",
+    "sourceUrl": "https://www.whitehouse.gov/wp-content/uploads/2025/07/Americas-AI-Action-Plan.pdf",
+    "verifiedAt": "2026-11-11"
+  }
+]

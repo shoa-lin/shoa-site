@@ -1,0 +1,272 @@
+{
+  "source": "huggingface",
+  "label": "Hugging Face Hub API",
+  "license": "Hub metadata via public API (model licenses vary; only metadata is used)",
+  "retrievedAt": "2026-11-11T07:04:34.173Z",
+  "status": "ok",
+  "skipped": null,
+  "notes": [],
+  "errors": [],
+  "items": {
+    "black-forest-labs": {
+      "org": "black-forest-labs",
+      "fullname": "Black Forest Labs",
+      "followers": 44143,
+      "models": 42,
+      "datasets": 1,
+      "topModel": {
+        "id": "black-forest-labs/flux-3-image-klein-comfy",
+        "downloads30d": 1251688,
+        "likes": 2883,
+        "createdAt": "2026-10-14T12:00:13.000Z"
+      },
+      "latestModel": {
+        "id": "black-forest-labs/flux-3-image-klein-pup",
+        "createdAt": "2026-10-14T20:40:29.000Z"
+      }
+    },
+    "wan": {
+      "org": "Wan-AI",
+      "fullname": "Wan-AI",
+      "followers": 15012,
+      "models": 27,
+      "datasets": 0,
+      "topModel": {
+        "id": "Wan-AI/Wan2.1-T2V-1.3B-Diffusers",
+        "downloads30d": 352246,
+        "likes": 168,
+        "createdAt": "2025-03-01T08:39:07.000Z"
+      },
+      "latestModel": {
+        "id": "Wan-AI/Wan2.2-Animate-2-14B-Distilled-Diffusers",
+        "createdAt": "2026-08-06T06:12:58.000Z"
+      }
+    },
+    "agibot": {
+      "org": "agibot-world",
+      "fullname": "AgiBot World",
+      "followers": 628,
+      "models": 6,
+      "datasets": 12,
+      "topModel": {
+        "id": "agibot-world/GO-1",
+        "downloads30d": 239,
+        "likes": 22,
+        "createdAt": "2025-09-04T13:57:19.000Z"
+      },
+      "latestModel": {
+        "id": "agibot-world/Genie-Envisioner-Sim-v2.0",
+        "createdAt": "2026-06-24T08:07:11.000Z"
+      },
+      "topDataset": {
+        "id": "agibot-world/AgiBotWorld2026",
+        "downloads30d": 931219,
+        "likes": 108
+      }
+    },
+    "bytedance-seed": {
+      "org": "ByteDance-Seed",
+      "fullname": "ByteDance Seed",
+      "followers": 3701,
+      "models": 63,
+      "datasets": 24,
+      "topModel": {
+        "id": "ByteDance-Seed/UI-TARS-1.5-7B",
+        "downloads30d": 179546,
+        "likes": 621,
+        "createdAt": "2025-04-16T09:40:50.000Z"
+      },
+      "latestModel": {
+        "id": "ByteDance-Seed/Cola2",
+        "createdAt": "2026-11-06T06:59:36.000Z"
+      }
+    },
+    "baidu-ernie": {
+      "org": "baidu",
+      "fullname": "BAIDU",
+      "followers": 4355,
+      "models": 39,
+      "datasets": 1,
+      "topModel": {
+        "id": "baidu/ERNIE-4.5-21B-A3B-Thinking",
+        "downloads30d": 58485,
+        "likes": 796,
+        "createdAt": "2025-09-08T14:18:31.000Z"
+      },
+      "latestModel": {
+        "id": "baidu/ERNIE-5.5-Flash-Base",
+        "createdAt": "2026-10-21T08:40:58.000Z"
+      }
+    },
+    "meta-llama": {
+      "org": "meta-llama",
+      "fullname": "Meta Llama",
+      "followers": 89114,
+      "models": 70,
+      "datasets": 11,
+      "topModel": {
+        "id": "meta-llama/Llama-3.1-8B-Instruct",
+        "downloads30d": 4535750,
+        "likes": 8879,
+        "createdAt": "2024-07-18T08:56:00.000Z"
+      },
+      "latestModel": {
+        "id": "meta-llama/Llama-Prompt-Guard-2-86M",
+        "createdAt": "2025-04-28T07:16:35.000Z"
+      }
+    },
+    "mistral": {
+      "org": "mistralai",
+      "fullname": "Mistral",
+      "followers": 21024,
+      "models": 83,
+      "datasets": 4,
+      "topModel": {
+        "id": "mistralai/Mistral-7B-Instruct-v0.3",
+        "downloads30d": 1750168,
+        "likes": 3836,
+        "createdAt": "2024-05-22T09:57:04.000Z"
+      },
+      "latestModel": {
+        "id": "mistralai/Mistral-Large-4-1T-A52B-NVFP4",
+        "createdAt": "2026-10-15T19:09:41.000Z"
+      }
+    },
+    "deepseek": {
+      "org": "deepseek-ai",
+      "fullname": "DeepSeek",
+      "followers": 153981,
+      "models": 106,
+      "datasets": 2,
+      "topModel": {
+        "id": "deepseek-ai/DeepSeek-V3.2",
+        "downloads30d": 7867563,
+        "likes": 1598,
+        "createdAt": "2025-12-01T02:34:49.000Z"
+      },
+      "latestModel": {
+        "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "createdAt": "2026-10-17T02:40:38.000Z"
+      }
+    },
+    "qwen": {
+      "org": "Qwen",
+      "fullname": "Qwen",
+      "followers": 115577,
+      "models": 469,
+      "datasets": 13,
+      "topModel": {
+        "id": "Qwen/Qwen3-0.6B",
+        "downloads30d": 20511631,
+        "likes": 1891,
+        "createdAt": "2025-04-27T03:40:08.000Z"
+      },
+      "latestModel": {
+        "id": "Qwen/Qwen-Image-2.1-Turbo",
+        "createdAt": "2026-10-09T04:50:01.000Z"
+      }
+    },
+    "zai": {
+      "org": "zai-org",
+      "fullname": "Z.ai",
+      "followers": 23323,
+      "models": 154,
+      "datasets": 32,
+      "topModel": {
+        "id": "zai-org/GLM-5.3-Flash",
+        "downloads30d": 6392890,
+        "likes": 3120,
+        "createdAt": "2026-08-25T06:43:14.000Z"
+      },
+      "latestModel": {
+        "id": "zai-org/GLM-5.3-Flash-BF16",
+        "createdAt": "2026-08-25T06:45:05.000Z"
+      }
+    },
+    "moonshot": {
+      "org": "moonshotai",
+      "fullname": "Moonshot AI",
+      "followers": 20910,
+      "models": 20,
+      "datasets": 3,
+      "topModel": {
+        "id": "moonshotai/Kimi-K3",
+        "downloads30d": 751953,
+        "likes": 11969,
+        "createdAt": "2026-06-13T06:42:57.000Z"
+      },
+      "latestModel": {
+        "id": "moonshotai/Kimi-K3.1-Pro",
+        "createdAt": "2026-11-02T04:13:51.000Z"
+      }
+    },
+    "nvidia-cosmos": {
+      "org": "nvidia",
+      "fullname": "NVIDIA",
+      "followers": 75123,
+      "models": 1039,
+      "datasets": 357,
+      "topModel": {
+        "id": "nvidia/Cosmos3-Nano",
+        "downloads30d": 1143449,
+        "likes": 422,
+        "createdAt": "2026-03-10T23:01:40.000Z"
+      },
+      "latestModel": {
+        "id": "nvidia/cosmos3-nano-libero10-sdg-export-S5_2_s43",
+        "createdAt": "2026-10-19T21:19:46.000Z"
+      }
+    },
+    "minimax": {
+      "org": "MiniMaxAI",
+      "fullname": "MiniMax",
+      "followers": 11941,
+      "models": 24,
+      "datasets": 7,
+      "topModel": {
+        "id": "MiniMaxAI/MiniMax-H3",
+        "downloads30d": 6440305,
+        "likes": 6728,
+        "createdAt": "2026-07-28T10:45:18.000Z"
+      },
+      "latestModel": {
+        "id": "MiniMaxAI/MiniMax-H3-Image-PE",
+        "createdAt": "2026-11-08T15:35:23.000Z"
+      }
+    },
+    "tencent-hunyuan": {
+      "org": "tencent",
+      "fullname": "Tencent",
+      "followers": 13021,
+      "models": 177,
+      "datasets": 27,
+      "topModel": {
+        "id": "tencent/Hy-MT2-7B-GGUF",
+        "downloads30d": 1149223,
+        "likes": 103,
+        "createdAt": "2026-05-20T06:21:31.000Z"
+      },
+      "latestModel": {
+        "id": "tencent/Qwen3.8-27B-DSpine-b16",
+        "createdAt": "2026-11-07T14:20:29.000Z"
+      }
+    },
+    "hugging-face": {
+      "org": "huggingface",
+      "fullname": "Hugging Face",
+      "followers": 110059,
+      "models": 18,
+      "datasets": 50,
+      "topModel": {
+        "id": "huggingface/autoformer-tourism-monthly",
+        "downloads30d": 127787,
+        "likes": 11,
+        "createdAt": "2023-05-08T19:21:08.000Z"
+      },
+      "latestModel": {
+        "id": "huggingface/ml-intern-models",
+        "createdAt": "2026-04-29T10:13:34.000Z"
+      }
+    }
+  }
+}

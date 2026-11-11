@@ -1,0 +1,107 @@
+{
+  "source": "secEdgar",
+  "label": "SEC EDGAR XBRL API",
+  "license": "U.S. government public data (SEC EDGAR)",
+  "retrievedAt": "2026-11-11T07:04:46.106Z",
+  "status": "ok",
+  "skipped": null,
+  "notes": [],
+  "errors": [],
+  "items": {
+    "mobileye": {
+      "ticker": "MBLY",
+      "cik": "0001910139",
+      "entityName": "Mobileye Global Inc.",
+      "revenue": {
+        "taxonomy": "us-gaap",
+        "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "unit": "USD",
+        "start": "2024-12-29",
+        "end": "2025-12-27",
+        "val": 1894000000,
+        "accn": "0001104659-26-014300",
+        "fy": 2025,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2026-02-12",
+        "frame": "CY2025"
+      }
+    },
+    "pony-ai": {
+      "ticker": "PONY",
+      "cik": "0001969302",
+      "entityName": "Pony AI Inc.",
+      "revenue": {
+        "taxonomy": "us-gaap",
+        "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "unit": "USD",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "val": 90001000,
+        "accn": "0001104659-26-046406",
+        "fy": 2025,
+        "fp": "FY",
+        "form": "20-F",
+        "filed": "2026-04-22",
+        "frame": "CY2025"
+      }
+    },
+    "nvidia": {
+      "ticker": "NVDA",
+      "cik": "0001045810",
+      "entityName": "NVIDIA CORP",
+      "revenue": {
+        "taxonomy": "us-gaap",
+        "concept": "Revenues",
+        "unit": "USD",
+        "start": "2025-01-27",
+        "end": "2026-01-25",
+        "val": 215938000000,
+        "accn": "0001045810-26-000021",
+        "fy": 2026,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2026-02-25",
+        "frame": "CY2025"
+      }
+    },
+    "tsmc": {
+      "ticker": "TSM",
+      "cik": "0001046179",
+      "entityName": "Taiwan Semiconductor Manufacturing Company Limited",
+      "revenue": {
+        "taxonomy": "ifrs-full",
+        "concept": "Revenue",
+        "unit": "TWD",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "val": 2894307700000,
+        "accn": "0001193125-25-083423",
+        "fy": 2024,
+        "fp": "FY",
+        "form": "20-F",
+        "filed": "2025-04-17",
+        "frame": "CY2024"
+      }
+    },
+    "coreweave": {
+      "ticker": "CRWV",
+      "cik": "0001769628",
+      "entityName": "CoreWeave, Inc.",
+      "revenue": {
+        "taxonomy": "us-gaap",
+        "concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "unit": "USD",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "val": 5131000000,
+        "accn": "0001769628-26-000104",
+        "fy": 2025,
+        "fp": "FY",
+        "form": "10-K",
+        "filed": "2026-03-02",
+        "frame": "CY2025"
+      }
+    }
+  }
+}

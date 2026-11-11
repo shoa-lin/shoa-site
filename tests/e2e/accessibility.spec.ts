@@ -6,6 +6,7 @@ const routes = [
   ["About", "/about"],
   ["Blog", "/blog"],
   ["article", "/blog/getting-started-with-loops"],
+  ["AI map", "/ai-map"],
   ["Comics", "/comics"],
   ["Favorites", "/favorites"],
   ["Contact", "/contact"],

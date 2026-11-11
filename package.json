@@ -12,10 +12,14 @@
     "test:unit": "node --test --test-concurrency=1 tests/*.test.mjs",
     "test:e2e": "playwright test",
     "audit:content": "node scripts/check-public-content.mjs",
+    "audit:ai-map": "node scripts/ai-map/validate.mjs",
     "audit:links": "node scripts/check-links.mjs dist",
     "audit:seo": "node scripts/check-seo.mjs dist",
-    "verify": "npm run check && npm run test:unit && npm run audit:content && npm run build && npm run audit:seo && npm run audit:links && npm run test:e2e",
-    "comic": "node scripts/comics.mjs"
+    "verify": "npm run check && npm run test:unit && npm run audit:content && npm run audit:ai-map && npm run build && npm run audit:seo && npm run audit:links && npm run test:e2e",
+    "comic": "node scripts/comics.mjs",
+    "ai-map:collect": "node scripts/ai-map/collect.mjs",
+    "ai-map:build": "node scripts/ai-map/build.mjs",
+    "ai-map:apply": "node scripts/ai-map/apply.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "4.0.19",

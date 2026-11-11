@@ -1,0 +1,2360 @@
+[
+  {
+    "id": "chatgpt",
+    "name": {
+      "zh": "ChatGPT",
+      "en": "ChatGPT"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "assistants",
+    "website": "https://chatgpt.com",
+    "wikidata": "Q115564437",
+    "oneLiner": {
+      "zh": "OpenAI 推出的通用对话助手，覆盖聊天、搜索、写作与编程。",
+      "en": "OpenAI's general-purpose assistant for chat, search, writing and coding."
+    },
+    "reason": {
+      "zh": "公开披露的周活跃用户规模（Epoch AI 汇编的公司披露）。",
+      "en": "Disclosed weekly active users (company disclosures compiled by Epoch AI)."
+    },
+    "sources": {
+      "epochCompanies": {
+        "company": "OpenAI",
+        "usageProduct": "ChatGPT",
+        "revenue": false,
+        "valuation": false
+      }
+    },
+    "show": [
+      "weeklyActiveUsers"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "gemini-app",
+    "name": {
+      "zh": "Gemini 应用",
+      "en": "Gemini app"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "assistants",
+    "website": "https://gemini.google.com",
+    "wikidata": "Q116698014",
+    "oneLiner": {
+      "zh": "Google 的通用 AI 助手应用，接入搜索、Android 与 Workspace。",
+      "en": "Google's AI assistant app, integrated with Search, Android and Workspace."
+    },
+    "reason": {
+      "zh": "Alphabet 财报电话会披露用户规模。",
+      "en": "User scale disclosed on Alphabet's earnings call."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "gemini-users",
+        "label": {
+          "zh": "用户数",
+          "en": "Users"
+        },
+        "value": 1000000000,
+        "sourceUrl": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2026/",
+        "sourceName": "Alphabet Q3 2026 CEO remarks",
+        "asOf": "2026-10-28",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "qwen-app",
+    "name": {
+      "zh": "千问 App",
+      "en": "Qwen app"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "assistants",
+    "website": "https://www.qianwen.com",
+    "wikidata": "Q130234299",
+    "oneLiner": {
+      "zh": "阿里巴巴面向消费者的 AI 助手，接入淘宝、天猫等服务。",
+      "en": "Alibaba's consumer AI assistant, connected to Taobao, Tmall and other services."
+    },
+    "reason": {
+      "zh": "阿里巴巴季度业绩公告中披露的使用数据。",
+      "en": "Usage disclosed in Alibaba's quarterly results announcement."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "qwen-shopping-users",
+        "label": {
+          "zh": "通过千问 App 首次体验 AI 购物的用户（累计）",
+          "en": "Users who had a first AI shopping experience via the app (cumulative)"
+        },
+        "value": 250000000,
+        "sourceUrl": "https://data.alibabagroup.com/ecms-files/1532295521/fa5d65fc-9b3e-4e82-a8fc-4ce1c3e2c407/Alibaba%20Group%20Announces%20June%20Quarter%202026%20Results.pdf",
+        "sourceName": "Alibaba Group June Quarter 2026 Results",
+        "asOf": "2026-06-30",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "claude-code",
+    "name": {
+      "zh": "Claude Code",
+      "en": "Claude Code"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "coding-agents",
+    "website": "https://www.anthropic.com/claude-code",
+    "wikidata": "Q138457287",
+    "oneLiner": {
+      "zh": "Anthropic 的终端编程 Agent，可读写代码库并执行命令。",
+      "en": "Anthropic's terminal coding agent that edits codebases and runs commands."
+    },
+    "reason": {
+      "zh": "GitHub 仓库关注度与持续更新。",
+      "en": "GitHub attention and ongoing releases."
+    },
+    "sources": {
+      "github": {
+        "repo": "anthropics/claude-code"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "openai-codex",
+    "name": {
+      "zh": "OpenAI Codex",
+      "en": "OpenAI Codex"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "coding-agents",
+    "website": "https://openai.com/codex/",
+    "wikidata": "Q138940795",
+    "oneLiner": {
+      "zh": "OpenAI 的编程 Agent，开源命令行版本可在本地运行。",
+      "en": "OpenAI's coding agent; the open-source CLI runs locally."
+    },
+    "reason": {
+      "zh": "GitHub 仓库关注度与持续更新。",
+      "en": "GitHub attention and ongoing releases."
+    },
+    "sources": {
+      "github": {
+        "repo": "openai/codex"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "qwen-code",
+    "name": {
+      "zh": "Qwen Code",
+      "en": "Qwen Code"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "coding-agents",
+    "website": "https://github.com/QwenLM/qwen-code",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "通义千问团队的开源命令行编程 Agent，适配 Qwen 编程模型。",
+      "en": "Open-source command-line coding agent from the Qwen team, tuned for Qwen coder models."
+    },
+    "reason": {
+      "zh": "GitHub 仓库关注度与持续更新。",
+      "en": "GitHub attention and ongoing releases."
+    },
+    "sources": {
+      "github": {
+        "repo": "QwenLM/qwen-code"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "n8n",
+    "name": {
+      "zh": "n8n",
+      "en": "n8n"
+    },
+    "region": "global",
+    "country": "DE",
+    "layer": "application",
+    "category": "enterprise-agents",
+    "website": "https://n8n.io",
+    "wikidata": "Q130305687",
+    "oneLiner": {
+      "zh": "可自托管的工作流自动化平台，支持接入大模型与 Agent 节点。",
+      "en": "Self-hostable workflow automation platform with LLM and agent nodes."
+    },
+    "reason": {
+      "zh": "GitHub 仓库关注度与持续更新。",
+      "en": "GitHub attention and ongoing releases."
+    },
+    "sources": {
+      "github": {
+        "repo": "n8n-io/n8n"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "ragflow",
+    "name": {
+      "zh": "RAGFlow",
+      "en": "RAGFlow"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "enterprise-agents",
+    "website": "https://ragflow.io",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "英飞流开源的检索增强生成（RAG）与 Agent 引擎，侧重文档理解。",
+      "en": "InfiniFlow's open-source RAG and agent engine focused on document understanding."
+    },
+    "reason": {
+      "zh": "GitHub 仓库关注度与持续更新。",
+      "en": "GitHub attention and ongoing releases."
+    },
+    "sources": {
+      "github": {
+        "repo": "infiniflow/ragflow"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "coze-studio",
+    "name": {
+      "zh": "扣子开源版 Coze Studio",
+      "en": "Coze Studio"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "enterprise-agents",
+    "website": "https://github.com/coze-dev/coze-studio",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "字节跳动扣子平台的开源版，用可视化方式搭建 Agent 与工作流。",
+      "en": "Open-source edition of ByteDance's Coze for building agents and workflows visually."
+    },
+    "reason": {
+      "zh": "GitHub 仓库关注度与持续更新。",
+      "en": "GitHub attention and ongoing releases."
+    },
+    "sources": {
+      "github": {
+        "repo": "coze-dev/coze-studio"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "black-forest-labs",
+    "name": {
+      "zh": "Black Forest Labs",
+      "en": "Black Forest Labs"
+    },
+    "region": "global",
+    "country": "DE",
+    "layer": "application",
+    "category": "content-generation",
+    "website": "https://bfl.ai",
+    "wikidata": "Q128801641",
+    "oneLiner": {
+      "zh": "德国图像生成模型公司，发布 FLUX 系列模型。",
+      "en": "German image-generation lab behind the FLUX model family."
+    },
+    "reason": {
+      "zh": "Hugging Face 下载量与关注者。",
+      "en": "Hugging Face downloads and followers."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "black-forest-labs"
+      }
+    },
+    "show": [
+      "hfTopModelDownloads30d",
+      "hfFollowers"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "wan",
+    "name": {
+      "zh": "通义万相 Wan",
+      "en": "Wan (Alibaba)"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "content-generation",
+    "website": "https://github.com/Wan-Video",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "阿里巴巴通义团队的开放权重视频生成模型系列。",
+      "en": "Alibaba Tongyi's open-weight video generation model family."
+    },
+    "reason": {
+      "zh": "Hugging Face 下载量与关注者。",
+      "en": "Hugging Face downloads and followers."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "Wan-AI"
+      }
+    },
+    "show": [
+      "hfTopModelDownloads30d",
+      "hfFollowers"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "waymo",
+    "name": {
+      "zh": "Waymo",
+      "en": "Waymo"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "autonomous-driving",
+    "website": "https://waymo.com",
+    "wikidata": "Q15330",
+    "oneLiner": {
+      "zh": "Alphabet 旗下的自动驾驶公司，在美国多城运营无人驾驶出租车。",
+      "en": "Alphabet's self-driving company running robotaxi service in several U.S. cities."
+    },
+    "reason": {
+      "zh": "Alphabet 财报电话会披露的运营里程与城市数。",
+      "en": "Miles and cities disclosed on Alphabet's earnings call."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "waymo-miles",
+        "label": {
+          "zh": "累计完全自动驾驶里程",
+          "en": "Cumulative fully autonomous miles"
+        },
+        "value": 300000000,
+        "sourceUrl": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2026/",
+        "sourceName": "Alphabet Q3 2026 CEO remarks",
+        "asOf": "2026-10-28",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "unit": "mile"
+      },
+      {
+        "key": "waymo-cities",
+        "label": {
+          "zh": "运营的美国主要城市",
+          "en": "Major U.S. cities in operation"
+        },
+        "value": 15,
+        "sourceUrl": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2026/",
+        "sourceName": "Alphabet Q3 2026 CEO remarks",
+        "asOf": "2026-10-28",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "mobileye",
+    "name": {
+      "zh": "Mobileye",
+      "en": "Mobileye"
+    },
+    "region": "global",
+    "country": "IL",
+    "layer": "application",
+    "category": "autonomous-driving",
+    "website": "https://www.mobileye.com",
+    "wikidata": "Q2901365",
+    "oneLiner": {
+      "zh": "以色列驾驶辅助与自动驾驶芯片及软件公司。",
+      "en": "Israeli maker of driver-assistance and self-driving chips and software."
+    },
+    "reason": {
+      "zh": "SEC 年报营收。",
+      "en": "Revenue from SEC annual filings."
+    },
+    "sources": {
+      "sec": {
+        "ticker": "MBLY"
+      }
+    },
+    "show": [
+      "annualRevenue"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "apollo-go",
+    "name": {
+      "zh": "萝卜快跑 Apollo Go",
+      "en": "Apollo Go (Baidu)"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "autonomous-driving",
+    "website": "https://www.apollogo.com",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "百度的无人驾驶出租车服务，在国内外多城运营。",
+      "en": "Baidu's robotaxi service operating in cities in China and abroad."
+    },
+    "reason": {
+      "zh": "百度季度业绩公告披露的城市数与里程。",
+      "en": "Cities and mileage disclosed in Baidu's quarterly results."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "apollo-cities",
+        "label": {
+          "zh": "覆盖城市",
+          "en": "Cities in footprint"
+        },
+        "value": 28,
+        "sourceUrl": "https://www.prnewswire.com/news-releases/baidu-announces-second-quarter-2026-results-302853860.html",
+        "sourceName": "Baidu Q2 2026 results (PR Newswire)",
+        "asOf": "2026-08-18",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员"
+      },
+      {
+        "key": "apollo-km",
+        "label": {
+          "zh": "累计自动驾驶里程",
+          "en": "Cumulative autonomous kilometers"
+        },
+        "value": 350000000,
+        "sourceUrl": "https://www.prnewswire.com/news-releases/baidu-announces-second-quarter-2026-results-302853860.html",
+        "sourceName": "Baidu Q2 2026 results (PR Newswire)",
+        "asOf": "2026-08-18",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "unit": "kilometer"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "pony-ai",
+    "name": {
+      "zh": "小马智行 Pony.ai",
+      "en": "Pony.ai"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "autonomous-driving",
+    "website": "https://www.pony.ai",
+    "wikidata": "Q65056153",
+    "oneLiner": {
+      "zh": "自动驾驶公司，运营 Robotaxi 与自动驾驶卡车业务。",
+      "en": "Autonomous-driving company running robotaxi and robotruck businesses."
+    },
+    "reason": {
+      "zh": "SEC 年报营收。",
+      "en": "Revenue from SEC annual filings."
+    },
+    "sources": {
+      "sec": {
+        "ticker": "PONY"
+      }
+    },
+    "show": [
+      "annualRevenue"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "physical-intelligence",
+    "name": {
+      "zh": "Physical Intelligence",
+      "en": "Physical Intelligence"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "embodied-ai",
+    "website": "https://www.physicalintelligence.company",
+    "wikidata": "Q138658641",
+    "oneLiner": {
+      "zh": "研发通用机器人基础模型（π 系列）的公司，开源 openpi。",
+      "en": "Builds general-purpose robot foundation models (the π series); open-sourced openpi."
+    },
+    "reason": {
+      "zh": "开源仓库关注度，Epoch 收录显著模型。",
+      "en": "Open-source repo attention; notable models tracked by Epoch."
+    },
+    "sources": {
+      "github": {
+        "repo": "Physical-Intelligence/openpi"
+      },
+      "epochModels": {
+        "orgs": [
+          "Physical Intelligence"
+        ]
+      }
+    },
+    "show": [
+      "githubStars",
+      "epochNotableModels24m"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "nvidia-gr00t",
+    "name": {
+      "zh": "NVIDIA Isaac GR00T",
+      "en": "NVIDIA Isaac GR00T"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "embodied-ai",
+    "website": "https://developer.nvidia.com/isaac/gr00t",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "英伟达面向人形机器人的开放基础模型与工具链。",
+      "en": "NVIDIA's open foundation models and tooling for humanoid robots."
+    },
+    "reason": {
+      "zh": "开源仓库关注度与持续更新。",
+      "en": "Open-source repo attention and ongoing updates."
+    },
+    "sources": {
+      "github": {
+        "repo": "NVIDIA/Isaac-GR00T"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "unitree",
+    "name": {
+      "zh": "宇树科技 Unitree",
+      "en": "Unitree Robotics"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "embodied-ai",
+    "website": "https://www.unitree.com",
+    "wikidata": "Q106369174",
+    "oneLiner": {
+      "zh": "杭州四足与人形机器人公司，开源机器人 SDK 与仿真工具。",
+      "en": "Hangzhou maker of quadruped and humanoid robots; open-sources robot SDKs and simulation tools."
+    },
+    "reason": {
+      "zh": "开源仓库关注度与持续更新。",
+      "en": "Open-source repo attention and ongoing updates."
+    },
+    "sources": {
+      "github": {
+        "repo": "unitreerobotics/unitree_sdk2"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "agibot",
+    "name": {
+      "zh": "智元机器人 AgiBot",
+      "en": "AgiBot"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "embodied-ai",
+    "website": "https://www.agibot.com",
+    "wikidata": "Q131901025",
+    "oneLiner": {
+      "zh": "上海人形机器人公司，开放大规模真机数据集 AgiBot World。",
+      "en": "Shanghai humanoid-robot company that released the AgiBot World real-robot dataset."
+    },
+    "reason": {
+      "zh": "Hugging Face 数据集下载量与关注者。",
+      "en": "Hugging Face dataset downloads and followers."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "agibot-world",
+        "datasets": true
+      }
+    },
+    "show": [
+      "hfTopDatasetDownloads30d",
+      "hfFollowers"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "openai",
+    "name": {
+      "zh": "OpenAI",
+      "en": "OpenAI"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "model",
+    "category": "frontier-models",
+    "website": "https://openai.com",
+    "wikidata": "Q21708200",
+    "oneLiner": {
+      "zh": "GPT 系列模型与 ChatGPT 的开发方。",
+      "en": "Developer of the GPT models and ChatGPT."
+    },
+    "reason": {
+      "zh": "年化收入披露；Epoch 收录显著模型数居前。",
+      "en": "Disclosed revenue; among the most notable models tracked by Epoch."
+    },
+    "sources": {
+      "epochCompanies": {
+        "company": "OpenAI"
+      },
+      "epochModels": {
+        "orgs": [
+          "OpenAI"
+        ]
+      }
+    },
+    "show": [
+      "annualizedRevenue",
+      "postMoneyValuation",
+      "epochNotableModels24m",
+      "epochLatestNotableModel"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "anthropic",
+    "name": {
+      "zh": "Anthropic",
+      "en": "Anthropic"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "model",
+    "category": "frontier-models",
+    "website": "https://www.anthropic.com",
+    "wikidata": "Q116758847",
+    "oneLiner": {
+      "zh": "Claude 系列模型的开发方，重视安全研究。",
+      "en": "Developer of the Claude models, with a strong safety-research focus."
+    },
+    "reason": {
+      "zh": "年化收入披露（S-1）；Epoch 收录显著模型。",
+      "en": "Disclosed revenue (S-1); notable models tracked by Epoch."
+    },
+    "sources": {
+      "epochCompanies": {
+        "company": "Anthropic"
+      },
+      "epochModels": {
+        "orgs": [
+          "Anthropic"
+        ]
+      }
+    },
+    "show": [
+      "annualizedRevenue",
+      "epochNotableModels24m",
+      "epochLatestNotableModel"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "google-deepmind",
+    "name": {
+      "zh": "Google DeepMind",
+      "en": "Google DeepMind"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "model",
+    "category": "frontier-models",
+    "website": "https://deepmind.google",
+    "wikidata": "Q15733006",
+    "oneLiner": {
+      "zh": "Google 的 AI 研究部门，开发 Gemini 系列模型。",
+      "en": "Google's AI research unit, developer of the Gemini models."
+    },
+    "reason": {
+      "zh": "Epoch 收录显著模型；Alphabet 披露 API 调用量。",
+      "en": "Notable models tracked by Epoch; API volume disclosed by Alphabet."
+    },
+    "sources": {
+      "epochModels": {
+        "orgs": [
+          "Google DeepMind"
+        ]
+      }
+    },
+    "show": [
+      "epochNotableModels24m",
+      "epochLatestNotableModel"
+    ],
+    "manualFacts": [
+      {
+        "key": "google-tokens",
+        "label": {
+          "zh": "第一方模型 API 每分钟处理 token",
+          "en": "First-party model API tokens per minute"
+        },
+        "value": 32000000000,
+        "sourceUrl": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2026/",
+        "sourceName": "Alphabet Q3 2026 CEO remarks",
+        "asOf": "2026-10-28",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11",
+    "countryNote": "Wikidata lists GB (London HQ); the map counts parent-company HQ (Alphabet, US)."
+  },
+  {
+    "id": "xai",
+    "name": {
+      "zh": "SpaceXAI（原 xAI）",
+      "en": "SpaceXAI (formerly xAI)"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "model",
+    "category": "frontier-models",
+    "website": "https://x.ai",
+    "wikidata": "Q120599684",
+    "oneLiner": {
+      "zh": "Grok 系列模型的开发方，2026 年并入 SpaceX。",
+      "en": "Developer of the Grok models; merged into SpaceX in 2026."
+    },
+    "reason": {
+      "zh": "Epoch 收录显著模型。",
+      "en": "Notable models tracked by Epoch."
+    },
+    "sources": {
+      "epochModels": {
+        "orgs": [
+          "xAI"
+        ]
+      }
+    },
+    "show": [
+      "epochNotableModels24m",
+      "epochLatestNotableModel"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "bytedance-seed",
+    "name": {
+      "zh": "字节跳动 Seed（豆包大模型）",
+      "en": "ByteDance Seed (Doubao)"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "frontier-models",
+    "website": "https://seed.bytedance.com",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "字节跳动的大模型团队，开发豆包系列模型。",
+      "en": "ByteDance's foundation-model team, developer of the Doubao models."
+    },
+    "reason": {
+      "zh": "火山引擎披露调用量；Epoch 收录显著模型。",
+      "en": "Usage disclosed by Volcano Engine; notable models tracked by Epoch."
+    },
+    "sources": {
+      "epochModels": {
+        "orgs": [
+          "ByteDance"
+        ]
+      },
+      "huggingface": {
+        "org": "ByteDance-Seed"
+      }
+    },
+    "show": [
+      "epochNotableModels24m",
+      "epochLatestNotableModel"
+    ],
+    "manualFacts": [
+      {
+        "key": "doubao-tokens",
+        "label": {
+          "zh": "豆包大模型日均 token 调用量",
+          "en": "Doubao models: average daily tokens"
+        },
+        "value": 180000000000000,
+        "sourceUrl": "https://www.chnfund.com/article/AR06f805eb-d264-a3ca-81d5-3a2205a8a4e4",
+        "sourceName": "中国基金报（引火山引擎披露）",
+        "asOf": "2026-06-23",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "baidu-ernie",
+    "name": {
+      "zh": "百度文心 ERNIE",
+      "en": "Baidu ERNIE"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "frontier-models",
+    "website": "https://yiyan.baidu.com",
+    "wikidata": "Q116894099",
+    "oneLiner": {
+      "zh": "百度的文心大模型系列，部分版本开放权重。",
+      "en": "Baidu's ERNIE model family; some versions are open-weight."
+    },
+    "reason": {
+      "zh": "Epoch 收录显著模型；Hugging Face 关注者。",
+      "en": "Notable models tracked by Epoch; Hugging Face followers."
+    },
+    "sources": {
+      "epochModels": {
+        "orgs": [
+          "Baidu"
+        ]
+      },
+      "huggingface": {
+        "org": "baidu",
+        "modelSearch": "ERNIE"
+      }
+    },
+    "show": [
+      "epochLatestNotableModel",
+      "hfFollowers",
+      "hfTopModelDownloads30d"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "meta-llama",
+    "name": {
+      "zh": "Meta Llama",
+      "en": "Meta Llama"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "model",
+    "category": "open-weight-models",
+    "website": "https://www.llama.com",
+    "wikidata": "Q116894231",
+    "oneLiner": {
+      "zh": "Meta 发布的 Llama 开放权重模型系列。",
+      "en": "Meta's Llama family of open-weight models."
+    },
+    "reason": {
+      "zh": "Hugging Face 下载量与关注者；Epoch 收录显著模型。",
+      "en": "Hugging Face downloads and followers; notable models tracked by Epoch."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "meta-llama"
+      },
+      "epochModels": {
+        "orgs": [
+          "Meta AI"
+        ]
+      }
+    },
+    "show": [
+      "hfTopModelDownloads30d",
+      "hfFollowers",
+      "epochNotableModels24m"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "mistral",
+    "name": {
+      "zh": "Mistral AI",
+      "en": "Mistral AI"
+    },
+    "region": "global",
+    "country": "FR",
+    "layer": "model",
+    "category": "open-weight-models",
+    "website": "https://mistral.ai",
+    "wikidata": "Q119718658",
+    "oneLiner": {
+      "zh": "法国模型公司，同时提供开放权重与商用模型。",
+      "en": "French model company offering both open-weight and commercial models."
+    },
+    "reason": {
+      "zh": "收入披露；Hugging Face 下载量。",
+      "en": "Disclosed revenue; Hugging Face downloads."
+    },
+    "sources": {
+      "epochCompanies": {
+        "company": "Mistral AI"
+      },
+      "huggingface": {
+        "org": "mistralai"
+      }
+    },
+    "show": [
+      "annualizedRevenue",
+      "hfTopModelDownloads30d",
+      "hfFollowers"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "deepseek",
+    "name": {
+      "zh": "深度求索 DeepSeek",
+      "en": "DeepSeek"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "open-weight-models",
+    "website": "https://www.deepseek.com",
+    "wikidata": "Q131577453",
+    "oneLiner": {
+      "zh": "杭州模型公司，以 MIT 等宽松许可开放 V 系列与 R 系列权重。",
+      "en": "Hangzhou lab releasing its V- and R-series weights under permissive licenses such as MIT."
+    },
+    "reason": {
+      "zh": "Hugging Face 下载量与关注者；Epoch 收录显著模型。",
+      "en": "Hugging Face downloads and followers; notable models tracked by Epoch."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "deepseek-ai"
+      },
+      "epochModels": {
+        "orgs": [
+          "DeepSeek"
+        ]
+      }
+    },
+    "show": [
+      "hfTopModelDownloads30d",
+      "hfFollowers",
+      "epochNotableModels24m"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "qwen",
+    "name": {
+      "zh": "通义千问 Qwen",
+      "en": "Qwen (Alibaba)"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "open-weight-models",
+    "website": "https://qwen.ai",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "阿里巴巴的通义千问模型系列，开放多个尺寸的权重。",
+      "en": "Alibaba's Qwen model family, with open weights across many sizes."
+    },
+    "reason": {
+      "zh": "Hugging Face 下载量与关注者；Epoch 收录显著模型。",
+      "en": "Hugging Face downloads and followers; notable models tracked by Epoch."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "Qwen"
+      },
+      "epochModels": {
+        "orgs": [
+          "Alibaba"
+        ]
+      }
+    },
+    "show": [
+      "hfTopModelDownloads30d",
+      "hfFollowers",
+      "epochNotableModels24m"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "zai",
+    "name": {
+      "zh": "智谱 Z.ai",
+      "en": "Z.ai (Zhipu)"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "open-weight-models",
+    "website": "https://z.ai",
+    "wikidata": "Q129572031",
+    "oneLiner": {
+      "zh": "北京模型公司，发布 GLM 系列开放权重模型。",
+      "en": "Beijing model company releasing the open-weight GLM series."
+    },
+    "reason": {
+      "zh": "收入披露；Hugging Face 下载量。",
+      "en": "Disclosed revenue; Hugging Face downloads."
+    },
+    "sources": {
+      "epochCompanies": {
+        "company": "Z.ai (Zhipu)"
+      },
+      "huggingface": {
+        "org": "zai-org"
+      },
+      "epochModels": {
+        "orgs": [
+          "Z.ai (Zhipu AI)"
+        ]
+      }
+    },
+    "show": [
+      "annualizedRevenue",
+      "hfTopModelDownloads30d",
+      "epochNotableModels24m"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "moonshot",
+    "name": {
+      "zh": "月之暗面 Kimi",
+      "en": "Moonshot AI (Kimi)"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "open-weight-models",
+    "website": "https://www.moonshot.ai",
+    "wikidata": "Q130270266",
+    "oneLiner": {
+      "zh": "北京模型公司，发布 Kimi 系列开放权重模型。",
+      "en": "Beijing model company releasing the open-weight Kimi models."
+    },
+    "reason": {
+      "zh": "收入披露；Hugging Face 下载量。",
+      "en": "Disclosed revenue; Hugging Face downloads."
+    },
+    "sources": {
+      "epochCompanies": {
+        "company": "Moonshot AI"
+      },
+      "huggingface": {
+        "org": "moonshotai"
+      },
+      "epochModels": {
+        "orgs": [
+          "Moonshot"
+        ]
+      }
+    },
+    "show": [
+      "annualizedRevenue",
+      "hfTopModelDownloads30d",
+      "epochNotableModels24m"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "nvidia-cosmos",
+    "name": {
+      "zh": "NVIDIA Cosmos",
+      "en": "NVIDIA Cosmos"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "model",
+    "category": "multimodal-world-models",
+    "website": "https://www.nvidia.com/en-us/ai/cosmos/",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "英伟达面向机器人与自动驾驶的开放世界基础模型。",
+      "en": "NVIDIA's open world foundation models for robotics and autonomous driving."
+    },
+    "reason": {
+      "zh": "Hugging Face 模型下载量。",
+      "en": "Hugging Face model downloads."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "nvidia",
+        "modelSearch": "Cosmos"
+      }
+    },
+    "show": [
+      "hfTopModelDownloads30d"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "minimax",
+    "name": {
+      "zh": "MiniMax",
+      "en": "MiniMax"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "multimodal-world-models",
+    "website": "https://www.minimax.io",
+    "wikidata": "Q130263208",
+    "oneLiner": {
+      "zh": "上海模型公司，覆盖文本、语音与视频（海螺）生成。",
+      "en": "Shanghai model company spanning text, speech and video (Hailuo) generation."
+    },
+    "reason": {
+      "zh": "收入披露；Hugging Face 下载量。",
+      "en": "Disclosed revenue; Hugging Face downloads."
+    },
+    "sources": {
+      "epochCompanies": {
+        "company": "MiniMax"
+      },
+      "huggingface": {
+        "org": "MiniMaxAI"
+      }
+    },
+    "show": [
+      "annualizedRevenue",
+      "hfTopModelDownloads30d",
+      "hfFollowers"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "tencent-hunyuan",
+    "name": {
+      "zh": "腾讯混元",
+      "en": "Tencent Hunyuan"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "model",
+    "category": "multimodal-world-models",
+    "website": "https://hunyuan.tencent.com",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "腾讯的混元模型系列，开放图像、视频与 3D 世界生成模型。",
+      "en": "Tencent's Hunyuan models, with open image, video and 3D world generation releases."
+    },
+    "reason": {
+      "zh": "Hugging Face 下载量与关注者。",
+      "en": "Hugging Face downloads and followers."
+    },
+    "sources": {
+      "huggingface": {
+        "org": "tencent"
+      },
+      "epochModels": {
+        "orgs": [
+          "Tencent"
+        ]
+      }
+    },
+    "show": [
+      "hfTopModelDownloads30d",
+      "hfFollowers",
+      "epochNotableModels24m"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "pytorch",
+    "name": {
+      "zh": "PyTorch",
+      "en": "PyTorch"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "frameworks-engines",
+    "website": "https://pytorch.org",
+    "wikidata": "Q47509047",
+    "oneLiner": {
+      "zh": "主流深度学习框架，由 PyTorch 基金会托管。",
+      "en": "Mainstream deep-learning framework hosted by the PyTorch Foundation."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "pytorch/pytorch"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "vllm",
+    "name": {
+      "zh": "vLLM",
+      "en": "vLLM"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "frameworks-engines",
+    "website": "https://vllm.ai",
+    "wikidata": "Q137793309",
+    "oneLiner": {
+      "zh": "源自 UC Berkeley 的开源大模型推理与服务引擎。",
+      "en": "Open-source LLM inference and serving engine that started at UC Berkeley."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "vllm-project/vllm"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "paddlepaddle",
+    "name": {
+      "zh": "飞桨 PaddlePaddle",
+      "en": "PaddlePaddle"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "platform",
+    "category": "frameworks-engines",
+    "website": "https://www.paddlepaddle.org.cn",
+    "wikidata": "Q116232709",
+    "oneLiner": {
+      "zh": "百度开源的深度学习平台。",
+      "en": "Baidu's open-source deep-learning platform."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "PaddlePaddle/Paddle"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "llama-factory",
+    "name": {
+      "zh": "LlamaFactory",
+      "en": "LlamaFactory"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "platform",
+    "category": "frameworks-engines",
+    "website": "https://github.com/hiyouga/LlamaFactory",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "统一的大模型微调框架，支持上百种开放模型。",
+      "en": "Unified fine-tuning framework supporting a wide range of open models."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "hiyouga/LlamaFactory"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "hugging-face",
+    "name": {
+      "zh": "Hugging Face",
+      "en": "Hugging Face"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "model-hubs-inference",
+    "website": "https://huggingface.co",
+    "wikidata": "Q108943604",
+    "oneLiner": {
+      "zh": "开放模型与数据集社区，维护 Transformers 等开源库。",
+      "en": "Community hub for open models and datasets; maintains Transformers and other libraries."
+    },
+    "reason": {
+      "zh": "核心开源库关注度；平台关注者。",
+      "en": "Attention on its core library; platform followers."
+    },
+    "sources": {
+      "github": {
+        "repo": "huggingface/transformers"
+      },
+      "huggingface": {
+        "org": "huggingface"
+      }
+    },
+    "show": [
+      "githubStars",
+      "hfFollowers"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11",
+    "countryNote": "Wikidata lists FR (founders); company HQ is New York, US."
+  },
+  {
+    "id": "ollama",
+    "name": {
+      "zh": "Ollama",
+      "en": "Ollama"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "model-hubs-inference",
+    "website": "https://ollama.com",
+    "wikidata": "Q124636097",
+    "oneLiner": {
+      "zh": "在本地下载并运行开放模型的工具。",
+      "en": "Tool for downloading and running open models locally."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "ollama/ollama"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "modelscope",
+    "name": {
+      "zh": "魔搭 ModelScope",
+      "en": "ModelScope"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "platform",
+    "category": "model-hubs-inference",
+    "website": "https://modelscope.cn",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "阿里巴巴发起的中文开放模型社区与托管平台。",
+      "en": "Alibaba-initiated open model community and hosting platform."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "modelscope/modelscope"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "langchain",
+    "name": {
+      "zh": "LangChain",
+      "en": "LangChain"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "agent-frameworks",
+    "website": "https://www.langchain.com",
+    "wikidata": "Q117340550",
+    "oneLiner": {
+      "zh": "构建大模型应用与 Agent 的开源框架（含 LangGraph）。",
+      "en": "Open-source framework for LLM apps and agents (with LangGraph)."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "langchain-ai/langchain"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "mcp",
+    "name": {
+      "zh": "Model Context Protocol",
+      "en": "Model Context Protocol (MCP)"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "agent-frameworks",
+    "website": "https://modelcontextprotocol.io",
+    "wikidata": "Q133436854",
+    "oneLiner": {
+      "zh": "连接模型与外部工具、数据的开放协议，由 Anthropic 发起。",
+      "en": "Open protocol connecting models to tools and data, started by Anthropic."
+    },
+    "reason": {
+      "zh": "规范仓库关注度与持续更新。",
+      "en": "Attention and ongoing updates on the specification repo."
+    },
+    "sources": {
+      "github": {
+        "repo": "modelcontextprotocol/modelcontextprotocol"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "agentscope",
+    "name": {
+      "zh": "AgentScope",
+      "en": "AgentScope"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "platform",
+    "category": "agent-frameworks",
+    "website": "https://github.com/agentscope-ai/agentscope",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "阿里巴巴开源的多智能体开发框架。",
+      "en": "Alibaba's open-source multi-agent development framework."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "agentscope-ai/agentscope"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "scale-ai",
+    "name": {
+      "zh": "Scale AI",
+      "en": "Scale AI"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "data",
+    "website": "https://scale.com",
+    "wikidata": "Q112629176",
+    "oneLiner": {
+      "zh": "为模型训练与评测提供数据标注和评测服务的公司。",
+      "en": "Provides data labeling and evaluation for model training and testing."
+    },
+    "reason": {
+      "zh": "公司披露的业务规模。",
+      "en": "Business scale disclosed by the company."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "scale-bookings",
+        "label": {
+          "zh": "2025 年新签业务",
+          "en": "New business signed in 2025"
+        },
+        "value": {
+          "zh": "超 10 亿美元",
+          "en": "over $1B"
+        },
+        "sourceUrl": "https://scale.com/blog/scales-next-era-building-for-2026",
+        "sourceName": "Scale AI blog (CEO letter)",
+        "asOf": "2026-01-22",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "valueType": "text"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "label-studio",
+    "name": {
+      "zh": "Label Studio",
+      "en": "Label Studio"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "data",
+    "website": "https://labelstud.io",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "HumanSignal 维护的开源数据标注工具。",
+      "en": "Open-source data labeling tool maintained by HumanSignal."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "HumanSignal/label-studio"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "mineru",
+    "name": {
+      "zh": "MinerU",
+      "en": "MinerU"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "platform",
+    "category": "data",
+    "website": "https://github.com/opendatalab/MinerU",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "上海人工智能实验室开源的文档解析工具，把 PDF 转成结构化数据。",
+      "en": "OpenDataLab (Shanghai AI Lab) tool that converts PDFs into structured data."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "opendatalab/MinerU"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "lm-eval-harness",
+    "name": {
+      "zh": "LM Evaluation Harness",
+      "en": "LM Evaluation Harness"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "platform",
+    "category": "evaluation-safety",
+    "website": "https://github.com/EleutherAI/lm-evaluation-harness",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "EleutherAI 维护的开源大模型评测框架。",
+      "en": "EleutherAI's open-source framework for evaluating language models."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "EleutherAI/lm-evaluation-harness"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "inspect-ai",
+    "name": {
+      "zh": "Inspect",
+      "en": "Inspect (UK AISI)"
+    },
+    "region": "global",
+    "country": "GB",
+    "layer": "platform",
+    "category": "evaluation-safety",
+    "website": "https://inspect.aisi.org.uk",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "英国 AI 安全研究所开源的大模型评测框架。",
+      "en": "Open-source LLM evaluation framework from the UK AI Security Institute."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "UKGovernmentBEIS/inspect_ai"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "opencompass",
+    "name": {
+      "zh": "司南 OpenCompass",
+      "en": "OpenCompass"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "platform",
+    "category": "evaluation-safety",
+    "website": "https://opencompass.org.cn",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "上海人工智能实验室的开源大模型评测平台。",
+      "en": "Open-source LLM evaluation platform from Shanghai AI Lab."
+    },
+    "reason": {
+      "zh": "GitHub 关注度与持续提交。",
+      "en": "GitHub attention and ongoing commits."
+    },
+    "sources": {
+      "github": {
+        "repo": "open-compass/opencompass"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "nvidia",
+    "name": {
+      "zh": "英伟达 NVIDIA",
+      "en": "NVIDIA"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "compute",
+    "category": "ai-chips",
+    "website": "https://www.nvidia.com",
+    "wikidata": "Q182477",
+    "oneLiner": {
+      "zh": "数据中心 GPU 与配套软件栈（CUDA）的主要供应商。",
+      "en": "Leading supplier of data-center GPUs and the CUDA software stack."
+    },
+    "reason": {
+      "zh": "SEC 年报营收；Epoch 估算的累计出货算力。",
+      "en": "SEC annual revenue; cumulative compute shipped estimated by Epoch."
+    },
+    "sources": {
+      "sec": {
+        "ticker": "NVDA"
+      },
+      "epochChips": {
+        "designer": "Nvidia"
+      }
+    },
+    "show": [
+      "annualRevenue",
+      "epochCumulativeH100eShipped"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "google-tpu",
+    "name": {
+      "zh": "Google TPU",
+      "en": "Google TPU"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "compute",
+    "category": "ai-chips",
+    "website": "https://cloud.google.com/tpu",
+    "wikidata": "Q25106376",
+    "oneLiner": {
+      "zh": "Google 自研的 AI 加速芯片，用于自家与云客户。",
+      "en": "Google's in-house AI accelerators, used internally and by cloud customers."
+    },
+    "reason": {
+      "zh": "Epoch 估算的累计出货算力。",
+      "en": "Cumulative compute shipped, estimated by Epoch."
+    },
+    "sources": {
+      "epochChips": {
+        "designer": "Google"
+      }
+    },
+    "show": [
+      "epochCumulativeH100eShipped"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "amd",
+    "name": {
+      "zh": "AMD Instinct",
+      "en": "AMD Instinct"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "compute",
+    "category": "ai-chips",
+    "website": "https://www.amd.com/en/products/accelerators/instinct.html",
+    "wikidata": "Q28406632",
+    "oneLiner": {
+      "zh": "AMD 的数据中心 AI 加速器产品线。",
+      "en": "AMD's data-center AI accelerator line."
+    },
+    "reason": {
+      "zh": "Epoch 估算的累计出货算力。",
+      "en": "Cumulative compute shipped, estimated by Epoch."
+    },
+    "sources": {
+      "epochChips": {
+        "designer": "AMD"
+      }
+    },
+    "show": [
+      "epochCumulativeH100eShipped"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "huawei-ascend",
+    "name": {
+      "zh": "华为昇腾",
+      "en": "Huawei Ascend"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "compute",
+    "category": "ai-chips",
+    "website": "https://www.hiascend.com",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "华为的昇腾 AI 处理器与配套软件栈。",
+      "en": "Huawei's Ascend AI processors and software stack."
+    },
+    "reason": {
+      "zh": "Epoch 估算的累计出货算力。",
+      "en": "Cumulative compute shipped, estimated by Epoch."
+    },
+    "sources": {
+      "epochChips": {
+        "designer": "Huawei"
+      }
+    },
+    "show": [
+      "epochCumulativeH100eShipped"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "cambricon",
+    "name": {
+      "zh": "寒武纪 Cambricon",
+      "en": "Cambricon"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "compute",
+    "category": "ai-chips",
+    "website": "https://www.cambricon.com",
+    "wikidata": "Q48890160",
+    "oneLiner": {
+      "zh": "北京 AI 芯片设计公司，产品覆盖云端训练与推理。",
+      "en": "Beijing AI chip designer covering cloud training and inference."
+    },
+    "reason": {
+      "zh": "Epoch 估算的累计出货算力。",
+      "en": "Cumulative compute shipped, estimated by Epoch."
+    },
+    "sources": {
+      "epochChips": {
+        "designer": "Cambricon"
+      }
+    },
+    "show": [
+      "epochCumulativeH100eShipped"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "sk-hynix",
+    "name": {
+      "zh": "SK 海力士",
+      "en": "SK hynix"
+    },
+    "region": "global",
+    "country": "KR",
+    "layer": "compute",
+    "category": "foundry-hbm",
+    "website": "https://www.skhynix.com",
+    "wikidata": "Q370719",
+    "oneLiner": {
+      "zh": "韩国存储芯片公司，HBM 高带宽内存的主要供应商。",
+      "en": "Korean memory maker and a leading supplier of HBM."
+    },
+    "reason": {
+      "zh": "公司季度业绩公告。",
+      "en": "Company quarterly results."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "skhynix-rev",
+        "label": {
+          "zh": "季度营收",
+          "en": "Quarterly revenue"
+        },
+        "value": 104615500000000,
+        "sourceUrl": "https://news.skhynix.com/en/q3-2026-business-results/",
+        "sourceName": "SK hynix 3Q26 results",
+        "asOf": "2026-09-30",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "unit": "KRW",
+        "period": "2026 Q3"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "tsmc",
+    "name": {
+      "zh": "台积电 TSMC",
+      "en": "TSMC"
+    },
+    "region": "cn",
+    "country": "TW",
+    "layer": "compute",
+    "category": "foundry-hbm",
+    "website": "https://www.tsmc.com",
+    "wikidata": "Q713418",
+    "oneLiner": {
+      "zh": "全球最大的晶圆代工厂，提供先进制程与 CoWoS 等先进封装。",
+      "en": "The largest contract chipmaker, offering leading-edge nodes and advanced packaging such as CoWoS."
+    },
+    "reason": {
+      "zh": "SEC 年报（20-F）营收。",
+      "en": "Revenue from SEC 20-F filings."
+    },
+    "sources": {
+      "sec": {
+        "ticker": "TSM"
+      }
+    },
+    "show": [
+      "annualRevenue"
+    ],
+    "manualFacts": [
+      {
+        "key": "tsmc-rev",
+        "label": {
+          "zh": "季度营收",
+          "en": "Quarterly revenue"
+        },
+        "value": 46720000000,
+        "sourceUrl": "https://pr.tsmc.com/english/news/3346",
+        "sourceName": "TSMC 3Q26 earnings release",
+        "asOf": "2026-09-30",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "unit": "USD",
+        "period": "2026 Q3"
+      },
+      {
+        "key": "tsmc-advanced",
+        "label": {
+          "zh": "7 纳米及更先进制程占晶圆营收",
+          "en": "Share of wafer revenue from 7nm and more advanced"
+        },
+        "value": "79%",
+        "sourceUrl": "https://pr.tsmc.com/english/news/3346",
+        "sourceName": "TSMC 3Q26 earnings release",
+        "asOf": "2026-09-30",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "period": "2026 Q3",
+        "valueType": "text"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11",
+    "countryNote": "Placed in the 中国 row following the CAICT 2018 map convention (中国台湾); see README."
+  },
+  {
+    "id": "smic",
+    "name": {
+      "zh": "中芯国际 SMIC",
+      "en": "SMIC"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "compute",
+    "category": "foundry-hbm",
+    "website": "https://www.smics.com",
+    "wikidata": "Q648533",
+    "oneLiner": {
+      "zh": "中国大陆规模最大的晶圆代工厂。",
+      "en": "Mainland China's largest contract chipmaker."
+    },
+    "reason": {
+      "zh": "港交所季度业绩公告。",
+      "en": "Quarterly results filed with HKEX."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "smic-rev",
+        "label": {
+          "zh": "季度营收",
+          "en": "Quarterly revenue"
+        },
+        "value": 3005588000,
+        "sourceUrl": "https://www.hkexnews.hk/listedco/listconews/sehk/2026/0813/2026081300353.pdf",
+        "sourceName": "SMIC 2Q26 results (HKEX)",
+        "asOf": "2026-06-30",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "unit": "USD",
+        "period": "2026 Q2"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "aws",
+    "name": {
+      "zh": "亚马逊云科技 AWS",
+      "en": "Amazon Web Services"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "compute",
+    "category": "cloud-compute",
+    "website": "https://aws.amazon.com",
+    "wikidata": "Q456157",
+    "oneLiner": {
+      "zh": "亚马逊的云计算业务，提供 GPU 与自研芯片算力。",
+      "en": "Amazon's cloud business, offering GPU and in-house chip compute."
+    },
+    "reason": {
+      "zh": "Epoch 估算的 AI 算力持有量（亚马逊整体）。",
+      "en": "AI compute owned by Amazon overall, estimated by Epoch."
+    },
+    "sources": {
+      "epochChips": {
+        "owner": "Amazon"
+      }
+    },
+    "show": [
+      "epochOwnedH100e"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "microsoft-azure",
+    "name": {
+      "zh": "微软 Azure",
+      "en": "Microsoft Azure"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "compute",
+    "category": "cloud-compute",
+    "website": "https://azure.microsoft.com",
+    "wikidata": "Q725967",
+    "oneLiner": {
+      "zh": "微软的云计算平台，承载大量大模型训练与推理。",
+      "en": "Microsoft's cloud platform, hosting large-scale model training and inference."
+    },
+    "reason": {
+      "zh": "Epoch 估算的 AI 算力持有量（微软整体）。",
+      "en": "AI compute owned by Microsoft overall, estimated by Epoch."
+    },
+    "sources": {
+      "epochChips": {
+        "owner": "Microsoft"
+      }
+    },
+    "show": [
+      "epochOwnedH100e"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "coreweave",
+    "name": {
+      "zh": "CoreWeave",
+      "en": "CoreWeave"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "compute",
+    "category": "cloud-compute",
+    "website": "https://www.coreweave.com",
+    "wikidata": "Q121875386",
+    "oneLiner": {
+      "zh": "专注 GPU 算力的云服务商。",
+      "en": "Cloud provider specialized in GPU compute."
+    },
+    "reason": {
+      "zh": "SEC 年报营收；Epoch 估算的 AI 算力持有量。",
+      "en": "SEC annual revenue; AI compute owned, estimated by Epoch."
+    },
+    "sources": {
+      "sec": {
+        "ticker": "CRWV"
+      },
+      "epochChips": {
+        "owner": "CoreWeave"
+      }
+    },
+    "show": [
+      "annualRevenue",
+      "epochOwnedH100e"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "alibaba-cloud",
+    "name": {
+      "zh": "阿里云",
+      "en": "Alibaba Cloud"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "compute",
+    "category": "cloud-compute",
+    "website": "https://www.alibabacloud.com",
+    "wikidata": "Q17062154",
+    "oneLiner": {
+      "zh": "阿里巴巴的云计算业务，提供算力与模型服务。",
+      "en": "Alibaba's cloud business, providing compute and model services."
+    },
+    "reason": {
+      "zh": "阿里巴巴季度业绩公告。",
+      "en": "Alibaba quarterly results."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "alicloud-rev",
+        "label": {
+          "zh": "AI 云与算力服务季度收入",
+          "en": "AI Cloud and Compute Services quarterly revenue"
+        },
+        "value": 48437000000,
+        "sourceUrl": "https://data.alibabagroup.com/ecms-files/1532295521/fa5d65fc-9b3e-4e82-a8fc-4ce1c3e2c407/Alibaba%20Group%20Announces%20June%20Quarter%202026%20Results.pdf",
+        "sourceName": "Alibaba Group June Quarter 2026 Results",
+        "asOf": "2026-06-30",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "unit": "CNY",
+        "period": "2026 Q2"
+      },
+      {
+        "key": "alicloud-ai-rev",
+        "label": {
+          "zh": "其中 AI 相关产品季度收入",
+          "en": "of which AI-related product revenue"
+        },
+        "value": 12376000000,
+        "sourceUrl": "https://data.alibabagroup.com/ecms-files/1532295521/fa5d65fc-9b3e-4e82-a8fc-4ce1c3e2c407/Alibaba%20Group%20Announces%20June%20Quarter%202026%20Results.pdf",
+        "sourceName": "Alibaba Group June Quarter 2026 Results",
+        "asOf": "2026-06-30",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "unit": "CNY",
+        "period": "2026 Q2"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "volcano-engine",
+    "name": {
+      "zh": "火山引擎",
+      "en": "Volcano Engine"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "compute",
+    "category": "cloud-compute",
+    "website": "https://www.volcengine.com",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "字节跳动的云服务品牌，提供算力与豆包模型服务。",
+      "en": "ByteDance's cloud brand, offering compute and Doubao model services."
+    },
+    "reason": {
+      "zh": "公开报道引用的 IDC 市场份额与客户规模。",
+      "en": "IDC market share and customer scale as reported."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "volc-maas-share",
+        "label": {
+          "zh": "中国公有云 MaaS 市场份额（IDC）",
+          "en": "Share of China public-cloud MaaS market (IDC)"
+        },
+        "value": "49.5%",
+        "sourceUrl": "https://www.chnfund.com/article/AR06f805eb-d264-a3ca-81d5-3a2205a8a4e4",
+        "sourceName": "中国基金报（引 IDC 数据）",
+        "asOf": "2026-06-23",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员",
+        "valueType": "text"
+      },
+      {
+        "key": "volc-users",
+        "label": {
+          "zh": "使用火山方舟大模型服务的企业和个人",
+          "en": "Businesses and individuals using Volcano Ark model services"
+        },
+        "value": 1100000,
+        "sourceUrl": "https://www.chnfund.com/article/AR06f805eb-d264-a3ca-81d5-3a2205a8a4e4",
+        "sourceName": "中国基金报（引火山引擎披露）",
+        "asOf": "2026-06-23",
+        "verifiedAt": "2026-11-11",
+        "verifiedBy": "个人主页维护员"
+      }
+    ],
+    "status": "active",
+    "firstListed": "2026-11"
+  }
+]
