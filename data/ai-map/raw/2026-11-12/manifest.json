@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-12",
+  "startedAt": "2026-11-12T14:31:55.716Z",
+  "sources": {
+    "huggingface": {
+      "status": "ok",
+      "items": 15,
+      "errors": 0,
+      "skipped": null,
+      "seconds": 4.8
+    },
+    "github": {
+      "status": "ok",
+      "items": 25,
+      "errors": 0,
+      "skipped": null,
+      "seconds": 13.1
+    },
+    "epochModels": {
+      "status": "ok",
+      "items": 13,
+      "errors": 0,
+      "skipped": null,
+      "seconds": 1
+    },
+    "epochCompanies": {
+      "status": "ok",
+      "items": 7,
+      "errors": 0,
+      "skipped": null,
+      "seconds": 0.1
+    },
+    "epochChips": {
+      "status": "ok",
+      "items": 8,
+      "errors": 0,
+      "skipped": null,
+      "seconds": 0.3
+    },
+    "secEdgar": {
+      "status": "ok",
+      "items": 5,
+      "errors": 0,
+      "skipped": null,
+      "seconds": 2.3
+    },
+    "wikidata": {
+      "status": "ok",
+      "items": 43,
+      "errors": 0,
+      "skipped": null,
+      "seconds": 1.1
+    },
+    "openalex": {
+      "status": "skipped",
+      "items": 0,
+      "errors": 0,
+      "skipped": "OPENALEX_API_KEY not set (free key: https://openalex.org/settings/api)",
+      "seconds": 0
+    }
+  },
+  "finishedAt": "2026-11-12T14:32:08.833Z"
+}

@@ -181,6 +181,40 @@
     "firstListed": "2026-11"
   },
   {
+    "id": "hermes-agent",
+    "name": {
+      "zh": "Hermes Agent",
+      "en": "Hermes Agent"
+    },
+    "region": "global",
+    "country": "US",
+    "layer": "application",
+    "category": "coding-agents",
+    "website": "https://hermes-agent.nousresearch.com",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "Nous Research 开源的自我改进型 Agent，可在终端或聊天应用中执行任务。",
+      "en": "Nous Research's open-source, self-improving agent that runs tasks from the terminal or chat apps."
+    },
+    "reason": {
+      "zh": "GitHub 仓库关注度与持续更新。",
+      "en": "GitHub attention and ongoing releases."
+    },
+    "sources": {
+      "github": {
+        "repo": "NousResearch/hermes-agent"
+      }
+    },
+    "show": [
+      "githubStars",
+      "githubLastPush"
+    ],
+    "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11",
+    "countryNote": "开发方 Nous Research 总部在美国：PitchBook、CB Insights 记为得州奥斯汀（另有纽约办公室），Wikidata Q141810923 描述为 American AI research company。"
+  },
+  {
     "id": "qwen-code",
     "name": {
       "zh": "Qwen Code",
@@ -309,6 +343,74 @@
       "githubLastPush"
     ],
     "manualFacts": [],
+    "status": "active",
+    "firstListed": "2026-11"
+  },
+  {
+    "id": "workbuddy",
+    "name": {
+      "zh": "腾讯 WorkBuddy",
+      "en": "Tencent WorkBuddy"
+    },
+    "region": "cn",
+    "country": "CN",
+    "layer": "application",
+    "category": "enterprise-agents",
+    "website": "https://www.workbuddy.ai/",
+    "wikidata": null,
+    "oneLiner": {
+      "zh": "腾讯的办公 AI Agent，用对话完成文档与数据任务，兼容 OpenClaw 技能。",
+      "en": "Tencent's desktop AI agent for office tasks such as documents and data; compatible with OpenClaw skills."
+    },
+    "reason": {
+      "zh": "QuestMobile 统计的办公类 Agent 月活第一；腾讯官方披露任务量与企业覆盖。",
+      "en": "Top office agent by QuestMobile MAU; Tencent discloses task volume and enterprise reach."
+    },
+    "sources": {},
+    "show": [],
+    "manualFacts": [
+      {
+        "key": "workbuddy-mau",
+        "label": {
+          "zh": "多端合计月活（QuestMobile）",
+          "en": "Monthly active users, all channels combined (QuestMobile)"
+        },
+        "value": 32353000,
+        "sourceUrl": "https://www.questmobile.com.cn/research/report/2112396781593624578/",
+        "sourceName": "QuestMobile 2026 年三季度 AI 应用市场发展报告",
+        "asOf": "2026-09-30",
+        "verifiedAt": "2026-11-12",
+        "verifiedBy": "个人主页维护员",
+        "period": "2026-09"
+      },
+      {
+        "key": "workbuddy-tasks",
+        "label": {
+          "zh": "累计完成用户任务请求",
+          "en": "Cumulative user task requests completed"
+        },
+        "value": 9000000000,
+        "sourceUrl": "https://news.qq.com/rain/a/20261029A07V5T00",
+        "sourceName": "腾讯云官方账号（2026 腾讯全球数字生态大会）",
+        "asOf": "2026-10-29",
+        "verifiedAt": "2026-11-12",
+        "verifiedBy": "个人主页维护员"
+      },
+      {
+        "key": "workbuddy-top500",
+        "label": {
+          "zh": "已服务的中国 500 强企业占比",
+          "en": "Share of China Top 500 companies served"
+        },
+        "value": "50%",
+        "valueType": "text",
+        "sourceUrl": "https://news.qq.com/rain/a/20261029A07V5T00",
+        "sourceName": "腾讯云官方账号（2026 腾讯全球数字生态大会）",
+        "asOf": "2026-10-29",
+        "verifiedAt": "2026-11-12",
+        "verifiedBy": "个人主页维护员"
+      }
+    ],
     "status": "active",
     "firstListed": "2026-11"
   },

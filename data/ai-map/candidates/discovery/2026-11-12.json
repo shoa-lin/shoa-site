@@ -1,0 +1,1148 @@
+{
+  "date": "2026-11-12",
+  "generatedAt": "2026-11-12T14:35:09.839Z",
+  "method": "Deterministic public-API search (GitHub Search API, Hugging Face Hub API). No AI. Not applied to entries.json.",
+  "authenticated": false,
+  "options": {
+    "createdWithinDays": 183,
+    "pushedWithinDays": 30,
+    "perQuery": 30,
+    "maxGithub": 30,
+    "hfWithinDays": 90,
+    "maxHf": 15
+  },
+  "queries": [
+    {
+      "id": "ai-agent-new",
+      "signal": "fresh",
+      "q": "topic:ai-agent created:>=2026-05-13 stars:>=300",
+      "returned": 30,
+      "total": 237,
+      "error": null
+    },
+    {
+      "id": "ai-agents-new",
+      "signal": "fresh",
+      "q": "topic:ai-agents created:>=2026-05-13 stars:>=300",
+      "returned": 30,
+      "total": 510,
+      "error": null
+    },
+    {
+      "id": "coding-agent-new",
+      "signal": "fresh",
+      "q": "topic:coding-agent created:>=2026-05-13 stars:>=200",
+      "returned": 30,
+      "total": 127,
+      "error": null
+    },
+    {
+      "id": "llm-agent-new",
+      "signal": "fresh",
+      "q": "topic:llm-agent created:>=2026-05-13 stars:>=300",
+      "returned": 20,
+      "total": 20,
+      "error": null
+    },
+    {
+      "id": "agent-keyword-new",
+      "signal": "fresh",
+      "q": "\"ai agent\" in:name,description created:>=2026-05-13 stars:>=1000",
+      "returned": 30,
+      "total": 102,
+      "error": null
+    },
+    {
+      "id": "ai-agent-active",
+      "signal": "active",
+      "q": "topic:ai-agent pushed:>=2026-10-13 stars:>=10000",
+      "returned": 30,
+      "total": 58,
+      "error": null
+    },
+    {
+      "id": "coding-agent-active",
+      "signal": "active",
+      "q": "topic:coding-agent pushed:>=2026-10-13 stars:>=3000",
+      "returned": 30,
+      "total": 30,
+      "error": null
+    },
+    {
+      "id": "llm-agent-active",
+      "signal": "active",
+      "q": "topic:llm-agent pushed:>=2026-10-13 stars:>=10000",
+      "returned": 6,
+      "total": 6,
+      "error": null
+    },
+    {
+      "id": "ai-agents-active",
+      "signal": "active",
+      "q": "topic:ai-agents pushed:>=2026-10-13 stars:>=20000",
+      "returned": 30,
+      "total": 96,
+      "error": null
+    },
+    {
+      "id": "assistant-active",
+      "signal": "active",
+      "q": "topic:assistant pushed:>=2026-10-13 stars:>=20000",
+      "returned": 4,
+      "total": 4,
+      "error": null
+    },
+    {
+      "id": "coding-agent-keyword-active",
+      "signal": "active",
+      "q": "\"coding agent\" in:description pushed:>=2026-10-13 stars:>=20000",
+      "returned": 30,
+      "total": 33,
+      "error": null
+    }
+  ],
+  "excluded": {
+    "listed": 9,
+    "notProduct": 9,
+    "archivedOrFork": 3
+  },
+  "github": [
+    {
+      "repo": "openclaw/openclaw",
+      "url": "https://github.com/openclaw/openclaw",
+      "description": "The AI that really does things. Any OS. Any Platform. The lobster way. 🦞",
+      "homepage": "https://openclaw.ai",
+      "owner": "openclaw",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 394406,
+      "createdAt": "2025-11-24",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [
+        "ai",
+        "assistant",
+        "crustacean",
+        "molty",
+        "openclaw",
+        "own-your-data",
+        "personal"
+      ],
+      "matchedQueries": [
+        "assistant-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC",
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+      "homepage": "https://ecc.tools",
+      "owner": "affaan-m",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 301757,
+      "createdAt": "2026-01-18",
+      "pushedAt": "2026-11-09",
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": [
+        "ai-agents",
+        "anthropic",
+        "claude",
+        "claude-code",
+        "developer-tools",
+        "llm",
+        "mcp",
+        "productivity"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "deepseek-ai/deepseek-harness",
+      "url": "https://github.com/deepseek-ai/deepseek-harness",
+      "description": "DeepSeek Harness: Everything is a Plugin.",
+      "homepage": "https://deepseek.com/harness",
+      "owner": "deepseek-ai",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 279595,
+      "createdAt": "2026-08-13",
+      "pushedAt": "2026-11-11",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [
+        "ai-agents",
+        "cordis",
+        "dsh",
+        "dsh-plugin"
+      ],
+      "matchedQueries": [
+        "ai-agents-new",
+        "ai-agents-active"
+      ],
+      "signals": [
+        "fresh",
+        "active"
+      ]
+    },
+    {
+      "repo": "anomalyco/opencode",
+      "url": "https://github.com/anomalyco/opencode",
+      "description": "The open source coding agent.",
+      "homepage": "https://opencode.ai",
+      "owner": "anomalyco",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 226335,
+      "createdAt": "2025-04-30",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [],
+      "matchedQueries": [
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "firecrawl/firecrawl",
+      "url": "https://github.com/firecrawl/firecrawl",
+      "description": "Supercharge your AI agents with data from the web and beyond. Building the library for superintelligence. 🔥",
+      "homepage": "https://firecrawl.dev",
+      "owner": "firecrawl",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 201158,
+      "createdAt": "2024-04-15",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "AGPL-3.0",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "ai-crawler",
+        "ai-scraping",
+        "ai-search",
+        "crawler",
+        "data-extraction",
+        "html-to-markdown"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "DietrichGebert/ponytail",
+      "url": "https://github.com/DietrichGebert/ponytail",
+      "description": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+      "homepage": "https://ponytail.dev",
+      "owner": "DietrichGebert",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 189562,
+      "createdAt": "2026-06-12",
+      "pushedAt": "2026-10-29",
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": [
+        "agent-skills",
+        "ai-agents",
+        "claude",
+        "claude-code",
+        "claude-code-plugin",
+        "cursor-rules",
+        "developer-tools",
+        "llm"
+      ],
+      "matchedQueries": [
+        "ai-agents-new",
+        "agent-keyword-new",
+        "ai-agents-active"
+      ],
+      "signals": [
+        "fresh",
+        "active"
+      ]
+    },
+    {
+      "repo": "Graphify-Labs/graphify",
+      "url": "https://github.com/Graphify-Labs/graphify",
+      "description": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, e",
+      "homepage": "https://www.graphify.com",
+      "owner": "Graphify-Labs",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 146525,
+      "createdAt": "2026-04-03",
+      "pushedAt": "2026-11-11",
+      "language": "Python",
+      "license": "Apache-2.0",
+      "topics": [
+        "ai-agents",
+        "antigravity",
+        "ast",
+        "claude-code",
+        "code-analysis",
+        "code-search",
+        "codex",
+        "cursor"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "stablyai/orca",
+      "url": "https://github.com/stablyai/orca",
+      "description": "Orca lets you run a fleet of coding agents (e.g. Claude Code, Codex) with your own subscription. Available on desktop, mobile and remote runtime.",
+      "homepage": "https://orca.dev",
+      "owner": "stablyai",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 123108,
+      "createdAt": "2026-03-17",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [
+        "agent-ide",
+        "ai-agents",
+        "automation",
+        "bot",
+        "claude-code",
+        "codex",
+        "ghostty",
+        "grok-bot"
+      ],
+      "matchedQueries": [
+        "ai-agents-active",
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "earendil-works/pi",
+      "url": "https://github.com/earendil-works/pi",
+      "description": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
+      "homepage": null,
+      "owner": "earendil-works",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 121633,
+      "createdAt": "2025-08-09",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [],
+      "matchedQueries": [
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "browser-use/browser-use",
+      "url": "https://github.com/browser-use/browser-use",
+      "description": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
+      "homepage": "https://browser-use.com",
+      "owner": "browser-use",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 120826,
+      "createdAt": "2024-10-31",
+      "pushedAt": "2026-11-12",
+      "language": "Python",
+      "license": "MIT",
+      "topics": [
+        "ai-agents",
+        "ai-tools",
+        "browser-agent",
+        "browser-automation",
+        "browser-use",
+        "cdp",
+        "cloud-browser",
+        "computer-use"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "JuliusBrussee/caveman",
+      "url": "https://github.com/JuliusBrussee/caveman",
+      "description": "🪨 why use many token when few token do trick. Viral skill + proxy for coding agents that cuts 65% of tokens by talking like a caveman.",
+      "homepage": "https://docs.caveman.so/caveman",
+      "owner": "JuliusBrussee",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 119302,
+      "createdAt": "2026-04-04",
+      "pushedAt": "2026-11-12",
+      "language": "Go",
+      "license": "Apache-2.0",
+      "topics": [
+        "ai",
+        "anthropic",
+        "caveman",
+        "claude",
+        "claude-code",
+        "llm",
+        "meme",
+        "prompt-engineering"
+      ],
+      "matchedQueries": [
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "thedotmack/claude-mem",
+      "url": "https://github.com/thedotmack/claude-mem",
+      "description": "Persistent Context Across Sessions for Every Agent –  Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Cla",
+      "homepage": "https://claude-mem.ai",
+      "owner": "thedotmack",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 116437,
+      "createdAt": "2025-08-31",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "Apache-2.0",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "ai-memory",
+        "anthropic",
+        "artificial-intelligence",
+        "chromadb",
+        "claude",
+        "claude-agent-sdk"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "addyosmani/agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills",
+      "description": "Production-grade engineering skills for AI coding agents.",
+      "homepage": "https://skills.addy.ie",
+      "owner": "addyosmani",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 116404,
+      "createdAt": "2026-02-15",
+      "pushedAt": "2026-11-01",
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": [
+        "agent-skills",
+        "antigravity",
+        "claude-code",
+        "codex",
+        "cursor",
+        "skills"
+      ],
+      "matchedQueries": [
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "Leonxlnx/taste-skill",
+      "url": "https://github.com/Leonxlnx/taste-skill",
+      "description": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages",
+      "homepage": "https://tasteskill.dev",
+      "owner": "Leonxlnx",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 113988,
+      "createdAt": "2026-02-19",
+      "pushedAt": "2026-11-08",
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": [
+        "agent-skills",
+        "ai-agents",
+        "anti-slop",
+        "claude-code",
+        "codex",
+        "cursor",
+        "design-system",
+        "frontend"
+      ],
+      "matchedQueries": [
+        "ai-agents-active",
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "paperclipai/paperclip",
+      "url": "https://github.com/paperclipai/paperclip",
+      "description": "The open-source app everyone uses to manage agents at work",
+      "homepage": "https://paperclip.ing",
+      "owner": "paperclipai",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 113314,
+      "createdAt": "2026-03-02",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [
+        "acpx",
+        "agent-orchestration",
+        "agent-skills",
+        "agentic-ai",
+        "ai-agents",
+        "ai-engineering",
+        "ai-governance",
+        "ai-tools"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "Panniantong/Agent-Reach",
+      "url": "https://github.com/Panniantong/Agent-Reach",
+      "description": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
+      "homepage": null,
+      "owner": "Panniantong",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 111262,
+      "createdAt": "2026-02-24",
+      "pushedAt": "2026-11-08",
+      "language": "Python",
+      "license": "MIT",
+      "topics": [
+        "agent-infrastructure",
+        "ai-agent",
+        "ai-search",
+        "automation",
+        "bilibili",
+        "claude-code",
+        "cli",
+        "cursor"
+      ],
+      "matchedQueries": [
+        "ai-agent-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "google-gemini/gemini-cli",
+      "url": "https://github.com/google-gemini/gemini-cli",
+      "description": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
+      "homepage": "https://geminicli.com",
+      "owner": "google-gemini",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 108796,
+      "createdAt": "2025-04-17",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "Apache-2.0",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "cli",
+        "gemini",
+        "gemini-api",
+        "mcp-client",
+        "mcp-server"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "pbakaus/impeccable",
+      "url": "https://github.com/pbakaus/impeccable",
+      "description": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
+      "homepage": "https://impeccable.style",
+      "owner": "pbakaus",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 108762,
+      "createdAt": "2025-11-16",
+      "pushedAt": "2026-11-12",
+      "language": "Rust",
+      "license": "Apache-2.0",
+      "topics": [
+        "agent-skills",
+        "ai",
+        "anti-slop",
+        "design",
+        "slop"
+      ],
+      "matchedQueries": [
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "tt-a1i/archify",
+      "url": "https://github.com/tt-a1i/archify",
+      "description": "Turn any idea, plan, or codebase into a beautiful interactive diagram. An agent skill for Claude Code, Codex, and more.",
+      "homepage": "https://archify.si",
+      "owner": "tt-a1i",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 95831,
+      "createdAt": "2026-04-15",
+      "pushedAt": "2026-11-12",
+      "language": "JavaScript",
+      "license": "Apache-2.0",
+      "topics": [
+        "agent-skills",
+        "ai-agents",
+        "architecture-diagram",
+        "claude-code",
+        "claude-skills",
+        "codex",
+        "coding-agents",
+        "deepseek-harness"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "unclecode/crawl4ai",
+      "url": "https://github.com/unclecode/crawl4ai",
+      "description": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open source: this repo is the Apache-2.0 crawler that powe",
+      "homepage": "https://crawl4ai.com/?ref=github-about",
+      "owner": "unclecode",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 87268,
+      "createdAt": "2024-05-09",
+      "pushedAt": "2026-11-12",
+      "language": "Python",
+      "license": "Apache-2.0",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "crawl4ai-cloud",
+        "crawler",
+        "data-extraction",
+        "llm",
+        "markdown",
+        "mcp"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "cheaper-inference/OmniRoute",
+      "url": "https://github.com/cheaper-inference/OmniRoute",
+      "description": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline",
+      "homepage": "https://omniroute.online",
+      "owner": "cheaper-inference",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 86774,
+      "createdAt": "2026-02-13",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [
+        "a2a",
+        "ai-agents",
+        "ai-gateway",
+        "anthropic",
+        "claude",
+        "claude-code",
+        "cline",
+        "codex"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "bytedance/deer-flow",
+      "url": "https://github.com/bytedance/deer-flow",
+      "description": "An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxes, memories, tools, skill, subagents and message gateway, it handles different levels of ta",
+      "homepage": "https://deerflow.tech",
+      "owner": "bytedance",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 85285,
+      "createdAt": "2025-05-07",
+      "pushedAt": "2026-11-12",
+      "language": "Python",
+      "license": "MIT",
+      "topics": [
+        "agent",
+        "agentic",
+        "agentic-framework",
+        "agentic-workflow",
+        "ai",
+        "ai-agents",
+        "deep-research",
+        "harness"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "heygen-com/hyperframes",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "description": "Write HTML. Render video. Built for agents.",
+      "homepage": "https://hyperframes.heygen.com",
+      "owner": "heygen-com",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 83242,
+      "createdAt": "2026-03-10",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "Apache-2.0",
+      "topics": [
+        "ai",
+        "ai-agents",
+        "animation",
+        "claude-code",
+        "ffmpeg",
+        "framework",
+        "gsap",
+        "html"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "career-ops-hq/career-ops",
+      "url": "https://github.com/career-ops-hq/career-ops",
+      "description": "Open-source AI job search agent and job finder: scan job boards, score each job 1-5 against your CV before you apply, tailor an ATS-friendly resume and cover letter, get interview prep and an applicat",
+      "homepage": "https://career-ops.org",
+      "owner": "career-ops-hq",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 82123,
+      "createdAt": "2026-04-04",
+      "pushedAt": "2026-11-12",
+      "language": "JavaScript",
+      "license": "MIT",
+      "topics": [
+        "agent-skills",
+        "ai-agent",
+        "ai-job-search",
+        "ats",
+        "career",
+        "career-ops",
+        "claude-code",
+        "claude-code-plugin"
+      ],
+      "matchedQueries": [
+        "ai-agent-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "ruvnet/ruflo",
+      "url": "https://github.com/ruvnet/ruflo",
+      "description": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features adaptive memory, self-learning intelligence, feder",
+      "homepage": "https://cognitum.one",
+      "owner": "ruvnet",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 81544,
+      "createdAt": "2025-06-02",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "MIT",
+      "topics": [
+        "agent-memory",
+        "agent-orchestration",
+        "agentic-ai",
+        "agentic-workflow",
+        "ai-agents",
+        "autonomous-agents",
+        "claude",
+        "claude-code"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "microsoft/ai-agents-for-beginners",
+      "url": "https://github.com/microsoft/ai-agents-for-beginners",
+      "description": "18 Lessons to Get Started Building AI Agents",
+      "homepage": "https://aka.ms/ai-agents-beginners",
+      "owner": "microsoft",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 79488,
+      "createdAt": "2024-11-28",
+      "pushedAt": "2026-11-07",
+      "language": "Jupyter Notebook",
+      "license": "MIT",
+      "topics": [
+        "agentic-ai",
+        "agentic-framework",
+        "agentic-rag",
+        "ai-agents",
+        "ai-agents-framework",
+        "autogen",
+        "foundry",
+        "foundry-local"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "headroomlabs-ai/headroom",
+      "url": "https://github.com/headroomlabs-ai/headroom",
+      "description": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
+      "homepage": "https://docs.headroomlabs.ai/docs",
+      "owner": "headroomlabs-ai",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 79446,
+      "createdAt": "2026-01-07",
+      "pushedAt": "2026-11-12",
+      "language": "Python",
+      "license": "Apache-2.0",
+      "topics": [
+        "agent",
+        "ai",
+        "anthropic",
+        "claude-code",
+        "compression",
+        "context-engineering",
+        "context-window",
+        "cursor"
+      ],
+      "matchedQueries": [
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "rohitg00/ai-engineering-from-scratch",
+      "url": "https://github.com/rohitg00/ai-engineering-from-scratch",
+      "description": "Learn AI Engineering! Learn it. Build it. Ship it for others.",
+      "homepage": "https://aiengineeringfromscratch.com",
+      "owner": "rohitg00",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 78559,
+      "createdAt": "2026-03-18",
+      "pushedAt": "2026-11-12",
+      "language": "Python",
+      "license": "MIT",
+      "topics": [
+        "agents",
+        "ai",
+        "ai-agents",
+        "ai-engineering",
+        "computer-vision",
+        "course",
+        "deep-learning",
+        "dsh"
+      ],
+      "matchedQueries": [
+        "ai-agents-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "hugohe3/ppt-master",
+      "url": "https://github.com/hugohe3/ppt-master",
+      "description": "AI turns documents or topics into real, native PowerPoint decks—with native shapes, transitions and animations, data-backed charts and tables on demand, audio narration from speaker notes, and support",
+      "homepage": "https://hugohe3.github.io/ppt-master-examples/",
+      "owner": "hugohe3",
+      "ownerType": "User",
+      "ownerAlreadyListed": false,
+      "stars": 76233,
+      "createdAt": "2025-12-10",
+      "pushedAt": "2026-11-12",
+      "language": "Python",
+      "license": "MIT",
+      "topics": [
+        "ai-agent",
+        "aippt",
+        "office",
+        "powerpoint",
+        "powerpoint-generation",
+        "ppt",
+        "pptx",
+        "presentation"
+      ],
+      "matchedQueries": [
+        "ai-agent-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    },
+    {
+      "repo": "cline/cline",
+      "url": "https://github.com/cline/cline",
+      "description": "Autonomous coding agent as an SDK, IDE extension, or CLI assistant.",
+      "homepage": "https://cline.bot",
+      "owner": "cline",
+      "ownerType": "Organization",
+      "ownerAlreadyListed": false,
+      "stars": 71558,
+      "createdAt": "2024-07-06",
+      "pushedAt": "2026-11-12",
+      "language": "TypeScript",
+      "license": "Apache-2.0",
+      "topics": [],
+      "matchedQueries": [
+        "coding-agent-keyword-active"
+      ],
+      "signals": [
+        "active"
+      ]
+    }
+  ],
+  "huggingface": [
+    {
+      "author": "speridlabs",
+      "model": "speridlabs/idol",
+      "url": "https://huggingface.co/speridlabs/idol",
+      "orgUrl": "https://huggingface.co/speridlabs",
+      "likes": 2191,
+      "downloads30d": 29904,
+      "trendingScore": 448.5,
+      "pipeline": "image-to-3d",
+      "createdAt": "2026-10-28"
+    },
+    {
+      "author": "NousResearch",
+      "model": "NousResearch/Arete-27B",
+      "url": "https://huggingface.co/NousResearch/Arete-27B",
+      "orgUrl": "https://huggingface.co/NousResearch",
+      "likes": 462,
+      "downloads30d": 4669,
+      "trendingScore": 436,
+      "pipeline": "text-generation",
+      "createdAt": "2026-11-06"
+    },
+    {
+      "author": "ccore",
+      "model": "ccore/Qwen3.5-4B-3D-Coder",
+      "url": "https://huggingface.co/ccore/Qwen3.5-4B-3D-Coder",
+      "orgUrl": "https://huggingface.co/ccore",
+      "likes": 1033,
+      "downloads30d": 368236,
+      "trendingScore": 307,
+      "pipeline": null,
+      "createdAt": "2026-10-25"
+    },
+    {
+      "author": "ricursiveAI",
+      "model": "ricursiveAI/Ripple-65B-Preview",
+      "url": "https://huggingface.co/ricursiveAI/Ripple-65B-Preview",
+      "orgUrl": "https://huggingface.co/ricursiveAI",
+      "likes": 526,
+      "downloads30d": 7667,
+      "trendingScore": 306,
+      "pipeline": null,
+      "createdAt": "2026-11-04"
+    },
+    {
+      "author": "Comfy-Org",
+      "model": "Comfy-Org/MiniMax-H3-Image",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3-Image",
+      "orgUrl": "https://huggingface.co/Comfy-Org",
+      "likes": 281,
+      "downloads30d": 835593,
+      "trendingScore": 267,
+      "pipeline": "text-to-image",
+      "createdAt": "2026-11-08"
+    },
+    {
+      "author": "Viggle",
+      "model": "Viggle/Viggle-Remake",
+      "url": "https://huggingface.co/Viggle/Viggle-Remake",
+      "orgUrl": "https://huggingface.co/Viggle",
+      "likes": 323,
+      "downloads30d": 152819,
+      "trendingScore": 227,
+      "pipeline": "video-to-video",
+      "createdAt": "2026-10-22"
+    },
+    {
+      "author": "VideoRebirthAI",
+      "model": "VideoRebirthAI/hyperflow-h3-flash",
+      "url": "https://huggingface.co/VideoRebirthAI/hyperflow-h3-flash",
+      "orgUrl": "https://huggingface.co/VideoRebirthAI",
+      "likes": 230,
+      "downloads30d": 326487,
+      "trendingScore": 205,
+      "pipeline": "image-text-to-video",
+      "createdAt": "2026-11-04"
+    },
+    {
+      "author": "webAI-Official",
+      "model": "webAI-Official/TwIL-8B",
+      "url": "https://huggingface.co/webAI-Official/TwIL-8B",
+      "orgUrl": "https://huggingface.co/webAI-Official",
+      "likes": 319,
+      "downloads30d": 49861,
+      "trendingScore": 202,
+      "pipeline": "text-generation",
+      "createdAt": "2026-10-14"
+    },
+    {
+      "author": "Zyphra",
+      "model": "Zyphra/ZONOS3-Mini",
+      "url": "https://huggingface.co/Zyphra/ZONOS3-Mini",
+      "orgUrl": "https://huggingface.co/Zyphra",
+      "likes": 213,
+      "downloads30d": 8543,
+      "trendingScore": 185,
+      "pipeline": "text-to-speech",
+      "createdAt": "2026-11-09"
+    },
+    {
+      "author": "ConwayResearch",
+      "model": "ConwayResearch/Underdog-Woof",
+      "url": "https://huggingface.co/ConwayResearch/Underdog-Woof",
+      "orgUrl": "https://huggingface.co/ConwayResearch",
+      "likes": 205,
+      "downloads30d": 10,
+      "trendingScore": 183,
+      "pipeline": "text-to-speech",
+      "createdAt": "2026-11-05"
+    },
+    {
+      "author": "Cactus-Compute",
+      "model": "Cactus-Compute/mirage",
+      "url": "https://huggingface.co/Cactus-Compute/mirage",
+      "orgUrl": "https://huggingface.co/Cactus-Compute",
+      "likes": 190,
+      "downloads30d": 16133,
+      "trendingScore": 178,
+      "pipeline": "image-text-to-text",
+      "createdAt": "2026-11-05"
+    },
+    {
+      "author": "LiquidAI",
+      "model": "LiquidAI/LFM3-1.7B",
+      "url": "https://huggingface.co/LiquidAI/LFM3-1.7B",
+      "orgUrl": "https://huggingface.co/LiquidAI",
+      "likes": 1686,
+      "downloads30d": 89946,
+      "trendingScore": 146,
+      "pipeline": "text-generation",
+      "createdAt": "2026-10-23"
+    },
+    {
+      "author": "PrunaAI",
+      "model": "PrunaAI/P-H3-Image-Comfy",
+      "url": "https://huggingface.co/PrunaAI/P-H3-Image-Comfy",
+      "orgUrl": "https://huggingface.co/PrunaAI",
+      "likes": 346,
+      "downloads30d": 977978,
+      "trendingScore": 145,
+      "pipeline": "text-to-image",
+      "createdAt": "2026-10-28"
+    },
+    {
+      "author": "meituan-longcat",
+      "model": "meituan-longcat/LongCat-2.5",
+      "url": "https://huggingface.co/meituan-longcat/LongCat-2.5",
+      "orgUrl": "https://huggingface.co/meituan-longcat",
+      "likes": 183,
+      "downloads30d": 710,
+      "trendingScore": 145,
+      "pipeline": "image-text-to-text",
+      "createdAt": "2026-11-04"
+    },
+    {
+      "author": "abenzerps",
+      "model": "abenzerps/Qwen-Image-2.1-Turbo-Quantized",
+      "url": "https://huggingface.co/abenzerps/Qwen-Image-2.1-Turbo-Quantized",
+      "orgUrl": "https://huggingface.co/abenzerps",
+      "likes": 5886,
+      "downloads30d": 123224,
+      "trendingScore": 142,
+      "pipeline": "text-to-image",
+      "createdAt": "2026-09-20"
+    }
+  ],
+  "errors": []
+}

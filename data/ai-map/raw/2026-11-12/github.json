@@ -1,0 +1,239 @@
+{
+  "source": "github",
+  "label": "GitHub REST API",
+  "license": "GitHub API terms; repository metadata only",
+  "retrievedAt": "2026-11-12T14:32:08.832Z",
+  "status": "ok",
+  "skipped": null,
+  "notes": [
+    "unauthenticated (60 requests/hour)"
+  ],
+  "errors": [],
+  "items": {
+    "claude-code": {
+      "repo": "anthropics/claude-code",
+      "stars": 155409,
+      "forks": 24948,
+      "pushedAt": "2026-11-11T22:55:16Z",
+      "archived": false,
+      "license": null,
+      "ownerType": "Organization"
+    },
+    "openai-codex": {
+      "repo": "openai/codex",
+      "stars": 135013,
+      "forks": 21394,
+      "pushedAt": "2026-11-12T14:22:52Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "hermes-agent": {
+      "repo": "NousResearch/hermes-agent",
+      "stars": 262893,
+      "forks": 59148,
+      "pushedAt": "2026-11-12T14:17:28Z",
+      "archived": false,
+      "license": "MIT",
+      "ownerType": "Organization"
+    },
+    "qwen-code": {
+      "repo": "QwenLM/qwen-code",
+      "stars": 29604,
+      "forks": 3387,
+      "pushedAt": "2026-11-12T14:30:52Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "n8n": {
+      "repo": "n8n-io/n8n",
+      "stars": 210290,
+      "forks": 61485,
+      "pushedAt": "2026-11-12T14:30:06Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "ownerType": "Organization"
+    },
+    "ragflow": {
+      "repo": "infiniflow/ragflow",
+      "stars": 94088,
+      "forks": 11311,
+      "pushedAt": "2026-11-12T13:09:01Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "coze-studio": {
+      "repo": "coze-dev/coze-studio",
+      "stars": 21818,
+      "forks": 3136,
+      "pushedAt": "2026-07-29T03:18:43Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "physical-intelligence": {
+      "repo": "Physical-Intelligence/openpi",
+      "stars": 14626,
+      "forks": 2641,
+      "pushedAt": "2026-08-24T16:27:13Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "nvidia-gr00t": {
+      "repo": "NVIDIA/Isaac-GR00T",
+      "stars": 8361,
+      "forks": 1535,
+      "pushedAt": "2026-11-10T18:35:56Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "unitree": {
+      "repo": "unitreerobotics/unitree_sdk2",
+      "stars": 1445,
+      "forks": 404,
+      "pushedAt": "2026-11-09T04:05:14Z",
+      "archived": false,
+      "license": "BSD-3-Clause",
+      "ownerType": "Organization"
+    },
+    "pytorch": {
+      "repo": "pytorch/pytorch",
+      "stars": 105452,
+      "forks": 30705,
+      "pushedAt": "2026-11-12T14:30:32Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "ownerType": "Organization"
+    },
+    "vllm": {
+      "repo": "vllm-project/vllm",
+      "stars": 96817,
+      "forks": 24726,
+      "pushedAt": "2026-11-12T14:25:26Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "paddlepaddle": {
+      "repo": "PaddlePaddle/Paddle",
+      "stars": 24145,
+      "forks": 6019,
+      "pushedAt": "2026-11-12T09:39:30Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "llama-factory": {
+      "repo": "hiyouga/LlamaFactory",
+      "stars": 76016,
+      "forks": 9364,
+      "pushedAt": "2026-11-12T12:44:33Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "User"
+    },
+    "hugging-face": {
+      "repo": "huggingface/transformers",
+      "stars": 168902,
+      "forks": 35223,
+      "pushedAt": "2026-11-12T14:31:27Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "ollama": {
+      "repo": "ollama/ollama",
+      "stars": 186770,
+      "forks": 19039,
+      "pushedAt": "2026-11-12T03:21:12Z",
+      "archived": false,
+      "license": "MIT",
+      "ownerType": "Organization"
+    },
+    "modelscope": {
+      "repo": "modelscope/modelscope",
+      "stars": 9218,
+      "forks": 975,
+      "pushedAt": "2026-11-12T11:47:46Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "langchain": {
+      "repo": "langchain-ai/langchain",
+      "stars": 149402,
+      "forks": 25112,
+      "pushedAt": "2026-11-12T14:08:06Z",
+      "archived": false,
+      "license": "MIT",
+      "ownerType": "Organization"
+    },
+    "mcp": {
+      "repo": "modelcontextprotocol/modelcontextprotocol",
+      "stars": 9677,
+      "forks": 1912,
+      "pushedAt": "2026-11-12T13:34:04Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "ownerType": "Organization"
+    },
+    "agentscope": {
+      "repo": "agentscope-ai/agentscope",
+      "stars": 35866,
+      "forks": 3844,
+      "pushedAt": "2026-11-12T10:21:46Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "label-studio": {
+      "repo": "HumanSignal/label-studio",
+      "stars": 28684,
+      "forks": 3797,
+      "pushedAt": "2026-11-12T13:37:01Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    },
+    "mineru": {
+      "repo": "opendatalab/MinerU",
+      "stars": 83564,
+      "forks": 6932,
+      "pushedAt": "2026-11-12T07:55:42Z",
+      "archived": false,
+      "license": "NOASSERTION",
+      "ownerType": "Organization"
+    },
+    "lm-eval-harness": {
+      "repo": "EleutherAI/lm-evaluation-harness",
+      "stars": 14458,
+      "forks": 3790,
+      "pushedAt": "2026-11-04T14:34:40Z",
+      "archived": false,
+      "license": "MIT",
+      "ownerType": "Organization"
+    },
+    "inspect-ai": {
+      "repo": "UKGovernmentBEIS/inspect_ai",
+      "stars": 3236,
+      "forks": 927,
+      "pushedAt": "2026-11-12T14:20:08Z",
+      "archived": false,
+      "license": "MIT",
+      "ownerType": "Organization"
+    },
+    "opencompass": {
+      "repo": "open-compass/opencompass",
+      "stars": 7587,
+      "forks": 908,
+      "pushedAt": "2026-11-11T11:08:57Z",
+      "archived": false,
+      "license": "Apache-2.0",
+      "ownerType": "Organization"
+    }
+  }
+}

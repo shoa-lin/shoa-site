@@ -1,0 +1,546 @@
+{
+  "source": "wikidata",
+  "label": "Wikidata",
+  "license": "CC0",
+  "retrievedAt": "2026-11-12T14:31:46.394Z",
+  "status": "ok",
+  "skipped": null,
+  "notes": [],
+  "errors": [],
+  "items": {
+    "chatgpt": {
+      "qid": "Q115564437",
+      "labelEn": "ChatGPT",
+      "labelZh": "ChatGPT",
+      "descriptionEn": "artificial intelligence chatbot developed by OpenAI",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "https://chatgpt.com"
+      ]
+    },
+    "gemini-app": {
+      "qid": "Q116698014",
+      "labelEn": "Gemini",
+      "labelZh": "Gemini",
+      "descriptionEn": "artificial intelligence chatbot developed by Google",
+      "countries": [],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://gemini.google.com/"
+      ]
+    },
+    "qwen-app": {
+      "qid": "Q130234299",
+      "labelEn": "Qwen",
+      "labelZh": "通义千问",
+      "descriptionEn": "artificial intelligence chatbot developed by Alibaba Cloud",
+      "countries": [],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://tongyi.aliyun.com/",
+        "https://chat.qwen.ai/",
+        "https://www.qianwen.com/",
+        "https://qwen.ai/"
+      ]
+    },
+    "claude-code": {
+      "qid": "Q138457287",
+      "labelEn": "Claude Code",
+      "labelZh": null,
+      "descriptionEn": "AI-based tool made by Anthropic",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "https://claude.com/product/claude-code",
+        "https://github.com/anthropics/claude-code"
+      ]
+    },
+    "openai-codex": {
+      "qid": "Q138940795",
+      "labelEn": "OpenAI Codex",
+      "labelZh": "Codex",
+      "descriptionEn": "software engineering agent developed by OpenAI",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": []
+    },
+    "n8n": {
+      "qid": "Q130305687",
+      "labelEn": "n8n",
+      "labelZh": null,
+      "descriptionEn": "low-code automation tool",
+      "countries": [
+        "DE"
+      ],
+      "inceptionYear": 2019,
+      "websites": [
+        "https://n8n.io"
+      ]
+    },
+    "black-forest-labs": {
+      "qid": "Q128801641",
+      "labelEn": "Black Forest Labs",
+      "labelZh": null,
+      "descriptionEn": "AI company",
+      "countries": [
+        "DE",
+        "US"
+      ],
+      "inceptionYear": 2024,
+      "websites": [
+        "https://blackforestlabs.ai/",
+        "https://bfl.ai/"
+      ]
+    },
+    "waymo": {
+      "qid": "Q15330",
+      "labelEn": null,
+      "labelZh": null,
+      "descriptionEn": "autonomous car technology company",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 2016,
+      "websites": [
+        "https://waymo.com/"
+      ]
+    },
+    "mobileye": {
+      "qid": "Q2901365",
+      "labelEn": "Mobileye",
+      "labelZh": "Mobileye",
+      "descriptionEn": "company that develops advanced driver assistance systems",
+      "countries": [
+        "IL"
+      ],
+      "inceptionYear": 1998,
+      "websites": [
+        "https://www.mobileye.com"
+      ]
+    },
+    "pony-ai": {
+      "qid": "Q65056153",
+      "labelEn": "Pony.ai",
+      "labelZh": "小马智行",
+      "descriptionEn": "autonomous vehicle technology company",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": 2016,
+      "websites": [
+        "http://www.pony.ai/"
+      ]
+    },
+    "physical-intelligence": {
+      "qid": "Q138658641",
+      "labelEn": "Physical Intelligence Inc.",
+      "labelZh": null,
+      "descriptionEn": "Robotics company",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": []
+    },
+    "unitree": {
+      "qid": "Q106369174",
+      "labelEn": "Unitree Robotics",
+      "labelZh": "宇树科技",
+      "descriptionEn": "Chinese robotics company",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": 2016,
+      "websites": [
+        "https://www.unitree.com/"
+      ]
+    },
+    "agibot": {
+      "qid": "Q131901025",
+      "labelEn": "AgiBot",
+      "labelZh": "智元机器人",
+      "descriptionEn": "Chinese robotics company",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": null,
+      "websites": [
+        "https://www.zhiyuan-robot.com/",
+        "https://www.agibot.com/"
+      ]
+    },
+    "openai": {
+      "qid": "Q21708200",
+      "labelEn": "OpenAI",
+      "labelZh": "開放人工智能",
+      "descriptionEn": "American artificial intelligence research organization",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 2015,
+      "websites": [
+        "https://openai.com/"
+      ]
+    },
+    "anthropic": {
+      "qid": "Q116758847",
+      "labelEn": "Anthropic",
+      "labelZh": "Anthropic",
+      "descriptionEn": "American artificial intelligence corporation",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 2021,
+      "websites": [
+        "https://www.anthropic.com/"
+      ]
+    },
+    "google-deepmind": {
+      "qid": "Q15733006",
+      "labelEn": "Google DeepMind",
+      "labelZh": "Google DeepMind",
+      "descriptionEn": "artificial intelligence company owned by Google",
+      "countries": [
+        "GB"
+      ],
+      "inceptionYear": 2010,
+      "websites": [
+        "https://deepmind.google/"
+      ]
+    },
+    "xai": {
+      "qid": "Q120599684",
+      "labelEn": "SpaceXAI",
+      "labelZh": "SpaceXAI",
+      "descriptionEn": "American artificial intelligence and social media division of SpaceX",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://x.ai"
+      ]
+    },
+    "baidu-ernie": {
+      "qid": "Q116894099",
+      "labelEn": "Ernie Bot",
+      "labelZh": "文心一言",
+      "descriptionEn": "chatbot developed by Baidu",
+      "countries": [],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://ernie.baidu.com/",
+        "https://yiyan.baidu.com/"
+      ]
+    },
+    "meta-llama": {
+      "qid": "Q116894231",
+      "labelEn": "LLaMA",
+      "labelZh": "LLaMA",
+      "descriptionEn": "large language model by Meta AI",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "https://www.llama.com/"
+      ]
+    },
+    "mistral": {
+      "qid": "Q119718658",
+      "labelEn": "Mistral AI",
+      "labelZh": "Mistral AI",
+      "descriptionEn": "French AI company",
+      "countries": [
+        "FR"
+      ],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://mistral.ai/",
+        "https://mistral.ai/fr"
+      ]
+    },
+    "deepseek": {
+      "qid": "Q131577453",
+      "labelEn": "DeepSeek",
+      "labelZh": "深度求索",
+      "descriptionEn": "Chinese artificial intelligence company",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://deepseek.com"
+      ]
+    },
+    "zai": {
+      "qid": "Q129572031",
+      "labelEn": "Zhipu AI",
+      "labelZh": "北京智谱华章科技有限公司",
+      "descriptionEn": "Chinese technology company based in Beijing",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": null,
+      "websites": [
+        "https://z.ai"
+      ]
+    },
+    "moonshot": {
+      "qid": "Q130270266",
+      "labelEn": "Moonshot AI",
+      "labelZh": "月之暗面",
+      "descriptionEn": "Chinese multinational artificial intelligence company",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://www.moonshot.ai/"
+      ]
+    },
+    "minimax": {
+      "qid": "Q130263208",
+      "labelEn": "MiniMax Group",
+      "labelZh": "稀宇科技",
+      "descriptionEn": "Chinese multinational artificial intelligence company",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": null,
+      "websites": [
+        "https://www.minimax.io/"
+      ]
+    },
+    "pytorch": {
+      "qid": "Q47509047",
+      "labelEn": "PyTorch",
+      "labelZh": "PyTorch",
+      "descriptionEn": "open source machine learning library for Python, based on Torch",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "http://pytorch.org",
+        "https://pytorch.org"
+      ]
+    },
+    "vllm": {
+      "qid": "Q137793309",
+      "labelEn": null,
+      "labelZh": null,
+      "descriptionEn": "open-source software for large language model inference",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "https://vllm.ai/"
+      ]
+    },
+    "paddlepaddle": {
+      "qid": "Q116232709",
+      "labelEn": "PaddlePaddle",
+      "labelZh": null,
+      "descriptionEn": "deep-learning framework",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "https://www.paddlepaddle.org.cn/en"
+      ]
+    },
+    "hugging-face": {
+      "qid": "Q108943604",
+      "labelEn": "Hugging Face",
+      "labelZh": "Hugging Face",
+      "descriptionEn": "American company",
+      "countries": [
+        "FR"
+      ],
+      "inceptionYear": 2016,
+      "websites": [
+        "https://huggingface.co/"
+      ]
+    },
+    "ollama": {
+      "qid": "Q124636097",
+      "labelEn": "Ollama",
+      "labelZh": "Ollama",
+      "descriptionEn": "software for running large language models (LLMs) on a local computer or in the cloud",
+      "countries": [],
+      "inceptionYear": 2023,
+      "websites": [
+        "https://ollama.com/"
+      ]
+    },
+    "langchain": {
+      "qid": "Q117340550",
+      "labelEn": "LangChain",
+      "labelZh": "LangChain",
+      "descriptionEn": "language model application development framework",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "https://langchain.com/"
+      ]
+    },
+    "mcp": {
+      "qid": "Q133436854",
+      "labelEn": "Model Context Protocol",
+      "labelZh": "模型脈絡协议",
+      "descriptionEn": "protocol for applications to provide context to LLMs",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": [
+        "https://modelcontextprotocol.io"
+      ]
+    },
+    "scale-ai": {
+      "qid": "Q112629176",
+      "labelEn": "Scale AI",
+      "labelZh": "Scale AI",
+      "descriptionEn": "American multinational data annotation company",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 2016,
+      "websites": [
+        "https://www.scale.com"
+      ]
+    },
+    "nvidia": {
+      "qid": "Q182477",
+      "labelEn": "Nvidia",
+      "labelZh": "英伟达",
+      "descriptionEn": "American multinational technology company",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 1993,
+      "websites": [
+        "https://www.nvidia.com/",
+        "https://www.nvidia.com/zh-tw/",
+        "https://www.nvidia.cn/"
+      ]
+    },
+    "google-tpu": {
+      "qid": "Q25106376",
+      "labelEn": "Tensor Processing Unit",
+      "labelZh": "张量处理单元",
+      "descriptionEn": "Google-developed coprocessor for accelerating neural networks",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": []
+    },
+    "amd": {
+      "qid": "Q28406632",
+      "labelEn": "AMD Instinct",
+      "labelZh": "AMD Instinct accelerators",
+      "descriptionEn": "brand name by AMD; family of deep learning oriented GPUs",
+      "countries": [],
+      "inceptionYear": null,
+      "websites": []
+    },
+    "cambricon": {
+      "qid": "Q48890160",
+      "labelEn": "Cambricon Technologies Co., Ltd.",
+      "labelZh": "寒武紀科技",
+      "descriptionEn": "Chinese artificial intelligence chip manufacturer",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": 2016,
+      "websites": [
+        "http://www.cambricon.com/index.php?c=page&id=10"
+      ]
+    },
+    "sk-hynix": {
+      "qid": "Q370719",
+      "labelEn": "SK Hynix",
+      "labelZh": "SK海力士",
+      "descriptionEn": "South Korean memory semiconductor supplier",
+      "countries": [
+        "KR"
+      ],
+      "inceptionYear": 1983,
+      "websites": [
+        "https://www.skhynix.com/"
+      ]
+    },
+    "tsmc": {
+      "qid": "Q713418",
+      "labelEn": "TSMC",
+      "labelZh": "台灣積體電路製造公司",
+      "descriptionEn": "semiconductor foundry company headquartered in Taiwan",
+      "countries": [
+        "TW"
+      ],
+      "inceptionYear": 1987,
+      "websites": [
+        "https://www.tsmc.com/",
+        "https://www.tsmc.com/chinese",
+        "https://www.tsmc.com/schinese",
+        "https://www.tsmc.com/japanese"
+      ]
+    },
+    "smic": {
+      "qid": "Q648533",
+      "labelEn": "Semiconductor Manufacturing International Corporation",
+      "labelZh": "中芯国际",
+      "descriptionEn": "Chinese state-owned semiconductor manufacturer",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": 2000,
+      "websites": [
+        "https://www.smics.com/"
+      ]
+    },
+    "aws": {
+      "qid": "Q456157",
+      "labelEn": "Amazon Web Services",
+      "labelZh": "亚马逊云计算服务",
+      "descriptionEn": "subsidiary of Amazon that provides on-demand cloud computing platforms on a metered pay-as-you-go basis",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 2006,
+      "websites": [
+        "https://aws.amazon.com/"
+      ]
+    },
+    "microsoft-azure": {
+      "qid": "Q725967",
+      "labelEn": "Azure",
+      "labelZh": null,
+      "descriptionEn": "cloud computing platform operated by Microsoft",
+      "countries": [],
+      "inceptionYear": 2010,
+      "websites": [
+        "https://azure.microsoft.com/"
+      ]
+    },
+    "coreweave": {
+      "qid": "Q121875386",
+      "labelEn": "CoreWeave",
+      "labelZh": "CoreWeave",
+      "descriptionEn": "American cloud computing company",
+      "countries": [
+        "US"
+      ],
+      "inceptionYear": 2017,
+      "websites": [
+        "https://www.coreweave.com/"
+      ]
+    },
+    "alibaba-cloud": {
+      "qid": "Q17062154",
+      "labelEn": "Alibaba Cloud",
+      "labelZh": "阿里云",
+      "descriptionEn": "Chinese cloud computing company",
+      "countries": [
+        "CN"
+      ],
+      "inceptionYear": 2009,
+      "websites": [
+        "https://intl.aliyun.com",
+        "https://www.alibabacloud.com",
+        "https://cn.aliyun.com/"
+      ]
+    }
+  }
+}

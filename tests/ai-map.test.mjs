@@ -51,3 +51,17 @@ test("every AI map entry is placed in a known cell and has bilingual copy", () =
     assert.ok(entry.name.zh && entry.name.en && entry.oneLiner.zh && entry.oneLiner.en, entry.id);
   }
 });
+
+test("November 2026 additions sit in their intended cells with sourced facts", () => {
+  const entries = JSON.parse(readFileSync(new URL("src/data/ai-map/entries.json", root), "utf8"));
+  const metrics = JSON.parse(readFileSync(new URL("src/data/ai-map/metrics.json", root), "utf8"));
+  const hermes = entries.find((entry) => entry.id === "hermes-agent");
+  const workbuddy = entries.find((entry) => entry.id === "workbuddy");
+  assert.deepEqual([hermes.category, hermes.region, hermes.country, hermes.sources.github.repo], ["coding-agents", "global", "US", "NousResearch/hermes-agent"]);
+  assert.deepEqual([workbuddy.category, workbuddy.region, workbuddy.country], ["enterprise-agents", "cn", "CN"]);
+  for (const id of ["hermes-agent", "workbuddy"]) {
+    const facts = metrics.entries[id]?.facts ?? [];
+    assert.ok(facts.length >= 2, id);
+    for (const fact of facts) assert.match(fact.sourceUrl, /^https:\/\//, `${id} ${fact.key}`);
+  }
+});

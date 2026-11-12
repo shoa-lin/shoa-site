@@ -1,0 +1,96 @@
+{
+  "source": "epochChips",
+  "label": "Epoch AI · AI Chip Sales / AI Chip Owners",
+  "license": "CC BY 4.0 — Epoch AI, https://epoch.ai/data/ai-chip-sales and https://epoch.ai/data/ai-chip-owners",
+  "retrievedAt": "2026-11-12T14:31:43.055Z",
+  "status": "ok",
+  "skipped": null,
+  "notes": [],
+  "errors": [],
+  "items": {
+    "nvidia": {
+      "designer": {
+        "name": "Nvidia",
+        "start": "2022-01-01",
+        "end": "2026-09-30",
+        "h100e": 22160380,
+        "incomplete": "True"
+      }
+    },
+    "google-tpu": {
+      "designer": {
+        "name": "Google",
+        "start": "2022-10-01",
+        "end": "2026-09-30",
+        "h100e": 6976036,
+        "incomplete": "True"
+      }
+    },
+    "amd": {
+      "designer": {
+        "name": "AMD",
+        "start": "2024-01-01",
+        "end": "2026-06-30",
+        "h100e": 1739995,
+        "incomplete": ""
+      }
+    },
+    "huawei-ascend": {
+      "designer": {
+        "name": "Huawei",
+        "start": "2024-01-01",
+        "end": "2026-06-30",
+        "h100e": 1115058,
+        "incomplete": ""
+      }
+    },
+    "cambricon": {
+      "designer": {
+        "name": "Cambricon",
+        "start": "2024-01-01",
+        "end": "2026-06-30",
+        "h100e": 59689,
+        "incomplete": ""
+      }
+    },
+    "aws": {
+      "owner": {
+        "name": "Amazon",
+        "end": "2026-03-31",
+        "h100e": 1499427,
+        "byDesigner": [
+          {
+            "designer": "Nvidia",
+            "h100e": 1499427
+          }
+        ]
+      }
+    },
+    "microsoft-azure": {
+      "owner": {
+        "name": "Microsoft",
+        "end": "2026-03-31",
+        "h100e": 3323440,
+        "byDesigner": [
+          {
+            "designer": "Nvidia",
+            "h100e": 3323440
+          }
+        ]
+      }
+    },
+    "coreweave": {
+      "owner": {
+        "name": "CoreWeave",
+        "end": "2025-12-31",
+        "h100e": 832068,
+        "byDesigner": [
+          {
+            "designer": "Nvidia",
+            "h100e": 832068
+          }
+        ]
+      }
+    }
+  }
+}
