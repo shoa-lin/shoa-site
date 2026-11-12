@@ -1,0 +1,76 @@
+name: AI map monthly data
+
+# Collects public metrics for the AI industry map once a month and opens a
+# data pull request for human review. It never merges, never pushes to main and
+# never deploys: the deploy workflow only runs after a reviewer merges the PR.
+on:
+  schedule:
+    - cron: '0 1 1 * *' # 1st of each month, 01:00 UTC = 09:00 Asia/Shanghai
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ai-map-data
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Pick snapshot date (Asia/Shanghai)
+        id: date
+        run: |
+          echo "date=$(TZ=Asia/Shanghai date +%F)" >> "$GITHUB_OUTPUT"
+          echo "month=$(TZ=Asia/Shanghai date +%Y-%m)" >> "$GITHUB_OUTPUT"
+
+      # The collectors use only Node built-ins, so no npm install is needed.
+      # GITHUB_TOKEN is the token Actions issues for this run; it only raises
+      # the GitHub API rate limit. No other secret is used.
+      - name: Collect raw snapshots
+        run: node scripts/ai-map/collect.mjs --date "${{ steps.date.outputs.date }}"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Build candidate and diff report
+        run: node scripts/ai-map/build.mjs --date "${{ steps.date.outputs.date }}"
+
+      - name: Apply candidate to site data
+        run: node scripts/ai-map/apply.mjs --date "${{ steps.date.outputs.date }}"
+
+      - name: Validate
+        run: |
+          node scripts/ai-map/validate.mjs
+          node --test tests/ai-map.test.mjs
+
+      - name: Open data pull request (no auto-merge)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DATE: ${{ steps.date.outputs.date }}
+          BRANCH: ai-map/data-${{ steps.date.outputs.month }}
+        run: |
+          if git diff --quiet -- data/ai-map src/data/ai-map/metrics.json && [ -z "$(git ls-files --others --exclude-standard data/ai-map)" ]; then
+            echo "No data changes."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add data/ai-map src/data/ai-map/metrics.json
+          git commit -m "data(ai-map): monthly snapshot $DATE"
+          git push --force origin "HEAD:refs/heads/$BRANCH"
+          REPORT="data/ai-map/reports/$DATE.md"
+          if gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -q OPEN; then
+            gh pr comment "$BRANCH" --body-file "$REPORT"
+          else
+            gh pr create --base main --head "$BRANCH" \
+              --title "AI 产业地图数据更新 $DATE" \
+              --body-file "$REPORT"
+          fi

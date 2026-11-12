@@ -1,0 +1,119 @@
+{
+  "source": "epochCompanies",
+  "label": "Epoch AI · AI Companies",
+  "license": "CC BY 4.0 — Epoch AI, 'Data on AI companies', https://epoch.ai/data/ai-companies",
+  "retrievedAt": "2026-11-11T07:04:54.364Z",
+  "status": "ok",
+  "skipped": null,
+  "notes": [],
+  "errors": [],
+  "items": {
+    "chatgpt": {
+      "company": "OpenAI",
+      "usage": {
+        "product": "ChatGPT",
+        "value": 1200000000,
+        "period": "Weekly",
+        "date": "2026-09-29",
+        "source": "https://openai.com/index/devday-2026-recap/",
+        "sourceType": "Company disclosure"
+      }
+    },
+    "openai": {
+      "company": "OpenAI",
+      "revenue": {
+        "value": 12000000000,
+        "type": "Annualized run rate",
+        "scope": "Full company",
+        "date": "2025-07-30",
+        "source": "https://www.cnbc.com/2025/08/20/openai-compute-ai.html",
+        "sourceType": "Company disclosure"
+      },
+      "valuation": {
+        "value": 852000000000,
+        "date": "2026-03-31",
+        "source": "https://openai.com/index/accelerating-the-next-phase-ai/",
+        "round": "852B March 2026"
+      }
+    },
+    "anthropic": {
+      "company": "Anthropic",
+      "revenue": {
+        "value": 81000000000,
+        "type": "Annualized run rate",
+        "scope": "Full company",
+        "date": "2026-10-31",
+        "source": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026072484/anthropicpbc-sx1ax2.htm",
+        "sourceType": "Company disclosure"
+      },
+      "valuation": {
+        "value": 965000000000,
+        "date": "2026-05-28",
+        "source": "https://www.anthropic.com/news/series-h",
+        "round": "May 2026 965B Series H"
+      }
+    },
+    "mistral": {
+      "company": "Mistral AI",
+      "revenue": {
+        "value": 1000000000,
+        "type": "Annual recurring revenue (ARR)",
+        "scope": "Full company",
+        "date": "2026-09-08",
+        "source": "https://www.wsj.com/tech/ai/mistral-ai-exceeds-24-billion-valuation-after-samsung-led-investment-round-ea377b82",
+        "sourceType": "Company disclosure"
+      },
+      "valuation": {
+        "value": 24000000000,
+        "date": "2026-09-15",
+        "source": "https://mistral.ai/news/mistral-makes-sovereign-open-weight-ai-to-frontier/",
+        "round": "Mistral Series D"
+      }
+    },
+    "zai": {
+      "company": "Z.ai (Zhipu)",
+      "revenue": {
+        "value": 1600000000,
+        "type": "Annual recurring revenue (ARR)",
+        "scope": "Full company",
+        "date": "2026-08-31",
+        "source": "https://www.scmp.com/tech/big-tech/article/3365870/chinas-zai-revenue-jumps-400-total-losses-narrow-explosive-cloud-gains",
+        "sourceType": "Company disclosure,Media report"
+      },
+      "valuation": {
+        "value": 39400000000,
+        "date": "2026-03-31",
+        "source": "https://www.reuters.com/markets/companies/2513.HK/profile/",
+        "round": "Z.ai Q1"
+      }
+    },
+    "moonshot": {
+      "company": "Moonshot AI",
+      "revenue": {
+        "value": 1000000000,
+        "type": "Annual recurring revenue (ARR)",
+        "scope": "Full company",
+        "date": "2026-08-31",
+        "source": "https://www.bloomberg.com/news/articles/2026-09-11/china-ai-star-moonshot-eyes-2-billion-annualized-sales-in-2026",
+        "sourceType": "Media report"
+      }
+    },
+    "minimax": {
+      "company": "MiniMax",
+      "revenue": {
+        "value": 150000000,
+        "type": "Annual recurring revenue (ARR)",
+        "scope": "Full company",
+        "date": "2026-02-28",
+        "source": "https://www.scmp.com/tech/article/3345116/chinese-ai-firm-minimaxs-revenue-jumps-159-us79-million-strong-demand",
+        "sourceType": "Company disclosure"
+      },
+      "valuation": {
+        "value": 37200000000,
+        "date": "2026-03-31",
+        "source": "https://finance.yahoo.com/quote/0100.HK/",
+        "round": "MiniMax Q1"
+      }
+    }
+  }
+}

@@ -1,0 +1,244 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { getDictionary, type Locale } from "../../lib/i18n";
+import {
+  aiMapDataAsOf,
+  aiMapEntries,
+  aiMapLayers,
+  aiMapPolicies,
+  aiMapRules,
+  aiMapSources,
+  contentLocale,
+  distributionRegion,
+  entriesFor,
+  entryFreshness,
+  factFreshness,
+  formatDate,
+  formatFactValue,
+  htmlLangFor,
+  pick,
+  type AiMapEntry,
+  type AiMapFact,
+  type AiMapRegion,
+  type DistributionRegion,
+} from "../../lib/ai-map";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const copy = dictionary.aiMap;
+const today = new Date();
+const regions: AiMapRegion[] = ["cn", "global"];
+const fill = (template: string, values: Record<string, string | number>) => template.replace(/\{(\w+)\}/g, (_, key) => String(values[key] ?? ""));
+const metricLabel = (fact: AiMapFact) => fact.label ? pick(fact.label, locale) : (copy.metrics as Record<string, string>)[fact.key] ?? fact.key;
+const countryLabel = (code: string) => (copy.countries as Record<string, string>)[code] ?? code;
+const hidePeriod = new Set(["epochNotableModels24m", "annualizedRevenue"]);
+const isFallback = contentLocale(locale) !== locale;
+
+const total = aiMapEntries.length;
+const regionTotals = { cn: aiMapEntries.filter((e) => e.region === "cn").length, global: aiMapEntries.filter((e) => e.region === "global").length };
+const distOrder: DistributionRegion[] = ["us", "europe", "cn", "other"];
+const distCounts = Object.fromEntries(distOrder.map((key) => [key, aiMapEntries.filter((entry) => distributionRegion(entry) === key).length])) as Record<DistributionRegion, number>;
+const maxDist = Math.max(...Object.values(distCounts), 1);
+const layerBars = aiMapLayers.map((layer) => {
+  const inLayer = aiMapEntries.filter((entry) => entry.layer === layer.id);
+  return { id: layer.id, cn: inLayer.filter((e) => e.region === "cn").length, global: inLayer.filter((e) => e.region === "global").length, total: inLayer.length };
+});
+const allFacts = aiMapEntries.flatMap((entry) => entry.facts);
+const scriptFacts = allFacts.filter((fact) => fact.method === "script").length;
+const manualFacts = allFacts.length - scriptFacts;
+const layerName = (id: string) => (copy.layers as Record<string, string>)[id] ?? id;
+const categoryName = (id: string) => (copy.categories as Record<string, string>)[id] ?? id;
+const panelId = (entry: AiMapEntry) => `ai-entry-${entry.id}`;
+const lookup = (group: string, key: string): string => ((copy as unknown as Record<string, Record<string, string>>)[group] ?? {})[key] ?? key;
+---
+
+<PageLayout locale={locale} path="/ai-map" title={copy.title} description={copy.description}>
+  <div class="ai-map" lang={htmlLangFor(locale)} data-ai-map data-stale-days={aiMapRules.staleAfterDays} data-hide-days={aiMapRules.hideNumbersAfterDays}>
+    <header class="ai-map__intro">
+      <h1>{copy.title}</h1>
+      <p class="ai-map__lede">{copy.description}</p>
+      <p class="ai-map__meta">
+        <span>{copy.dataAsOf} <time datetime={aiMapDataAsOf}>{formatDate(aiMapDataAsOf, locale)}</time></span>
+        <span>{fill(copy.entryCount, { count: total })}</span>
+        <span>{fill(copy.regionCount, { cn: regionTotals.cn, global: regionTotals.global })}</span>
+      </p>
+      <p class="ai-map__note">{copy.disclaimer}{isFallback && <> {copy.fallbackNotice}</>}</p>
+      <ul class="ai-map__legend" aria-label={copy.legendLabel}>
+        {regions.map((region) => <li><span class={`ai-swatch ai-swatch--${region}`} aria-hidden="true"></span>{copy.regions[region]}</li>)}
+      </ul>
+    </header>
+
+    <div class="ai-map__board">
+      <section class="ai-map__structure" aria-labelledby="ai-map-structure-title">
+        <div class="ai-map__section-head">
+          <h2 id="ai-map-structure-title">{copy.structureTitle}</h2>
+          <p>{copy.structureHint}</p>
+        </div>
+        {aiMapLayers.map((layer) => (
+          <section class={`ai-layer ai-layer--${layer.id}`} aria-labelledby={`ai-layer-${layer.id}`}>
+            <h3 class="ai-layer__label" id={`ai-layer-${layer.id}`}>{layerName(layer.id)}</h3>
+            <div class="ai-layer__cells">
+              {layer.categories.map((category) => (
+                <section class="ai-cell" aria-labelledby={`ai-cell-${category.id}`}>
+                  <h4 class="ai-cell__title" id={`ai-cell-${category.id}`}>{categoryName(category.id)}</h4>
+                  {regions.map((region) => {
+                    const items = entriesFor(category.id, region);
+                    return (
+                      <div class={`ai-cell__row ai-cell__row--${region}`}>
+                        <span class="ai-cell__row-label">{copy.regions[region]}</span>
+                        <ul class="ai-cell__chips">
+                          {items.map((entry) => {
+                            const stale = entryFreshness(entry, today) !== "fresh";
+                            return (
+                              <li>
+                                <button class="ai-chip" type="button" popovertarget={panelId(entry)} aria-haspopup="dialog" data-ai-chip={entry.id} title={fill(copy.openDetails, { name: pick(entry.name, locale) })}>
+                                  <span>{pick(entry.name, locale)}</span>
+                                  <span class="ai-chip__badge" data-ai-stale-badge hidden={!stale}>{copy.stale}</span>
+                                </button>
+                              </li>
+                            );
+                          })}
+                          {items.length === 0 && <li class="ai-cell__empty"><span aria-hidden="true">—</span><span class="ai-visually-hidden">{copy.emptySlot}</span></li>}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </section>
+              ))}
+            </div>
+          </section>
+        ))}
+      </section>
+
+      <aside class="ai-map__distribution" aria-labelledby="ai-map-distribution-title">
+        <h2 id="ai-map-distribution-title">{copy.distributionTitle}</h2>
+        <h3>{copy.byRegionTitle}</h3>
+        <ul class="ai-tiles">
+          {distOrder.map((key) => (
+            <li class={`ai-tile ai-tile--${key}`} style={`--ai-strength: ${Math.round(8 + (distCounts[key] / maxDist) * 26)}%`}>
+              <span class="ai-tile__name">{lookup("distRegions", key)}</span>
+              <span class="ai-tile__count">{distCounts[key]}</span>
+              <span class="ai-tile__share">{Math.round((distCounts[key] / total) * 100)}%</span>
+            </li>
+          ))}
+        </ul>
+        <h3>{copy.byLayerTitle}</h3>
+        <ul class="ai-bars">
+          {layerBars.map((bar) => (
+            <li>
+              <span class="ai-bars__label">{layerName(bar.id)}</span>
+              <span class="ai-bars__numbers">{copy.regions.cn} {bar.cn} · {copy.regions.global} {bar.global}</span>
+              <span class="ai-bars__track" aria-hidden="true">
+                <span class="ai-bars__seg ai-bars__seg--cn" style={`width: ${(bar.cn / Math.max(bar.total, 1)) * 100}%`}></span>
+                <span class="ai-bars__seg ai-bars__seg--global" style={`width: ${(bar.global / Math.max(bar.total, 1)) * 100}%`}></span>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <h3>{copy.byMethodTitle}</h3>
+        <ul class="ai-method-split">
+          <li><strong>{scriptFacts}</strong> {copy.factsUnit} · {copy.methodScript}</li>
+          <li><strong>{manualFacts}</strong> {copy.factsUnit} · {copy.methodManual}</li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="ai-map__bottom">
+      <section class="ai-policies" aria-labelledby="ai-map-policies-title">
+        <h2 id="ai-map-policies-title">{copy.policiesTitle}</h2>
+        <div class="ai-policies__columns">
+          {regions.map((region) => (
+            <div class={`ai-policies__column ai-policies__column--${region}`}>
+              <h3>{copy.regions[region]}</h3>
+              <ul>
+                {aiMapPolicies.filter((policy) => policy.region === region).map((policy) => (
+                  <li>
+                    <a href={policy.sourceUrl} rel="noopener noreferrer">{pick(policy.title, locale)}</a>
+                    <span>{pick(policy.issuer, locale)} · {lookup("policyDates", policy.dateLabel)} {formatDate(policy.date, locale)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="ai-method" aria-labelledby="ai-map-method-title">
+        <h2 id="ai-map-method-title">{copy.methodTitle}</h2>
+        <p>{copy.methodCriteria}</p>
+        <p>{copy.methodData}</p>
+        <p>{copy.methodCadence}</p>
+        <p>{copy.methodAi}</p>
+        <p>{copy.methodScope}</p>
+        <p>{copy.methodCredit}</p>
+        <h3>{copy.sourcesTitle}</h3>
+        <ul class="ai-sources">
+          {Object.entries(aiMapSources).map(([id, source]) => (
+            <li data-source={id}>
+              <span class="ai-sources__name">{source.label}</span>
+              <span class={`ai-sources__status ai-sources__status--${source.status}`}>{lookup("sourceStatus", source.status) ?? source.status}</span>
+              <span class="ai-sources__license">{source.license}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+
+    {aiMapEntries.map((entry) => (
+      <div class="ai-entry" id={panelId(entry)} popover="auto" role="dialog" aria-labelledby={`${panelId(entry)}-title`}>
+        <div class="ai-entry__head">
+          <p class="ai-entry__eyebrow">{layerName(entry.layer)} · {categoryName(entry.category)} · {copy.regions[entry.region]}</p>
+          <h2 id={`${panelId(entry)}-title`}>{pick(entry.name, locale)}</h2>
+          <button class="ai-entry__close" type="button" popovertarget={panelId(entry)} popovertargetaction="hide" aria-label={copy.close}>×</button>
+        </div>
+        <p class="ai-entry__one">{pick(entry.oneLiner, locale)}</p>
+        <dl class="ai-entry__facts">
+          {entry.facts.map((fact) => (
+            <div class="ai-fact" data-verified={fact.verifiedAt} data-fresh={factFreshness(fact, today)}>
+              <dt>{metricLabel(fact)}{fact.subject && <span class="ai-fact__subject">{fact.subject}</span>}</dt>
+              <dd>
+                <span class="ai-fact__value">{formatFactValue(fact, locale)}</span>
+                <span class="ai-fact__hidden">{copy.hiddenNote}</span>
+                <span class="ai-fact__stale">{copy.staleNote}</span>
+                <span class="ai-fact__meta">
+                  {fact.period && !hidePeriod.has(fact.key) && <span>{fact.period}</span>}
+                  <span>{copy.factAsOf} {formatDate(fact.asOf, locale)}</span>
+                  <span>{copy.factSource} <a href={fact.sourceUrl} rel="noopener noreferrer">{fact.sourceName}</a></span>
+                  <span>{copy.factVerified} {formatDate(fact.verifiedAt, locale)} · {fact.method === "manual" ? copy.methodManual : copy.methodScript}</span>
+                </span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <p class="ai-entry__reason"><strong>{copy.reason}</strong> {pick(entry.reason, locale)}</p>
+        <p class="ai-entry__links">
+          <a href={entry.website} rel="noopener noreferrer">{copy.website}</a>
+          <span>{copy.country} {countryLabel(entry.country)}</span>
+          {entry.founded && <span>{copy.founded} <a href={entry.founded.sourceUrl} rel="noopener noreferrer">{String(entry.founded.value)}</a></span>}
+          <span>{copy.firstListed} {formatDate(entry.firstListed, locale)}</span>
+        </p>
+      </div>
+    ))}
+  </div>
+</PageLayout>
+
+<script>
+  // Re-check freshness in the browser so a page that has not been rebuilt still marks or hides old figures.
+  const root = document.querySelector<HTMLElement>("[data-ai-map]");
+  if (root) {
+    const staleDays = Number(root.dataset.staleDays);
+    const hideDays = Number(root.dataset.hideDays);
+    const now = Date.now();
+    for (const fact of root.querySelectorAll<HTMLElement>(".ai-fact[data-verified]")) {
+      const age = Math.floor((now - Date.parse(`${fact.dataset.verified}T00:00:00Z`)) / 86_400_000);
+      fact.dataset.fresh = age > hideDays ? "hidden" : age > staleDays ? "stale" : "fresh";
+    }
+    for (const chip of root.querySelectorAll<HTMLElement>("[data-ai-chip]")) {
+      const panel = document.getElementById(`ai-entry-${chip.dataset.aiChip}`);
+      const badge = chip.querySelector<HTMLElement>("[data-ai-stale-badge]");
+      if (!panel || !badge) continue;
+      badge.hidden = ![...panel.querySelectorAll<HTMLElement>(".ai-fact")].some((fact) => fact.dataset.fresh !== "fresh");
+    }
+  }
+</script>

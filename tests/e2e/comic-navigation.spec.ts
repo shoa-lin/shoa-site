@@ -73,7 +73,7 @@ for (const locale of editionsOf(fixture)) {
     expect(menuBox.y).toBeGreaterThanOrEqual(68);
     expect(menuBox.x + menuBox.width).toBeLessThanOrEqual(390);
     expect(menuBox.width).toBeLessThanOrEqual(260);
-    await expect(panel.getByRole('link')).toHaveCount(7);
+    await expect(panel.getByRole('link')).toHaveCount(8);
     await expect(panel.getByRole('link', { name: copy.comics, exact: true })).toHaveAttribute('aria-current', 'page');
 
     await page.mouse.click(10, 420);
@@ -391,7 +391,7 @@ test.describe('touch navigation', () => {
     await page.goto(editionPath(fixtureLocale));
     await page.locator('shoa-comic-header [data-toggle]').tap();
     const menu = page.getByRole('navigation', { name: copy.mobile });
-    await expect(menu.getByRole('link')).toHaveCount(7);
+    await expect(menu.getByRole('link')).toHaveCount(8);
     await menu.getByRole('link', { name: copy.comics, exact: true }).tap();
     await expect(page).toHaveURL(new RegExp(`${prefix(fixtureLocale)}/comics/?$`));
     await expect(page.locator('h1')).toHaveText(copy.comics);

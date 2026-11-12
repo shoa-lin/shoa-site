@@ -1,0 +1,49 @@
+{
+  "rules": {
+    "staleAfterDays": 45,
+    "hideNumbersAfterDays": 90,
+    "maxFactAgeDays": 400,
+    "maxFactsPerEntry": 3,
+    "activeWithinDays": 183
+  },
+  "regions": ["cn", "global"],
+  "layers": [
+    {
+      "id": "application",
+      "categories": [
+        { "id": "assistants", "cap": { "global": 4, "cn": 4 } },
+        { "id": "coding-agents", "cap": { "global": 4, "cn": 3 } },
+        { "id": "enterprise-agents", "cap": { "global": 5, "cn": 4 } },
+        { "id": "content-generation", "cap": { "global": 4, "cn": 3 } },
+        { "id": "autonomous-driving", "cap": { "global": 3, "cn": 3 } },
+        { "id": "embodied-ai", "cap": { "global": 4, "cn": 4 } }
+      ]
+    },
+    {
+      "id": "model",
+      "categories": [
+        { "id": "frontier-models", "cap": { "global": 4, "cn": 3 } },
+        { "id": "open-weight-models", "cap": { "global": 3, "cn": 4 } },
+        { "id": "multimodal-world-models", "cap": { "global": 2, "cn": 2 } }
+      ]
+    },
+    {
+      "id": "platform",
+      "categories": [
+        { "id": "frameworks-engines", "cap": { "global": 3, "cn": 2 } },
+        { "id": "model-hubs-inference", "cap": { "global": 3, "cn": 2 } },
+        { "id": "agent-frameworks", "cap": { "global": 3, "cn": 2 } },
+        { "id": "data", "cap": { "global": 2, "cn": 2 } },
+        { "id": "evaluation-safety", "cap": { "global": 2, "cn": 2 } }
+      ]
+    },
+    {
+      "id": "compute",
+      "categories": [
+        { "id": "ai-chips", "cap": { "global": 4, "cn": 4 } },
+        { "id": "foundry-hbm", "cap": { "global": 3, "cn": 2 } },
+        { "id": "cloud-compute", "cap": { "global": 4, "cn": 4 } }
+      ]
+    }
+  ]
+}
