@@ -422,6 +422,25 @@ a {
   }
 }
 
+/* Mirrors components.css: tighter header just above the breakpoints for eight nav items. */
+@media (min-width: 1024px) and (max-width: 1179px) {
+  .inner,
+  .nav {
+    gap: 16px;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1023px) {
+  .inner,
+  .nav {
+    gap: 10px;
+  }
+
+  .nav a {
+    font-size: 0.84em;
+  }
+}
+
 @media (max-width: 860px) {
   .inner {
     grid-template-columns: 1fr auto;
