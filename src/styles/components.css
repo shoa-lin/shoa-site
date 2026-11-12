@@ -368,6 +368,26 @@ html[data-theme="dark"] .theme-toggle__light {
   }
 }
 
+/* Eight navigation items: just above the breakpoints, tighten spacing (and, below 1024px, the label
+ * size) so the widest locales (fr, vi) still fit with the fonts on Linux CI runners. */
+@media (min-width: 1024px) and (max-width: 1179px) {
+  .site-header__inner,
+  .desktop-nav {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1023px) {
+  .site-header__inner,
+  .desktop-nav {
+    gap: 0.625rem;
+  }
+
+  .desktop-nav a {
+    font-size: 0.84rem;
+  }
+}
+
 @media (max-width: 560px) {
   .site-header__inner,
   .site-footer__inner,
