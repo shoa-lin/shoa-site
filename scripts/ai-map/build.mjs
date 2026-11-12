@@ -7,6 +7,7 @@ import { resolve } from "node:path";
 import { candidatesDir, latestSubdir, loadSeed, rawDir, readJson, reportsDir, siteDataDir, writeJson } from "./lib/paths.mjs";
 import { selectFacts, summarizeSources } from "./lib/facts.mjs";
 import { daysBetween, isoDate } from "./lib/dates.mjs";
+import { renderDiscoverySection, upsertSection } from "./lib/discover.mjs";
 
 const args = process.argv.slice(2);
 const dateArg = args.includes("--date") ? args[args.indexOf("--date") + 1] : null;
@@ -109,6 +110,9 @@ push("- [ ] 人工指标（manualFacts）超过 45 天的，重新打开来源�
 push("- [ ] 新增/移出条目写清理由（入选标准见 scripts/ai-map/README.md）。");
 push("- [ ] `npm run audit:ai-map` 与完整 `npm run verify` 通过后，再请站长合并。");
 mkdirSync(reportsDir, { recursive: true });
-writeFileSync(resolve(reportsDir, `${date}.md`), `${lines.join("\n")}\n`);
+// Keep the discovery section (from discover.mjs) when the report is regenerated, whichever ran first.
+const discoveryPath = resolve(candidatesDir, "discovery", `${date}.json`);
+const report = `${lines.join("\n")}\n`;
+writeFileSync(resolve(reportsDir, `${date}.md`), existsSync(discoveryPath) ? upsertSection(report, renderDiscoverySection(readJson(discoveryPath))) : report);
 console.log(`Candidate: data/ai-map/candidates/${date}.json`);
 console.log(`Report:    data/ai-map/reports/${date}.md  (${changes} metric changes, ${problems.length} review notes)`);

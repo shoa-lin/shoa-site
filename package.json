@@ -19,7 +19,8 @@
     "comic": "node scripts/comics.mjs",
     "ai-map:collect": "node scripts/ai-map/collect.mjs",
     "ai-map:build": "node scripts/ai-map/build.mjs",
-    "ai-map:apply": "node scripts/ai-map/apply.mjs"
+    "ai-map:apply": "node scripts/ai-map/apply.mjs",
+    "ai-map:discover": "node scripts/ai-map/discover.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "4.0.19",

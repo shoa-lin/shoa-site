@@ -43,13 +43,24 @@ jobs:
       - name: Build candidate and diff report
         run: node scripts/ai-map/build.mjs --date "${{ steps.date.outputs.date }}"
 
+      # Discovery: deterministic GitHub / Hugging Face searches for popular projects the map does not list yet.
+      # Writes data/ai-map/candidates/discovery/<date>.json and section 6 of the report. It never edits
+      # entries.json; adding an entry stays a human decision in a separate PR. A failure here must not block
+      # the data PR, so the step is allowed to fail.
+      - name: Discover candidate entries (human review only)
+        continue-on-error: true
+        run: node scripts/ai-map/discover.mjs --date "${{ steps.date.outputs.date }}"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Apply candidate to site data
         run: node scripts/ai-map/apply.mjs --date "${{ steps.date.outputs.date }}"
 
       - name: Validate
         run: |
           node scripts/ai-map/validate.mjs
-          node --test tests/ai-map.test.mjs
+          node --test tests/ai-map.test.mjs tests/ai-map-discover.test.mjs
+          git diff --exit-code -- src/data/ai-map/entries.json  # discovery must never touch the curated seed
 
       - name: Open data pull request (no auto-merge)
         env:

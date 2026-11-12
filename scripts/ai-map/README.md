@@ -9,7 +9,7 @@
 | `src/data/ai-map/policies.json` | 人工 | 底部「政策与法规」 |
 | `src/data/ai-map/metrics.json` | 脚本（`apply.mjs` 写入） | 每条最终展示的 1–3 个数字，每个数字都带来源链接、数据日期 `asOf`、核实日期 `verifiedAt`、采集方式 `method` |
 
-脚本**只更新数字**，不会新增或删除条目，也不会改简介。收录与否始终由人决定。
+脚本**只更新数字**，不会新增或删除条目，也不会改简介。收录与否始终由人决定。`discover.mjs` 只**列出**未收录的候选（见下文「发现候选」），同样不会写 `entries.json`。
 
 ## 每月流程
 
@@ -17,6 +17,8 @@
 collect.mjs  →  data/ai-map/raw/<日期>/<数据源>.json   原始快照（含抓取时间）
 build.mjs    →  data/ai-map/candidates/<日期>.json    候选数据（合并、去重、挑选指标）
              →  data/ai-map/reports/<日期>.md         差异报告 + 审核清单
+discover.mjs →  data/ai-map/candidates/discovery/<日期>.json  未收录的候选项目（只供人看）
+             →  data/ai-map/reports/<日期>.md 第 6 节「候选新条目（需人工判断）」
 apply.mjs    →  src/data/ai-map/metrics.json          写入站点数据
 validate.mjs →  校验（也在 npm run verify 里，作为 audit:ai-map）
 ```
@@ -31,6 +33,7 @@ validate.mjs →  校验（也在 npm run verify 里，作为 audit:ai-map）
 ```bash
 npm run ai-map:collect                 # 可加 -- --only huggingface,github 或 -- --date 2026-12-01
 npm run ai-map:build
+npm run ai-map:discover                # 可选；本地匿名调用会自动放慢节奏并等待限流，约 1–2 分钟
 # 打开 data/ai-map/reports/<日期>.md 逐项审核
 npm run ai-map:apply
 npm run audit:ai-map
@@ -53,6 +56,21 @@ TMPDIR=/workspace/tmp npm run verify
 | `openalex` | OpenAlex | 论文数（预留） | 2026 年起匿名调用计费，**没有 `OPENALEX_API_KEY` 时自动跳过** |
 
 单个数据源失败不会中断整次运行，报告第 1 节会列出每个源的状态（ok / partial / failed / skipped）。
+
+## 发现候选（`discover.mjs`）
+
+月度采集只刷新已有条目的数字，发现不了今年新冒出来的产品。`discover.mjs` 补这一环：用公开 API 按固定规则检索，**不调用 AI，也绝不修改 `entries.json`**，结果只写进报告第 6 节和 `data/ai-map/candidates/discovery/<日期>.json`，收不收由人决定。
+
+| 来源 | 规则 |
+|---|---|
+| GitHub Search API | 11 组检索（见 `lib/discover.mjs` 的 `githubQueries`）：`ai-agent` / `ai-agents` / `coding-agent` / `llm-agent` / `assistant` 话题与「ai agent」「coding agent」关键词下，近 183 天创建且已有一定 Star 的「新项目」，以及近 30 天仍有推送的高 Star「活跃」项目。按 Star 排序取前 30 |
+| Hugging Face Hub API | 热门（`trendingScore`）模型中，近 90 天创建、所属机构尚未收录的，每个机构只列 1 个代表模型，取前 15 |
+
+- 自动排除：已收录的仓库（`sources.github.repo` 或官网是 GitHub 仓库）、同名条目、归档 / fork 仓库、名字像清单或教程的仓库（awesome、tutorial、prompts、checklist 等），以及 Hugging Face 上的量化 / 合并 / 去审查版再上传（GGUF、AWQ、uncensored 等）。
+- 「同机构已收录」只提示，不排除（例如阿里的另一个仓库）。
+- 限流：GitHub 搜索匿名 10 次/分钟、带 token 30 次/分钟。脚本按节奏发请求，遇到 403/429 会按 `Retry-After` / `X-RateLimit-Reset` 等待后重试；要等超过约 1 分钟就记一条错误继续，不会中断。Actions 里用自动发放的 `GITHUB_TOKEN`。
+- 候选只是线索：GitHub Star 高不等于是产品（也有个人工具、插件、清单），收录前要按「入选标准」核实，并找到能上墙的带来源指标。
+- 工作流里这一步失败不会阻断数据 PR（`continue-on-error`），并在校验步骤确认 `entries.json` 未被改动。
 
 ## 指标规则
 
@@ -87,6 +105,7 @@ TMPDIR=/workspace/tmp npm run verify
 - [ ] 第 3 节标 ⚠️ 的变化（> 50%）逐个打开来源确认，不是单位或口径变了。
 - [ ] 第 4 节：只有 1 个指标的条目能否补一个人工指标；超过 45 天的 `manualFacts` 重新核实。
 - [ ] 不活跃、疑似重复、国家不一致的条目是否需要调整。
+- [ ] 第 6 节候选新条目：值得收录的另开 PR 手工加入（不要在数据 PR 里改 `entries.json`）。
 - [ ] 本地 `npm run verify` 通过后再合并。
 
 ## 需要人工判断的约定
@@ -94,6 +113,7 @@ TMPDIR=/workspace/tmp npm run verify
 - **台积电（TSMC）** 放在「中国」行，国家标注「中国台湾 / Taiwan, China」，沿用中国信通院 2018 年版图的分区方式。如需改到「其他地区」行，除了改 `entries.json` 里的 `region`，还要放宽 `validate.mjs` 中「TW 必须用 cn 行」的检查。
 - **Google DeepMind**、**Hugging Face** 按母公司 / 总部规则归入美国，带 `countryNote`。
 - 媒体转述的人工指标（例如火山引擎的 IDC 份额）在来源名里写明转述关系，审核时优先换成一手来源。
+- 第三方统计机构的数字（例如 WorkBuddy 的 QuestMobile 月活）只引用机构自己发布的报告页，来源名写明机构与报告；口径特殊的（多端合计、未去重）写进指标名。
 
 ## 署名
 
